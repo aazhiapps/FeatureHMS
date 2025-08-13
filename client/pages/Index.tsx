@@ -184,49 +184,55 @@ export default function Index() {
       {/* About Section */}
       <section id="about" className="px-6 py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-light mb-12">About</h2>
-          <p className="text-lg md:text-xl leading-relaxed text-gray-700 mb-8">
-            I'm a creative developer passionate about crafting exceptional digital experiences 
-            through innovative design and cutting-edge technology. My work spans interactive 
-            installations, web applications, and experimental interfaces.
-          </p>
-          <p className="text-lg md:text-xl leading-relaxed text-gray-700">
-            I specialize in GSAP animations, Three.js, WebGL, and modern web technologies 
-            to bring ideas to life with smooth interactions and engaging visuals.
-          </p>
+          <RevealText>
+            <h2 className="text-4xl md:text-6xl font-light mb-12">About</h2>
+          </RevealText>
+          <RevealText delay={0.2}>
+            <p className="text-lg md:text-xl leading-relaxed text-gray-700 mb-8">
+              I'm a creative developer passionate about crafting exceptional digital experiences
+              through innovative design and cutting-edge technology. My work spans interactive
+              installations, web applications, and experimental interfaces.
+            </p>
+          </RevealText>
+          <RevealText delay={0.4}>
+            <p className="text-lg md:text-xl leading-relaxed text-gray-700">
+              I specialize in GSAP animations, Three.js, WebGL, and modern web technologies
+              to bring ideas to life with smooth interactions and engaging visuals.
+            </p>
+          </RevealText>
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-light mb-12">Let's Work Together</h2>
-          <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 text-lg">
-            <a 
-              href="mailto:hello@robinpayot.com" 
-              className="hover:opacity-70 transition-opacity underline"
-            >
-              hello@robinpayot.com
-            </a>
-            <span className="hidden md:block">•</span>
-            <a 
-              href="https://twitter.com/robinpayot" 
-              className="hover:opacity-70 transition-opacity"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Twitter
-            </a>
-            <span className="hidden md:block">•</span>
-            <a 
-              href="https://instagram.com/robinpayot" 
-              className="hover:opacity-70 transition-opacity"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Instagram
-            </a>
-          </div>
+          <RevealText>
+            <h2 className="text-4xl md:text-6xl font-light mb-12">Let's Work Together</h2>
+          </RevealText>
+          <RevealText delay={0.2}>
+            <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 text-lg">
+              <MagneticButton
+                href="mailto:hello@robinpayot.com"
+                className="hover:opacity-70 transition-opacity underline"
+              >
+                hello@robinpayot.com
+              </MagneticButton>
+              <span className="hidden md:block">•</span>
+              <MagneticButton
+                href="https://twitter.com/robinpayot"
+                className="hover:opacity-70 transition-opacity"
+              >
+                Twitter
+              </MagneticButton>
+              <span className="hidden md:block">•</span>
+              <MagneticButton
+                href="https://instagram.com/robinpayot"
+                className="hover:opacity-70 transition-opacity"
+              >
+                Instagram
+              </MagneticButton>
+            </div>
+          </RevealText>
         </div>
       </section>
 
