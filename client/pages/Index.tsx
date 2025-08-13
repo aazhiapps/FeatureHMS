@@ -140,72 +140,93 @@ export default function Index() {
   useEffect(() => {
     if (!featuresRef.current) return;
 
-    // Enhanced scroll animations for features
-    features.forEach((feature, index) => {
-      const element = document.getElementById(`feature-${feature.id}`);
-      if (element) {
-        // Initial state
-        gsap.set(element, {
-          opacity: 0,
-          y: 100,
-          scale: 0.8,
-          rotationY: 15,
-        });
-
-        // Scroll-triggered animation
-        gsap.to(element, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotationY: 0,
-          duration: 1.2,
-          delay: feature.delay,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 85%",
-            end: "bottom 15%",
-            toggleActions: "play none none reverse",
-            onEnter: () => {
-              // Add pulsing effect when discovered
-              gsap.to(element, {
-                scale: 1.05,
-                duration: 0.3,
-                yoyo: true,
-                repeat: 1,
-                ease: "power2.inOut"
-              });
-            }
-          }
-        });
-
-        // Hover interaction with 3D rotation
-        element.addEventListener('mouseenter', () => {
-          gsap.to(element, {
-            rotationY: -5,
-            rotationX: 5,
-            z: 50,
-            duration: 0.5,
-            ease: "power2.out"
+    // Create a timeout to ensure DOM elements are ready
+    const timeout = setTimeout(() => {
+      // Enhanced scroll animations for features
+      features.forEach((feature, index) => {
+        const element = document.getElementById(`feature-${feature.id}`);
+        if (element) {
+          // Initial state
+          gsap.set(element, {
+            opacity: 0,
+            y: 100,
+            scale: 0.8,
+            rotationY: 15,
           });
-        });
 
-        element.addEventListener('mouseleave', () => {
+          // Scroll-triggered animation
           gsap.to(element, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
             rotationY: 0,
-            rotationX: 0,
-            z: 0,
-            duration: 0.5,
-            ease: "power2.out"
+            duration: 1.2,
+            delay: feature.delay,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+              end: "bottom 15%",
+              toggleActions: "play none none reverse",
+              onEnter: () => {
+                // Add pulsing effect when discovered
+                gsap.to(element, {
+                  scale: 1.05,
+                  duration: 0.3,
+                  yoyo: true,
+                  repeat: 1,
+                  ease: "power2.inOut"
+                });
+              }
+            }
           });
-        });
-      }
-    });
+
+          // Hover interaction with 3D rotation
+          const handleMouseEnter = () => {
+            gsap.to(element, {
+              rotationY: -5,
+              rotationX: 5,
+              z: 50,
+              duration: 0.5,
+              ease: "power2.out"
+            });
+          };
+
+          const handleMouseLeave = () => {
+            gsap.to(element, {
+              rotationY: 0,
+              rotationX: 0,
+              z: 0,
+              duration: 0.5,
+              ease: "power2.out"
+            });
+          };
+
+          element.addEventListener('mouseenter', handleMouseEnter);
+          element.addEventListener('mouseleave', handleMouseLeave);
+
+          // Store cleanup functions
+          element._cleanupHandlers = { handleMouseEnter, handleMouseLeave };
+        }
+      });
+    }, 100);
 
     return () => {
+      clearTimeout(timeout);
+
+      // Clean up event listeners
+      features.forEach((feature) => {
+        const element = document.getElementById(`feature-${feature.id}`);
+        if (element && element._cleanupHandlers) {
+          element.removeEventListener('mouseenter', element._cleanupHandlers.handleMouseEnter);
+          element.removeEventListener('mouseleave', element._cleanupHandlers.handleMouseLeave);
+          delete element._cleanupHandlers;
+        }
+      });
+
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [isLoading]); // Only depend on isLoading to prevent re-runs while loading
 
   if (isLoading) {
     return <EnhancedLoadingScreen onComplete={handleLoadingComplete} />;
