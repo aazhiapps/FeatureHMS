@@ -1,295 +1,198 @@
 import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EnhancedLoadingScreen } from '../components/EnhancedLoadingScreen';
-import { ClinicStreamsJourney } from '../components/ClinicStreamsJourney';
-import { MagneticButton, ParallaxText, RevealText, CursorFollower } from '../components/InteractiveElements';
-import { SmoothScrollController } from '../components/SmoothScrollController';
-import { ScrollDrivenEffects } from '../components/ScrollDrivenEffects';
-import { ScrollJourney } from '../components/ScrollJourney';
-import { AtmosEnhancedEffects } from '../components/AtmosEnhancedEffects';
-import { ClinicStreamsProgress } from '../components/ClinicStreamsProgress';
-import { ClinicStreamsContent } from '../components/ClinicStreamsContent';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Index() {
-  // Check URL parameters to skip loading
-  const urlParams = new URLSearchParams(window.location.search);
-  const skipLoading = urlParams.has('skip');
-
-  const [isLoading, setIsLoading] = useState(!skipLoading);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const nameRef = useRef<HTMLHeadingElement>(null);
-  const titleRef = useRef<HTMLParagraphElement>(null);
-
-  // Auto-bypass loading in development after 5 seconds
-  useEffect(() => {
-    const fallbackTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(fallbackTimeout);
-  }, []);
-
-  useEffect(() => {
-    if (!isLoading && heroRef.current && nameRef.current && titleRef.current) {
-      const tl = gsap.timeline();
-      
-      gsap.set([nameRef.current, titleRef.current], { y: 100, opacity: 0 });
-      
-      tl.to(nameRef.current, {
-        y: 0,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power3.out",
-      })
-      .to(titleRef.current, {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-      }, "-=0.8");
-    }
-  }, [isLoading]);
+  const [isLoading, setIsLoading] = useState(false); // Disable loading for now
+  const featuresRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
   };
 
-  // ClinicStreams features for medical journey
-  const clinicFeatures = [
+  // ClinicStreams features data
+  const features = [
     {
-      title: "Real-Time Patient Monitoring",
-      description: "Advanced IoT sensors and AI-powered analytics for continuous health monitoring",
-      category: "monitoring",
-      position: [8, 5, -10] as [number, number, number]
+      id: 'monitoring',
+      title: 'Real-Time Patient Monitoring',
+      description: 'Advanced IoT sensors and AI-powered analytics provide continuous health monitoring, alerting healthcare providers instantly to any changes in patient condition.',
+      icon: '📊',
+      color: 'from-blue-500 to-cyan-500',
+      delay: 0.1
     },
     {
-      title: "Healthcare Analytics",
-      description: "Machine learning algorithms for predictive health insights and treatment optimization",
-      category: "analytics",
-      position: [-5, 8, -20] as [number, number, number]
+      id: 'telemedicine',
+      title: 'Seamless Telemedicine',
+      description: 'Connect patients with healthcare providers through high-quality video consultations, secure messaging, and remote diagnosis capabilities.',
+      icon: '💻',
+      color: 'from-green-500 to-emerald-500',
+      delay: 0.2
     },
     {
-      title: "Telemedicine Platform",
-      description: "Secure video consultations and remote diagnosis capabilities",
-      category: "telemedicine",
-      position: [12, -3, -30] as [number, number, number]
+      id: 'analytics',
+      title: 'Healthcare Analytics',
+      description: 'Powerful data analytics and machine learning algorithms help predict health trends, optimize treatment plans, and improve patient outcomes.',
+      icon: '🧠',
+      color: 'from-purple-500 to-violet-500',
+      delay: 0.3
     },
     {
-      title: "Medical Device Integration",
-      description: "Seamless integration with EHR systems and hospital infrastructure",
-      category: "integration",
-      position: [-8, 6, -40] as [number, number, number]
+      id: 'integration',
+      title: 'Medical Device Integration',
+      description: 'Seamlessly integrate with existing medical devices, EHR systems, and hospital infrastructure for comprehensive care coordination.',
+      icon: '🔗',
+      color: 'from-orange-500 to-red-500',
+      delay: 0.4
     }
   ];
+
+  useEffect(() => {
+    if (!featuresRef.current) return;
+
+    // Animate features on scroll
+    features.forEach((feature, index) => {
+      const element = document.getElementById(`feature-${feature.id}`);
+      if (element) {
+        gsap.fromTo(element, 
+          { 
+            opacity: 0, 
+            y: 100,
+            scale: 0.8
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            delay: feature.delay,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   if (isLoading) {
     return <EnhancedLoadingScreen onComplete={handleLoadingComplete} />;
   }
 
   return (
-    <SmoothScrollController>
-      <ScrollDrivenEffects>
-        <ScrollJourney>
-          <ClinicStreamsJourney features={clinicFeatures} />
-          <ClinicStreamsProgress features={clinicFeatures} />
-          <ClinicStreamsContent />
-          <AtmosEnhancedEffects />
-          <div className="min-h-screen overflow-x-hidden relative z-10">
-            <CursorFollower />
-
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-40 p-6 flex justify-between items-center">
-        <MagneticButton className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-          ClinicStreams
-        </MagneticButton>
-        <div className="flex space-x-8">
-          <MagneticButton href="#features" className="hover:opacity-70 transition-opacity text-white">
-            Features
-          </MagneticButton>
-          <MagneticButton href="#solutions" className="hover:opacity-70 transition-opacity text-white">
-            Solutions
-          </MagneticButton>
-          <MagneticButton href="#demo" className="hover:opacity-70 transition-opacity text-white bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-full">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800">
+      {/* Clean Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            ClinicStreams
+          </div>
+          <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
             Get Demo
-          </MagneticButton>
+          </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <div ref={heroRef} className="flex items-center justify-center min-h-screen px-6 relative">
-        <div className="text-center max-w-5xl">
-          <ParallaxText speed={0.2}>
-            <h1
-              ref={nameRef}
-              className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tight mb-6 leading-none select-none bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent"
-            >
-              ClinicStreams
-            </h1>
-          </ParallaxText>
-          <p
-            ref={titleRef}
-            className="text-xl md:text-3xl font-light text-white/90 tracking-wide mb-8"
-          >
+      <section className="pt-32 pb-20 px-6 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
+            ClinicStreams
+          </h1>
+          <p className="text-xl md:text-2xl text-white/80 mb-8">
             The Future of Healthcare Technology
           </p>
-          <p className="text-lg md:text-xl font-light text-white/70 max-w-3xl mx-auto">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto">
             Revolutionizing patient care through AI-powered monitoring, seamless telemedicine, and intelligent healthcare analytics
           </p>
         </div>
+      </section>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <MagneticButton href="#features" className="flex flex-col items-center text-sm text-white/70 hover:text-white transition-colors">
-            <div className="w-px h-12 bg-white/30 mb-2"></div>
-            Explore Healthcare Journey
-          </MagneticButton>
-        </div>
-      </div>
-
-      {/* Work Section */}
-      <section id="work" className="px-6 py-20">
+      {/* Features Section */}
+      <section ref={featuresRef} className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <RevealText className="text-4xl md:text-6xl font-light mb-16 text-center">
-            Selected Work
-          </RevealText>
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-light text-white mb-6">
+              Features
+            </h2>
+            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+              Discover how ClinicStreams is transforming healthcare delivery
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
-            {clinicFeatures.map((project, index) => (
-              <RevealText key={index} delay={index * 0.2}>
-                <div
-                  id={`work-${index}`}
-                  className="group cursor-pointer transform transition-all duration-700"
-                  onMouseEnter={(e) => {
-                    const follower = document.querySelector('.fixed.w-16.h-16') as HTMLElement;
-                    if (follower) {
-                      follower.style.opacity = '1';
-                    }
-                    gsap.to(`.project-${index}`, {
-                      scale: 1.05,
-                      duration: 0.6,
-                      ease: "power2.out"
-                    });
-                    gsap.to(`.project-${index} img`, {
-                      scale: 1.1,
-                      duration: 0.6,
-                      ease: "power2.out"
-                    });
-                  }}
-                  onMouseLeave={() => {
-                    const follower = document.querySelector('.fixed.w-16.h-16') as HTMLElement;
-                    if (follower) {
-                      follower.style.opacity = '0';
-                    }
-                    gsap.to(`.project-${index}`, {
-                      scale: 1,
-                      duration: 0.6,
-                      ease: "power2.out"
-                    });
-                    gsap.to(`.project-${index} img`, {
-                      scale: 1,
-                      duration: 0.6,
-                      ease: "power2.out"
-                    });
-                  }}
-                >
-                  <div className={`project-${index} aspect-video bg-gradient-to-br from-blue-100 to-indigo-200 mb-4 overflow-hidden rounded-lg relative`}>
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-16 h-16 mx-auto mb-2 bg-white/50 rounded-full flex items-center justify-center">
-                          <div className="w-8 h-8 bg-indigo-500 rounded transform rotate-45"></div>
-                        </div>
-                        <p className="text-sm text-indigo-700 font-medium">Discovered by Plane</p>
-                      </div>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            {features.map((feature, index) => (
+              <div
+                key={feature.id}
+                id={`feature-${feature.id}`}
+                className="group relative opacity-0"
+              >
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20">
+                  {/* Feature Icon */}
+                  <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300`}>
+                    {feature.icon}
+                  </div>
 
-                    {/* Plane discovery indicator */}
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <div className="w-3 h-1 bg-blue-500 rounded-full"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-medium mb-1 group-hover:translate-x-2 transition-transform duration-300">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm">{project.description}</p>
-                    </div>
-                    <span className="text-sm text-gray-500">{project.year}</span>
-                  </div>
+                  {/* Feature Content */}
+                  <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  
+                  <p className="text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+                    {feature.description}
+                  </p>
+
+                  {/* Hover Effect */}
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
                 </div>
-              </RevealText>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="px-6 py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <RevealText>
-            <h2 className="text-4xl md:text-6xl font-light mb-12">About</h2>
-          </RevealText>
-          <RevealText delay={0.2}>
-            <p className="text-lg md:text-xl leading-relaxed text-gray-700 mb-8">
-              I'm a creative developer passionate about crafting exceptional digital experiences
-              through innovative design and cutting-edge technology. My work spans interactive
-              installations, web applications, and experimental interfaces.
-            </p>
-          </RevealText>
-          <RevealText delay={0.4}>
-            <p className="text-lg md:text-xl leading-relaxed text-gray-700">
-              I specialize in GSAP animations, Three.js, WebGL, and modern web technologies
-              to bring ideas to life with smooth interactions and engaging visuals.
-            </p>
-          </RevealText>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <RevealText>
-            <h2 className="text-4xl md:text-6xl font-light mb-12">Let's Work Together</h2>
-          </RevealText>
-          <RevealText delay={0.2}>
-            <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 text-lg">
-              <MagneticButton
-                href="mailto:hello@robinpayot.com"
-                className="hover:opacity-70 transition-opacity underline"
-              >
-                hello@robinpayot.com
-              </MagneticButton>
-              <span className="hidden md:block">•</span>
-              <MagneticButton
-                href="https://twitter.com/robinpayot"
-                className="hover:opacity-70 transition-opacity"
-              >
-                Twitter
-              </MagneticButton>
-              <span className="hidden md:block">•</span>
-              <MagneticButton
-                href="https://instagram.com/robinpayot"
-                className="hover:opacity-70 transition-opacity"
-              >
-                Instagram
-              </MagneticButton>
-            </div>
-          </RevealText>
+      {/* Call to Action */}
+      <section className="py-20 px-6 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-light text-white mb-8">
+            Ready to Transform Healthcare?
+          </h2>
+          <p className="text-xl text-white/70 mb-12 max-w-2xl mx-auto">
+            Join thousands of healthcare providers revolutionizing patient care with ClinicStreams
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+              Start Free Trial
+            </button>
+            <button className="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300">
+              Schedule Demo
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-8 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto flex justify-between items-center text-sm text-gray-500">
-          <p>© 2024 Robin Payot</p>
-          <p>Creative Developer</p>
+      <footer className="py-12 px-6 border-t border-white/20">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-4">
+            ClinicStreams
+          </div>
+          <p className="text-white/60">
+            © 2024 ClinicStreams. Revolutionizing Healthcare Technology.
+          </p>
         </div>
       </footer>
-          </div>
-        </ScrollJourney>
-      </ScrollDrivenEffects>
-    </SmoothScrollController>
+    </div>
   );
 }
