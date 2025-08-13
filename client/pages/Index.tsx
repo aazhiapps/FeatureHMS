@@ -255,51 +255,61 @@ export default function Index() {
 
     // Create a timeout to ensure DOM elements are ready
     const timeout = setTimeout(() => {
-      // Enhanced scroll animations for features
+      // Central card movement animations
       features.forEach((feature, index) => {
         const element = document.getElementById(`feature-${feature.id}`);
         if (element) {
           // Initial state
           gsap.set(element, {
             opacity: 0,
-            y: 100,
-            scale: 0.8,
-            rotationY: 15,
+            scale: 0.9,
+            z: -100 * index,
           });
 
-          // Scroll-triggered animation
-          gsap.to(element, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotationY: 0,
-            duration: 1.2,
-            delay: feature.delay,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play none none reverse",
-              onEnter: () => {
-                // Add pulsing effect when discovered
+          // Scroll-triggered card movement
+          ScrollTrigger.create({
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 3,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const featureProgress = index / (features.length - 1);
+              const threshold = 0.15;
+              
+              // Calculate distance from current progress
+              const distance = Math.abs(progress - featureProgress);
+              
+              if (distance < threshold) {
+                // Show current feature
+                const opacity = 1 - (distance / threshold) * 0.7;
+                const scale = 0.9 + (1 - distance / threshold) * 0.1;
+                
                 gsap.to(element, {
-                  scale: 1.05,
-                  duration: 0.3,
-                  yoyo: true,
-                  repeat: 1,
-                  ease: "power2.inOut",
+                  opacity: opacity,
+                  scale: scale,
+                  z: 0,
+                  duration: 0.8,
+                  ease: "power2.out",
                 });
-              },
+              } else {
+                // Hide other features
+                gsap.to(element, {
+                  opacity: 0.3,
+                  scale: 0.85,
+                  z: -50,
+                  duration: 0.8,
+                  ease: "power2.out",
+                });
+              }
             },
           });
 
-          // Hover interaction with 3D rotation
+          // Enhanced hover interaction
           const handleMouseEnter = () => {
             gsap.to(element, {
-              rotationY: -5,
-              rotationX: 5,
-              z: 50,
+              scale: 1.02,
+              z: 20,
               duration: 0.5,
               ease: "power2.out",
             });
@@ -307,8 +317,7 @@ export default function Index() {
 
           const handleMouseLeave = () => {
             gsap.to(element, {
-              rotationY: 0,
-              rotationX: 0,
+              scale: 1,
               z: 0,
               duration: 0.5,
               ease: "power2.out",
@@ -320,6 +329,33 @@ export default function Index() {
 
           // Store cleanup functions
           element._cleanupHandlers = { handleMouseEnter, handleMouseLeave };
+        }
+      });
+
+      // Mobile scroll-based feature visibility
+      features.forEach((feature, index) => {
+        const mobileElement = document.getElementById(`mobile-feature-${feature.id}`);
+        if (mobileElement) {
+          gsap.set(mobileElement, {
+            opacity: 0,
+            y: 50,
+            scale: 0.9,
+          });
+
+          gsap.to(mobileElement, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            delay: index * 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: mobileElement,
+              start: "top 85%",
+              end: "bottom 15%",
+              toggleActions: "play none none reverse",
+            },
+          });
         }
       });
     }, 100);
@@ -415,98 +451,111 @@ export default function Index() {
 
           {/* Main Features Layout */}
           <div className="relative min-h-[800px] md:min-h-[1000px] lg:min-h-[1200px]">
-            {/* All Features on Left Side */}
-            <div className="hidden lg:block fixed left-2 xl:left-6 top-24 z-20 w-72 xl:w-80 space-y-4 max-h-[calc(100vh-10rem)] overflow-y-auto scrollbar-hide">
-              {features.map((feature, index) => (
-                <div
-                  key={feature.id}
-                  id={`feature-${feature.id}`}
-                  className="group cursor-pointer transform transition-all duration-500 hover:scale-105"
-                >
-                  <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4 xl:p-5 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-500 hover:shadow-2xl relative overflow-hidden">
-                    <div className={`w-10 h-10 xl:w-14 xl:h-14 mb-2 xl:mb-3 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-base xl:text-xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
-                      <span className="relative z-10">{feature.icon}</span>
-                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
-                    <h3 className="text-sm xl:text-base font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-xs xl:text-sm text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-500 line-clamp-3">
-                      {feature.description}
-                    </p>
-                    <div className="mt-2 text-xs text-blue-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      {feature.category}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
 
-            {/* Mobile Features List */}
-            <div className="lg:hidden px-4 mb-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {features.map((feature, index) => (
-                  <div
-                    key={feature.id}
-                    id={`mobile-feature-${feature.id}`}
-                    className="bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300"
-                  >
-                    <div className={`w-12 h-12 mb-3 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-lg shadow-lg`}>
-                      <span>{feature.icon}</span>
-                    </div>
-                    <h3 className="text-base font-bold text-white mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-white/70 leading-relaxed line-clamp-3">
-                      {feature.description}
-                    </p>
-                    <div className="mt-2 text-xs text-blue-300">
-                      {feature.category}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Expanded Central 3D Drone Space */}
-            <div className="lg:absolute lg:left-[320px] xl:left-[420px] lg:right-0 lg:top-0 lg:bottom-0 flex items-center justify-center pointer-events-none mt-8 lg:mt-0">
-              <div className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] xl:w-[700px] xl:h-[700px]">
-                {/* Outer Ring */}
-                <div className="absolute inset-0 rounded-full border-2 border-white/20 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm animate-pulse">
-                  <div className="absolute inset-4 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm">
-                    <div className="absolute inset-8 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
-                      <div className="text-center text-white">
-                    <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2 md:mb-4">🚁</div>
-                        <p className="text-sm md:text-base lg:text-lg font-light px-2 mb-2">Medical Drone Navigation</p>
-                        <p className="text-xs md:text-sm opacity-70 px-2 mb-4">Follow the journey through our features</p>
-                    <div className="mt-3 md:mt-6 grid grid-cols-2 gap-2 md:gap-4 text-xs px-4">
-                          <div className="bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-white/20">
-                        <div className="text-green-400 font-bold">Active</div>
-                        <div>System Online</div>
-                      </div>
-                          <div className="bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-white/20">
-                        <div className="text-blue-400 font-bold">Scanning</div>
-                        <div>Features</div>
-                      </div>
-                    </div>
-                  </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Rotating Elements */}
-                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
-                  {[0, 1, 2, 3].map((i) => (
+            {/* Central Feature Cards Display */}
+            <div className="flex items-center justify-center min-h-[800px] md:min-h-[1000px] lg:min-h-[1200px] relative">
+              <div className="w-full max-w-6xl mx-auto px-4 relative">
+                {/* Feature Cards Container */}
+                <div className="relative">
+                  {features.map((feature, index) => (
                     <div
-                      key={i}
-                      className="absolute w-3 h-3 bg-blue-400 rounded-full opacity-60"
-                      style={{
-                        top: '50%',
-                        left: '50%',
-                        transform: `rotate(${i * 90}deg) translateX(${150 + i * 20}px) translateY(-6px)`,
-                      }}
-                    />
+                      key={feature.id}
+                      id={`feature-${feature.id}`}
+                      className="absolute inset-0 flex items-center justify-center opacity-0 transform scale-90"
+                      style={{ zIndex: features.length - index }}
+                    >
+                      <div className="bg-white/15 backdrop-blur-2xl rounded-3xl p-8 md:p-12 border border-white/30 shadow-2xl max-w-4xl w-full mx-4 hover:bg-white/20 transition-all duration-700 hover:scale-105 group">
+                        {/* Feature Header */}
+                        <div className="flex items-center mb-6 md:mb-8">
+                          <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl md:text-3xl shadow-xl mr-6 group-hover:scale-110 transition-transform duration-500`}>
+                            <span>{feature.icon}</span>
+                          </div>
+                          <div>
+                            <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500">
+                              {feature.title}
+                            </h3>
+                            <div className="text-sm md:text-base text-blue-300 uppercase tracking-wide font-medium">
+                              {feature.category}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Feature Description */}
+                        <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 group-hover:text-white transition-colors duration-500">
+                          {feature.description}
+                        </p>
+
+                        {/* Feature Benefits */}
+                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                          <div>
+                            <h4 className="text-lg font-semibold text-white mb-4">Key Benefits</h4>
+                            <div className="space-y-3">
+                              {feature.benefits.map((benefit, idx) => (
+                                <div key={idx} className="flex items-start">
+                                  <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                  <span className="text-white/80 text-sm md:text-base">{benefit}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="text-lg font-semibold text-white mb-4">Performance Stats</h4>
+                            <div className="space-y-4">
+                              {feature.stats.map((stat, idx) => (
+                                <div key={idx} className="bg-white/10 rounded-xl p-4 border border-white/20">
+                                  <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
+                                  <div className="text-sm text-white/70">{stat.label}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Progress Indicator */}
+                        <div className="flex justify-between items-center">
+                          <div className="text-sm text-white/60">
+                            Feature {index + 1} of {features.length}
+                          </div>
+                          <div className="flex space-x-2">
+                            {features.map((_, idx) => (
+                              <div
+                                key={idx}
+                                className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                                  idx === index ? 'bg-blue-400 scale-125' : 'bg-white/30'
+                                }`}
+                              ></div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   ))}
+                </div>
+
+                {/* Central 3D Drone */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50">
+                  <div className="relative w-32 h-32 md:w-40 md:h-40">
+                    {/* Drone Container */}
+                    <div className="absolute inset-0 rounded-full border-2 border-blue-400/50 bg-gradient-to-br from-blue-500/20 to-green-500/20 backdrop-blur-sm animate-pulse flex items-center justify-center">
+                      <div className="text-4xl md:text-5xl animate-bounce">🚁</div>
+                    </div>
+                    
+                    {/* Rotating Elements */}
+                    <div className="absolute inset-0 animate-spin" style={{ animationDuration: '10s' }}>
+                      {[0, 1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className="absolute w-2 h-2 bg-blue-400 rounded-full"
+                          style={{
+                            top: '50%',
+                            left: '50%',
+                            transform: `rotate(${i * 90}deg) translateX(80px) translateY(-4px)`,
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -525,32 +574,6 @@ export default function Index() {
                   }}
                 />
               ))}
-            </div>
-
-            {/* Connection Lines from Left Features to Center */}
-            <div className="hidden lg:block absolute inset-0 pointer-events-none">
-              <svg className="w-full h-full opacity-30">
-                <defs>
-                  <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-                    <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
-                  </linearGradient>
-                </defs>
-                {[15, 25, 35, 45, 55, 65, 75, 85].map((y, index) => (
-                  <line
-                    key={index}
-                    x1="22%"
-                    y1={`${y}%`}
-                    x2="55%"
-                    y2="50%"
-                    stroke="url(#connectionGradient)"
-                    strokeWidth="2"
-                    className="animate-pulse"
-                    style={{ animationDelay: `${index * 0.2}s` }}
-                  />
-                ))}
-              </svg>
             </div>
           </div>
         </section>
