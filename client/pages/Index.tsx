@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { EnhancedLoadingScreen } from '../components/EnhancedLoadingScreen';
-import { PlaneJourney } from '../components/PlaneJourney';
+import { ClinicStreamsJourney } from '../components/ClinicStreamsJourney';
 import { MagneticButton, ParallaxText, RevealText, CursorFollower } from '../components/InteractiveElements';
 import { SmoothScrollController } from '../components/SmoothScrollController';
 import { ScrollDrivenEffects } from '../components/ScrollDrivenEffects';
 import { ScrollJourney } from '../components/ScrollJourney';
 import { AtmosEnhancedEffects } from '../components/AtmosEnhancedEffects';
-import { PlaneProgressIndicator } from '../components/PlaneProgressIndicator';
-import { AtmosContent } from '../components/AtmosContent';
+import { ClinicStreamsProgress } from '../components/ClinicStreamsProgress';
+import { ClinicStreamsContent } from '../components/ClinicStreamsContent';
 
 export default function Index() {
   // Check URL parameters to skip loading
