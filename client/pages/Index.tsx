@@ -9,6 +9,16 @@ import { SmoothScrollController } from '../components/SmoothScrollController';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// TypeScript interface for DOM elements with cleanup handlers
+declare global {
+  interface HTMLElement {
+    _cleanupHandlers?: {
+      handleMouseEnter: () => void;
+      handleMouseLeave: () => void;
+    };
+  }
+}
+
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
   const featuresRef = useRef<HTMLDivElement>(null);
