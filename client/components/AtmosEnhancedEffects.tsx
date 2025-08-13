@@ -12,11 +12,11 @@ export const AtmosEnhancedEffects = () => {
 
     // Create dynamic gradient background that changes with scroll
     const gradientSteps = [
-      'linear-gradient(180deg, #4c6ef5 0%, #748ffc 50%, #91a7ff 100%)', // Blue start
-      'linear-gradient(180deg, #4c6ef5 0%, #7c3aed 50%, #a855f7 100%)', // Blue to purple
-      'linear-gradient(180deg, #7c3aed 0%, #c084fc 50%, #ddd6fe 100%)', // Purple to light
-      'linear-gradient(180deg, #a855f7 0%, #f3e8ff 50%, #faf5ff 100%)', // Purple to white
-      'linear-gradient(180deg, #4c6ef5 0%, #748ffc 50%, #91a7ff 100%)', // Back to blue
+      'linear-gradient(180deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)', // Medical blue start
+      'linear-gradient(180deg, #1e40af 0%, #059669 50%, #10b981 100%)', // Blue to medical green
+      'linear-gradient(180deg, #059669 0%, #34d399 50%, #86efac 100%)', // Green to light green
+      'linear-gradient(180deg, #0ea5e9 0%, #06b6d4 50%, #67e8f9 100%)', // Medical cyan
+      'linear-gradient(180deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)', // Back to medical blue
     ];
 
     // Animate background color changes
