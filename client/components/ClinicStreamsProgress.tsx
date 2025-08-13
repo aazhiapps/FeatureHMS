@@ -87,10 +87,14 @@ export const ClinicStreamsProgress = ({ features }: ClinicStreamsProgressProps) 
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'monitoring': return '📊';
-      case 'analytics': return '🧠';
-      case 'telemedicine': return '💻';
-      case 'integration': return '🔗';
+      case 'management': return '👥';
+      case 'scheduling': return '📅';
+      case 'records': return '📋';
+      case 'billing': return '💳';
+      case 'analytics': return '📊';
+      case 'resources': return '⏰';
+      case 'security': return '🛡️';
+      case 'engagement': return '💬';
       default: return '🏥';
     }
   };
