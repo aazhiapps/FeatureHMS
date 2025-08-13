@@ -320,7 +320,7 @@ export const ClinicStreamsProgress = ({
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-white/60">Response Time</span>
-            <span className="text-blue-400 font-medium"><50ms</span>
+            <span className="text-blue-400 font-medium">&lt;50ms</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-white/60">Uptime</span>
