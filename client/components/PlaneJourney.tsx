@@ -19,17 +19,13 @@ interface PlaneJourneyProps {
 // 3D Plane Model
 const Plane = React.forwardRef<THREE.Group, { position?: [number, number, number] }>(
   ({ position = [0, 0, 0] }, ref) => {
-    const meshRef = useRef<THREE.Group>(null);
     const propellerRef = useRef<THREE.Mesh>(null);
 
-    // Merge the external ref with our internal ref
-    const groupRef = ref || meshRef;
-
     useFrame(({ clock }) => {
-      if (meshRef.current) {
+      if (ref && 'current' in ref && ref.current) {
         // Subtle bobbing animation
-        meshRef.current.position.y = position[1] + Math.sin(clock.elapsedTime * 2) * 0.1;
-        meshRef.current.rotation.z = Math.sin(clock.elapsedTime) * 0.05;
+        ref.current.position.y = position[1] + Math.sin(clock.elapsedTime * 2) * 0.1;
+        ref.current.rotation.z = Math.sin(clock.elapsedTime) * 0.05;
       }
 
       if (propellerRef.current) {
@@ -39,7 +35,7 @@ const Plane = React.forwardRef<THREE.Group, { position?: [number, number, number
     });
 
     return (
-      <group ref={groupRef} position={position}>
+      <group ref={ref} position={position}>
         {/* Plane Body */}
         <mesh>
           <boxGeometry args={[2, 0.3, 0.5]} />
