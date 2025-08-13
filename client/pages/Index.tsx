@@ -44,8 +44,9 @@ export default function Index() {
   return (
     <SmoothScrollController>
       <ScrollDrivenEffects>
-        <div className="min-h-screen overflow-x-hidden">
-          <CursorFollower />
+        <ScrollJourney>
+          <div className="min-h-screen overflow-x-hidden">
+            <CursorFollower />
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 p-6 flex justify-between items-center">
@@ -248,7 +249,8 @@ export default function Index() {
           <p>Creative Developer</p>
         </div>
       </footer>
-        </div>
+          </div>
+        </ScrollJourney>
       </ScrollDrivenEffects>
     </SmoothScrollController>
   );
