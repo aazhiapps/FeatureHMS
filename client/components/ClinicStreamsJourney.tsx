@@ -136,56 +136,112 @@ function FloatingFeature({ feature, index }: { feature: any; index: number }) {
       
       {/* Feature Icon */}
       <group position={[0, 0, 0.2]}>
-        {feature.category === 'monitoring' && (
+        {feature.category === 'management' && (
           <group>
-            <Sphere args={[0.15]}>
+            <Sphere args={[0.12]}>
               <meshStandardMaterial color="#ffffff" />
             </Sphere>
-            <Cylinder args={[0.02, 0.02, 0.6]} rotation={[0, 0, Math.PI / 4]}>
-              <meshStandardMaterial color="#333333" />
-            </Cylinder>
+            <Sphere args={[0.08]} position={[0.2, 0, 0]}>
+              <meshStandardMaterial color="#ffffff" />
+            </Sphere>
           </group>
         )}
-        
-        {feature.category === 'analytics' && (
+
+        {feature.category === 'scheduling' && (
           <group>
-            {[0.2, 0.4, 0.3, 0.5, 0.6].map((height, i) => (
-              <Box key={i} args={[0.1, height, 0.1]} position={[(i - 2) * 0.15, height / 2 - 0.3, 0]}>
-                <meshStandardMaterial color="#ffffff" />
-              </Box>
-            ))}
-          </group>
-        )}
-        
-        {feature.category === 'telemedicine' && (
-          <group>
-            <Box args={[0.4, 0.3, 0.05]}>
+            <Box args={[0.3, 0.3, 0.05]}>
               <meshStandardMaterial color="#ffffff" />
             </Box>
-            <Sphere args={[0.08]} position={[0, 0.2, 0.1]}>
-              <meshStandardMaterial color="#00ff00" />
-            </Sphere>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <Box key={i} args={[0.03, 0.03, 0.1]} position={[
+                ((i % 3) - 1) * 0.08,
+                (Math.floor(i / 3) - 1) * 0.08,
+                0.1
+              ]}>
+                <meshStandardMaterial color="#8b5cf6" />
+              </Box>
+            ))}
           </group>
         )}
-        
-        {feature.category === 'integration' && (
+
+        {feature.category === 'records' && (
           <group>
-            <Cylinder args={[0.2, 0.2, 0.1]}>
+            <Box args={[0.25, 0.35, 0.05]}>
               <meshStandardMaterial color="#ffffff" />
+            </Box>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Box key={i} args={[0.15, 0.02, 0.1]} position={[0, (i - 1.5) * 0.08, 0.1]}>
+                <meshStandardMaterial color="#10b981" />
+              </Box>
+            ))}
+          </group>
+        )}
+
+        {feature.category === 'billing' && (
+          <group>
+            <Box args={[0.3, 0.2, 0.05]} rotation={[0, 0, 0.1]}>
+              <meshStandardMaterial color="#ffffff" />
+            </Box>
+            <Cylinder args={[0.05, 0.05, 0.1]} position={[0.1, -0.05, 0.1]}>
+              <meshStandardMaterial color="#f59e0b" />
             </Cylinder>
-            {Array.from({ length: 8 }).map((_, i) => (
-              <Box 
-                key={i} 
-                args={[0.02, 0.3, 0.02]} 
-                position={[
-                  Math.cos((i / 8) * Math.PI * 2) * 0.3,
-                  0,
-                  Math.sin((i / 8) * Math.PI * 2) * 0.3
-                ]}
-              >
+          </group>
+        )}
+
+        {feature.category === 'analytics' && (
+          <group>
+            {[0.15, 0.25, 0.2, 0.3, 0.35].map((height, i) => (
+              <Box key={i} args={[0.08, height, 0.08]} position={[(i - 2) * 0.12, height / 2 - 0.2, 0]}>
                 <meshStandardMaterial color="#ffffff" />
               </Box>
             ))}
+          </group>
+        )}
+
+        {feature.category === 'resources' && (
+          <group>
+            <Cylinder args={[0.15, 0.15, 0.05]}>
+              <meshStandardMaterial color="#ffffff" />
+            </Cylinder>
+            {Array.from({ length: 12 }).map((_, i) => (
+              <Box
+                key={i}
+                args={[0.015, 0.1, 0.015]}
+                position={[
+                  Math.cos((i / 12) * Math.PI * 2) * 0.12,
+                  0,
+                  Math.sin((i / 12) * Math.PI * 2) * 0.12
+                ]}
+                rotation={[0, (i / 12) * Math.PI * 2, 0]}
+              >
+                <meshStandardMaterial color="#14b8a6" />
+              </Box>
+            ))}
+          </group>
+        )}
+
+        {feature.category === 'security' && (
+          <group>
+            <Box args={[0.2, 0.25, 0.05]}>
+              <meshStandardMaterial color="#ffffff" />
+            </Box>
+            <Cylinder args={[0.08, 0.08, 0.12]} position={[0, 0.15, 0]}>
+              <meshStandardMaterial color="#ef4444" />
+            </Cylinder>
+          </group>
+        )}
+
+        {feature.category === 'engagement' && (
+          <group>
+            <Sphere args={[0.1]}>
+              <meshStandardMaterial color="#ffffff" />
+            </Sphere>
+            <Sphere args={[0.06]} position={[0.15, 0.1, 0]}>
+              <meshStandardMaterial color="#06b6d4" />
+            </Sphere>
+            <Sphere args={[0.04]} position={[0.08, -0.12, 0]}>
+              <meshStandardMaterial color="#06b6d4" />
+            </Sphere>
           </group>
         )}
       </group>
