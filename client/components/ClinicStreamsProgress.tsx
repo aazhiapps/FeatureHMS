@@ -142,14 +142,15 @@ export const ClinicStreamsProgress = ({
   return (
     <div
       ref={containerRef}
-      className="fixed right-6 top-20 z-40 pointer-events-none"
+      className="hidden md:block fixed right-2 lg:right-4 xl:right-6 top-16 md:top-20 z-40 pointer-events-none"
     >
       {/* Medical Flight Path */}
       <div className="relative">
         <svg
-          width="80"
-          height="400"
-          viewBox="0 0 80 400"
+          width="60"
+          height="300"
+          viewBox="0 0 60 300"
+          className="md:w-[70px] md:h-[350px] lg:w-[80px] lg:h-[400px]"
           className="overflow-visible"
         >
           <defs>
@@ -177,9 +178,10 @@ export const ClinicStreamsProgress = ({
 
           <path
             ref={pathRef}
-            d="M40,20 Q60,60 40,100 Q20,140 40,180 Q60,220 40,260 Q20,300 40,340 L40,380"
+            d="M30,15 Q45,45 30,75 Q15,105 30,135 Q45,165 30,195 Q15,225 30,255 L30,285"
             stroke="url(#medicalPathGradient)"
-            strokeWidth="4"
+            strokeWidth="3"
+            className="md:stroke-[4]"
             fill="none"
             strokeLinecap="round"
             filter="url(#glow)"
@@ -188,7 +190,7 @@ export const ClinicStreamsProgress = ({
 
           {/* Connected Workflow Points */}
           {features.map((feature, index) => {
-            const y = 20 + (360 / (features.length - 1)) * index;
+            const y = 15 + (270 / (features.length - 1)) * index;
             const isDiscovered = discoveredFeatures.includes(index);
             const isActive = discoveredFeatures.length - 1 === index;
 
@@ -197,35 +199,39 @@ export const ClinicStreamsProgress = ({
                 {/* Connection line to next point */}
                 {index < features.length - 1 && (
                   <line
-                    x1="40"
+                    x1="30"
                     y1={y + 8}
-                    x2="40"
-                    y2={y + 360 / (features.length - 1) - 8}
+                    x2="30"
+                    y2={y + 270 / (features.length - 1) - 8}
                     stroke={isDiscovered ? "#00ff88" : "#e5e7eb"}
-                    strokeWidth="3"
+                    strokeWidth="2"
+                    className="md:stroke-[3]"
                     className="transition-all duration-500"
                   />
                 )}
 
                 {/* Workflow point circle */}
                 <circle
-                  cx="40"
+                  cx="30"
                   cy={y}
-                  r="10"
+                  r="8"
+                  className="md:r-10"
                   fill={isDiscovered ? "#00ff88" : "#f3f4f6"}
                   stroke={
                     isActive ? "#0066ff" : isDiscovered ? "#00cc66" : "#d1d5db"
                   }
                   strokeWidth={isActive ? "4" : "3"}
+                  className={isActive ? "md:stroke-[4]" : "md:stroke-[3]"}
                   className={`transition-all duration-500 ${isDiscovered ? "drop-shadow-lg" : ""}`}
                 />
 
                 {/* Inner active indicator */}
                 {isActive && (
                   <circle
-                    cx="40"
+                    cx="30"
                     cy={y}
-                    r="5"
+                    r="4"
+                    className="md:r-5"
                     fill="#0066ff"
                     className="animate-pulse"
                   />
@@ -233,10 +239,11 @@ export const ClinicStreamsProgress = ({
 
                 {/* Feature category icon */}
                 <text
-                  x="40"
+                  x="30"
                   y={y + 2}
                   textAnchor="middle"
-                  fontSize="12"
+                  fontSize="10"
+                  className="md:text-xs"
                   fill={isDiscovered ? "#ffffff" : "#9ca3af"}
                 >
                   {isDiscovered ? getCategoryIcon(feature.category) : "○"}
@@ -245,9 +252,10 @@ export const ClinicStreamsProgress = ({
                 {/* Connection pulse effect */}
                 {isDiscovered && (
                   <circle
-                    cx="40"
+                    cx="30"
                     cy={y}
-                    r="15"
+                    r="12"
+                    className="md:r-15"
                     fill="none"
                     stroke="#00ff88"
                     strokeWidth="2"
@@ -258,9 +266,11 @@ export const ClinicStreamsProgress = ({
 
                 {/* Workflow label */}
                 <text
-                  x="60"
+                  x="45"
+                  className="md:x-60"
                   y={y + 3}
-                  fontSize="8"
+                  fontSize="7"
+                  className="md:text-[8px]"
                   fill={isDiscovered ? "#00ff88" : "#9ca3af"}
                   className="transition-all duration-500"
                 >
@@ -274,53 +284,53 @@ export const ClinicStreamsProgress = ({
         {/* Medical Drone Icon */}
         <div
           ref={droneIconRef}
-          className="absolute w-8 h-8 transition-transform duration-200"
+          className="absolute w-6 h-6 md:w-8 md:h-8 transition-transform duration-200"
           style={{ left: 0, top: 0 }}
         >
           <div className="w-full h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-xl shadow-xl flex items-center justify-center border-2 border-white">
-            <div className="text-white text-sm font-bold">🚁</div>
+            <div className="text-white text-xs md:text-sm font-bold">🚁</div>
           </div>
 
           {/* Medical Trail */}
-          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-16 h-1 bg-gradient-to-r from-green-400 via-blue-400 to-transparent opacity-80"></div>
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 md:w-16 h-0.5 md:h-1 bg-gradient-to-r from-green-400 via-blue-400 to-transparent opacity-80"></div>
         </div>
       </div>
 
       {/* ClinicStreams Status Panel */}
-      <div className="mt-8 bg-gradient-to-br from-white/10 to-blue-500/10 backdrop-blur-md rounded-xl p-5 shadow-2xl border border-white/20">
+      <div className="mt-6 md:mt-8 bg-gradient-to-br from-white/10 to-blue-500/10 backdrop-blur-md rounded-lg md:rounded-xl p-3 md:p-5 shadow-2xl border border-white/20">
         <div className="flex items-center mb-2">
-          <div className="w-3 h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-          <div className="text-sm font-semibold text-white">
+          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+          <div className="text-xs md:text-sm font-semibold text-white">
             ClinicStreams Status
           </div>
         </div>
 
-        <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
+        <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
           {currentAltitude.toLocaleString()} patients
         </div>
 
-        <div className="text-sm text-white/70 mt-1">
+        <div className="text-xs md:text-sm text-white/70 mt-1">
           Features: {discoveredFeatures.length}/{features.length}
         </div>
 
-        <div className="mt-3 flex items-center space-x-2">
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-          <span className="text-sm text-blue-300 font-medium">
+        <div className="mt-2 md:mt-3 flex items-center space-x-2">
+          <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-blue-500 rounded-full animate-pulse"></div>
+          <span className="text-xs md:text-sm text-blue-300 font-medium">
             {connectionStatus}
           </span>
         </div>
 
         {/* Health Metrics */}
-        <div className="mt-3 space-y-1">
-          <div className="flex justify-between text-sm">
+        <div className="mt-2 md:mt-3 space-y-1">
+          <div className="flex justify-between text-xs md:text-sm">
             <span className="text-white/60">Data Integrity</span>
             <span className="text-green-400 font-medium">99.9%</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-xs md:text-sm">
             <span className="text-white/60">Response Time</span>
             <span className="text-blue-400 font-medium">&lt;50ms</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-xs md:text-sm">
             <span className="text-white/60">Uptime</span>
             <span className="text-green-400 font-medium">99.99%</span>
           </div>
@@ -329,9 +339,9 @@ export const ClinicStreamsProgress = ({
 
       {/* Latest Feature Discovery */}
       {discoveredFeatures.length > 0 && (
-        <div className="mt-4 bg-gradient-to-r from-green-500/20 to-blue-600/20 backdrop-blur-md text-white rounded-xl p-4 shadow-xl max-w-60 border border-white/20">
-          <div className="text-sm font-medium opacity-90">Latest Feature</div>
-          <div className="text-base font-bold flex items-center">
+        <div className="mt-3 md:mt-4 bg-gradient-to-r from-green-500/20 to-blue-600/20 backdrop-blur-md text-white rounded-lg md:rounded-xl p-3 md:p-4 shadow-xl max-w-48 md:max-w-60 border border-white/20">
+          <div className="text-xs md:text-sm font-medium opacity-90">Latest Feature</div>
+          <div className="text-sm md:text-base font-bold flex items-center">
             <span className="mr-2">
               {getCategoryIcon(
                 features[discoveredFeatures[discoveredFeatures.length - 1]]
@@ -340,7 +350,7 @@ export const ClinicStreamsProgress = ({
             </span>
             {features[discoveredFeatures[discoveredFeatures.length - 1]]?.title}
           </div>
-          <div className="text-sm opacity-80 mt-1">
+          <div className="text-xs md:text-sm opacity-80 mt-1">
             {features[
               discoveredFeatures[discoveredFeatures.length - 1]
             ]?.category.toUpperCase()}

@@ -66,62 +66,62 @@ export const FeatureDetailsDisplay = ({ features }: FeatureDetailsDisplayProps) 
   return (
     <div
       ref={containerRef}
-      className="fixed right-8 top-1/2 transform -translate-y-1/2 z-30 w-96 pointer-events-none"
+      className="hidden xl:block fixed right-4 2xl:right-8 top-1/2 transform -translate-y-1/2 z-30 w-80 2xl:w-96 pointer-events-none"
     >
       {/* Main Feature Details Card */}
-      <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl">
+      <div className="bg-white/10 backdrop-blur-xl rounded-2xl 2xl:rounded-3xl p-4 2xl:p-8 border border-white/20 shadow-2xl">
         {/* Feature Header */}
-        <div className="flex items-center mb-6">
-          <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${currentFeature.color} flex items-center justify-center text-2xl shadow-lg mr-4`}>
+        <div className="flex items-center mb-4 2xl:mb-6">
+          <div className={`w-12 h-12 2xl:w-16 2xl:h-16 rounded-xl 2xl:rounded-2xl bg-gradient-to-r ${currentFeature.color} flex items-center justify-center text-lg 2xl:text-2xl shadow-lg mr-3 2xl:mr-4`}>
             {currentFeature.icon}
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-white mb-1">
+            <h3 className="text-lg 2xl:text-2xl font-bold text-white mb-1 line-clamp-2">
               {currentFeature.title}
             </h3>
-            <div className="text-sm text-blue-300 uppercase tracking-wide font-medium">
+            <div className="text-xs 2xl:text-sm text-blue-300 uppercase tracking-wide font-medium">
               {currentFeature.category}
             </div>
           </div>
         </div>
 
         {/* Feature Description */}
-        <p className="text-white/80 text-base leading-relaxed mb-6">
+        <p className="text-white/80 text-sm 2xl:text-base leading-relaxed mb-4 2xl:mb-6 line-clamp-4">
           {currentFeature.description}
         </p>
 
         {/* Key Benefits */}
-        <div className="mb-6">
-          <h4 className="text-lg font-semibold text-white mb-3">Key Benefits</h4>
-          <div className="space-y-2">
+        <div className="mb-4 2xl:mb-6">
+          <h4 className="text-base 2xl:text-lg font-semibold text-white mb-2 2xl:mb-3">Key Benefits</h4>
+          <div className="space-y-1 2xl:space-y-2">
             {currentFeature.benefits.map((benefit, index) => (
               <div key={index} className="flex items-start">
-                <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <span className="text-white/70 text-sm">{benefit}</span>
+                <div className="w-1.5 h-1.5 2xl:w-2 2xl:h-2 bg-green-400 rounded-full mt-1.5 2xl:mt-2 mr-2 2xl:mr-3 flex-shrink-0"></div>
+                <span className="text-white/70 text-xs 2xl:text-sm line-clamp-2">{benefit}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Feature Stats */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-2 gap-2 2xl:gap-4 mb-4 2xl:mb-6">
           {currentFeature.stats.map((stat, index) => (
-            <div key={index} className="bg-white/5 rounded-xl p-3 border border-white/10">
-              <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-xs text-white/60">{stat.label}</div>
+            <div key={index} className="bg-white/5 rounded-lg 2xl:rounded-xl p-2 2xl:p-3 border border-white/10">
+              <div className="text-lg 2xl:text-2xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-xs text-white/60 line-clamp-2">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Progress Indicator */}
-        <div className="mb-4">
-          <div className="flex justify-between text-sm text-white/60 mb-2">
+        <div className="mb-3 2xl:mb-4">
+          <div className="flex justify-between text-xs 2xl:text-sm text-white/60 mb-1 2xl:mb-2">
             <span>Journey Progress</span>
             <span>{Math.round(progress * 100)}%</span>
           </div>
-          <div className="w-full bg-white/20 rounded-full h-2">
+          <div className="w-full bg-white/20 rounded-full h-1.5 2xl:h-2">
             <div 
-              className="bg-gradient-to-r from-blue-400 to-green-400 h-2 rounded-full transition-all duration-1000"
+              className="bg-gradient-to-r from-blue-400 to-green-400 h-1.5 2xl:h-2 rounded-full transition-all duration-1000"
               style={{ width: `${progress * 100}%` }}
             ></div>
           </div>
@@ -129,14 +129,14 @@ export const FeatureDetailsDisplay = ({ features }: FeatureDetailsDisplayProps) 
 
         {/* Feature Navigation */}
         <div className="flex justify-between items-center">
-          <div className="text-sm text-white/60">
+          <div className="text-xs 2xl:text-sm text-white/60">
             Feature {features.findIndex(f => f.id === currentFeature.id) + 1} of {features.length}
           </div>
           <div className="flex space-x-1">
             {features.map((_, index) => (
               <div
                 key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-500 ${
+                className={`w-1.5 h-1.5 2xl:w-2 2xl:h-2 rounded-full transition-all duration-500 ${
                   index === features.findIndex(f => f.id === currentFeature.id)
                     ? 'bg-blue-400 scale-125'
                     : 'bg-white/30'
@@ -149,7 +149,7 @@ export const FeatureDetailsDisplay = ({ features }: FeatureDetailsDisplayProps) 
 
       {/* Drone Connection Line */}
       <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-full">
-        <svg width="100" height="4" viewBox="0 0 100 4" className="overflow-visible">
+        <svg width="60" height="4" viewBox="0 0 60 4" className="2xl:w-[100px] overflow-visible">
           <defs>
             <linearGradient id="connectionLine" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="transparent" />
@@ -158,17 +158,17 @@ export const FeatureDetailsDisplay = ({ features }: FeatureDetailsDisplayProps) 
             </linearGradient>
           </defs>
           <line 
-            x1="0" y1="2" x2="100" y2="2" 
+            x1="0" y1="2" x2="60" y2="2" 
             stroke="url(#connectionLine)" 
             strokeWidth="2" 
             className="animate-pulse"
           />
-          <circle cx="95" cy="2" r="3" fill="#10b981" className="animate-ping" />
+          <circle cx="55" cy="2" r="2" fill="#10b981" className="2xl:r-3 2xl:cx-95 animate-ping" />
         </svg>
       </div>
 
       {/* Floating Status Indicator */}
-      <div className="absolute -top-4 -right-4 bg-green-500 text-white text-xs px-3 py-1 rounded-full font-medium animate-pulse">
+      <div className="absolute -top-2 -right-2 2xl:-top-4 2xl:-right-4 bg-green-500 text-white text-xs px-2 2xl:px-3 py-1 rounded-full font-medium animate-pulse">
         ACTIVE
       </div>
     </div>
