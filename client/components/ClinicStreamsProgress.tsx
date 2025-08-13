@@ -83,7 +83,7 @@ export const ClinicStreamsProgress = ({ features }: ClinicStreamsProgressProps) 
       }
     });
 
-  }, [features, discoveredFeatures]);
+  }, []); // Remove dependencies that cause re-renders
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
