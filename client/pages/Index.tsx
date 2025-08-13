@@ -2,18 +2,50 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EnhancedLoadingScreen } from '../components/EnhancedLoadingScreen';
+import { ClinicStreamsJourney } from '../components/ClinicStreamsJourney';
+import { ClinicStreamsProgress } from '../components/ClinicStreamsProgress';
+import { ClinicStreamsContent } from '../components/ClinicStreamsContent';
+import { SmoothScrollController } from '../components/SmoothScrollController';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(false); // Disable loading for now
+  const [isLoading, setIsLoading] = useState(true);
   const featuresRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
   };
 
-  // ClinicStreams features data
+  // ClinicStreams 3D features data for medical journey
+  const clinicFeatures = [
+    {
+      title: "Real-Time Patient Monitoring",
+      description: "Advanced IoT sensors and AI-powered analytics for continuous health monitoring",
+      category: "monitoring",
+      position: [8, 5, -10] as [number, number, number]
+    },
+    {
+      title: "Healthcare Analytics",
+      description: "Machine learning algorithms for predictive health insights and treatment optimization",
+      category: "analytics",
+      position: [-5, 8, -20] as [number, number, number]
+    },
+    {
+      title: "Telemedicine Platform",
+      description: "Secure video consultations and remote diagnosis capabilities",
+      category: "telemedicine",
+      position: [12, -3, -30] as [number, number, number]
+    },
+    {
+      title: "Medical Device Integration",
+      description: "Seamless integration with EHR systems and hospital infrastructure",
+      category: "integration",
+      position: [-8, 6, -40] as [number, number, number]
+    }
+  ];
+
+  // UI features data for cards
   const features = [
     {
       id: 'monitoring',
@@ -92,7 +124,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800">
       {/* Clean Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 relative">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
             ClinicStreams
@@ -104,7 +136,7 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-32 px-6 text-center min-h-screen flex items-center">
+      <section className="pt-32 pb-32 px-6 text-center min-h-screen flex items-center relative z-10">
         <div className="max-w-4xl mx-auto w-full">
           <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
             ClinicStreams
@@ -127,14 +159,14 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section ref={featuresRef} className="py-20 px-6 min-h-screen">
+      <section ref={featuresRef} className="py-20 px-6 min-h-screen relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-light text-white mb-6">
-              Features
+              Explore Our Features
             </h2>
             <p className="text-xl text-white/70 max-w-2xl mx-auto">
-              Discover how ClinicStreams is transforming healthcare delivery
+              Follow the medical drone journey to discover how ClinicStreams is transforming healthcare delivery
             </p>
           </div>
 
@@ -145,9 +177,18 @@ export default function Index() {
                 id={`feature-${feature.id}`}
                 className="group relative opacity-0"
               >
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20 overflow-hidden">
+                  {/* 3D Discovery Indicator */}
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-green-400 rounded transform rotate-45"></div>
+                    </div>
+                    <div className="text-xs text-white/60 mt-1 text-center">3D View</div>
+                  </div>
+
                   {/* Feature Icon */}
-                  <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300 relative overflow-hidden`}>
+                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {feature.icon}
                   </div>
 
@@ -155,10 +196,16 @@ export default function Index() {
                   <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  
+
                   <p className="text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-300">
                     {feature.description}
                   </p>
+
+                  {/* Discovery Status */}
+                  <div className="mt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-green-400 font-medium">Discovered by Medical Drone</span>
+                  </div>
 
                   {/* Hover Effect */}
                   <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
@@ -170,7 +217,7 @@ export default function Index() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 px-6 text-center">
+      <section className="py-20 px-6 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-white mb-8">
             Ready to Transform Healthcare?
@@ -191,7 +238,7 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-white/20">
+      <footer className="py-12 px-6 border-t border-white/20 relative z-10">
         <div className="max-w-7xl mx-auto text-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-4">
             ClinicStreams
