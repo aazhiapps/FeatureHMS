@@ -54,31 +54,31 @@ export default function Index() {
     setIsLoading(false);
   };
 
-  // Works data for plane journey
-  const works = [
+  // ClinicStreams features for medical journey
+  const clinicFeatures = [
     {
-      title: "Interactive Portfolio",
-      description: "A dynamic portfolio showcasing creative development",
-      year: "2023",
-      position: [5, 3, -5] as [number, number, number]
+      title: "Real-Time Patient Monitoring",
+      description: "Advanced IoT sensors and AI-powered analytics for continuous health monitoring",
+      category: "monitoring",
+      position: [8, 5, -10] as [number, number, number]
     },
     {
-      title: "Motion Design",
-      description: "Experimental animations and interactions",
-      year: "2023",
-      position: [-3, 6, -15] as [number, number, number]
+      title: "Healthcare Analytics",
+      description: "Machine learning algorithms for predictive health insights and treatment optimization",
+      category: "analytics",
+      position: [-5, 8, -20] as [number, number, number]
     },
     {
-      title: "3D Experience",
-      description: "WebGL and Three.js experimentation",
-      year: "2023",
-      position: [8, -2, -25] as [number, number, number]
+      title: "Telemedicine Platform",
+      description: "Secure video consultations and remote diagnosis capabilities",
+      category: "telemedicine",
+      position: [12, -3, -30] as [number, number, number]
     },
     {
-      title: "Digital Art",
-      description: "Creative coding and generative art",
-      year: "2023",
-      position: [-6, 4, -35] as [number, number, number]
+      title: "Medical Device Integration",
+      description: "Seamless integration with EHR systems and hospital infrastructure",
+      category: "integration",
+      position: [-8, 6, -40] as [number, number, number]
     }
   ];
 
@@ -90,55 +90,58 @@ export default function Index() {
     <SmoothScrollController>
       <ScrollDrivenEffects>
         <ScrollJourney>
-          <PlaneJourney works={works} />
-          <PlaneProgressIndicator works={works} />
-          <AtmosContent />
+          <ClinicStreamsJourney features={clinicFeatures} />
+          <ClinicStreamsProgress features={clinicFeatures} />
+          <ClinicStreamsContent />
           <AtmosEnhancedEffects />
           <div className="min-h-screen overflow-x-hidden relative z-10">
             <CursorFollower />
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 p-6 flex justify-between items-center">
-        <MagneticButton className="text-lg font-medium">
-          Robin Payot
+        <MagneticButton className="text-lg font-semibold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+          ClinicStreams
         </MagneticButton>
         <div className="flex space-x-8">
-          <MagneticButton href="#work" className="hover:opacity-70 transition-opacity">
-            Work
+          <MagneticButton href="#features" className="hover:opacity-70 transition-opacity text-white">
+            Features
           </MagneticButton>
-          <MagneticButton href="#about" className="hover:opacity-70 transition-opacity">
-            About
+          <MagneticButton href="#solutions" className="hover:opacity-70 transition-opacity text-white">
+            Solutions
           </MagneticButton>
-          <MagneticButton href="#contact" className="hover:opacity-70 transition-opacity">
-            Contact
+          <MagneticButton href="#demo" className="hover:opacity-70 transition-opacity text-white bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-full">
+            Get Demo
           </MagneticButton>
         </div>
       </nav>
 
       {/* Hero Section */}
       <div ref={heroRef} className="flex items-center justify-center min-h-screen px-6 relative">
-        <div className="text-center max-w-4xl">
+        <div className="text-center max-w-5xl">
           <ParallaxText speed={0.2}>
             <h1
               ref={nameRef}
-              className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tight mb-6 leading-none select-none"
+              className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tight mb-6 leading-none select-none bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent"
             >
-              Robin Payot
+              ClinicStreams
             </h1>
           </ParallaxText>
           <p
             ref={titleRef}
-            className="text-xl md:text-2xl font-light text-gray-600 tracking-wide"
+            className="text-xl md:text-3xl font-light text-white/90 tracking-wide mb-8"
           >
-            Creative Developer
+            The Future of Healthcare Technology
+          </p>
+          <p className="text-lg md:text-xl font-light text-white/70 max-w-3xl mx-auto">
+            Revolutionizing patient care through AI-powered monitoring, seamless telemedicine, and intelligent healthcare analytics
           </p>
         </div>
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <MagneticButton href="#work" className="flex flex-col items-center text-sm text-gray-500 hover:text-black transition-colors">
-            <div className="w-px h-12 bg-gray-300 mb-2"></div>
-            Scroll
+          <MagneticButton href="#features" className="flex flex-col items-center text-sm text-white/70 hover:text-white transition-colors">
+            <div className="w-px h-12 bg-white/30 mb-2"></div>
+            Explore Healthcare Journey
           </MagneticButton>
         </div>
       </div>
