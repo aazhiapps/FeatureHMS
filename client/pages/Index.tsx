@@ -104,17 +104,25 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 text-center">
-        <div className="max-w-4xl mx-auto">
+      <section className="pt-32 pb-32 px-6 text-center min-h-screen flex items-center">
+        <div className="max-w-4xl mx-auto w-full">
           <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
             ClinicStreams
           </h1>
           <p className="text-xl md:text-2xl text-white/80 mb-8">
             The Future of Healthcare Technology
           </p>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto mb-12">
             Revolutionizing patient care through AI-powered monitoring, seamless telemedicine, and intelligent healthcare analytics
           </p>
+
+          {/* Scroll Indicator */}
+          <div className="animate-bounce">
+            <div className="w-6 h-10 border-2 border-white/50 rounded-full mx-auto relative">
+              <div className="w-1 h-3 bg-white/70 rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-pulse"></div>
+            </div>
+            <p className="text-white/50 text-sm mt-2">Scroll to explore</p>
+          </div>
         </div>
       </section>
 
