@@ -20,6 +20,9 @@ declare global {
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+  const [cardInteractionMode, setCardInteractionMode] = useState<'scroll' | 'manual'>('scroll');
   const featuresRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingComplete = () => {
@@ -264,6 +267,8 @@ export default function Index() {
             opacity: 0,
             scale: 0.9,
             z: -100 * index,
+            rotationY: 0,
+            rotationX: 0,
           });
 
           // Scroll-triggered card movement
@@ -273,6 +278,8 @@ export default function Index() {
             end: "bottom bottom",
             scrub: 3,
             onUpdate: (self) => {
+              if (cardInteractionMode === 'manual') return;
+              
               const progress = self.progress;
               const featureProgress = index / (features.length - 1);
               const threshold = 0.15;
@@ -289,6 +296,8 @@ export default function Index() {
                   opacity: opacity,
                   scale: scale,
                   z: 0,
+                  rotationY: 0,
+                  rotationX: 0,
                   duration: 0.8,
                   ease: "power2.out",
                 });
@@ -298,6 +307,8 @@ export default function Index() {
                   opacity: 0.3,
                   scale: 0.85,
                   z: -50,
+                  rotationY: progress > featureProgress ? -15 : 15,
+                  rotationX: 5,
                   duration: 0.8,
                   ease: "power2.out",
                 });
@@ -307,28 +318,115 @@ export default function Index() {
 
           // Enhanced hover interaction
           const handleMouseEnter = () => {
+            setHoveredFeature(index);
+            setCardInteractionMode('manual');
+            
             gsap.to(element, {
-              scale: 1.02,
+              scale: 1.05,
               z: 20,
+              rotationY: 0,
+              rotationX: -5,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            });
+            
+            // Add glow effect
+            gsap.to(element.querySelector('.card-glow'), {
+              opacity: 0.6,
+              scale: 1.1,
               duration: 0.5,
               ease: "power2.out",
             });
           };
 
           const handleMouseLeave = () => {
+            setHoveredFeature(null);
+            
+            // Return to scroll mode after delay
+            setTimeout(() => {
+              if (!selectedFeature) {
+                setCardInteractionMode('scroll');
+              }
+            }, 1000);
+            
             gsap.to(element, {
               scale: 1,
               z: 0,
+              rotationY: 0,
+              rotationX: 0,
+              duration: 0.5,
+              ease: "power2.out",
+            });
+            
+            // Remove glow effect
+            gsap.to(element.querySelector('.card-glow'), {
+              opacity: 0,
+              scale: 1,
               duration: 0.5,
               ease: "power2.out",
             });
           };
+          
+          // Click interaction
+          const handleClick = () => {
+            setSelectedFeature(selectedFeature === index ? null : index);
+            setCardInteractionMode('manual');
+            
+            if (selectedFeature !== index) {
+              // Expand selected card
+              gsap.to(element, {
+                scale: 1.1,
+                z: 50,
+                rotationY: 0,
+                rotationX: -10,
+                opacity: 1,
+                duration: 0.8,
+                ease: "back.out(1.2)",
+              });
+              
+              // Hide other cards
+              features.forEach((_, otherIndex) => {
+                if (otherIndex !== index) {
+                  const otherElement = document.getElementById(`feature-${features[otherIndex].id}`);
+                  if (otherElement) {
+                    gsap.to(otherElement, {
+                      opacity: 0.2,
+                      scale: 0.8,
+                      z: -100,
+                      rotationY: otherIndex < index ? -30 : 30,
+                      duration: 0.8,
+                      ease: "power2.out",
+                    });
+                  }
+                }
+              });
+            } else {
+              // Return all cards to normal
+              features.forEach((_, cardIndex) => {
+                const cardElement = document.getElementById(`feature-${features[cardIndex].id}`);
+                if (cardElement) {
+                  gsap.to(cardElement, {
+                    opacity: 1,
+                    scale: 1,
+                    z: 0,
+                    rotationY: 0,
+                    rotationX: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                  });
+                }
+              });
+              setCardInteractionMode('scroll');
+            }
+          };
 
           element.addEventListener("mouseenter", handleMouseEnter);
           element.addEventListener("mouseleave", handleMouseLeave);
+          element.addEventListener("click", handleClick);
 
           // Store cleanup functions
-          element._cleanupHandlers = { handleMouseEnter, handleMouseLeave };
+          element._cleanupHandlers = { handleMouseEnter, handleMouseLeave, handleClick };
         }
       });
 
@@ -374,6 +472,10 @@ export default function Index() {
           element.removeEventListener(
             "mouseleave",
             element._cleanupHandlers.handleMouseLeave,
+          );
+          element.removeEventListener(
+            "click",
+            element._cleanupHandlers.handleClick,
           );
           delete element._cleanupHandlers;
         }
@@ -461,51 +563,106 @@ export default function Index() {
                     <div
                       key={feature.id}
                       id={`feature-${feature.id}`}
-                      className="absolute inset-0 flex items-center justify-center opacity-0 transform scale-90"
+                      className="absolute inset-0 flex items-center justify-center opacity-0 transform scale-90 cursor-pointer"
                       style={{ zIndex: features.length - index }}
                     >
-                      <div className="bg-white/15 backdrop-blur-2xl rounded-3xl p-8 md:p-12 border border-white/30 shadow-2xl max-w-4xl w-full mx-4 hover:bg-white/20 transition-all duration-700 hover:scale-105 group">
+                      <div className="relative bg-white/15 backdrop-blur-2xl rounded-3xl p-8 md:p-12 border border-white/30 shadow-2xl max-w-4xl w-full mx-4 transition-all duration-700 group overflow-hidden">
+                        {/* Glow Effect */}
+                        <div className="card-glow absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-green-500/20 rounded-3xl opacity-0 blur-xl"></div>
+                        
+                        {/* Interactive Particles */}
+                        <div className="absolute inset-0 pointer-events-none">
+                          {Array.from({ length: 8 }).map((_, i) => (
+                            <div
+                              key={i}
+                              className={`absolute w-1 h-1 bg-white/40 rounded-full transition-all duration-1000 ${
+                                hoveredFeature === index ? 'animate-ping' : ''
+                              }`}
+                              style={{
+                                left: `${20 + (i * 10)}%`,
+                                top: `${15 + (i * 8)}%`,
+                                animationDelay: `${i * 0.2}s`,
+                              }}
+                            />
+                          ))}
+                        </div>
+                        
                         {/* Feature Header */}
-                        <div className="flex items-center mb-6 md:mb-8">
+                        <div className="relative flex items-center mb-6 md:mb-8 z-10">
                           <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl md:text-3xl shadow-xl mr-6 group-hover:scale-110 transition-transform duration-500`}>
-                            <span>{feature.icon}</span>
+                            <span className={`transition-all duration-500 ${hoveredFeature === index ? 'animate-bounce' : ''}`}>
+                              {feature.icon}
+                            </span>
                           </div>
                           <div>
-                            <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500">
+                            <h3 className={`text-2xl md:text-4xl font-bold text-white mb-2 transition-all duration-500 ${
+                              hoveredFeature === index ? 'text-blue-200 scale-105' : ''
+                            }`}>
                               {feature.title}
                             </h3>
-                            <div className="text-sm md:text-base text-blue-300 uppercase tracking-wide font-medium">
+                            <div className={`text-sm md:text-base text-blue-300 uppercase tracking-wide font-medium transition-all duration-500 ${
+                              hoveredFeature === index ? 'text-green-300 tracking-wider' : ''
+                            }`}>
                               {feature.category}
                             </div>
+                          </div>
+                          
+                          {/* Interactive Status Indicator */}
+                          <div className="ml-auto">
+                            <div className={`w-3 h-3 rounded-full transition-all duration-500 ${
+                              selectedFeature === index 
+                                ? 'bg-green-400 animate-pulse' 
+                                : hoveredFeature === index 
+                                  ? 'bg-blue-400 animate-ping' 
+                                  : 'bg-white/30'
+                            }`}></div>
                           </div>
                         </div>
 
                         {/* Feature Description */}
-                        <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8 group-hover:text-white transition-colors duration-500">
+                        <p className={`relative z-10 text-lg md:text-xl text-white/90 leading-relaxed mb-8 transition-all duration-500 ${
+                          hoveredFeature === index ? 'text-white scale-102' : ''
+                        }`}>
                           {feature.description}
                         </p>
 
                         {/* Feature Benefits */}
-                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                        <div className="relative z-10 grid md:grid-cols-2 gap-6 mb-8">
                           <div>
-                            <h4 className="text-lg font-semibold text-white mb-4">Key Benefits</h4>
+                            <h4 className={`text-lg font-semibold text-white mb-4 transition-all duration-500 ${
+                              hoveredFeature === index ? 'text-blue-200' : ''
+                            }`}>Key Benefits</h4>
                             <div className="space-y-3">
                               {feature.benefits.map((benefit, idx) => (
-                                <div key={idx} className="flex items-start">
-                                  <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                  <span className="text-white/80 text-sm md:text-base">{benefit}</span>
+                                <div key={idx} className={`flex items-start transition-all duration-500 ${
+                                  hoveredFeature === index ? 'transform translate-x-2' : ''
+                                }`} style={{ transitionDelay: `${idx * 100}ms` }}>
+                                  <div className={`w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0 transition-all duration-500 ${
+                                    hoveredFeature === index ? 'bg-blue-400 animate-pulse' : ''
+                                  }`}></div>
+                                  <span className={`text-white/80 text-sm md:text-base transition-all duration-500 ${
+                                    hoveredFeature === index ? 'text-white' : ''
+                                  }`}>{benefit}</span>
                                 </div>
                               ))}
                             </div>
                           </div>
                           
                           <div>
-                            <h4 className="text-lg font-semibold text-white mb-4">Performance Stats</h4>
+                            <h4 className={`text-lg font-semibold text-white mb-4 transition-all duration-500 ${
+                              hoveredFeature === index ? 'text-green-200' : ''
+                            }`}>Performance Stats</h4>
                             <div className="space-y-4">
                               {feature.stats.map((stat, idx) => (
-                                <div key={idx} className="bg-white/10 rounded-xl p-4 border border-white/20">
-                                  <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                                  <div className="text-sm text-white/70">{stat.label}</div>
+                                <div key={idx} className={`bg-white/10 rounded-xl p-4 border border-white/20 transition-all duration-500 ${
+                                  hoveredFeature === index ? 'bg-white/20 border-white/40 scale-105' : ''
+                                }`} style={{ transitionDelay: `${idx * 150}ms` }}>
+                                  <div className={`text-2xl font-bold text-white mb-1 transition-all duration-500 ${
+                                    hoveredFeature === index ? 'text-green-300 scale-110' : ''
+                                  }`}>{stat.value}</div>
+                                  <div className={`text-sm text-white/70 transition-all duration-500 ${
+                                    hoveredFeature === index ? 'text-white/90' : ''
+                                  }`}>{stat.label}</div>
                                 </div>
                               ))}
                             </div>
@@ -513,20 +670,40 @@ export default function Index() {
                         </div>
 
                         {/* Progress Indicator */}
-                        <div className="flex justify-between items-center">
-                          <div className="text-sm text-white/60">
+                        <div className="relative z-10 flex justify-between items-center">
+                          <div className={`text-sm text-white/60 transition-all duration-500 ${
+                            hoveredFeature === index ? 'text-white/80' : ''
+                          }`}>
                             Feature {index + 1} of {features.length}
                           </div>
                           <div className="flex space-x-2">
                             {features.map((_, idx) => (
                               <div
                                 key={idx}
-                                className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                                  idx === index ? 'bg-blue-400 scale-125' : 'bg-white/30'
+                                className={`w-2 h-2 rounded-full transition-all duration-500 cursor-pointer ${
+                                  idx === index 
+                                    ? 'bg-blue-400 scale-125' 
+                                    : selectedFeature === idx
+                                      ? 'bg-green-400 scale-110'
+                                      : hoveredFeature === index
+                                        ? 'bg-white/60'
+                                        : 'bg-white/30'
                                 }`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedFeature(idx);
+                                  setCardInteractionMode('manual');
+                                }}
                               ></div>
                             ))}
                           </div>
+                        </div>
+                        
+                        {/* Click Indicator */}
+                        <div className={`absolute bottom-4 right-4 text-xs text-white/40 transition-all duration-500 ${
+                          hoveredFeature === index ? 'text-white/70 scale-110' : ''
+                        }`}>
+                          {selectedFeature === index ? 'Click to close' : 'Click to expand'}
                         </div>
                       </div>
                     </div>
@@ -534,19 +711,29 @@ export default function Index() {
                 </div>
 
                 {/* Central 3D Drone */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50">
+                <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 transition-all duration-1000 ${
+                  selectedFeature !== null ? 'scale-75 opacity-50' : 'scale-100 opacity-100'
+                }`}>
                   <div className="relative w-32 h-32 md:w-40 md:h-40">
                     {/* Drone Container */}
-                    <div className="absolute inset-0 rounded-full border-2 border-blue-400/50 bg-gradient-to-br from-blue-500/20 to-green-500/20 backdrop-blur-sm animate-pulse flex items-center justify-center">
-                      <div className="text-4xl md:text-5xl animate-bounce">🚁</div>
+                    <div className={`absolute inset-0 rounded-full border-2 border-blue-400/50 bg-gradient-to-br from-blue-500/20 to-green-500/20 backdrop-blur-sm animate-pulse flex items-center justify-center transition-all duration-500 ${
+                      hoveredFeature !== null ? 'border-green-400/70 bg-gradient-to-br from-green-500/30 to-blue-500/30' : ''
+                    }`}>
+                      <div className={`text-4xl md:text-5xl animate-bounce transition-all duration-500 ${
+                        hoveredFeature !== null ? 'scale-110' : ''
+                      }`}>🚁</div>
                     </div>
                     
                     {/* Rotating Elements */}
-                    <div className="absolute inset-0 animate-spin" style={{ animationDuration: '10s' }}>
+                    <div className={`absolute inset-0 animate-spin transition-all duration-1000 ${
+                      hoveredFeature !== null ? 'animate-pulse' : ''
+                    }`} style={{ animationDuration: hoveredFeature !== null ? '5s' : '10s' }}>
                       {[0, 1, 2, 3].map((i) => (
                         <div
                           key={i}
-                          className="absolute w-2 h-2 bg-blue-400 rounded-full"
+                          className={`absolute w-2 h-2 bg-blue-400 rounded-full transition-all duration-500 ${
+                            hoveredFeature !== null ? 'bg-green-400 w-3 h-3 animate-ping' : ''
+                          }`}
                           style={{
                             top: '50%',
                             left: '50%',
@@ -555,8 +742,38 @@ export default function Index() {
                         />
                       ))}
                     </div>
+                    
+                    {/* Connection Lines to Hovered Card */}
+                    {hoveredFeature !== null && (
+                      <div className="absolute inset-0">
+                        {[0, 1, 2, 3, 4, 5].map((i) => (
+                          <div
+                            key={i}
+                            className="absolute w-px h-20 bg-gradient-to-t from-blue-400/60 to-transparent animate-pulse"
+                            style={{
+                              top: '50%',
+                              left: '50%',
+                              transform: `rotate(${i * 60}deg) translateY(-60px)`,
+                              animationDelay: `${i * 100}ms`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
+              </div>
+            </div>
+            
+            {/* Interaction Instructions */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center z-40">
+              <div className="bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
+                <p className="text-white/70 text-sm">
+                  {cardInteractionMode === 'manual' 
+                    ? 'Click cards to explore • Scroll to continue journey' 
+                    : 'Hover cards for details • Click to focus • Scroll to navigate'
+                  }
+                </p>
               </div>
             </div>
 
@@ -565,7 +782,9 @@ export default function Index() {
               {Array.from({ length: 20 }).map((_, i) => (
                 <div
                   key={i}
-                  className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse"
+                  className={`absolute w-2 h-2 bg-white/20 rounded-full animate-pulse transition-all duration-1000 ${
+                    hoveredFeature !== null ? 'bg-blue-300/40 animate-ping' : ''
+                  }`}
                   style={{
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 100}%`,

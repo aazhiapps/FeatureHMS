@@ -175,6 +175,37 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
+  /* Interactive card animations */
+  .scale-102 {
+    transform: scale(1.02);
+  }
+  
+  .scale-105 {
+    transform: scale(1.05);
+  }
+  
+  .scale-110 {
+    transform: scale(1.1);
+  }
+  
+  /* Custom animations for interactive elements */
+  @keyframes cardPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+  
+  @keyframes cardGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+  }
+  
+  .card-interactive {
+    animation: cardPulse 2s ease-in-out infinite;
+  }
+  
+  .card-glow-active {
+    animation: cardGlow 1.5s ease-in-out infinite;
+  }
   /* Enhanced backdrop blur support */
   .backdrop-blur-xl {
     backdrop-filter: blur(24px);
