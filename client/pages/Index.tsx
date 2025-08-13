@@ -385,7 +385,11 @@ export default function Index() {
                       </span>
                       <div className="flex space-x-1 ml-2">
                         {Array.from({ length: 3 }).map((_, i) => (
-                          <div key={i} className={`w-1 h-1 rounded-full bg-blue-400 animate-pulse`} style={{ animationDelay: `${i * 0.2}s` }}></div>
+                          <div
+                            key={i}
+                            className={`w-1 h-1 rounded-full bg-blue-400 animate-pulse`}
+                            style={{ animationDelay: `${i * 0.2}s` }}
+                          ></div>
                         ))}
                       </div>
                     </div>

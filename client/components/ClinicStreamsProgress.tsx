@@ -88,11 +88,14 @@ export const ClinicStreamsProgress = ({
             );
 
             // Add workflow connection highlight
-            const connectionElement = featureElement.querySelector('.workflow-connection');
+            const connectionElement = featureElement.querySelector(
+              ".workflow-connection",
+            );
             if (connectionElement) {
-              gsap.fromTo(connectionElement,
+              gsap.fromTo(
+                connectionElement,
                 { opacity: 0, scale: 0.8 },
-                { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+                { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" },
               );
             }
           }
@@ -199,7 +202,7 @@ export const ClinicStreamsProgress = ({
                     x1="35"
                     y1={y + 8}
                     x2="35"
-                    y2={y + (270 / (features.length - 1)) - 8}
+                    y2={y + 270 / (features.length - 1) - 8}
                     stroke={isDiscovered ? "#00ff88" : "#e5e7eb"}
                     strokeWidth="2"
                     className="transition-all duration-500"
@@ -212,7 +215,9 @@ export const ClinicStreamsProgress = ({
                   cy={y}
                   r="8"
                   fill={isDiscovered ? "#00ff88" : "#f3f4f6"}
-                  stroke={isActive ? "#0066ff" : isDiscovered ? "#00cc66" : "#d1d5db"}
+                  stroke={
+                    isActive ? "#0066ff" : isDiscovered ? "#00cc66" : "#d1d5db"
+                  }
                   strokeWidth={isActive ? "3" : "2"}
                   className={`transition-all duration-500 ${isDiscovered ? "drop-shadow-lg" : ""}`}
                 />

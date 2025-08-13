@@ -31,7 +31,7 @@ const App = () => (
 
 // Prevent double root creation in development
 const rootElement = document.getElementById("root")!;
-if (!rootElement.hasAttribute('data-root-created')) {
-  rootElement.setAttribute('data-root-created', 'true');
+if (!rootElement.hasAttribute("data-root-created")) {
+  rootElement.setAttribute("data-root-created", "true");
   createRoot(rootElement).render(<App />);
 }

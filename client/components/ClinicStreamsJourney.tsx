@@ -409,7 +409,7 @@ function MedicalScene({ features }: { features: any[] }) {
 
     // Generate points that follow the feature positions in a connected workflow
     features.forEach((feature, index) => {
-      const baseY = 15 - (index * 5); // Descending pattern
+      const baseY = 15 - index * 5; // Descending pattern
       const alternatingX = index % 2 === 0 ? -8 : 8; // Alternating left/right
       const progressiveZ = -index * 12; // Moving deeper
 
@@ -427,7 +427,7 @@ function MedicalScene({ features }: { features: any[] }) {
         const midPoint = new THREE.Vector3(
           (point.x + nextPoint.x) * 0.5,
           (point.y + nextPoint.y) * 0.5 + 2, // Slight arc upward
-          (point.z + nextPoint.z) * 0.5
+          (point.z + nextPoint.z) * 0.5,
         );
         smoothedPoints.push(midPoint);
       }
@@ -486,7 +486,7 @@ function MedicalScene({ features }: { features: any[] }) {
                 opacity: 0.8,
                 scale: 0.98,
                 rotationY: -5,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.1)"
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               },
               {
                 opacity: 1,
@@ -501,9 +501,10 @@ function MedicalScene({ features }: { features: any[] }) {
             );
 
             // Enhanced pulse effect for drone highlighting
-            const pulseElement = featureElement.querySelector('.feature-pulse');
+            const pulseElement = featureElement.querySelector(".feature-pulse");
             if (pulseElement) {
-              gsap.fromTo(pulseElement,
+              gsap.fromTo(
+                pulseElement,
                 { scale: 1, opacity: 0, borderColor: "transparent" },
                 {
                   scale: 1.3,
@@ -512,8 +513,8 @@ function MedicalScene({ features }: { features: any[] }) {
                   duration: 0.8,
                   ease: "power2.out",
                   repeat: 2,
-                  yoyo: true
-                }
+                  yoyo: true,
+                },
               );
             }
           }
@@ -525,9 +526,12 @@ function MedicalScene({ features }: { features: any[] }) {
 
             // Make drone look at the current feature
             gsap.to(droneRef.current.rotation, {
-              y: Math.atan2(targetPosition.x - position.x, targetPosition.z - position.z),
+              y: Math.atan2(
+                targetPosition.x - position.x,
+                targetPosition.z - position.z,
+              ),
               duration: 0.5,
-              ease: "power2.out"
+              ease: "power2.out",
             });
           }
         }
