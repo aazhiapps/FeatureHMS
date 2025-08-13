@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Sphere, Stars, Cloud, Text } from '@react-three/drei';
 import * as THREE from 'three';
@@ -17,51 +17,56 @@ interface PlaneJourneyProps {
 }
 
 // 3D Plane Model
-function Plane({ position = [0, 0, 0] }: { position?: [number, number, number] }) {
-  const meshRef = useRef<THREE.Group>(null);
-  const propellerRef = useRef<THREE.Mesh>(null);
+const Plane = React.forwardRef<THREE.Group, { position?: [number, number, number] }>(
+  ({ position = [0, 0, 0] }, ref) => {
+    const meshRef = useRef<THREE.Group>(null);
+    const propellerRef = useRef<THREE.Mesh>(null);
 
-  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      // Subtle bobbing animation
-      meshRef.current.position.y = position[1] + Math.sin(clock.elapsedTime * 2) * 0.1;
-      meshRef.current.rotation.z = Math.sin(clock.elapsedTime) * 0.05;
-    }
+    // Merge the external ref with our internal ref
+    const groupRef = ref || meshRef;
 
-    if (propellerRef.current) {
-      // Spinning propeller
-      propellerRef.current.rotation.z = clock.elapsedTime * 10;
-    }
-  });
+    useFrame(({ clock }) => {
+      if (meshRef.current) {
+        // Subtle bobbing animation
+        meshRef.current.position.y = position[1] + Math.sin(clock.elapsedTime * 2) * 0.1;
+        meshRef.current.rotation.z = Math.sin(clock.elapsedTime) * 0.05;
+      }
 
-  return (
-    <group ref={meshRef} position={position}>
-      {/* Plane Body */}
-      <mesh>
-        <boxGeometry args={[2, 0.3, 0.5]} />
-        <meshStandardMaterial color="#ffffff" />
-      </mesh>
+      if (propellerRef.current) {
+        // Spinning propeller
+        propellerRef.current.rotation.z = clock.elapsedTime * 10;
+      }
+    });
 
-      {/* Wings */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[0.1, 0.05, 3]} />
-        <meshStandardMaterial color="#e5e5e5" />
-      </mesh>
+    return (
+      <group ref={groupRef} position={position}>
+        {/* Plane Body */}
+        <mesh>
+          <boxGeometry args={[2, 0.3, 0.5]} />
+          <meshStandardMaterial color="#ffffff" />
+        </mesh>
 
-      {/* Tail */}
-      <mesh position={[-0.8, 0.3, 0]}>
-        <boxGeometry args={[0.3, 0.8, 0.1]} />
-        <meshStandardMaterial color="#e5e5e5" />
-      </mesh>
+        {/* Wings */}
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[0.1, 0.05, 3]} />
+          <meshStandardMaterial color="#e5e5e5" />
+        </mesh>
 
-      {/* Propeller */}
-      <mesh ref={propellerRef} position={[1, 0, 0]}>
-        <boxGeometry args={[0.1, 0.02, 1]} />
-        <meshStandardMaterial color="#666666" />
-      </mesh>
-    </group>
-  );
-}
+        {/* Tail */}
+        <mesh position={[-0.8, 0.3, 0]}>
+          <boxGeometry args={[0.3, 0.8, 0.1]} />
+          <meshStandardMaterial color="#e5e5e5" />
+        </mesh>
+
+        {/* Propeller */}
+        <mesh ref={propellerRef} position={[1, 0, 0]}>
+          <boxGeometry args={[0.1, 0.02, 1]} />
+          <meshStandardMaterial color="#666666" />
+        </mesh>
+      </group>
+    );
+  }
+);
 
 // Floating Work Items in 3D Space
 function FloatingWork({ work, index }: { work: any; index: number }) {
