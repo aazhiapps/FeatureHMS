@@ -109,10 +109,11 @@ export const ClinicStreamsContent = () => {
           trigger: "body",
           start: "top top",
           end: "bottom bottom",
+          scrub: 2,
           onUpdate: (self) => {
             const progress = self.progress;
             const sectionProgress = section.position;
-            const threshold = 0.06; // Reduced threshold to prevent overlapping
+            const threshold = 0.12; // Increased threshold for slower transitions
 
             // Only show one section at a time - the closest one
             const distances = clinicStreamsSections.map((s) =>
@@ -127,7 +128,7 @@ export const ClinicStreamsContent = () => {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                duration: 0.8,
+                duration: 1.5,
                 ease: "power2.out",
               });
             } else {
@@ -135,7 +136,7 @@ export const ClinicStreamsContent = () => {
                 opacity: 0,
                 y: progress > sectionProgress ? -30 : 30,
                 scale: 0.95,
-                duration: 0.6,
+                duration: 1.2,
                 ease: "power2.inOut",
               });
             }

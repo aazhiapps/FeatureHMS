@@ -37,7 +37,7 @@ export const ClinicStreamsProgress = ({
       trigger: "body",
       start: "top top",
       end: "bottom bottom",
-      scrub: 1,
+      scrub: 3,
       onUpdate: (self) => {
         const progress = self.progress;
 
@@ -78,7 +78,7 @@ export const ClinicStreamsProgress = ({
               {
                 scale: 1.05,
                 opacity: 1,
-                duration: 0.6,
+                duration: 1.2,
                 ease: "back.out(1.2)",
                 repeat: 1,
                 yoyo: true,
@@ -93,7 +93,7 @@ export const ClinicStreamsProgress = ({
               gsap.fromTo(
                 connectionElement,
                 { opacity: 0, scale: 0.8 },
-                { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" },
+                { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" },
               );
             }
           }

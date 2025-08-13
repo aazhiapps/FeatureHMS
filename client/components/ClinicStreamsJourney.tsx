@@ -437,7 +437,7 @@ function MedicalScene({ features }: { features: any[] }) {
       trigger: "body",
       start: "top top",
       end: "bottom bottom",
-      scrub: 1,
+      scrub: 2.5,
       onUpdate: (self) => {
         const progress = self.progress;
 
@@ -457,7 +457,7 @@ function MedicalScene({ features }: { features: any[] }) {
           x: cameraPosition.x,
           y: cameraPosition.y,
           z: cameraPosition.z,
-          duration: 0.1,
+          duration: 0.3,
         });
 
         camera.lookAt(position);
@@ -491,7 +491,7 @@ function MedicalScene({ features }: { features: any[] }) {
                 scale: 1.02,
                 rotationY: 0,
                 boxShadow: "0 8px 40px rgba(59, 130, 246, 0.3)",
-                duration: 1,
+                duration: 1.8,
                 ease: "power2.out",
                 yoyo: true,
                 repeat: 1,
@@ -508,7 +508,7 @@ function MedicalScene({ features }: { features: any[] }) {
                   scale: 1.3,
                   opacity: 0.8,
                   borderColor: "rgb(59, 130, 246)",
-                  duration: 0.8,
+                  duration: 1.4,
                   ease: "power2.out",
                   repeat: 2,
                   yoyo: true,
@@ -528,7 +528,7 @@ function MedicalScene({ features }: { features: any[] }) {
                 targetPosition.x - position.x,
                 targetPosition.z - position.z,
               ),
-              duration: 0.5,
+              duration: 1.0,
               ease: "power2.out",
             });
           }

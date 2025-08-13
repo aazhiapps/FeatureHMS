@@ -184,7 +184,7 @@ export default function Index() {
             y: 0,
             scale: 1,
             rotationY: 0,
-            duration: 1.2,
+            duration: 1.8,
             delay: feature.delay,
             ease: "back.out(1.7)",
             scrollTrigger: {
@@ -192,11 +192,12 @@ export default function Index() {
               start: "top 85%",
               end: "bottom 15%",
               toggleActions: "play none none reverse",
+              scrub: 1,
               onEnter: () => {
                 // Add pulsing effect when discovered
                 gsap.to(element, {
                   scale: 1.05,
-                  duration: 0.3,
+                  duration: 0.6,
                   yoyo: true,
                   repeat: 1,
                   ease: "power2.inOut",
@@ -211,7 +212,7 @@ export default function Index() {
               rotationY: -5,
               rotationX: 5,
               z: 50,
-              duration: 0.5,
+              duration: 0.8,
               ease: "power2.out",
             });
           };
@@ -221,7 +222,7 @@ export default function Index() {
               rotationY: 0,
               rotationX: 0,
               z: 0,
-              duration: 0.5,
+              duration: 0.8,
               ease: "power2.out",
             });
           };
