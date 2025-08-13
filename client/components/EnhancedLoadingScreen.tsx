@@ -86,24 +86,39 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 z-50 flex items-center justify-center overflow-hidden"
+      className="fixed inset-0 bg-white z-50 flex items-center justify-center overflow-hidden"
     >
       {/* Circles Animation */}
       {loadingPhase === 'circles' && (
-        <div className="flex items-center justify-center space-x-2">
-          {[0, 1, 2].map((index) => (
-            <div
-              key={index}
-              ref={(el) => (circlesRef.current[index] = el)}
-              className="relative"
-            >
-              <div className="w-20 h-20 border-2 border-indigo-600 rounded-full relative">
-                <div className="absolute inset-2 border border-indigo-400 rounded-full">
-                  <div className="absolute inset-2 border border-indigo-300 rounded-full opacity-50"></div>
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-12 text-gray-700">
+            ROBIN PAYOT
+          </h1>
+
+          <div className="flex items-center justify-center space-x-4 mb-12">
+            {[0, 1, 2].map((index) => (
+              <div
+                key={index}
+                ref={(el) => (circlesRef.current[index] = el)}
+                className="relative"
+              >
+                <div className="w-24 h-24 border-2 border-gray-400 rounded-full relative flex items-center justify-center">
+                  <div className="absolute inset-3 border border-gray-300 rounded-full">
+                    <div className="absolute inset-3 border border-gray-200 rounded-full opacity-70"></div>
+                  </div>
+                  {index === 1 && (
+                    <span className="relative z-10 text-gray-400 font-light text-lg tracking-wide">
+                      Enter
+                    </span>
+                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <p className="text-lg font-light text-gray-500 tracking-wide">
+            CREATIVE DEVELOPER
+          </p>
         </div>
       )}
 
