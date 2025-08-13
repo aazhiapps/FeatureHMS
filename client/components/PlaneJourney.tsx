@@ -186,21 +186,23 @@ function PlaneScene({ works }: { works: any[] }) {
       ))}
       
       {/* Environment */}
-      <Sphere args={[50, 32, 32]}>
-        <meshBasicMaterial 
-          color="#87CEEB" 
+      <Sphere args={[100, 32, 32]}>
+        <meshBasicMaterial
+          color="#4c6ef5"
           side={THREE.BackSide}
           transparent
-          opacity={0.3}
+          opacity={0.6}
         />
       </Sphere>
       
       <Stars radius={40} depth={50} count={1000} factor={2} />
       
       {/* Clouds */}
-      <Cloud position={[10, 2, -5]} opacity={0.4} speed={0.1} />
-      <Cloud position={[-8, 8, -15]} opacity={0.3} speed={0.15} />
-      <Cloud position={[15, -3, -25]} opacity={0.5} speed={0.08} />
+      <Cloud position={[15, 5, -10]} opacity={0.6} speed={0.1} width={15} depth={8} />
+      <Cloud position={[-12, 8, -20]} opacity={0.7} speed={0.15} width={12} depth={6} />
+      <Cloud position={[8, -2, -30]} opacity={0.5} speed={0.08} width={18} depth={10} />
+      <Cloud position={[-20, 12, -40]} opacity={0.6} speed={0.12} width={14} depth={7} />
+      <Cloud position={[25, 3, -50]} opacity={0.4} speed={0.09} width={16} depth={9} />
     </>
   );
 }
