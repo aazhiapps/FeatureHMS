@@ -134,35 +134,11 @@ export default function Index() {
           </RevealText>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
-            {[
-              {
-                title: "Interactive Portfolio",
-                year: "2023",
-                image: "/placeholder.svg",
-                description: "A dynamic portfolio showcasing creative development"
-              },
-              {
-                title: "Motion Design",
-                year: "2023",
-                image: "/placeholder.svg",
-                description: "Experimental animations and interactions"
-              },
-              {
-                title: "3D Experience",
-                year: "2023",
-                image: "/placeholder.svg",
-                description: "WebGL and Three.js experimentation"
-              },
-              {
-                title: "Digital Art",
-                year: "2023",
-                image: "/placeholder.svg",
-                description: "Creative coding and generative art"
-              }
-            ].map((project, index) => (
+            {works.map((project, index) => (
               <RevealText key={index} delay={index * 0.2}>
                 <div
-                  className="group cursor-pointer"
+                  id={`work-${index}`}
+                  className="group cursor-pointer transform transition-all duration-700"
                   onMouseEnter={(e) => {
                     const follower = document.querySelector('.fixed.w-16.h-16') as HTMLElement;
                     if (follower) {
@@ -196,12 +172,22 @@ export default function Index() {
                     });
                   }}
                 >
-                  <div className={`project-${index} aspect-video bg-gray-100 mb-4 overflow-hidden rounded-lg`}>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-700"
-                    />
+                  <div className={`project-${index} aspect-video bg-gradient-to-br from-blue-100 to-indigo-200 mb-4 overflow-hidden rounded-lg relative`}>
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-2 bg-white/50 rounded-full flex items-center justify-center">
+                          <div className="w-8 h-8 bg-indigo-500 rounded transform rotate-45"></div>
+                        </div>
+                        <p className="text-sm text-indigo-700 font-medium">Discovered by Plane</p>
+                      </div>
+                    </div>
+
+                    {/* Plane discovery indicator */}
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg">
+                        <div className="w-3 h-1 bg-blue-500 rounded-full"></div>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex justify-between items-start">
                     <div>
