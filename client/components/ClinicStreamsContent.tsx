@@ -91,44 +91,48 @@ export const ClinicStreamsContent = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    clinicStreamsSections.forEach((section, index) => {
-      const sectionElement = document.getElementById(`content-${section.id}`);
-      if (!sectionElement) return;
+    // Use a timeout to ensure DOM elements are ready
+    const timeout = setTimeout(() => {
+      clinicStreamsSections.forEach((section, index) => {
+        const sectionElement = document.getElementById(`content-${section.id}`);
+        if (!sectionElement) return;
 
-      gsap.set(sectionElement, { opacity: 0, y: 50 });
+        gsap.set(sectionElement, { opacity: 0, y: 50 });
 
-      ScrollTrigger.create({
-        trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const sectionProgress = section.position;
-          const threshold = 0.12;
+        ScrollTrigger.create({
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const sectionProgress = section.position;
+            const threshold = 0.12;
 
-          if (Math.abs(progress - sectionProgress) < threshold) {
-            gsap.to(sectionElement, {
-              opacity: 1,
-              y: 0,
-              duration: 1.2,
-              ease: "power2.out",
-            });
-          } else {
-            gsap.to(sectionElement, {
-              opacity: 0,
-              y: progress > sectionProgress ? -50 : 50,
-              duration: 0.8,
-              ease: "power2.inOut",
-            });
+            if (Math.abs(progress - sectionProgress) < threshold) {
+              gsap.to(sectionElement, {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power2.out",
+              });
+            } else {
+              gsap.to(sectionElement, {
+                opacity: 0,
+                y: progress > sectionProgress ? -50 : 50,
+                duration: 0.8,
+                ease: "power2.inOut",
+              });
+            }
           }
-        }
+        });
       });
-    });
+    }, 200);
 
     return () => {
+      clearTimeout(timeout);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, []); // Empty dependency is OK here since clinicStreamsSections is static
 
   return (
     <div ref={containerRef} className="fixed inset-0 z-20 pointer-events-none flex items-center justify-center">
