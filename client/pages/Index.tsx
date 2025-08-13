@@ -6,6 +6,7 @@ import { ClinicStreamsJourney } from "../components/ClinicStreamsJourney";
 import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
 import { SmoothScrollController } from "../components/SmoothScrollController";
+import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
 
 // TypeScript interface for DOM elements with cleanup handlers
 declare global {
@@ -94,7 +95,18 @@ export default function Index() {
         "Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care.",
       icon: "👥",
       color: "from-blue-500 to-cyan-500",
+      category: "Core System",
       delay: 0.1,
+      benefits: [
+        "Unified patient profiles with complete medical history",
+        "Real-time updates across all departments",
+        "Advanced search and filtering capabilities",
+        "Automated care plan recommendations"
+      ],
+      stats: [
+        { label: "Patient Records", value: "50K+" },
+        { label: "Data Accuracy", value: "99.9%" }
+      ]
     },
     {
       id: "scheduling",
@@ -103,7 +115,18 @@ export default function Index() {
         "Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows.",
       icon: "📅",
       color: "from-indigo-500 to-purple-500",
+      category: "Operations",
       delay: 0.15,
+      benefits: [
+        "AI-powered optimal scheduling algorithms",
+        "Automated SMS and email reminders",
+        "Real-time availability updates",
+        "Multi-provider calendar synchronization"
+      ],
+      stats: [
+        { label: "No-Show Rate", value: "<5%" },
+        { label: "Efficiency Gain", value: "40%" }
+      ]
     },
     {
       id: "records",
@@ -112,7 +135,18 @@ export default function Index() {
         "Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility.",
       icon: "📋",
       color: "from-green-500 to-emerald-500",
+      category: "Documentation",
       delay: 0.2,
+      benefits: [
+        "HIPAA-compliant secure storage",
+        "Voice-to-text documentation",
+        "Template-based quick entry",
+        "Integrated clinical decision support"
+      ],
+      stats: [
+        { label: "Documentation Time", value: "-60%" },
+        { label: "Compliance Score", value: "100%" }
+      ]
     },
     {
       id: "billing",
@@ -121,7 +155,18 @@ export default function Index() {
         "Streamlined billing workflows with insurance verification and claims management for faster reimbursements.",
       icon: "💳",
       color: "from-yellow-500 to-orange-500",
+      category: "Financial",
       delay: 0.25,
+      benefits: [
+        "Automated insurance verification",
+        "Real-time claims processing",
+        "Denial management and appeals",
+        "Revenue cycle optimization"
+      ],
+      stats: [
+        { label: "Collection Rate", value: "95%" },
+        { label: "Processing Time", value: "-75%" }
+      ]
     },
     {
       id: "analytics",
@@ -130,7 +175,18 @@ export default function Index() {
         "Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions.",
       icon: "📊",
       color: "from-purple-500 to-pink-500",
+      category: "Intelligence",
       delay: 0.3,
+      benefits: [
+        "Real-time performance dashboards",
+        "Predictive analytics and forecasting",
+        "Custom report generation",
+        "Population health insights"
+      ],
+      stats: [
+        { label: "Data Points", value: "1M+" },
+        { label: "Report Speed", value: "<2s" }
+      ]
     },
     {
       id: "resources",
@@ -139,7 +195,18 @@ export default function Index() {
         "Optimize staff schedules, inventory, and facility resources to maximize operational efficiency.",
       icon: "⏰",
       color: "from-teal-500 to-blue-500",
+      category: "Operations",
       delay: 0.35,
+      benefits: [
+        "Intelligent staff scheduling",
+        "Equipment utilization tracking",
+        "Inventory management automation",
+        "Capacity planning optimization"
+      ],
+      stats: [
+        { label: "Efficiency Gain", value: "35%" },
+        { label: "Cost Reduction", value: "25%" }
+      ]
     },
     {
       id: "security",
@@ -148,7 +215,18 @@ export default function Index() {
         "HIPAA-compliant security infrastructure with role-based access control and audit trails.",
       icon: "🛡️",
       color: "from-red-500 to-pink-500",
+      category: "Security",
       delay: 0.4,
+      benefits: [
+        "End-to-end encryption",
+        "Multi-factor authentication",
+        "Comprehensive audit logging",
+        "Regular security assessments"
+      ],
+      stats: [
+        { label: "Security Score", value: "A+" },
+        { label: "Uptime", value: "99.99%" }
+      ]
     },
     {
       id: "engagement",
@@ -157,7 +235,18 @@ export default function Index() {
         "Patient portal for appointments, test results, and secure communication with healthcare providers.",
       icon: "💬",
       color: "from-cyan-500 to-teal-500",
+      category: "Communication",
       delay: 0.45,
+      benefits: [
+        "Secure patient messaging",
+        "Online appointment booking",
+        "Test results portal access",
+        "Educational content delivery"
+      ],
+      stats: [
+        { label: "Patient Satisfaction", value: "98%" },
+        { label: "Portal Usage", value: "85%" }
+      ]
     },
   ];
 
@@ -270,6 +359,9 @@ export default function Index() {
 
         {/* Progress Indicator */}
         <ClinicStreamsProgress features={clinicFeatures} />
+
+        {/* Dynamic Feature Details Display */}
+        <FeatureDetailsDisplay features={features} />
 
         {/* Scroll-Triggered Content */}
         <ClinicStreamsContent />

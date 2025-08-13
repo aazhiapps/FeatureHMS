@@ -447,6 +447,10 @@ function MedicalScene({ features }: { features: any[] }) {
         if (droneRef.current) {
           droneRef.current.position.copy(position);
           droneRef.current.lookAt(position.clone().add(tangent));
+
+          // Add drone rotation based on movement
+          const rotationSpeed = progress * Math.PI * 2;
+          droneRef.current.rotation.y = rotationSpeed;
         }
 
         // Medical camera following
@@ -469,6 +473,11 @@ function MedicalScene({ features }: { features: any[] }) {
           featureIndex < features.length
         ) {
           setCurrentFeatureIndex(featureIndex);
+
+          // Emit custom event for feature change
+          window.dispatchEvent(new CustomEvent('featureChange', {
+            detail: { featureIndex, feature: features[featureIndex] }
+          }));
 
           // Highlight current feature in workflow
           const currentFeature = features[featureIndex];
