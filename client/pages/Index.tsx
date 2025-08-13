@@ -282,15 +282,15 @@ export default function Index() {
             <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
               Get Demo
             </button>
-          </div>
-        </nav>
-
+              {/* All Features on Left Side */}
+              <div className="fixed left-6 top-20 z-20 w-96 space-y-3 max-h-screen overflow-y-auto">
+                {features.map((feature, index) => (
         {/* Hero Section */}
         <section className="pt-32 pb-32 px-6 text-center min-h-screen flex items-center relative z-10">
           <div className="max-w-4xl mx-auto w-full">
             <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
               ClinicStreams
-            </h1>
+                    <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
             <p className="text-xl md:text-2xl text-white/80 mb-8">
               The Future of Healthcare Technology
             </p>
@@ -301,16 +301,16 @@ export default function Index() {
 
             {/* Scroll Indicator */}
             <div className="animate-bounce">
-              <div className="w-6 h-10 border-2 border-white/50 rounded-full mx-auto relative">
+                      <div className={`w-14 h-14 mb-3 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
                 <div className="w-1 h-3 bg-white/70 rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-pulse"></div>
               </div>
               <p className="text-white/50 text-sm mt-2">Scroll to explore</p>
             </div>
           </div>
-        </section>
+                      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500">
 
         {/* Features Section */}
-        <section ref={featuresRef} className="relative min-h-[400vh] z-10">
+                      <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500">
           {/* Section Header */}
           <div className="sticky top-0 z-30 bg-gradient-to-b from-blue-900/90 to-transparent backdrop-blur-sm py-8">
             <div className="text-center">
@@ -324,51 +324,9 @@ export default function Index() {
           </div>
 
           {/* Main Features Layout */}
-          <div className="relative h-full">
-            {/* All Features on Left Side */}
-            <div className="fixed left-6 top-20 z-20 w-80 space-y-4 max-h-screen overflow-y-auto">
-              {features.map((feature, index) => (
-                <div
-                  key={feature.id}
-                  id={`feature-${feature.id}`}
-                  className="group relative opacity-0"
-                >
-                  <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
-                    {/* Animated Border */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    
-                    {/* Connection Pulse */}
-                    <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full animate-ping"></div>
-                      <div className="absolute inset-0 w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full"></div>
-                    </div>
-
-                    {/* Feature Icon */}
-                    <div className={`w-14 h-14 mb-3 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
-                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <span className="relative z-10">{feature.icon}</span>
-                    </div>
-
-                    {/* Feature Content */}
-                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500">
-                      {feature.description}
-                    </p>
-
-                    {/* Status Indicator */}
-                    <div className="mt-3 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-green-400 font-medium">Active in Network</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Expanded Central 3D Drone Space */}
-            <div className="absolute left-96 right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none">
+              {/* Expanded Central 3D Drone Space */}
+              <div className="absolute left-[420px] right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none">
+                <div className="w-[700px] h-[700px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
               <div className="w-[500px] h-[500px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
                 <div className="text-center text-white/70">
                   <div className="text-6xl mb-4">🚁</div>
@@ -449,7 +407,7 @@ export default function Index() {
                 Get Demo Now
               </button>
               <button className="bg-white/10 backdrop-blur-md text-white px-10 py-5 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 text-lg">
-                Start Free Trial
+              {/* Connection Lines from Left Features to Center */}
               </button>
             </div>
 
@@ -459,16 +417,15 @@ export default function Index() {
                 <div className="text-2xl font-bold text-green-400">8</div>
                 <div className="text-sm text-white/70">Features Explored</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-2xl font-bold text-blue-400">100%</div>
-                <div className="text-sm text-white/70">Journey Complete</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-2xl font-bold text-purple-400">2k+</div>
-                <div className="text-sm text-white/70">Happy Providers</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-2xl font-bold text-cyan-400">24/7</div>
+                  {/* Connection lines from left features to center */}
+                  <line x1="25%" y1="15%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                  <line x1="25%" y1="25%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                  <line x1="25%" y1="35%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                  <line x1="25%" y1="45%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                  <line x1="25%" y1="55%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                  <line x1="25%" y1="65%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                  <line x1="25%" y1="75%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                  <line x1="25%" y1="85%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
                 <div className="text-sm text-white/70">Support Available</div>
               </div>
             </div>
