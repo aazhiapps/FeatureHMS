@@ -17,67 +17,123 @@ export default function Index() {
     setIsLoading(false);
   };
 
-  // ClinicStreams 3D features data for medical journey
+  // ClinicStreams 3D features data for medical journey - All 8 features
   const clinicFeatures = [
     {
-      title: "Real-Time Patient Monitoring",
-      description: "Advanced IoT sensors and AI-powered analytics for continuous health monitoring",
-      category: "monitoring",
+      title: "Patient Management",
+      description: "Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care",
+      category: "management",
       position: [8, 5, -10] as [number, number, number]
     },
     {
-      title: "Healthcare Analytics",
-      description: "Machine learning algorithms for predictive health insights and treatment optimization",
-      category: "analytics",
+      title: "Appointment Scheduling",
+      description: "Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows",
+      category: "scheduling",
       position: [-5, 8, -20] as [number, number, number]
     },
     {
-      title: "Telemedicine Platform",
-      description: "Secure video consultations and remote diagnosis capabilities",
-      category: "telemedicine",
+      title: "Electronic Medical Records",
+      description: "Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility",
+      category: "records",
       position: [12, -3, -30] as [number, number, number]
     },
     {
-      title: "Medical Device Integration",
-      description: "Seamless integration with EHR systems and hospital infrastructure",
-      category: "integration",
+      title: "Billing & Insurance",
+      description: "Streamlined billing workflows with insurance verification and claims management for faster reimbursements",
+      category: "billing",
       position: [-8, 6, -40] as [number, number, number]
+    },
+    {
+      title: "Real-time Analytics",
+      description: "Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions",
+      category: "analytics",
+      position: [10, 3, -50] as [number, number, number]
+    },
+    {
+      title: "Resource Management",
+      description: "Optimize staff schedules, inventory, and facility resources to maximize operational efficiency",
+      category: "resources",
+      position: [-6, 9, -60] as [number, number, number]
+    },
+    {
+      title: "Security Compliance",
+      description: "HIPAA-compliant security infrastructure with role-based access control and audit trails",
+      category: "security",
+      position: [14, -1, -70] as [number, number, number]
+    },
+    {
+      title: "Patient Engagement",
+      description: "Patient portal for appointments, test results, and secure communication with healthcare providers",
+      category: "engagement",
+      position: [-10, 7, -80] as [number, number, number]
     }
   ];
 
-  // UI features data for cards
+  // UI features data for cards - All 8 features from the image
   const features = [
     {
-      id: 'monitoring',
-      title: 'Real-Time Patient Monitoring',
-      description: 'Advanced IoT sensors and AI-powered analytics provide continuous health monitoring, alerting healthcare providers instantly to any changes in patient condition.',
-      icon: '📊',
+      id: 'management',
+      title: 'Patient Management',
+      description: 'Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care.',
+      icon: '👥',
       color: 'from-blue-500 to-cyan-500',
       delay: 0.1
     },
     {
-      id: 'telemedicine',
-      title: 'Seamless Telemedicine',
-      description: 'Connect patients with healthcare providers through high-quality video consultations, secure messaging, and remote diagnosis capabilities.',
-      icon: '💻',
+      id: 'scheduling',
+      title: 'Appointment Scheduling',
+      description: 'Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows.',
+      icon: '📅',
+      color: 'from-indigo-500 to-purple-500',
+      delay: 0.15
+    },
+    {
+      id: 'records',
+      title: 'Electronic Medical Records',
+      description: 'Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility.',
+      icon: '📋',
       color: 'from-green-500 to-emerald-500',
       delay: 0.2
     },
     {
+      id: 'billing',
+      title: 'Billing & Insurance',
+      description: 'Streamlined billing workflows with insurance verification and claims management for faster reimbursements.',
+      icon: '💳',
+      color: 'from-yellow-500 to-orange-500',
+      delay: 0.25
+    },
+    {
       id: 'analytics',
-      title: 'Healthcare Analytics',
-      description: 'Powerful data analytics and machine learning algorithms help predict health trends, optimize treatment plans, and improve patient outcomes.',
-      icon: '🧠',
-      color: 'from-purple-500 to-violet-500',
+      title: 'Real-time Analytics',
+      description: 'Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions.',
+      icon: '📊',
+      color: 'from-purple-500 to-pink-500',
       delay: 0.3
     },
     {
-      id: 'integration',
-      title: 'Medical Device Integration',
-      description: 'Seamlessly integrate with existing medical devices, EHR systems, and hospital infrastructure for comprehensive care coordination.',
-      icon: '🔗',
-      color: 'from-orange-500 to-red-500',
+      id: 'resources',
+      title: 'Resource Management',
+      description: 'Optimize staff schedules, inventory, and facility resources to maximize operational efficiency.',
+      icon: '⏰',
+      color: 'from-teal-500 to-blue-500',
+      delay: 0.35
+    },
+    {
+      id: 'security',
+      title: 'Security Compliance',
+      description: 'HIPAA-compliant security infrastructure with role-based access control and audit trails.',
+      icon: '🛡️',
+      color: 'from-red-500 to-pink-500',
       delay: 0.4
+    },
+    {
+      id: 'engagement',
+      title: 'Patient Engagement',
+      description: 'Patient portal for appointments, test results, and secure communication with healthcare providers.',
+      icon: '💬',
+      color: 'from-cyan-500 to-teal-500',
+      delay: 0.45
     }
   ];
 
@@ -213,14 +269,14 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
             {features.map((feature, index) => (
               <div
                 key={feature.id}
                 id={`feature-${feature.id}`}
                 className="group relative opacity-0"
               >
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20 overflow-hidden">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20 overflow-hidden min-h-[280px] flex flex-col">
                   {/* 3D Discovery Indicator */}
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -230,17 +286,17 @@ export default function Index() {
                   </div>
 
                   {/* Feature Icon */}
-                  <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300 relative overflow-hidden`}>
+                  <div className={`w-12 h-12 mb-4 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300 relative overflow-hidden flex-shrink-0`}>
                     <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {feature.icon}
                   </div>
 
                   {/* Feature Content */}
-                  <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-3 group-hover:text-blue-200 transition-colors duration-300 leading-tight">
                     {feature.title}
                   </h3>
 
-                  <p className="text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+                  <p className="text-sm text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-300 flex-grow">
                     {feature.description}
                   </p>
 
@@ -259,23 +315,51 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-20 px-6 text-center relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-white mb-8">
-            Ready to Transform Healthcare?
-          </h2>
-          <p className="text-xl text-white/70 mb-12 max-w-2xl mx-auto">
-            Join thousands of healthcare providers revolutionizing patient care with ClinicStreams
+      {/* Thank You Section */}
+      <section className="py-20 px-6 text-center relative z-10 min-h-screen flex items-center">
+        <div className="max-w-4xl mx-auto w-full">
+          <div className="mb-8">
+            <div className="text-6xl md:text-8xl mb-6">🙏</div>
+            <h2 className="text-4xl md:text-6xl font-light text-white mb-6 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent">
+              Thank You for Exploring ClinicStreams
+            </h2>
+          </div>
+
+          <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto">
+            You've discovered all our healthcare technology solutions
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+
+          <p className="text-lg text-white/60 mb-12 max-w-2xl mx-auto">
+            Ready to revolutionize your healthcare organization? Join thousands of providers already transforming patient care with our comprehensive platform.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+            <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-10 py-5 rounded-full font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg">
+              Get Demo Now
+            </button>
+            <button className="bg-white/10 backdrop-blur-md text-white px-10 py-5 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 text-lg">
               Start Free Trial
             </button>
-            <button className="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300">
-              Schedule Demo
-            </button>
+          </div>
+
+          {/* Journey Completion Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+              <div className="text-2xl font-bold text-green-400">8</div>
+              <div className="text-sm text-white/70">Features Explored</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+              <div className="text-2xl font-bold text-blue-400">100%</div>
+              <div className="text-sm text-white/70">Journey Complete</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+              <div className="text-2xl font-bold text-purple-400">2k+</div>
+              <div className="text-sm text-white/70">Happy Providers</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+              <div className="text-2xl font-bold text-cyan-400">24/7</div>
+              <div className="text-sm text-white/70">Support Available</div>
+            </div>
           </div>
         </div>
       </section>
