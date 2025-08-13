@@ -10,7 +10,7 @@ import { SmoothScrollController } from '../components/SmoothScrollController';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const featuresRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingComplete = () => {
@@ -84,31 +84,65 @@ export default function Index() {
   useEffect(() => {
     if (!featuresRef.current) return;
 
-    // Animate features on scroll
+    // Enhanced scroll animations for features
     features.forEach((feature, index) => {
       const element = document.getElementById(`feature-${feature.id}`);
       if (element) {
-        gsap.fromTo(element, 
-          { 
-            opacity: 0, 
-            y: 100,
-            scale: 0.8
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1,
-            delay: feature.delay,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 80%",
-              end: "bottom 20%",
-              toggleActions: "play none none reverse"
+        // Initial state
+        gsap.set(element, {
+          opacity: 0,
+          y: 100,
+          scale: 0.8,
+          rotationY: 15,
+        });
+
+        // Scroll-triggered animation
+        gsap.to(element, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotationY: 0,
+          duration: 1.2,
+          delay: feature.delay,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: element,
+            start: "top 85%",
+            end: "bottom 15%",
+            toggleActions: "play none none reverse",
+            onEnter: () => {
+              // Add pulsing effect when discovered
+              gsap.to(element, {
+                scale: 1.05,
+                duration: 0.3,
+                yoyo: true,
+                repeat: 1,
+                ease: "power2.inOut"
+              });
             }
           }
-        );
+        });
+
+        // Hover interaction with 3D rotation
+        element.addEventListener('mouseenter', () => {
+          gsap.to(element, {
+            rotationY: -5,
+            rotationX: 5,
+            z: 50,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
+
+        element.addEventListener('mouseleave', () => {
+          gsap.to(element, {
+            rotationY: 0,
+            rotationX: 0,
+            z: 0,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
       }
     });
 
