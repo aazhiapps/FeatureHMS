@@ -250,6 +250,16 @@
   .blur-4xl {
     filter: blur(80px);
   }
+  
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out;
+  }
   /* Enhanced backdrop blur support */
   .backdrop-blur-xl {
     backdrop-filter: blur(24px);

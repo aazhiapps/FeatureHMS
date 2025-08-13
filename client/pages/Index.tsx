@@ -563,292 +563,260 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Main Features Layout */}
-          <div className="relative min-h-[1200px] md:min-h-[1400px] lg:min-h-[1600px]">
-
-            {/* Central Feature Cards Display */}
-            <div className="flex items-center justify-center min-h-[1200px] md:min-h-[1400px] lg:min-h-[1600px] relative">
-              <div className="w-full max-w-6xl mx-auto px-4 relative">
-                {/* Feature Cards Container */}
-                <div className="relative">
-                  {features.map((feature, index) => (
-                    <div
-                      key={feature.id}
-                      id={`feature-${feature.id}`}
-                      className="absolute inset-0 flex items-center justify-center opacity-0 transform scale-90 cursor-pointer transition-all duration-700"
-                      style={{ zIndex: features.length - index }}
-                    >
-                      <div className="relative bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-3xl rounded-3xl md:rounded-[2rem] p-8 md:p-16 border border-white/40 shadow-[0_32px_64px_rgba(0,0,0,0.3)] max-w-5xl w-full mx-4 transition-all duration-700 group overflow-hidden">
-                        {/* Glow Effect */}
-                        <div className="card-glow absolute inset-0 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-green-500/30 rounded-3xl md:rounded-[2rem] opacity-0 blur-2xl scale-110"></div>
-                        
-                        {/* Animated Border */}
-                        <div className="absolute inset-0 rounded-3xl md:rounded-[2rem] bg-gradient-to-r from-blue-400/50 via-purple-400/50 to-green-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ padding: '2px' }}>
-                          <div className="w-full h-full bg-gradient-to-br from-white/20 via-white/10 to-white/5 rounded-3xl md:rounded-[2rem]"></div>
+          {/* Three Column Layout */}
+          <div className="relative min-h-[200vh] flex items-center">
+            <div className="w-full max-w-7xl mx-auto px-4 grid grid-cols-12 gap-8 min-h-screen">
+              
+              {/* Left Side - Feature Cards */}
+              <div className="col-span-4 flex flex-col justify-center space-y-6">
+                {features.map((feature, index) => (
+                  <div
+                    key={feature.id}
+                    id={`feature-${feature.id}`}
+                    className="opacity-30 transform scale-95 cursor-pointer transition-all duration-700 hover:opacity-100 hover:scale-100"
+                  >
+                    <div className="bg-gradient-to-br from-white/15 via-white/8 to-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/30 shadow-xl group hover:shadow-2xl transition-all duration-500">
+                      {/* Card Header */}
+                      <div className="flex items-center mb-4">
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-xl shadow-lg mr-4 group-hover:scale-110 transition-all duration-300`}>
+                          {feature.icon}
                         </div>
-                        
-                        {/* Interactive Particles */}
-                        <div className="absolute inset-0 pointer-events-none">
-                          {Array.from({ length: 12 }).map((_, i) => (
-                            <div
-                              key={i}
-                              className={`absolute w-1 h-1 md:w-1.5 md:h-1.5 bg-white/60 rounded-full transition-all duration-1000 ${
-                                hoveredFeature === index ? 'animate-ping bg-blue-400/80' : 'animate-pulse'
-                              }`}
-                              style={{
-                                left: `${10 + (i * 7)}%`,
-                                top: `${10 + (i * 7)}%`,
-                                animationDelay: `${i * 0.15}s`,
-                              }}
-                            />
-                          ))}
-                        </div>
-                        
-                        {/* Feature Header */}
-                        <div className="relative flex items-start mb-8 md:mb-12 z-10">
-                          <div className={`w-20 h-20 md:w-28 md:h-28 rounded-3xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-3xl md:text-4xl shadow-2xl mr-6 md:mr-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border-2 border-white/20`}>
-                            <span className={`transition-all duration-500 ${hoveredFeature === index ? 'animate-bounce' : ''}`}>
-                              {feature.icon}
-                            </span>
-                            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/20 to-transparent opacity-50"></div>
-                          </div>
-                          <div className="flex-1">
-                            <h3 className={`text-2xl md:text-4xl font-bold text-white mb-2 transition-all duration-500 ${
-                              hoveredFeature === index ? 'text-blue-100 scale-105 drop-shadow-lg' : ''
-                            }`}>
-                              {feature.title}
-                            </h3>
-                            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm text-blue-200 bg-blue-500/20 border border-blue-400/30 uppercase tracking-wider font-medium transition-all duration-500 ${
-                              hoveredFeature === index ? 'text-green-200 bg-green-500/20 border-green-400/30 scale-105' : ''
-                            }`}>
-                              <div className="w-2 h-2 rounded-full bg-current mr-2 animate-pulse"></div>
-                              {feature.category}
-                            </div>
-                          </div>
-                          
-                          {/* Interactive Status Indicator */}
-                          <div className="ml-auto flex flex-col items-center">
-                            <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full transition-all duration-500 mb-2 ${
-                              selectedFeature === index 
-                                ? 'bg-green-400 animate-pulse shadow-lg shadow-green-400/50' 
-                                : hoveredFeature === index 
-                                  ? 'bg-blue-400 animate-ping shadow-lg shadow-blue-400/50' 
-                                  : 'bg-white/30'
-                            }`}></div>
-                            <div className="text-xs text-white/60 font-medium">
-                              {selectedFeature === index ? 'ACTIVE' : hoveredFeature === index ? 'HOVER' : 'READY'}
-                            </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-100 transition-colors duration-300">
+                            {feature.title}
+                          </h3>
+                          <div className="text-xs text-blue-300 uppercase tracking-wide font-medium">
+                            {feature.category}
                           </div>
                         </div>
-
-                        {/* Feature Description */}
-                        <div className="relative z-10 mb-10 md:mb-12">
-                          <p className={`text-xl md:text-2xl text-white/95 leading-relaxed transition-all duration-500 font-light ${
-                            hoveredFeature === index ? 'text-white scale-102 drop-shadow-sm' : ''
-                          }`}>
-                            {feature.description}
-                          </p>
-                        </div>
-
-                        {/* Feature Metrics Bar */}
-                        <div className="relative z-10 mb-10 md:mb-12">
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                            {feature.stats.map((stat, idx) => (
-                              <div key={idx} className={`text-center transition-all duration-500 ${
-                                hoveredFeature === index ? 'transform scale-105' : ''
-                              }`} style={{ transitionDelay: `${idx * 100}ms` }}>
-                                <div className={`text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent mb-1 transition-all duration-500 ${
-                                  hoveredFeature === index ? 'scale-110' : ''
-                                }`}>{stat.value}</div>
-                                <div className={`text-sm text-white/70 transition-all duration-500 ${
-                                  hoveredFeature === index ? 'text-white/90' : ''
-                                }`}>{stat.label}</div>
-                              </div>
-                            ))}
+                        <div className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          hoveredFeature === index ? 'bg-green-400 animate-pulse' : 'bg-white/40'
+                        }`}></div>
+                      </div>
+                      
+                      {/* Card Description */}
+                      <p className="text-white/80 text-sm leading-relaxed mb-4 group-hover:text-white/95 transition-colors duration-300">
+                        {feature.description}
+                      </p>
+                      
+                      {/* Quick Stats */}
+                      <div className="grid grid-cols-2 gap-3">
+                        {feature.stats.map((stat, idx) => (
+                          <div key={idx} className="text-center p-2 bg-white/5 rounded-lg border border-white/10">
+                            <div className="text-sm font-bold text-blue-400">{stat.value}</div>
+                            <div className="text-xs text-white/60">{stat.label}</div>
                           </div>
-                        </div>
-
-                        {/* Enhanced Feature Benefits */}
-                        <div className="relative z-10 mb-10 md:mb-12">
-                          <h4 className={`text-xl md:text-2xl font-semibold text-white mb-6 transition-all duration-500 flex items-center ${
-                            hoveredFeature === index ? 'text-blue-100' : ''
-                          }`}>
-                            <div className="w-1 h-6 bg-gradient-to-b from-blue-400 to-green-400 rounded-full mr-3"></div>
-                            Key Benefits
-                          </h4>
-                          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                            {feature.benefits.map((benefit, idx) => (
-                              <div key={idx} className={`flex items-start p-4 rounded-2xl bg-white/5 border border-white/10 transition-all duration-500 hover:bg-white/10 hover:border-white/20 ${
-                                hoveredFeature === index ? 'transform translate-x-2 bg-white/10' : ''
-                              }`} style={{ transitionDelay: `${idx * 100}ms` }}>
-                                <div className={`w-3 h-3 bg-gradient-to-r from-green-400 to-blue-400 rounded-full mt-1.5 mr-4 flex-shrink-0 transition-all duration-500 ${
-                                  hoveredFeature === index ? 'animate-pulse scale-125' : ''
-                                }`}></div>
-                                <span className={`text-white/85 text-sm md:text-base transition-all duration-500 leading-relaxed ${
-                                  hoveredFeature === index ? 'text-white' : ''
-                        }`}>
-                                  {benefit}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Progress Indicator */}
-                        <div className="relative z-10 flex justify-between items-center pt-6 border-t border-white/20">
-                          <div className={`text-sm text-white/60 transition-all duration-500 ${
-                            hoveredFeature === index ? 'text-white/80' : ''
-                          }`}>
-                            <span className="font-medium">Feature {index + 1}</span> of {features.length}
-                          </div>
-                          <div className="flex space-x-3">
-                            {features.map((_, idx) => (
-                              <div
-                                key={idx}
-                                className={`w-3 h-3 rounded-full transition-all duration-500 cursor-pointer hover:scale-125 ${
-                                  idx === index 
-                                    ? 'bg-blue-400 scale-125 shadow-lg shadow-blue-400/50' 
-                                    : selectedFeature === idx
-                                      ? 'bg-green-400 scale-110 shadow-lg shadow-green-400/50'
-                                      : hoveredFeature === index
-                                        ? 'bg-white/60'
-                                        : 'bg-white/30'
-                                }`}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSelectedFeature(idx);
-                                  setCardInteractionMode('manual');
-                                }}
-                              ></div>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        {/* Click Indicator */}
-                        <div className={`absolute bottom-6 right-6 text-xs text-white/50 transition-all duration-500 bg-black/20 px-3 py-1 rounded-full backdrop-blur-sm ${
-                          hoveredFeature === index ? 'text-white/70 scale-110' : ''
-                        }`}>
-                          {selectedFeature === index ? 'Click to close' : 'Click to expand'}
-                        </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
+              </div>
 
-                {/* Central 3D Drone */}
-                <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 transition-all duration-1000 ${
-                  selectedFeature !== null ? 'scale-75 opacity-50' : 'scale-100 opacity-100'
-                }`}>
-                  <div className="relative w-40 h-40 md:w-52 md:h-52">
-                    {/* Drone Container */}
+              {/* Center - Feature Tree */}
+              <div className="col-span-4 flex items-center justify-center">
+                <div className="relative">
+                  {/* Central Feature Tree */}
+                  <div className="relative w-80 h-96">
+                    {/* Tree Structure */}
+                    <svg width="320" height="384" viewBox="0 0 320 384" className="absolute inset-0">
+                      <defs>
+                        <linearGradient id="treeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+                          <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
+                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
+                        </linearGradient>
+                        <filter id="glow">
+                          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                          <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                          </feMerge>
+                        </filter>
+                      </defs>
+                      
+                      {/* Main Tree Path */}
+                      <path
+                        d="M160,20 Q180,60 160,100 Q140,140 160,180 Q180,220 160,260 Q140,300 160,340 L160,364"
+                        stroke="url(#treeGradient)"
+                        strokeWidth="4"
+                        fill="none"
+                        strokeLinecap="round"
+                        filter="url(#glow)"
+                        className="animate-pulse"
+                      />
+                      
+                      {/* Feature Nodes */}
+                      {features.map((feature, index) => {
+                        const y = 40 + (index * 40);
+                        const x = 160 + (index % 2 === 0 ? -20 : 20);
+                        const isActive = hoveredFeature === index;
+                        
+                        return (
+                          <g key={index}>
+                            {/* Connection Line */}
+                            <line
+                              x1="160"
+                              y1={y}
+                              x2={x}
+                              y2={y}
+                              stroke={isActive ? "#10b981" : "#3b82f6"}
+                              strokeWidth="2"
+                              className="transition-all duration-500"
+                            />
+                            
+                            {/* Feature Node */}
+                            <circle
+                              cx={x}
+                              cy={y}
+                              r={isActive ? "12" : "8"}
+                              fill={isActive ? "#10b981" : "#3b82f6"}
+                              stroke="#ffffff"
+                              strokeWidth="2"
+                              className="transition-all duration-500 cursor-pointer"
+                              onClick={() => {
+                                setHoveredFeature(index);
+                                setSelectedFeature(index);
+                              }}
+                            />
+                            
+                            {/* Feature Icon */}
+                            <text
+                              x={x}
+                              y={y + 4}
+                              textAnchor="middle"
+                              fontSize="12"
+                              fill="white"
+                              className="pointer-events-none"
+                            >
+                              {feature.icon}
+                            </text>
+                            
+                            {/* Pulse Effect for Active */}
+                            {isActive && (
+                              <circle
+                                cx={x}
+                                cy={y}
+                                r="16"
+                                fill="none"
+                                stroke="#10b981"
+                                strokeWidth="2"
+                                opacity="0.5"
+                                className="animate-ping"
+                              />
+                            )}
+                          </g>
+                        );
+                      })}
+                    </svg>
+                    
+                    {/* Central Progress Indicator */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md border-2 border-white/40 flex items-center justify-center">
+                      <div className="text-2xl animate-pulse">🏥</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side - Drone Explanation */}
+              <div className="col-span-4 flex flex-col justify-center">
+                {/* Drone Display */}
+                <div className="mb-8">
+                  <div className="relative w-48 h-48 mx-auto">
+                    {/* Main Drone */}
                     <div className={`absolute inset-0 rounded-full border-3 border-blue-400/60 bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md animate-pulse flex items-center justify-center transition-all duration-500 shadow-2xl ${
                       hoveredFeature !== null ? 'border-green-400/80 bg-gradient-to-br from-green-500/40 to-blue-500/40 scale-110' : ''
                     }`}>
-                      <div className={`text-5xl md:text-7xl animate-bounce transition-all duration-500 drop-shadow-lg ${
+                      <div className={`text-6xl animate-bounce transition-all duration-500 drop-shadow-lg ${
                         hoveredFeature !== null ? 'scale-125 animate-pulse' : ''
                       }`}>🚁</div>
                     </div>
                     
                     {/* Rotating Elements */}
-                    <div className={`absolute inset-0 animate-spin transition-all duration-1000 ${
-                      hoveredFeature !== null ? 'animate-pulse' : ''
-                    }`} style={{ animationDuration: hoveredFeature !== null ? '3s' : '8s' }}>
+                    <div className="absolute inset-0 animate-spin" style={{ animationDuration: '8s' }}>
                       {[0, 1, 2, 3, 4, 5].map((i) => (
                         <div
                           key={i}
-                          className={`absolute w-3 h-3 bg-blue-400 rounded-full transition-all duration-500 shadow-lg ${
-                            hoveredFeature !== null ? 'bg-green-400 w-4 h-4 animate-ping shadow-green-400/50' : 'shadow-blue-400/50'
-                          }`}
+                          className="absolute w-3 h-3 bg-blue-400 rounded-full shadow-lg"
                           style={{
                             top: '50%',
                             left: '50%',
-                            transform: `rotate(${i * 60}deg) translateX(100px) translateY(-6px)`,
+                            transform: `rotate(${i * 60}deg) translateX(80px) translateY(-6px)`,
                           }}
                         />
                       ))}
                     </div>
-                    
-                    {/* Inner Ring */}
-                    <div className={`absolute inset-8 rounded-full border border-white/30 animate-spin transition-all duration-1000 ${
-                      hoveredFeature !== null ? 'border-white/50' : ''
-                    }`} style={{ animationDuration: hoveredFeature !== null ? '4s' : '12s', animationDirection: 'reverse' }}>
-                      {[0, 1, 2].map((i) => (
-                        <div
-                          key={i}
-                          className={`absolute w-2 h-2 bg-white/60 rounded-full transition-all duration-500 ${
-                            hoveredFeature !== null ? 'bg-white/80 animate-pulse' : ''
-                          }`}
-                          style={{
-                            top: '50%',
-                            left: '50%',
-                            transform: `rotate(${i * 120}deg) translateX(60px) translateY(-4px)`,
-                          }}
-                        />
-                      ))}
-                    </div>
-                    
-                    {/* Connection Lines to Hovered Card */}
-                    {hoveredFeature !== null && (
-                      <div className="absolute inset-0">
-                        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-                          <div
-                            key={i}
-                            className="absolute w-0.5 h-24 bg-gradient-to-t from-blue-400/80 via-green-400/60 to-transparent animate-pulse"
-                            style={{
-                              top: '50%',
-                              left: '50%',
-                              transform: `rotate(${i * 45}deg) translateY(-80px)`,
-                              animationDelay: `${i * 80}ms`,
-                            }}
-                          />
-                        ))}
-                      </div>
-                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-            
-            {/* Interaction Instructions */}
-            <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center z-40">
-              <div className="bg-gradient-to-r from-white/15 via-white/10 to-white/15 backdrop-blur-xl rounded-2xl px-8 py-4 border border-white/30 shadow-2xl">
-                <p className="text-white/80 text-sm md:text-base font-medium">
-                  {cardInteractionMode === 'manual' 
-                    ? 'Click cards to explore • Scroll to continue journey' 
-                    : 'Hover cards for details • Click to focus • Scroll to navigate'
-                  }
-                </p>
-                <div className="flex justify-center mt-2 space-x-1">
-                  <div className="w-1 h-1 bg-white/60 rounded-full animate-pulse"></div>
-                  <div className="w-1 h-1 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="w-1 h-1 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                
+                {/* Feature Explanation */}
+                <div className="bg-gradient-to-br from-white/15 via-white/8 to-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/30 shadow-xl">
+                  {hoveredFeature !== null ? (
+                    <div className="animate-fadeIn">
+                      <div className="flex items-center mb-6">
+                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${features[hoveredFeature].color} flex items-center justify-center text-2xl shadow-lg mr-4`}>
+                          {features[hoveredFeature].icon}
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-white mb-1">
+                            {features[hoveredFeature].title}
+                          </h3>
+                          <div className="text-sm text-blue-300 uppercase tracking-wide font-medium">
+                            {features[hoveredFeature].category}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <p className="text-white/90 text-lg leading-relaxed mb-6">
+                        {features[hoveredFeature].description}
+                      </p>
+                      
+                      <div className="mb-6">
+                        <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
+                          <div className="w-1 h-5 bg-gradient-to-b from-blue-400 to-green-400 rounded-full mr-3"></div>
+                          Key Benefits
+                        </h4>
+                        <div className="space-y-3">
+                          {features[hoveredFeature].benefits.slice(0, 3).map((benefit, idx) => (
+                            <div key={idx} className="flex items-start">
+                              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                              <span className="text-white/80 text-sm leading-relaxed">{benefit}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        {features[hoveredFeature].stats.map((stat, idx) => (
+                          <div key={idx} className="text-center p-3 bg-white/10 rounded-xl border border-white/20">
+                            <div className="text-xl font-bold text-blue-400 mb-1">{stat.value}</div>
+                            <div className="text-xs text-white/70">{stat.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <div className="text-4xl mb-4">🎯</div>
+                      <h3 className="text-xl font-bold text-white mb-4">
+                        Explore Healthcare Features
+                      </h3>
+                      <p className="text-white/70 text-sm leading-relaxed mb-6">
+                        Click on any feature card or tree node to see detailed information about our comprehensive healthcare solutions.
+                      </p>
+                      <div className="flex justify-center space-x-2">
+                        {features.map((_, idx) => (
+                          <div
+                            key={idx}
+                            className="w-2 h-2 bg-white/40 rounded-full animate-pulse"
+                            style={{ animationDelay: `${idx * 0.2}s` }}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-
-            {/* Floating Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`absolute w-1 h-1 md:w-2 md:h-2 bg-white/30 rounded-full animate-pulse transition-all duration-1000 ${
-                    hoveredFeature !== null ? 'bg-blue-300/60 animate-ping' : ''
-                  }`}
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 4}s`,
-                    animationDuration: `${3 + Math.random() * 3}s`,
-                  }}
-                />
-              ))}
-            </div>
-            
-            {/* Ambient Light Effects */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
             </div>
           </div>
         </section>
