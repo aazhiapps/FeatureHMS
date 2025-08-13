@@ -400,39 +400,43 @@ export default function Index() {
         </section>
 
         {/* Features Section */}
-        <section className="relative min-h-screen py-10 md:py-20" ref={featuresRef}>
+        <section className="relative min-h-[200vh] py-10 md:py-20" ref={featuresRef}>
           {/* Section Header */}
-          <div className="sticky top-0 z-30 bg-gradient-to-b from-blue-900/90 to-transparent backdrop-blur-sm py-4 md:py-8">
+          <div className="sticky top-0 z-30 bg-gradient-to-b from-blue-900/95 to-transparent backdrop-blur-md py-6 md:py-8 border-b border-white/10">
             <div className="text-center">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-white mb-2 md:mb-4 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent px-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-2 md:mb-4 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent px-4">
                 Healthcare Innovation Journey
               </h2>
-              <p className="text-base md:text-xl text-white/70 max-w-3xl mx-auto px-4">
+              <p className="text-sm md:text-lg lg:text-xl text-white/80 max-w-4xl mx-auto px-4">
                 Follow our medical drone as it navigates through ClinicStreams' revolutionary features
               </p>
             </div>
           </div>
 
           {/* Main Features Layout */}
-          <div className="relative min-h-[600px] md:min-h-[800px]">
+          <div className="relative min-h-[800px] md:min-h-[1000px] lg:min-h-[1200px]">
             {/* All Features on Left Side */}
-            <div className="hidden lg:block fixed left-2 xl:left-6 top-16 md:top-20 z-20 w-72 xl:w-80 space-y-3 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-hide">
+            <div className="hidden lg:block fixed left-2 xl:left-6 top-24 z-20 w-72 xl:w-80 space-y-4 max-h-[calc(100vh-10rem)] overflow-y-auto scrollbar-hide">
               {features.map((feature, index) => (
                 <div
                   key={feature.id}
                   id={`feature-${feature.id}`}
-                  className="group cursor-pointer"
+                  className="group cursor-pointer transform transition-all duration-500 hover:scale-105"
                 >
-                  <div className="bg-white/5 backdrop-blur-xl rounded-xl p-3 xl:p-5 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
+                  <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4 xl:p-5 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-500 hover:shadow-2xl relative overflow-hidden">
                     <div className={`w-10 h-10 xl:w-14 xl:h-14 mb-2 xl:mb-3 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-base xl:text-xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
                       <span className="relative z-10">{feature.icon}</span>
+                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
-                    <h3 className="text-sm xl:text-lg font-bold text-white mb-1 xl:mb-2 group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
+                    <h3 className="text-sm xl:text-base font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500 line-clamp-2">
                       {feature.title}
                     </h3>
-                    <p className="text-xs xl:text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500 line-clamp-2 xl:line-clamp-3">
+                    <p className="text-xs xl:text-sm text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-500 line-clamp-3">
                       {feature.description}
                     </p>
+                    <div className="mt-2 text-xs text-blue-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      {feature.category}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -445,7 +449,7 @@ export default function Index() {
                   <div
                     key={feature.id}
                     id={`mobile-feature-${feature.id}`}
-                    className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10"
+                    className="bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300"
                   >
                     <div className={`w-12 h-12 mb-3 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-lg shadow-lg`}>
                       <span>{feature.icon}</span>
@@ -453,33 +457,56 @@ export default function Index() {
                     <h3 className="text-base font-bold text-white mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-white/60 leading-relaxed line-clamp-3">
+                    <p className="text-sm text-white/70 leading-relaxed line-clamp-3">
                       {feature.description}
                     </p>
+                    <div className="mt-2 text-xs text-blue-300">
+                      {feature.category}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Expanded Central 3D Drone Space */}
-            <div className="lg:absolute lg:left-[300px] xl:left-[420px] lg:right-0 lg:top-0 lg:bottom-0 flex items-center justify-center pointer-events-none mt-8 lg:mt-0">
-              <div className="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] xl:w-[700px] xl:h-[700px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
-                <div className="w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] xl:w-[500px] xl:h-[500px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
-                  <div className="text-center text-white/70">
+            <div className="lg:absolute lg:left-[320px] xl:left-[420px] lg:right-0 lg:top-0 lg:bottom-0 flex items-center justify-center pointer-events-none mt-8 lg:mt-0">
+              <div className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] xl:w-[700px] xl:h-[700px]">
+                {/* Outer Ring */}
+                <div className="absolute inset-0 rounded-full border-2 border-white/20 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm animate-pulse">
+                  <div className="absolute inset-4 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm">
+                    <div className="absolute inset-8 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                      <div className="text-center text-white">
                     <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2 md:mb-4">🚁</div>
-                    <p className="text-sm md:text-base lg:text-lg font-light px-2">Medical Drone Navigation</p>
-                    <p className="text-xs md:text-sm opacity-60 px-2">Follow the journey through our features</p>
+                        <p className="text-sm md:text-base lg:text-lg font-light px-2 mb-2">Medical Drone Navigation</p>
+                        <p className="text-xs md:text-sm opacity-70 px-2 mb-4">Follow the journey through our features</p>
                     <div className="mt-3 md:mt-6 grid grid-cols-2 gap-2 md:gap-4 text-xs px-4">
-                      <div className="bg-white/10 rounded-lg p-2">
+                          <div className="bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-white/20">
                         <div className="text-green-400 font-bold">Active</div>
                         <div>System Online</div>
                       </div>
-                      <div className="bg-white/10 rounded-lg p-2">
+                          <div className="bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-white/20">
                         <div className="text-blue-400 font-bold">Scanning</div>
                         <div>Features</div>
                       </div>
                     </div>
                   </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Rotating Elements */}
+                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
+                  {[0, 1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className="absolute w-3 h-3 bg-blue-400 rounded-full opacity-60"
+                      style={{
+                        top: '50%',
+                        left: '50%',
+                        transform: `rotate(${i * 90}deg) translateX(${150 + i * 20}px) translateY(-6px)`,
+                      }}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
@@ -502,82 +529,90 @@ export default function Index() {
 
             {/* Connection Lines from Left Features to Center */}
             <div className="hidden lg:block absolute inset-0 pointer-events-none">
-              <svg className="w-full h-full opacity-20">
+              <svg className="w-full h-full opacity-30">
                 <defs>
                   <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
-                    <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.5" />
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+                    <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
                   </linearGradient>
                 </defs>
-                <line x1="25%" y1="20%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
-                <line x1="25%" y1="35%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
-                <line x1="25%" y1="50%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
-                <line x1="25%" y1="65%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
-                <line x1="25%" y1="80%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                {[15, 25, 35, 45, 55, 65, 75, 85].map((y, index) => (
+                  <line
+                    key={index}
+                    x1="22%"
+                    y1={`${y}%`}
+                    x2="55%"
+                    y2="50%"
+                    stroke="url(#connectionGradient)"
+                    strokeWidth="2"
+                    className="animate-pulse"
+                    style={{ animationDelay: `${index * 0.2}s` }}
+                  />
+                ))}
               </svg>
             </div>
           </div>
         </section>
 
         {/* Thank You Section */}
-        <section className="py-10 md:py-20 px-4 md:px-6 text-center relative z-10 min-h-screen flex items-center">
+        <section className="py-20 md:py-32 px-4 md:px-6 text-center relative z-10 min-h-screen flex items-center bg-gradient-to-t from-blue-900/50 to-transparent">
           <div className="max-w-4xl mx-auto w-full">
             <div className="mb-8">
               <div className="text-4xl md:text-6xl lg:text-8xl mb-4 md:mb-6">🙏</div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-light text-white mb-4 md:mb-6 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent px-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-4 md:mb-6 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent px-4">
                 Thank You for Exploring ClinicStreams
               </h2>
             </div>
 
-            <p className="text-lg md:text-xl lg:text-2xl text-white/80 mb-6 md:mb-8 max-w-3xl mx-auto px-4">
+            <p className="text-base md:text-lg lg:text-xl text-white/90 mb-6 md:mb-8 max-w-3xl mx-auto px-4">
               You've discovered all our healthcare technology solutions
             </p>
 
-            <p className="text-base md:text-lg text-white/60 mb-8 md:mb-12 max-w-2xl mx-auto px-4">
+            <p className="text-sm md:text-base lg:text-lg text-white/70 mb-8 md:mb-12 max-w-2xl mx-auto px-4">
               Ready to revolutionize your healthcare organization? Join
               thousands of providers already transforming patient care with our
               comprehensive platform.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-8 md:mb-12 px-4">
-              <button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-base md:text-lg">
+              <button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-base md:text-lg border-2 border-transparent hover:border-white/20">
                 Get Demo Now
               </button>
-              <button className="w-full sm:w-auto bg-white/10 backdrop-blur-md text-white px-8 md:px-10 py-4 md:py-5 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 text-base md:text-lg">
+              <button className="w-full sm:w-auto bg-white/15 backdrop-blur-md text-white px-8 md:px-10 py-4 md:py-5 rounded-full border border-white/40 hover:bg-white/25 hover:border-white/60 transition-all duration-300 text-base md:text-lg">
                 Contact Sales
               </button>
             </div>
 
             {/* Journey Completion Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-2xl mx-auto px-4">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-xl md:text-2xl font-bold text-green-400">8</div>
-                <div className="text-sm text-white/70">Features Explored</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto px-4">
+              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+                <div className="text-xl md:text-2xl font-bold text-green-400 mb-1">8</div>
+                <div className="text-xs md:text-sm text-white/80">Features Explored</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-xl md:text-2xl font-bold text-blue-400">100%</div>
-                <div className="text-sm text-white/70">Journey Complete</div>
+              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+                <div className="text-xl md:text-2xl font-bold text-blue-400 mb-1">100%</div>
+                <div className="text-xs md:text-sm text-white/80">Journey Complete</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-xl md:text-2xl font-bold text-purple-400">24/7</div>
-                <div className="text-sm text-white/70">Support Available</div>
+              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+                <div className="text-xl md:text-2xl font-bold text-purple-400 mb-1">24/7</div>
+                <div className="text-xs md:text-sm text-white/80">Support Available</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-xl md:text-2xl font-bold text-cyan-400">∞</div>
-                <div className="text-sm text-white/70">Possibilities</div>
+              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+                <div className="text-xl md:text-2xl font-bold text-cyan-400 mb-1">∞</div>
+                <div className="text-xs md:text-sm text-white/80">Possibilities</div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="py-8 md:py-12 px-4 md:px-6 border-t border-white/20 relative z-10">
+        <footer className="py-8 md:py-12 px-4 md:px-6 border-t border-white/30 relative z-10 bg-gradient-to-t from-blue-900/30 to-transparent">
           <div className="max-w-7xl mx-auto text-center">
-            <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-2 md:mb-4">
+            <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-2 md:mb-4">
               ClinicStreams
             </div>
-            <p className="text-sm md:text-base text-white/60">
+            <p className="text-xs md:text-sm text-white/70">
               © 2024 ClinicStreams. Revolutionizing Healthcare Technology.
             </p>
           </div>
