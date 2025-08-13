@@ -58,7 +58,7 @@ export const ClinicStreamsProgress = ({
         const patientCount = Math.floor(progress * 2547 + 150);
         setCurrentAltitude(patientCount);
 
-        // Discover features
+        // Workflow-based feature discovery
         const featureIndex = Math.floor(progress * features.length);
         if (
           featureIndex < features.length &&
@@ -66,22 +66,35 @@ export const ClinicStreamsProgress = ({
         ) {
           setDiscoveredFeatures((prev) => [...prev, featureIndex]);
 
+          // Highlight current workflow step
+          const currentFeature = features[featureIndex];
           const featureElement = document.querySelector(
-            `#feature-${featureIndex}`,
+            `#feature-${currentFeature.category}`,
           );
+
           if (featureElement) {
+            // Add connection animation effect
             gsap.fromTo(
               featureElement,
-              { scale: 0.9, opacity: 0.7 },
+              { scale: 0.95, opacity: 0.8, borderColor: "transparent" },
               {
-                scale: 1.1,
+                scale: 1.05,
                 opacity: 1,
-                duration: 0.8,
-                ease: "elastic.out(1, 0.5)",
-                yoyo: true,
+                duration: 0.6,
+                ease: "back.out(1.2)",
                 repeat: 1,
+                yoyo: true,
               },
             );
+
+            // Add workflow connection highlight
+            const connectionElement = featureElement.querySelector('.workflow-connection');
+            if (connectionElement) {
+              gsap.fromTo(connectionElement,
+                { opacity: 0, scale: 0.8 },
+                { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+              );
+            }
           }
         }
 
@@ -163,55 +176,93 @@ export const ClinicStreamsProgress = ({
 
           <path
             ref={pathRef}
-            d="M35,15 Q55,80 35,160 Q15,240 35,305"
+            d="M35,20 L35,50 L35,80 L35,110 L35,140 L35,170 L35,200 L35,230 L35,260 L35,290"
             stroke="url(#medicalPathGradient)"
-            strokeWidth="4"
+            strokeWidth="3"
             fill="none"
             strokeLinecap="round"
             filter="url(#glow)"
             className="drop-shadow-lg"
           />
 
-          {/* Feature Markers */}
+          {/* Connected Workflow Points */}
           {features.map((feature, index) => {
-            const y = 15 + (290 / (features.length - 1)) * index;
+            const y = 20 + (270 / (features.length - 1)) * index;
             const isDiscovered = discoveredFeatures.includes(index);
+            const isActive = discoveredFeatures.length - 1 === index;
 
             return (
               <g key={index}>
+                {/* Connection line to next point */}
+                {index < features.length - 1 && (
+                  <line
+                    x1="35"
+                    y1={y + 8}
+                    x2="35"
+                    y2={y + (270 / (features.length - 1)) - 8}
+                    stroke={isDiscovered ? "#00ff88" : "#e5e7eb"}
+                    strokeWidth="2"
+                    className="transition-all duration-500"
+                  />
+                )}
+
+                {/* Workflow point circle */}
                 <circle
                   cx="35"
                   cy={y}
-                  r="6"
-                  fill={isDiscovered ? "#00ff88" : "#e5e7eb"}
-                  stroke={isDiscovered ? "#00cc66" : "#9ca3af"}
-                  strokeWidth="2"
+                  r="8"
+                  fill={isDiscovered ? "#00ff88" : "#f3f4f6"}
+                  stroke={isActive ? "#0066ff" : isDiscovered ? "#00cc66" : "#d1d5db"}
+                  strokeWidth={isActive ? "3" : "2"}
                   className={`transition-all duration-500 ${isDiscovered ? "drop-shadow-lg" : ""}`}
                 />
+
+                {/* Inner active indicator */}
+                {isActive && (
+                  <circle
+                    cx="35"
+                    cy={y}
+                    r="4"
+                    fill="#0066ff"
+                    className="animate-pulse"
+                  />
+                )}
 
                 {/* Feature category icon */}
                 <text
                   x="35"
                   y={y + 2}
                   textAnchor="middle"
-                  fontSize="8"
-                  fill={isDiscovered ? "#ffffff" : "#666666"}
+                  fontSize="9"
+                  fill={isDiscovered ? "#ffffff" : "#9ca3af"}
                 >
-                  {isDiscovered ? getCategoryIcon(feature.category) : "●"}
+                  {isDiscovered ? getCategoryIcon(feature.category) : "○"}
                 </text>
 
+                {/* Connection pulse effect */}
                 {isDiscovered && (
                   <circle
                     cx="35"
                     cy={y}
-                    r="10"
+                    r="12"
                     fill="none"
                     stroke="#00ff88"
                     strokeWidth="1"
-                    opacity="0.6"
+                    opacity="0.4"
                     className="animate-ping"
                   />
                 )}
+
+                {/* Workflow label */}
+                <text
+                  x="50"
+                  y={y + 3}
+                  fontSize="6"
+                  fill={isDiscovered ? "#00ff88" : "#9ca3af"}
+                  className="transition-all duration-500"
+                >
+                  {feature.title.substring(0, 8)}...
+                </text>
               </g>
             );
           })}
