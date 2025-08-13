@@ -127,7 +127,7 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section ref={featuresRef} className="py-20 px-6">
+      <section ref={featuresRef} className="py-20 px-6 min-h-screen">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-light text-white mb-6">
