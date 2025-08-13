@@ -122,7 +122,16 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800">
+    <SmoothScrollController>
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800 relative">
+        {/* 3D Medical Journey Background */}
+        <ClinicStreamsJourney features={clinicFeatures} />
+
+        {/* Progress Indicator */}
+        <ClinicStreamsProgress features={clinicFeatures} />
+
+        {/* Scroll-Triggered Content */}
+        <ClinicStreamsContent />
       {/* Clean Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 relative">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -248,6 +257,7 @@ export default function Index() {
           </p>
         </div>
       </footer>
-    </div>
+      </div>
+    </SmoothScrollController>
   );
 }
