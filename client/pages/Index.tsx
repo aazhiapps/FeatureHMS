@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { LoadingScreen } from '../components/LoadingScreen';
+import { EnhancedLoadingScreen } from '../components/EnhancedLoadingScreen';
+import { PlaneJourney } from '../components/PlaneJourney';
 import { MagneticButton, ParallaxText, RevealText, CursorFollower } from '../components/InteractiveElements';
 import { SmoothScrollController } from '../components/SmoothScrollController';
 import { ScrollDrivenEffects } from '../components/ScrollDrivenEffects';
@@ -38,16 +39,45 @@ export default function Index() {
     setIsLoading(false);
   };
 
+  // Works data for plane journey
+  const works = [
+    {
+      title: "Interactive Portfolio",
+      description: "A dynamic portfolio showcasing creative development",
+      year: "2023",
+      position: [5, 3, -5] as [number, number, number]
+    },
+    {
+      title: "Motion Design",
+      description: "Experimental animations and interactions",
+      year: "2023",
+      position: [-3, 6, -15] as [number, number, number]
+    },
+    {
+      title: "3D Experience",
+      description: "WebGL and Three.js experimentation",
+      year: "2023",
+      position: [8, -2, -25] as [number, number, number]
+    },
+    {
+      title: "Digital Art",
+      description: "Creative coding and generative art",
+      year: "2023",
+      position: [-6, 4, -35] as [number, number, number]
+    }
+  ];
+
   if (isLoading) {
-    return <LoadingScreen onComplete={handleLoadingComplete} />;
+    return <EnhancedLoadingScreen onComplete={handleLoadingComplete} />;
   }
 
   return (
     <SmoothScrollController>
       <ScrollDrivenEffects>
         <ScrollJourney>
+          <PlaneJourney works={works} />
           <AtmosEnhancedEffects />
-          <div className="min-h-screen overflow-x-hidden">
+          <div className="min-h-screen overflow-x-hidden relative z-10">
             <CursorFollower />
 
       {/* Navigation */}
