@@ -8,6 +8,7 @@ import { ScrollDrivenEffects } from '../components/ScrollDrivenEffects';
 import { ScrollJourney } from '../components/ScrollJourney';
 import { AtmosEnhancedEffects } from '../components/AtmosEnhancedEffects';
 import { PlaneProgressIndicator } from '../components/PlaneProgressIndicator';
+import { AtmosContent } from '../components/AtmosContent';
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
@@ -87,6 +88,7 @@ export default function Index() {
         <ScrollJourney>
           <PlaneJourney works={works} />
           <PlaneProgressIndicator works={works} />
+          <AtmosContent />
           <AtmosEnhancedEffects />
           <div className="min-h-screen overflow-x-hidden relative z-10">
             <CursorFollower />
