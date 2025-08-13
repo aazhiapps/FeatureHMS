@@ -404,16 +404,36 @@ function MedicalScene({ features }: { features: any[] }) {
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0);
 
   useEffect(() => {
-    // Create medical flight path
-    const pathPoints = [
-      new THREE.Vector3(0, 0, 15),
-      new THREE.Vector3(15, 8, 0),
-      new THREE.Vector3(0, 15, -15),
-      new THREE.Vector3(-15, 8, -30),
-      new THREE.Vector3(0, 0, -45),
-    ];
+    // Create workflow-based flight path matching the connected points pattern
+    const workflowPoints = [];
 
-    const curve = new THREE.CatmullRomCurve3(pathPoints);
+    // Generate points that follow the feature positions in a connected workflow
+    features.forEach((feature, index) => {
+      const baseY = 15 - (index * 5); // Descending pattern
+      const alternatingX = index % 2 === 0 ? -8 : 8; // Alternating left/right
+      const progressiveZ = -index * 12; // Moving deeper
+
+      workflowPoints.push(new THREE.Vector3(alternatingX, baseY, progressiveZ));
+    });
+
+    // Add smooth transition points between workflow nodes
+    const smoothedPoints = [];
+    workflowPoints.forEach((point, index) => {
+      smoothedPoints.push(point);
+
+      // Add intermediate points for smooth connections
+      if (index < workflowPoints.length - 1) {
+        const nextPoint = workflowPoints[index + 1];
+        const midPoint = new THREE.Vector3(
+          (point.x + nextPoint.x) * 0.5,
+          (point.y + nextPoint.y) * 0.5 + 2, // Slight arc upward
+          (point.z + nextPoint.z) * 0.5
+        );
+        smoothedPoints.push(midPoint);
+      }
+    });
+
+    const curve = new THREE.CatmullRomCurve3(smoothedPoints);
 
     ScrollTrigger.create({
       trigger: "body",
@@ -444,7 +464,7 @@ function MedicalScene({ features }: { features: any[] }) {
 
         camera.lookAt(position);
 
-        // Trigger feature discovery
+        // Workflow-based feature discovery with connection highlights
         const featureIndex = Math.floor(progress * features.length);
         if (
           featureIndex !== currentFeatureIndex &&
@@ -452,21 +472,36 @@ function MedicalScene({ features }: { features: any[] }) {
         ) {
           setCurrentFeatureIndex(featureIndex);
 
+          // Highlight current feature in workflow
+          const currentFeature = features[featureIndex];
           const featureElement = document.querySelector(
-            `#feature-${featureIndex}`,
+            `#feature-${currentFeature.category}`,
           );
+
           if (featureElement) {
+            // Connected workflow animation
             gsap.fromTo(
               featureElement,
-              { opacity: 0, scale: 0.8, y: 50 },
+              { opacity: 0.7, scale: 0.95, rotationY: -10 },
               {
                 opacity: 1,
-                scale: 1,
-                y: 0,
-                duration: 1,
-                ease: "back.out(1.7)",
+                scale: 1.05,
+                rotationY: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                yoyo: true,
+                repeat: 1,
               },
             );
+
+            // Add connection pulse effect
+            const pulseElement = featureElement.querySelector('.feature-pulse');
+            if (pulseElement) {
+              gsap.fromTo(pulseElement,
+                { scale: 1, opacity: 0 },
+                { scale: 1.5, opacity: 1, duration: 0.6, ease: "power2.out" }
+              );
+            }
           }
         }
       },
