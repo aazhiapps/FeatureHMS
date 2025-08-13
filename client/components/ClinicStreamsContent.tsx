@@ -208,31 +208,3 @@ export const ClinicStreamsContent = () => {
     </div>
   );
 };
-                START YOUR JOURNEY
-              </button>
-            </div>
-          )}
-
-          {section.description && (
-            <div className="bg-black/20 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-              <p className="text-xl md:text-2xl font-light leading-relaxed opacity-95 max-w-3xl mx-auto">
-                {section.description}
-              </p>
-            </div>
-          )}
-
-          {section.id === "future" && (
-            <div className="mt-12 space-y-4">
-              <button className="mx-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-green-500 rounded-full text-white font-medium tracking-wide hover:from-blue-600 hover:to-green-600 transition-all duration-300 pointer-events-auto shadow-lg hover:shadow-xl">
-                START FREE TRIAL
-              </button>
-              <button className="mx-2 px-8 py-4 bg-white/20 backdrop-blur-sm rounded-full text-white font-light tracking-wide hover:bg-white/30 transition-all duration-300 pointer-events-auto">
-                SCHEDULE DEMO
-              </button>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
