@@ -154,7 +154,7 @@ export default function Index() {
           </RevealText>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
-            {works.map((project, index) => (
+            {clinicFeatures.map((project, index) => (
               <RevealText key={index} delay={index * 0.2}>
                 <div
                   id={`work-${index}`}
