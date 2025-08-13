@@ -464,7 +464,7 @@ function MedicalScene({ features }: { features: any[] }) {
 
         camera.lookAt(position);
 
-        // Workflow-based feature discovery with connection highlights
+        // Enhanced drone highlighting for current feature
         const featureIndex = Math.floor(progress * features.length);
         if (
           featureIndex !== currentFeatureIndex &&
@@ -479,29 +479,56 @@ function MedicalScene({ features }: { features: any[] }) {
           );
 
           if (featureElement) {
-            // Connected workflow animation
+            // Enhanced feature highlighting with drone focus
             gsap.fromTo(
               featureElement,
-              { opacity: 0.7, scale: 0.95, rotationY: -10 },
+              {
+                opacity: 0.8,
+                scale: 0.98,
+                rotationY: -5,
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)"
+              },
               {
                 opacity: 1,
-                scale: 1.05,
+                scale: 1.02,
                 rotationY: 0,
-                duration: 0.8,
+                boxShadow: "0 8px 40px rgba(59, 130, 246, 0.3)",
+                duration: 1,
                 ease: "power2.out",
                 yoyo: true,
                 repeat: 1,
               },
             );
 
-            // Add connection pulse effect
+            // Enhanced pulse effect for drone highlighting
             const pulseElement = featureElement.querySelector('.feature-pulse');
             if (pulseElement) {
               gsap.fromTo(pulseElement,
-                { scale: 1, opacity: 0 },
-                { scale: 1.5, opacity: 1, duration: 0.6, ease: "power2.out" }
+                { scale: 1, opacity: 0, borderColor: "transparent" },
+                {
+                  scale: 1.3,
+                  opacity: 0.8,
+                  borderColor: "rgb(59, 130, 246)",
+                  duration: 0.8,
+                  ease: "power2.out",
+                  repeat: 2,
+                  yoyo: true
+                }
               );
             }
+          }
+
+          // Update drone position to point towards current feature
+          if (droneRef.current && featureIndex < features.length) {
+            const targetFeature = features[featureIndex];
+            const targetPosition = new THREE.Vector3(...targetFeature.position);
+
+            // Make drone look at the current feature
+            gsap.to(droneRef.current.rotation, {
+              y: Math.atan2(targetPosition.x - position.x, targetPosition.z - position.z),
+              duration: 0.5,
+              ease: "power2.out"
+            });
           }
         }
       },
