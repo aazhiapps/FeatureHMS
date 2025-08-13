@@ -155,27 +155,66 @@ export const ClinicStreamsContent = () => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-20 pointer-events-none flex items-center justify-center"
+      className="fixed inset-0 z-25 pointer-events-none flex items-center justify-center"
     >
       {clinicStreamsSections.map((section, index) => (
         <div
           key={section.id}
           id={`content-${section.id}`}
-          className="absolute text-center text-white max-w-3xl px-6"
-          style={{ zIndex: 20 + index }} // Ensure proper stacking order
+          className="absolute text-center text-white max-w-4xl px-8"
+          style={{ zIndex: 25 + index }} // Ensure proper stacking order
         >
           <div className="mb-6">
             {section.icon && (
-              <div className="text-6xl mb-4 opacity-80">{section.icon}</div>
+              <div className="text-8xl mb-6 opacity-90 animate-pulse">{section.icon}</div>
             )}
 
-            <h2 className="text-3xl md:text-5xl font-light mb-8 leading-tight bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-6xl font-light mb-8 leading-tight bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
               {section.title}
             </h2>
           </div>
 
           {section.description && (
-            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 max-w-2xl mx-auto">
+            <div className="bg-black/20 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+              <p className="text-xl md:text-2xl font-light leading-relaxed opacity-95 max-w-3xl mx-auto">
+                {section.description}
+              </p>
+            </div>
+          )}
+
+          {section.id === "complete" && (
+            <div className="mt-12 space-y-6">
+              <div className="bg-gradient-to-r from-blue-500/20 to-green-500/20 backdrop-blur-md rounded-2xl p-6 border border-white/30">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                  <div>
+                    <div className="text-3xl font-bold text-green-400">8</div>
+                    <div className="text-sm text-white/70">Features</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-blue-400">100%</div>
+                    <div className="text-sm text-white/70">Complete</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-purple-400">2k+</div>
+                    <div className="text-sm text-white/70">Providers</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-cyan-400">24/7</div>
+                    <div className="text-sm text-white/70">Support</div>
+                  </div>
+                </div>
+              </div>
+              <button className="mx-2 px-10 py-4 bg-gradient-to-r from-blue-500 to-green-500 rounded-full text-white font-medium tracking-wide hover:from-blue-600 hover:to-green-600 transition-all duration-300 pointer-events-auto shadow-xl hover:shadow-2xl transform hover:scale-105">
+                START YOUR JOURNEY
+              </button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
               {section.description}
             </p>
           )}

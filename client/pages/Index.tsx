@@ -312,95 +312,147 @@ export default function Index() {
         </section>
 
         {/* Features Section */}
-        <section
-          ref={featuresRef}
-          className="py-20 px-6 min-h-screen relative z-10"
-        >
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-6xl font-light text-white mb-6">
-                Explore Our Features
+        <section ref={featuresRef} className="relative min-h-[400vh] z-10">
+          {/* Section Header */}
+          <div className="sticky top-0 z-30 bg-gradient-to-b from-blue-900/90 to-transparent backdrop-blur-sm py-8">
+            <div className="text-center">
+              <h2 className="text-5xl md:text-7xl font-light text-white mb-4 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
+                Healthcare Innovation Journey
               </h2>
-              <p className="text-xl text-white/70 max-w-2xl mx-auto">
-                Follow the medical drone journey to discover how ClinicStreams
-                is transforming healthcare delivery
+              <p className="text-xl text-white/70 max-w-3xl mx-auto">
+                Follow our medical drone as it navigates through ClinicStreams' revolutionary features
               </p>
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-              {features.map((feature, index) => (
+          {/* Main Features Layout */}
+          <div className="relative h-full">
+            {/* Left Side Features */}
+            <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-20 w-80 space-y-6">
+              {features.slice(0, 4).map((feature, index) => (
                 <div
                   key={feature.id}
                   id={`feature-${feature.id}`}
                   className="group relative opacity-0"
                 >
-                  <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20 overflow-hidden min-h-[280px] flex flex-col relative">
-                    {/* Workflow Connection Indicator */}
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 workflow-connection">
-                      <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-green-400 rounded-full border-2 border-white shadow-lg">
-                        <div className="w-full h-full bg-white/30 rounded-full animate-pulse"></div>
-                      </div>
+                  <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
+                    {/* Animated Border */}
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    
+                    {/* Connection Pulse */}
+                    <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full animate-ping"></div>
+                      <div className="absolute inset-0 w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full"></div>
                     </div>
-
-                    {/* Connection Line to Next Feature */}
-                    {index < features.length - 1 && (
-                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gradient-to-b from-blue-400 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
-                    )}
-
-                    {/* 3D Discovery Indicator */}
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                        <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-green-400 rounded transform rotate-45"></div>
-                      </div>
-                      <div className="text-xs text-white/60 mt-1 text-center">
-                        Connected
-                      </div>
-                    </div>
-
-                    {/* Pulse Effect for Discovery */}
-                    <div className="feature-pulse absolute inset-0 rounded-xl border-2 border-blue-400 opacity-0 scale-100"></div>
 
                     {/* Feature Icon */}
-                    <div
-                      className={`w-12 h-12 mb-4 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300 relative overflow-hidden flex-shrink-0`}
-                    >
-                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      {feature.icon}
+                    <div className={`w-16 h-16 mb-4 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
+                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <span className="relative z-10">{feature.icon}</span>
                     </div>
 
                     {/* Feature Content */}
-                    <h3 className="text-lg md:text-xl font-semibold text-white mb-3 group-hover:text-blue-200 transition-colors duration-300 leading-tight">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-200 transition-colors duration-500">
                       {feature.title}
                     </h3>
-
-                    <p className="text-sm text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-300 flex-grow">
+                    <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500">
                       {feature.description}
                     </p>
 
-                    {/* Workflow Status */}
-                    <div className="mt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* Status Indicator */}
+                    <div className="mt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-green-400 font-medium">
-                        Connected in Workflow
-                      </span>
-                      <div className="flex space-x-1 ml-2">
-                        {Array.from({ length: 3 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className={`w-1 h-1 rounded-full bg-blue-400 animate-pulse`}
-                            style={{ animationDelay: `${i * 0.2}s` }}
-                          ></div>
-                        ))}
-                      </div>
+                      <span className="text-xs text-green-400 font-medium">Active in Network</span>
                     </div>
-
-                    {/* Hover Effect */}
-                    <div
-                      className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                    ></div>
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Right Side Features */}
+            <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-20 w-80 space-y-6">
+              {features.slice(4, 8).map((feature, index) => (
+                <div
+                  key={feature.id}
+                  id={`feature-${feature.id}`}
+                  className="group relative opacity-0"
+                >
+                  <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
+                    {/* Animated Border */}
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/20 via-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    
+                    {/* Connection Pulse */}
+                    <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-ping"></div>
+                      <div className="absolute inset-0 w-8 h-8 bg-gradient-to-r from-green-400 to-blue-400 rounded-full"></div>
+                    </div>
+
+                    {/* Feature Icon */}
+                    <div className={`w-16 h-16 mb-4 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
+                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <span className="relative z-10">{feature.icon}</span>
+                    </div>
+
+                    {/* Feature Content */}
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-200 transition-colors duration-500">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500">
+                      {feature.description}
+                    </p>
+
+                    {/* Status Indicator */}
+                    <div className="mt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-green-400 font-medium">Active in Network</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Central 3D Drone Space */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-96 h-96 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                <div className="text-center text-white/70">
+                  <div className="text-6xl mb-4">🚁</div>
+                  <p className="text-lg font-light">Medical Drone Navigation</p>
+                  <p className="text-sm opacity-60">Follow the journey through our features</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Background Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {Array.from({ length: 20 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 3}s`,
+                    animationDuration: `${2 + Math.random() * 2}s`,
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Connection Lines */}
+            <div className="absolute inset-0 pointer-events-none">
+              <svg className="w-full h-full opacity-20">
+                <defs>
+                  <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
+                    <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.5" />
+                  </linearGradient>
+                </defs>
+                <line x1="20%" y1="30%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="80%" y1="30%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="20%" y1="70%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="80%" y1="70%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+              </svg>
             </div>
           </div>
         </section>
