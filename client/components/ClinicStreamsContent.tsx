@@ -209,14 +209,13 @@ export const ClinicStreamsContent = () => {
               </button>
             </div>
           )}
-        </div>
-      ))}
-    </div>
-  );
-};
 
-              {section.description}
-            </p>
+          {section.description && (
+            <div className="bg-black/20 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+              <p className="text-xl md:text-2xl font-light leading-relaxed opacity-95 max-w-3xl mx-auto">
+                {section.description}
+              </p>
+            </div>
           )}
 
           {section.id === "future" && (
