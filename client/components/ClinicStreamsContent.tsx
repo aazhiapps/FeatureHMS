@@ -159,6 +159,7 @@ export const ClinicStreamsContent = () => {
           key={section.id}
           id={`content-${section.id}`}
           className="absolute text-center text-white max-w-3xl px-6"
+          style={{ zIndex: 20 + index }} // Ensure proper stacking order
         >
           <div className="mb-6">
             {section.icon && (
