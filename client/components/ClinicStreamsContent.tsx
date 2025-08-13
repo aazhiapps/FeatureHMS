@@ -114,20 +114,27 @@ export const ClinicStreamsContent = () => {
           onUpdate: (self) => {
             const progress = self.progress;
             const sectionProgress = section.position;
-            const threshold = 0.12;
+            const threshold = 0.06; // Reduced threshold to prevent overlapping
 
-            if (Math.abs(progress - sectionProgress) < threshold) {
+            // Only show one section at a time - the closest one
+            const distances = clinicStreamsSections.map(s => Math.abs(progress - s.position));
+            const closestIndex = distances.indexOf(Math.min(...distances));
+            const isClosest = clinicStreamsSections[closestIndex].id === section.id;
+
+            if (isClosest && Math.abs(progress - sectionProgress) < threshold) {
               gsap.to(sectionElement, {
                 opacity: 1,
                 y: 0,
-                duration: 1.2,
+                scale: 1,
+                duration: 0.8,
                 ease: "power2.out",
               });
             } else {
               gsap.to(sectionElement, {
                 opacity: 0,
-                y: progress > sectionProgress ? -50 : 50,
-                duration: 0.8,
+                y: progress > sectionProgress ? -30 : 30,
+                scale: 0.95,
+                duration: 0.6,
                 ease: "power2.inOut",
               });
             }
