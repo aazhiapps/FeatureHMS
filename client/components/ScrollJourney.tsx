@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +14,8 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
   const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !pathRef.current || !progressRef.current) return;
+    if (!containerRef.current || !pathRef.current || !progressRef.current)
+      return;
 
     const container = containerRef.current;
     const path = pathRef.current;
@@ -22,7 +23,7 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
 
     // Create smooth scroll journey path
     const pathLength = path.getTotalLength();
-    
+
     // Set initial state
     gsap.set(path, {
       strokeDasharray: pathLength,
@@ -41,18 +42,18 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
           // Update progress indicator
           const progressValue = self.progress * 100;
           gsap.set(progress, { width: `${progressValue}%` });
-        }
-      }
+        },
+      },
     });
 
     // Create floating journey markers
     const createJourneyMarkers = () => {
       const markers = [];
-      const sections = ['Work', 'About', 'Contact'];
-      
+      const sections = ["Work", "About", "Contact"];
+
       sections.forEach((section, index) => {
-        const marker = document.createElement('div');
-        marker.className = 'journey-marker';
+        const marker = document.createElement("div");
+        marker.className = "journey-marker";
         marker.innerHTML = `
           <div class="w-4 h-4 bg-white rounded-full border-2 border-black transform -translate-x-1/2 -translate-y-1/2"></div>
           <span class="ml-4 text-sm font-medium">${section}</span>
@@ -67,7 +68,7 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
           z-index: 20;
           pointer-events: none;
         `;
-        
+
         container.appendChild(marker);
         markers.push(marker);
 
@@ -82,7 +83,7 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
             start: "top 80%",
             end: "bottom 20%",
             toggleActions: "play none none reverse",
-          }
+          },
         });
       });
 
@@ -92,7 +93,7 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
     const markers = createJourneyMarkers();
 
     // Add smooth camera-like movement to content
-    const sections = container.querySelectorAll('section');
+    const sections = container.querySelectorAll("section");
     sections.forEach((section, index) => {
       gsap.to(section, {
         y: -50,
@@ -103,14 +104,14 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
           start: "top bottom",
           end: "bottom top",
           scrub: 1,
-        }
+        },
       });
     });
 
     // Create depth of field effect
     const createDepthEffect = () => {
-      const sections = Array.from(container.querySelectorAll('section'));
-      
+      const sections = Array.from(container.querySelectorAll("section"));
+
       sections.forEach((section, index) => {
         ScrollTrigger.create({
           trigger: section,
@@ -123,7 +124,7 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
               filter: `blur(${blur}px)`,
               scale: 1 - Math.abs(0.5 - progress) * 0.05,
             });
-          }
+          },
         });
       });
     };
@@ -132,8 +133,8 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
 
     // Cleanup
     return () => {
-      markers.forEach(marker => marker.remove());
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      markers.forEach((marker) => marker.remove());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
@@ -158,14 +159,12 @@ export const ScrollJourney = ({ children }: ScrollJourneyProps) => {
         <div
           ref={progressRef}
           className="h-full bg-black transition-all duration-300 ease-out"
-          style={{ width: '0%' }}
+          style={{ width: "0%" }}
         />
       </div>
 
       {/* Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
 
       {/* Ambient Particles */}
       <div className="fixed inset-0 pointer-events-none z-5">

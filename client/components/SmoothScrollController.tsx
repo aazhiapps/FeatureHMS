@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,7 +9,9 @@ interface SmoothScrollControllerProps {
   children: React.ReactNode;
 }
 
-export const SmoothScrollController = ({ children }: SmoothScrollControllerProps) => {
+export const SmoothScrollController = ({
+  children,
+}: SmoothScrollControllerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -23,7 +25,7 @@ export const SmoothScrollController = ({ children }: SmoothScrollControllerProps
     });
 
     // Connect Lenis with GSAP ScrollTrigger
-    lenisRef.current.on('scroll', ScrollTrigger.update);
+    lenisRef.current.on("scroll", ScrollTrigger.update);
 
     const tick = (time: number) => {
       lenisRef.current?.raf(time);

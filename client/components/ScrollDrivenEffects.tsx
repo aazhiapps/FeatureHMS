@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +14,12 @@ export const ScrollDrivenEffects = ({ children }: ScrollDrivenEffectsProps) => {
   const progressBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !backgroundRef.current || !progressBarRef.current) return;
+    if (
+      !containerRef.current ||
+      !backgroundRef.current ||
+      !progressBarRef.current
+    )
+      return;
 
     const container = containerRef.current;
     const background = backgroundRef.current;
@@ -22,13 +27,14 @@ export const ScrollDrivenEffects = ({ children }: ScrollDrivenEffectsProps) => {
 
     // Create gradient background animation similar to Atmos sky
     gsap.to(background, {
-      background: 'linear-gradient(180deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)',
+      background:
+        "linear-gradient(180deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)",
       scrollTrigger: {
         trigger: container,
         start: "top top",
         end: "bottom bottom",
         scrub: 1,
-      }
+      },
     });
 
     // Progress bar animation
@@ -40,15 +46,15 @@ export const ScrollDrivenEffects = ({ children }: ScrollDrivenEffectsProps) => {
         start: "top top",
         end: "bottom bottom",
         scrub: 1,
-      }
+      },
     });
 
     // Create floating elements that move with scroll
     const createFloatingElements = () => {
       const elements = [];
       for (let i = 0; i < 20; i++) {
-        const element = document.createElement('div');
-        element.className = 'floating-particle';
+        const element = document.createElement("div");
+        element.className = "floating-particle";
         element.style.cssText = `
           position: fixed;
           width: ${Math.random() * 4 + 2}px;
@@ -90,19 +96,19 @@ export const ScrollDrivenEffects = ({ children }: ScrollDrivenEffectsProps) => {
       lastScrollY = currentScrollY;
 
       // Show particles based on scroll velocity
-      floatingElements.forEach(element => {
+      floatingElements.forEach((element) => {
         const opacity = Math.min(scrollVelocity * 0.01, 0.8);
         gsap.to(element, { opacity, duration: 0.1 });
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      floatingElements.forEach(element => element.remove());
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      window.removeEventListener("scroll", handleScroll);
+      floatingElements.forEach((element) => element.remove());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
@@ -113,7 +119,8 @@ export const ScrollDrivenEffects = ({ children }: ScrollDrivenEffectsProps) => {
         ref={backgroundRef}
         className="fixed inset-0 z-0"
         style={{
-          background: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%)',
+          background:
+            "linear-gradient(180deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%)",
         }}
       />
 
@@ -122,14 +129,12 @@ export const ScrollDrivenEffects = ({ children }: ScrollDrivenEffectsProps) => {
         <div
           ref={progressBarRef}
           className="h-full bg-white origin-left"
-          style={{ transform: 'scaleX(0)' }}
+          style={{ transform: "scaleX(0)" }}
         />
       </div>
 
       {/* Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 };

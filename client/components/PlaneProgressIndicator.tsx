@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +12,9 @@ interface PlaneProgressIndicatorProps {
   }>;
 }
 
-export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) => {
+export const PlaneProgressIndicator = ({
+  works,
+}: PlaneProgressIndicatorProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const planeIconRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
@@ -20,7 +22,8 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
   const [currentAltitude, setCurrentAltitude] = useState(0);
 
   useEffect(() => {
-    if (!containerRef.current || !planeIconRef.current || !pathRef.current) return;
+    if (!containerRef.current || !planeIconRef.current || !pathRef.current)
+      return;
 
     const path = pathRef.current;
     const planeIcon = planeIconRef.current;
@@ -40,7 +43,7 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
       scrub: 1,
       onUpdate: (self) => {
         const progress = self.progress;
-        
+
         // Update path drawing
         gsap.set(path, {
           strokeDashoffset: pathLength * (1 - progress),
@@ -60,37 +63,42 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
         // Discover works based on progress
         const workIndex = Math.floor(progress * works.length);
         if (workIndex < works.length && !discoveredWorks.includes(workIndex)) {
-          setDiscoveredWorks(prev => [...prev, workIndex]);
-          
+          setDiscoveredWorks((prev) => [...prev, workIndex]);
+
           // Trigger discovery animation
           const workElement = document.querySelector(`#work-${workIndex}`);
           if (workElement) {
-            gsap.fromTo(workElement, 
+            gsap.fromTo(
+              workElement,
               { scale: 0.9, opacity: 0.7 },
-              { 
-                scale: 1.05, 
-                opacity: 1, 
+              {
+                scale: 1.05,
+                opacity: 1,
                 duration: 0.8,
                 ease: "elastic.out(1, 0.5)",
                 yoyo: true,
                 repeat: 1,
-              }
+              },
             );
           }
         }
-      }
+      },
     });
-
   }, [works, discoveredWorks]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="fixed right-6 top-1/2 transform -translate-y-1/2 z-30 pointer-events-none"
     >
       {/* Flight Path */}
       <div className="relative">
-        <svg width="60" height="300" viewBox="0 0 60 300" className="overflow-visible">
+        <svg
+          width="60"
+          height="300"
+          viewBox="0 0 60 300"
+          className="overflow-visible"
+        >
           <defs>
             <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#3b82f6" stopOpacity="1" />
@@ -98,7 +106,7 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
               <stop offset="100%" stopColor="#ec4899" stopOpacity="0.6" />
             </linearGradient>
           </defs>
-          
+
           <path
             ref={pathRef}
             d="M30,10 Q50,75 30,150 Q10,225 30,290"
@@ -108,12 +116,12 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
             strokeLinecap="round"
             className="drop-shadow-sm"
           />
-          
+
           {/* Work Markers */}
           {works.map((_, index) => {
             const y = 10 + (280 / (works.length - 1)) * index;
             const isDiscovered = discoveredWorks.includes(index);
-            
+
             return (
               <g key={index}>
                 <circle
@@ -123,7 +131,7 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
                   fill={isDiscovered ? "#10b981" : "#e5e7eb"}
                   stroke={isDiscovered ? "#059669" : "#9ca3af"}
                   strokeWidth="2"
-                  className={`transition-all duration-500 ${isDiscovered ? 'drop-shadow-md' : ''}`}
+                  className={`transition-all duration-500 ${isDiscovered ? "drop-shadow-md" : ""}`}
                 />
                 {isDiscovered && (
                   <circle
@@ -151,7 +159,7 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
           <div className="w-full h-full bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-500">
             <div className="w-2 h-2 bg-blue-500 rounded-sm transform rotate-45"></div>
           </div>
-          
+
           {/* Contrail */}
           <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-8 h-0.5 bg-gradient-to-r from-blue-300 to-transparent opacity-60"></div>
         </div>
@@ -159,14 +167,16 @@ export const PlaneProgressIndicator = ({ works }: PlaneProgressIndicatorProps) =
 
       {/* Flight Info Panel */}
       <div className="mt-8 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-gray-200">
-        <div className="text-xs font-medium text-gray-700 mb-1">Flight Status</div>
+        <div className="text-xs font-medium text-gray-700 mb-1">
+          Flight Status
+        </div>
         <div className="text-sm font-bold text-blue-600">
           {currentAltitude.toLocaleString()} ft
         </div>
         <div className="text-xs text-gray-500 mt-1">
           Works Discovered: {discoveredWorks.length}/{works.length}
         </div>
-        
+
         {/* Speed indicator */}
         <div className="mt-2 flex items-center space-x-1">
           <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse"></div>

@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Sphere, Text3D, Cloud, Stars } from '@react-three/drei';
-import * as THREE from 'three';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls, Sphere, Text3D, Cloud, Stars } from "@react-three/drei";
+import * as THREE from "three";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,20 +28,20 @@ function ScrollCamera() {
         scrub: 1,
         onUpdate: (self) => {
           const progress = self.progress;
-          
+
           // Create a smooth flight path
           const radius = 50;
           const height = progress * 100 - 50;
           const angle = progress * Math.PI * 4; // Multiple rotations
-          
+
           const x = Math.sin(angle) * radius * (1 - progress * 0.8);
           const z = Math.cos(angle) * radius * (1 - progress * 0.8);
           const y = height;
 
           camera.position.set(x, y, z);
           camera.lookAt(0, height + 10, 0);
-        }
-      }
+        },
+      },
     });
 
     return () => {
@@ -65,8 +65,8 @@ function AnimatedSky() {
 
   return (
     <Sphere ref={meshRef} args={[200, 32, 32]}>
-      <meshBasicMaterial 
-        color="#4285f4" 
+      <meshBasicMaterial
+        color="#4285f4"
         side={THREE.BackSide}
         transparent
         opacity={0.8}
@@ -91,15 +91,15 @@ function WindParticles() {
       setScrollVelocity(velocity);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useFrame(() => {
     if (particlesRef.current) {
       const material = particlesRef.current.material as THREE.PointsMaterial;
       material.opacity = Math.min(scrollVelocity * 0.01, 0.8);
-      
+
       // Animate particles
       particlesRef.current.rotation.y += 0.01;
     }
@@ -108,7 +108,7 @@ function WindParticles() {
   // Create particle geometry
   const particleCount = 1000;
   const positions = new Float32Array(particleCount * 3);
-  
+
   for (let i = 0; i < particleCount; i++) {
     positions[i * 3] = (Math.random() - 0.5) * 200;
     positions[i * 3 + 1] = (Math.random() - 0.5) * 200;
@@ -172,7 +172,7 @@ function ScrollText() {
     if (!textRef.current) return;
 
     gsap.set(textRef.current.position, { y: -20, opacity: 0 });
-    
+
     gsap.to(textRef.current.position, {
       y: 0,
       duration: 2,
@@ -182,9 +182,8 @@ function ScrollText() {
         start: "30% top",
         end: "70% top",
         scrub: 1,
-      }
+      },
     });
-
   }, []);
 
   return (
@@ -213,13 +212,20 @@ function Scene3D() {
     <>
       <ambientLight intensity={0.6} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
-      
+
       <ScrollCamera />
       <AnimatedSky />
       <WindParticles />
       <FloatingClouds />
       <ScrollText />
-      <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
+      <Stars
+        radius={100}
+        depth={50}
+        count={5000}
+        factor={4}
+        saturation={0}
+        fade
+      />
     </>
   );
 }
@@ -245,9 +251,7 @@ export const AtmosScrollAnimation = ({ children }: AtmosScrollProps) => {
       </div>
 
       {/* Scrollable Content */}
-      <div className="relative z-10 bg-transparent">
-        {children}
-      </div>
+      <div className="relative z-10 bg-transparent">{children}</div>
     </div>
   );
 };

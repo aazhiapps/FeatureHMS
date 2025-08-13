@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,11 +12,11 @@ export const AtmosEnhancedEffects = () => {
 
     // Create dynamic gradient background that changes with scroll
     const gradientSteps = [
-      'linear-gradient(180deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)', // Medical blue start
-      'linear-gradient(180deg, #1e40af 0%, #059669 50%, #10b981 100%)', // Blue to medical green
-      'linear-gradient(180deg, #059669 0%, #34d399 50%, #86efac 100%)', // Green to light green
-      'linear-gradient(180deg, #0ea5e9 0%, #06b6d4 50%, #67e8f9 100%)', // Medical cyan
-      'linear-gradient(180deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)', // Back to medical blue
+      "linear-gradient(180deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)", // Medical blue start
+      "linear-gradient(180deg, #1e40af 0%, #059669 50%, #10b981 100%)", // Blue to medical green
+      "linear-gradient(180deg, #059669 0%, #34d399 50%, #86efac 100%)", // Green to light green
+      "linear-gradient(180deg, #0ea5e9 0%, #06b6d4 50%, #67e8f9 100%)", // Medical cyan
+      "linear-gradient(180deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)", // Back to medical blue
     ];
 
     // Animate background color changes
@@ -28,12 +28,13 @@ export const AtmosEnhancedEffects = () => {
         const progress = self.progress;
         const stepIndex = Math.floor(progress * (gradientSteps.length - 1));
         const stepProgress = (progress * (gradientSteps.length - 1)) % 1;
-        
+
         const currentGradient = gradientSteps[stepIndex];
-        const nextGradient = gradientSteps[Math.min(stepIndex + 1, gradientSteps.length - 1)];
-        
+        const nextGradient =
+          gradientSteps[Math.min(stepIndex + 1, gradientSteps.length - 1)];
+
         document.body.style.background = currentGradient;
-      }
+      },
     });
 
     // Create velocity-based wind particles
@@ -42,7 +43,7 @@ export const AtmosEnhancedEffects = () => {
     let scrollVelocity = 0;
 
     const createParticle = () => {
-      const particle = document.createElement('div');
+      const particle = document.createElement("div");
       particle.style.cssText = `
         position: fixed;
         width: ${Math.random() * 3 + 1}px;
@@ -55,9 +56,9 @@ export const AtmosEnhancedEffects = () => {
         border-radius: 2px;
         transform: rotate(${Math.random() * 360}deg);
       `;
-      
+
       document.body.appendChild(particle);
-      
+
       // Animate particle
       gsap.to(particle, {
         y: -window.innerHeight - 100,
@@ -67,10 +68,10 @@ export const AtmosEnhancedEffects = () => {
         ease: "none",
         onComplete: () => {
           particle.remove();
-          particles = particles.filter(p => p !== particle);
-        }
+          particles = particles.filter((p) => p !== particle);
+        },
       });
-      
+
       return particle;
     };
 
@@ -89,13 +90,13 @@ export const AtmosEnhancedEffects = () => {
     };
 
     // Add scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Create floating ambient elements
     const createAmbientElements = () => {
       const elements = [];
       for (let i = 0; i < 15; i++) {
-        const element = document.createElement('div');
+        const element = document.createElement("div");
         element.style.cssText = `
           position: fixed;
           width: ${Math.random() * 8 + 4}px;
@@ -107,7 +108,7 @@ export const AtmosEnhancedEffects = () => {
           pointer-events: none;
           z-index: 3;
         `;
-        
+
         document.body.appendChild(element);
         elements.push(element);
 
@@ -136,7 +137,7 @@ export const AtmosEnhancedEffects = () => {
     const ambientElements = createAmbientElements();
 
     // Section-based lighting effects
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll("section");
     sections.forEach((section, index) => {
       ScrollTrigger.create({
         trigger: section,
@@ -145,28 +146,28 @@ export const AtmosEnhancedEffects = () => {
         onEnter: () => {
           // Add subtle glow effect to current section
           gsap.to(section, {
-            boxShadow: 'inset 0 0 100px rgba(255, 255, 255, 0.1)',
+            boxShadow: "inset 0 0 100px rgba(255, 255, 255, 0.1)",
             duration: 1,
             ease: "power2.out",
           });
         },
         onLeave: () => {
           gsap.to(section, {
-            boxShadow: 'none',
+            boxShadow: "none",
             duration: 1,
             ease: "power2.out",
           });
         },
         onEnterBack: () => {
           gsap.to(section, {
-            boxShadow: 'inset 0 0 100px rgba(255, 255, 255, 0.1)',
+            boxShadow: "inset 0 0 100px rgba(255, 255, 255, 0.1)",
             duration: 1,
             ease: "power2.out",
           });
         },
         onLeaveBack: () => {
           gsap.to(section, {
-            boxShadow: 'none',
+            boxShadow: "none",
             duration: 1,
             ease: "power2.out",
           });
@@ -176,10 +177,10 @@ export const AtmosEnhancedEffects = () => {
 
     // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      particles.forEach(particle => particle.remove());
-      ambientElements.forEach(element => element.remove());
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      window.removeEventListener("scroll", handleScroll);
+      particles.forEach((particle) => particle.remove());
+      ambientElements.forEach((element) => element.remove());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 

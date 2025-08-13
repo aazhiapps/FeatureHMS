@@ -1,16 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 
 interface EnhancedLoadingScreenProps {
   onComplete?: () => void;
 }
 
-export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps) => {
+export const EnhancedLoadingScreen = ({
+  onComplete,
+}: EnhancedLoadingScreenProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const circlesRef = useRef<(HTMLDivElement | null)[]>([]);
   const planeRef = useRef<HTMLDivElement>(null);
   const countdownRef = useRef<HTMLDivElement>(null);
-  const [loadingPhase, setLoadingPhase] = useState<'countdown' | 'circles' | 'plane' | 'complete'>('countdown');
+  const [loadingPhase, setLoadingPhase] = useState<
+    "countdown" | "circles" | "plane" | "complete"
+  >("countdown");
   const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
@@ -20,7 +24,7 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
     let tl = gsap.timeline();
 
     // Phase 0: 3D Countdown Animation
-    if (loadingPhase === 'countdown') {
+    if (loadingPhase === "countdown") {
       let countdownValue = 3;
       setCountdown(countdownValue);
 
@@ -28,25 +32,26 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
         countdownValue--;
         if (countdownValue > 0) {
           setCountdown(countdownValue);
-          
+
           // 3D rotation animation for each number
           if (countdownRef.current) {
-            gsap.fromTo(countdownRef.current, 
-              { 
-                rotationY: -90, 
-                scale: 0.5, 
+            gsap.fromTo(
+              countdownRef.current,
+              {
+                rotationY: -90,
+                scale: 0.5,
                 opacity: 0,
-                rotationX: 30
+                rotationX: 30,
               },
-              { 
-                rotationY: 0, 
-                scale: 1.2, 
+              {
+                rotationY: 0,
+                scale: 1.2,
                 opacity: 1,
                 rotationX: 0,
                 duration: 0.6,
                 ease: "back.out(2.5)",
-                transformOrigin: "center center"
-              }
+                transformOrigin: "center center",
+              },
             );
 
             // Scale down before next number
@@ -55,12 +60,12 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
               opacity: 0.7,
               delay: 0.6,
               duration: 0.3,
-              ease: "power2.in"
+              ease: "power2.in",
             });
           }
         } else {
           clearInterval(countdownInterval);
-          
+
           // Final countdown animation - blast off effect
           if (countdownRef.current) {
             gsap.to(countdownRef.current, {
@@ -71,8 +76,8 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
               duration: 0.8,
               ease: "power3.out",
               onComplete: () => {
-                setLoadingPhase('circles');
-              }
+                setLoadingPhase("circles");
+              },
             });
           }
         }
@@ -82,32 +87,44 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
     }
 
     // Phase 1: Circles Animation (Robin Payot style)
-    if (loadingPhase === 'circles') {
+    if (loadingPhase === "circles") {
       gsap.set(circles, { scale: 0, opacity: 0 });
 
       circles.forEach((circle, index) => {
-        tl.to(circle, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.6,
-          ease: "power2.out",
-        }, index * 0.2)
-        .to(circle, {
-          scale: 1.1,
-          duration: 0.4,
-          ease: "power2.inOut",
-        }, index * 0.2 + 0.6)
-        .to(circle, {
-          scale: 1,
-          duration: 0.4,
-          ease: "power2.inOut",
-        }, index * 0.2 + 1);
+        tl.to(
+          circle,
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+          },
+          index * 0.2,
+        )
+          .to(
+            circle,
+            {
+              scale: 1.1,
+              duration: 0.4,
+              ease: "power2.inOut",
+            },
+            index * 0.2 + 0.6,
+          )
+          .to(
+            circle,
+            {
+              scale: 1,
+              duration: 0.4,
+              ease: "power2.inOut",
+            },
+            index * 0.2 + 1,
+          );
       });
 
       // After circles, transition to plane
       const circleTimeout = setTimeout(() => {
-        setLoadingPhase('plane');
-        
+        setLoadingPhase("plane");
+
         // Fade out circles
         gsap.to(circles, {
           opacity: 0,
@@ -117,16 +134,17 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
           onComplete: () => {
             // Show plane animation
             if (planeRef.current) {
-              gsap.fromTo(planeRef.current, 
+              gsap.fromTo(
+                planeRef.current,
                 { x: -200, opacity: 0 },
-                { 
-                  x: window.innerWidth + 100, 
+                {
+                  x: window.innerWidth + 100,
                   opacity: 1,
                   duration: 2,
                   ease: "power2.inOut",
                   onComplete: () => {
-                    setLoadingPhase('complete');
-                    
+                    setLoadingPhase("complete");
+
                     // Final fade out
                     gsap.to(containerRef.current, {
                       opacity: 0,
@@ -134,11 +152,11 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
                       ease: "power2.out",
                       onComplete,
                     });
-                  }
-                }
+                  },
+                },
               );
             }
-          }
+          },
         });
       }, 1500);
 
@@ -155,7 +173,7 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
       className="fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-green-50 z-50 flex items-center justify-center overflow-hidden"
     >
       {/* 3D Countdown Animation */}
-      {loadingPhase === 'countdown' && (
+      {loadingPhase === "countdown" && (
         <div className="text-center relative">
           <h1 className="text-3xl md:text-5xl font-light tracking-tight mb-8 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
             CLINICSTREAMS
@@ -170,15 +188,15 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
             <div
               ref={countdownRef}
               className="text-9xl md:text-[12rem] font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 bg-clip-text text-transparent relative"
-              style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}
+              style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
             >
               {countdown}
-              
+
               {/* 3D Shadow Effect */}
               <div className="absolute inset-0 text-9xl md:text-[12rem] font-bold text-blue-200/30 transform translate-x-2 translate-y-2 -z-10">
                 {countdown}
               </div>
-              
+
               {/* Glow Effect */}
               <div className="absolute inset-0 text-9xl md:text-[12rem] font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent opacity-50 blur-sm">
                 {countdown}
@@ -194,7 +212,7 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
                   style={{
                     transform: `rotate(${index * 90}deg) translateX(120px)`,
                     animation: `spin 2s linear infinite`,
-                    animationDelay: `${index * 0.5}s`
+                    animationDelay: `${index * 0.5}s`,
                   }}
                 />
               ))}
@@ -208,7 +226,7 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
       )}
 
       {/* Circles Animation */}
-      {loadingPhase === 'circles' && (
+      {loadingPhase === "circles" && (
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-4 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
             CLINICSTREAMS
@@ -256,7 +274,7 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
       )}
 
       {/* Plane Animation */}
-      {loadingPhase === 'plane' && (
+      {loadingPhase === "plane" && (
         <div
           ref={planeRef}
           className="absolute top-1/2 transform -translate-y-1/2"
@@ -270,7 +288,9 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
               <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
               <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs">🏥</div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs">
+                🏥
+              </div>
             </div>
 
             {/* Medical Trail Effect */}
@@ -282,17 +302,26 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
       {/* Loading Text */}
       <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center">
         <p className="text-blue-600 font-light text-lg mb-2">
-          {loadingPhase === 'countdown' ? 'Preparing to Launch...' :
-           loadingPhase === 'circles' ? 'Connecting to Healthcare Network...' :
-           loadingPhase === 'plane' ? 'Deploying Medical Drone...' : 'System Ready!'}
+          {loadingPhase === "countdown"
+            ? "Preparing to Launch..."
+            : loadingPhase === "circles"
+              ? "Connecting to Healthcare Network..."
+              : loadingPhase === "plane"
+                ? "Deploying Medical Drone..."
+                : "System Ready!"}
         </p>
         <div className="w-40 h-1 bg-blue-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all duration-1000"
-            style={{ 
-              width: loadingPhase === 'countdown' ? '15%' :
-                     loadingPhase === 'circles' ? '45%' : 
-                     loadingPhase === 'plane' ? '85%' : '100%' 
+            style={{
+              width:
+                loadingPhase === "countdown"
+                  ? "15%"
+                  : loadingPhase === "circles"
+                    ? "45%"
+                    : loadingPhase === "plane"
+                      ? "85%"
+                      : "100%",
             }}
           ></div>
         </div>
@@ -317,8 +346,12 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
       {/* CSS for spinning animation */}
       <style jsx>{`
         @keyframes spin {
-          from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
-          to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+          from {
+            transform: rotate(0deg) translateX(120px) rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg) translateX(120px) rotate(-360deg);
+          }
         }
       `}</style>
     </div>

@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -8,7 +8,12 @@ interface MagneticButtonProps {
   onClick?: () => void;
 }
 
-export const MagneticButton = ({ children, className = '', href, onClick }: MagneticButtonProps) => {
+export const MagneticButton = ({
+  children,
+  className = "",
+  href,
+  onClick,
+}: MagneticButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
 
   useEffect(() => {
@@ -19,7 +24,7 @@ export const MagneticButton = ({ children, className = '', href, onClick }: Magn
       const rect = button.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
+
       const deltaX = (e.clientX - centerX) * 0.3;
       const deltaY = (e.clientY - centerY) * 0.3;
 
@@ -40,17 +45,17 @@ export const MagneticButton = ({ children, className = '', href, onClick }: Magn
       });
     };
 
-    button.addEventListener('mousemove', handleMouseMove);
-    button.addEventListener('mouseleave', handleMouseLeave);
+    button.addEventListener("mousemove", handleMouseMove);
+    button.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      button.removeEventListener('mousemove', handleMouseMove);
-      button.removeEventListener('mouseleave', handleMouseLeave);
+      button.removeEventListener("mousemove", handleMouseMove);
+      button.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
-  const Component = href ? 'a' : 'button';
-  
+  const Component = href ? "a" : "button";
+
   return (
     <Component
       ref={buttonRef as any}
@@ -69,7 +74,11 @@ interface ParallaxTextProps {
   className?: string;
 }
 
-export const ParallaxText = ({ children, speed = 0.5, className = '' }: ParallaxTextProps) => {
+export const ParallaxText = ({
+  children,
+  speed = 0.5,
+  className = "",
+}: ParallaxTextProps) => {
   const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -79,14 +88,14 @@ export const ParallaxText = ({ children, speed = 0.5, className = '' }: Parallax
     const handleScroll = () => {
       const scrolled = window.pageYOffset;
       const parallax = scrolled * speed;
-      
+
       gsap.set(text, {
         y: parallax,
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [speed]);
 
   return (
@@ -102,7 +111,11 @@ interface RevealTextProps {
   delay?: number;
 }
 
-export const RevealText = ({ children, className = '', delay = 0 }: RevealTextProps) => {
+export const RevealText = ({
+  children,
+  className = "",
+  delay = 0,
+}: RevealTextProps) => {
   const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -122,13 +135,13 @@ export const RevealText = ({ children, className = '', delay = 0 }: RevealTextPr
                 duration: 1.2,
                 delay,
                 ease: "power3.out",
-              }
+              },
             );
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(text);
@@ -163,8 +176,8 @@ export const CursorFollower = ({ text = "View" }: CursorFollowerProps) => {
       });
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (

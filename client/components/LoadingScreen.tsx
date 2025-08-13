@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 interface LoadingScreenProps {
   onComplete?: () => void;
@@ -20,22 +20,34 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
     // Animation sequence
     circles.forEach((circle, index) => {
-      tl.to(circle, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.6,
-        ease: "power2.out",
-      }, index * 0.2)
-      .to(circle, {
-        scale: 1.1,
-        duration: 0.4,
-        ease: "power2.inOut",
-      }, index * 0.2 + 0.6)
-      .to(circle, {
-        scale: 1,
-        duration: 0.4,
-        ease: "power2.inOut",
-      }, index * 0.2 + 1);
+      tl.to(
+        circle,
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        index * 0.2,
+      )
+        .to(
+          circle,
+          {
+            scale: 1.1,
+            duration: 0.4,
+            ease: "power2.inOut",
+          },
+          index * 0.2 + 0.6,
+        )
+        .to(
+          circle,
+          {
+            scale: 1,
+            duration: 0.4,
+            ease: "power2.inOut",
+          },
+          index * 0.2 + 1,
+        );
     });
 
     // Complete loading after a few cycles
@@ -69,8 +81,7 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           >
             <div className="w-20 h-20 border-2 border-black rounded-full relative">
               <div className="absolute inset-2 border border-black rounded-full">
-                <div className="absolute inset-2 border border-black rounded-full opacity-50">
-                </div>
+                <div className="absolute inset-2 border border-black rounded-full opacity-50"></div>
               </div>
             </div>
           </div>
