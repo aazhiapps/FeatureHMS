@@ -19,12 +19,18 @@ interface PlaneJourneyProps {
 // 3D Plane Model
 function Plane({ position = [0, 0, 0] }: { position?: [number, number, number] }) {
   const meshRef = useRef<THREE.Group>(null);
+  const propellerRef = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
       // Subtle bobbing animation
       meshRef.current.position.y = position[1] + Math.sin(clock.elapsedTime * 2) * 0.1;
       meshRef.current.rotation.z = Math.sin(clock.elapsedTime) * 0.05;
+    }
+
+    if (propellerRef.current) {
+      // Spinning propeller
+      propellerRef.current.rotation.z = clock.elapsedTime * 10;
     }
   });
 
@@ -35,21 +41,21 @@ function Plane({ position = [0, 0, 0] }: { position?: [number, number, number] }
         <boxGeometry args={[2, 0.3, 0.5]} />
         <meshStandardMaterial color="#ffffff" />
       </mesh>
-      
+
       {/* Wings */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[0.1, 0.05, 3]} />
         <meshStandardMaterial color="#e5e5e5" />
       </mesh>
-      
+
       {/* Tail */}
       <mesh position={[-0.8, 0.3, 0]}>
         <boxGeometry args={[0.3, 0.8, 0.1]} />
         <meshStandardMaterial color="#e5e5e5" />
       </mesh>
-      
+
       {/* Propeller */}
-      <mesh position={[1, 0, 0]} rotation={[0, 0, clock.elapsedTime * 10]}>
+      <mesh ref={propellerRef} position={[1, 0, 0]}>
         <boxGeometry args={[0.1, 0.02, 1]} />
         <meshStandardMaterial color="#666666" />
       </mesh>
