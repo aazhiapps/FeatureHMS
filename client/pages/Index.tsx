@@ -184,7 +184,7 @@ export default function Index() {
             y: 0,
             scale: 1,
             rotationY: 0,
-            duration: 1.8,
+            duration: 1.2,
             delay: feature.delay,
             ease: "back.out(1.7)",
             scrollTrigger: {
@@ -192,12 +192,11 @@ export default function Index() {
               start: "top 85%",
               end: "bottom 15%",
               toggleActions: "play none none reverse",
-              scrub: 1,
               onEnter: () => {
                 // Add pulsing effect when discovered
                 gsap.to(element, {
                   scale: 1.05,
-                  duration: 0.6,
+                  duration: 0.3,
                   yoyo: true,
                   repeat: 1,
                   ease: "power2.inOut",
@@ -212,7 +211,7 @@ export default function Index() {
               rotationY: -5,
               rotationX: 5,
               z: 50,
-              duration: 0.8,
+              duration: 0.5,
               ease: "power2.out",
             });
           };
@@ -222,7 +221,7 @@ export default function Index() {
               rotationY: 0,
               rotationX: 0,
               z: 0,
-              duration: 0.8,
+              duration: 0.5,
               ease: "power2.out",
             });
           };
@@ -274,7 +273,6 @@ export default function Index() {
 
         {/* Scroll-Triggered Content */}
         <ClinicStreamsContent />
-
         {/* Clean Navigation */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 relative">
           <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -310,245 +308,161 @@ export default function Index() {
         </section>
 
         {/* Features Section */}
-        <section className="relative min-h-[400vh] py-20 px-6" ref={featuresRef}>
+        <section className="relative min-h-screen py-20" ref={featuresRef}>
           {/* Section Header */}
-          <div className="sticky top-0 z-30 bg-gradient-to-b from-blue-900/95 to-blue-900/20 backdrop-blur-md py-12 mb-16">
+          <div className="sticky top-0 z-30 bg-gradient-to-b from-blue-900/90 to-transparent backdrop-blur-sm py-8">
             <div className="text-center">
-              <h2 className="text-4xl md:text-6xl font-light text-white mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
+              <h2 className="text-5xl md:text-7xl font-light text-white mb-4 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
                 Healthcare Innovation Journey
               </h2>
-              <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-white/70 max-w-3xl mx-auto">
                 Follow our medical drone as it navigates through ClinicStreams' revolutionary features
               </p>
             </div>
           </div>
 
           {/* Main Features Layout */}
-          <div className="relative min-h-[300vh] pt-8">
+          <div className="relative min-h-[800px]">
             {/* All Features on Left Side */}
-            <div className="fixed left-6 top-32 z-20 w-80 space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-4">
+            <div className="fixed left-6 top-20 z-20 w-96 space-y-3 max-h-screen overflow-y-auto">
               {features.map((feature, index) => (
                 <div
                   key={feature.id}
                   id={`feature-${feature.id}`}
-                  className="group bg-white/8 backdrop-blur-xl rounded-2xl p-4 border border-white/15 hover:bg-white/12 transition-all duration-500 hover:scale-102 hover:shadow-xl relative overflow-hidden"
+                  className="group cursor-pointer"
                 >
-                  {/* Feature pulse effect */}
-                  <div className="feature-pulse absolute inset-0 rounded-2xl border-2 border-transparent opacity-0"></div>
-
-                  {/* Workflow connection indicator */}
-                  <div className="workflow-connection absolute -right-3 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-gradient-to-r from-blue-400 to-green-400 rounded-full opacity-0 shadow-lg"></div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-lg group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg flex-shrink-0`}>
+                  <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
+                    <div className={`w-14 h-14 mb-3 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
                       <span className="relative z-10">{feature.icon}</span>
-                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
-
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-base font-semibold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500 leading-tight">
-                        {feature.title}
-                      </h3>
-                      <p className="text-xs text-white/70 leading-relaxed group-hover:text-white/90 transition-colors duration-500 line-clamp-3">
-                        {feature.description}
-                      </p>
-                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500">
+                      {feature.description}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Central 3D Drone Space */}
-            <div className="absolute left-[360px] right-6 top-0 bottom-0 flex items-center justify-center pointer-events-none">
-              <div className="w-full max-w-4xl h-[600px] flex items-center justify-center">
-                {/* Outer Ring */}
-                <div className="w-[500px] h-[500px] rounded-full border-2 border-white/20 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-md flex items-center justify-center relative">
-                  {/* Inner Ring */}
-                  <div className="w-[350px] h-[350px] rounded-full border border-white/30 bg-white/5 backdrop-blur-sm flex items-center justify-center relative">
-                    {/* Core Content */}
-                    <div className="text-center text-white">
-                      <div className="text-5xl mb-4 animate-pulse">🚁</div>
-                      <h3 className="text-xl font-light mb-2">Medical Drone Navigation</h3>
-                      <p className="text-sm text-white/70 mb-6 max-w-xs">Follow the journey through our healthcare features</p>
-                      
-                      {/* Status Grid */}
-                      <div className="grid grid-cols-2 gap-3 text-xs max-w-xs">
-                        <div className="bg-white/15 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                          <div className="text-green-400 font-semibold mb-1">Active</div>
-                          <div className="text-white/80">System Online</div>
-                        </div>
-                        <div className="bg-white/15 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                          <div className="text-blue-400 font-semibold mb-1">Scanning</div>
-                          <div className="text-white/80">Features</div>
-                        </div>
+            {/* Expanded Central 3D Drone Space */}
+            <div className="absolute left-[420px] right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[700px] h-[700px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                <div className="w-[500px] h-[500px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
+                  <div className="text-center text-white/70">
+                    <div className="text-6xl mb-4">🚁</div>
+                    <p className="text-lg font-light">Medical Drone Navigation</p>
+                    <p className="text-sm opacity-60">Follow the journey through our features</p>
+                    <div className="mt-6 grid grid-cols-2 gap-4 text-xs">
+                      <div className="bg-white/10 rounded-lg p-2">
+                        <div className="text-green-400 font-bold">Active</div>
+                        <div>System Online</div>
+                      </div>
+                      <div className="bg-white/10 rounded-lg p-2">
+                        <div className="text-blue-400 font-bold">Scanning</div>
+                        <div>Features</div>
                       </div>
                     </div>
-                    
-                    {/* Rotating Elements */}
-                    <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
-                      {[0, 1, 2, 3].map((i) => (
-                        <div
-                          key={i}
-                          className="absolute w-2 h-2 bg-blue-400 rounded-full"
-                          style={{
-                            top: '50%',
-                            left: '50%',
-                            transform: `rotate(${i * 90}deg) translateX(160px) translateY(-50%)`,
-                          }}
-                        />
-                      ))}
-                    </div>
                   </div>
-                  
-                  {/* Pulse Rings */}
-                  <div className="absolute inset-0 rounded-full border border-white/20 animate-ping opacity-20"></div>
-                  <div className="absolute inset-4 rounded-full border border-white/30 animate-ping opacity-30" style={{ animationDelay: '1s' }}></div>
                 </div>
               </div>
             </div>
 
-            {/* Enhanced Floating Background Elements */}
+            {/* Floating Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {Array.from({ length: 30 }).map((_, i) => (
+              {Array.from({ length: 20 }).map((_, i) => (
                 <div
                   key={i}
-                  className="absolute rounded-full bg-white/10 animate-pulse"
+                  className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse"
                   style={{
-                    width: `${Math.random() * 4 + 2}px`,
-                    height: `${Math.random() * 4 + 2}px`,
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 100}%`,
                     animationDelay: `${Math.random() * 3}s`,
-                    animationDuration: `${2 + Math.random() * 3}s`,
+                    animationDuration: `${2 + Math.random() * 2}s`,
                   }}
                 />
               ))}
             </div>
 
-            {/* Medical Grid Pattern */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none">
-              <div className="w-full h-full" style={{
-                backgroundImage: `
-                  linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-                `,
-                backgroundSize: '50px 50px'
-              }}></div>
-            </div>
-
-            {/* Connection Lines */}
+            {/* Connection Lines from Left Features to Center */}
             <div className="absolute inset-0 pointer-events-none">
-              <svg className="w-full h-full opacity-30">
+              <svg className="w-full h-full opacity-20">
                 <defs>
                   <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
-                    <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.6" />
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
+                    <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.5" />
                   </linearGradient>
-                  <filter id="glow">
-                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                    <feMerge> 
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
                 </defs>
-                
-                {/* Connection lines from left features to center */}
-                {features.map((_, index) => {
-                  const startY = 15 + (index * 10); // Distribute evenly
-                  return (
-                    <line
-                      key={index}
-                      x1="22%"
-                      y1={`${startY}%`}
-                      x2="50%"
-                      y2="50%"
-                      stroke="url(#connectionGradient)"
-                      strokeWidth="1"
-                      filter="url(#glow)"
-                      className="animate-pulse"
-                      style={{ animationDelay: `${index * 0.2}s` }}
-                    />
-                  );
-                })}
-                
-                {/* Central hub lines */}
-                <circle
-                  cx="50%"
-                  cy="50%"
-                  r="150"
-                  fill="none"
-                  stroke="url(#connectionGradient)"
-                  strokeWidth="1"
-                  strokeDasharray="5,5"
-                  opacity="0.3"
-                  className="animate-spin"
-                  style={{ animationDuration: '30s' }}
-                />
+                <line x1="25%" y1="20%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="35%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="50%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="65%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="80%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
               </svg>
             </div>
           </div>
         </section>
 
         {/* Thank You Section */}
-        <section className="py-32 px-6 text-center relative z-10 min-h-screen flex items-center">
+        <section className="py-20 px-6 text-center relative z-10 min-h-screen flex items-center">
           <div className="max-w-4xl mx-auto w-full">
-            <div className="mb-12">
-              <div className="text-6xl md:text-8xl mb-8 animate-bounce">🙏</div>
-              <h2 className="text-4xl md:text-6xl font-light text-white mb-8 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent">
+            <div className="mb-8">
+              <div className="text-6xl md:text-8xl mb-6">🙏</div>
+              <h2 className="text-4xl md:text-6xl font-light text-white mb-6 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent">
                 Thank You for Exploring ClinicStreams
               </h2>
             </div>
 
-            <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto">
               You've discovered all our healthcare technology solutions
             </p>
 
-            <p className="text-lg text-white/60 mb-16 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-white/60 mb-12 max-w-2xl mx-auto">
               Ready to revolutionize your healthcare organization? Join
               thousands of providers already transforming patient care with our
               comprehensive platform.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-12 py-6 rounded-full font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+              <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-10 py-5 rounded-full font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg">
                 Get Demo Now
               </button>
-              <button className="bg-white/10 backdrop-blur-md text-white px-12 py-6 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 text-lg">
-                Schedule Consultation
+              <button className="bg-white/10 backdrop-blur-md text-white px-10 py-5 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 text-lg">
+                Contact Sales
               </button>
             </div>
 
             {/* Journey Completion Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-green-400 mb-2">8</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="text-2xl font-bold text-green-400">8</div>
                 <div className="text-sm text-white/70">Features Explored</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-blue-400 mb-2">100%</div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="text-2xl font-bold text-blue-400">100%</div>
                 <div className="text-sm text-white/70">Journey Complete</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-purple-400 mb-2">2k+</div>
-                <div className="text-sm text-white/70">Healthcare Providers</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                <div className="text-3xl font-bold text-cyan-400 mb-2">24/7</div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="text-2xl font-bold text-purple-400">24/7</div>
                 <div className="text-sm text-white/70">Support Available</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="text-2xl font-bold text-cyan-400">∞</div>
+                <div className="text-sm text-white/70">Possibilities</div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="py-16 px-6 border-t border-white/20 relative z-10">
+        <footer className="py-12 px-6 border-t border-white/20 relative z-10">
           <div className="max-w-7xl mx-auto text-center">
-            <div className="text-3xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-6">
+            <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-4">
               ClinicStreams
             </div>
-            <p className="text-white/60 text-lg">
+            <p className="text-white/60">
               © 2024 ClinicStreams. Revolutionizing Healthcare Technology.
             </p>
           </div>
