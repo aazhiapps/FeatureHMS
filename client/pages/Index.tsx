@@ -90,6 +90,8 @@ export default function Index() {
     <SmoothScrollController>
       <ScrollDrivenEffects>
         <ScrollJourney>
+          <ClinicStreamsJourney features={clinicFeatures} />
+          <ClinicStreamsProgress features={clinicFeatures} />
           <ClinicStreamsContent />
           <AtmosEnhancedEffects />
           <div className="min-h-screen overflow-x-hidden relative z-10">
