@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { LoadingScreen } from '../components/LoadingScreen';
 import { MagneticButton, ParallaxText, RevealText, CursorFollower } from '../components/InteractiveElements';
+import { SmoothScrollController } from '../components/SmoothScrollController';
+import { ScrollDrivenEffects } from '../components/ScrollDrivenEffects';
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
