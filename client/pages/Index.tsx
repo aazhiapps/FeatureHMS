@@ -377,12 +377,17 @@ export default function Index() {
                       {feature.description}
                     </p>
 
-                    {/* Discovery Status */}
+                    {/* Workflow Status */}
                     <div className="mt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                       <span className="text-xs text-green-400 font-medium">
-                        Discovered by Medical Drone
+                        Connected in Workflow
                       </span>
+                      <div className="flex space-x-1 ml-2">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <div key={i} className={`w-1 h-1 rounded-full bg-blue-400 animate-pulse`} style={{ animationDelay: `${i * 0.2}s` }}></div>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Hover Effect */}
