@@ -15,6 +15,15 @@ export default function Index() {
   const nameRef = useRef<HTMLHeadingElement>(null);
   const titleRef = useRef<HTMLParagraphElement>(null);
 
+  // Auto-bypass loading in development after 5 seconds
+  useEffect(() => {
+    const fallbackTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(fallbackTimeout);
+  }, []);
+
   useEffect(() => {
     if (!isLoading && heroRef.current && nameRef.current && titleRef.current) {
       const tl = gsap.timeline();
