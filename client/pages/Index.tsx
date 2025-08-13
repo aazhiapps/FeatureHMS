@@ -10,7 +10,7 @@ import { SmoothScrollController } from '../components/SmoothScrollController';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const featuresRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingComplete = () => {
