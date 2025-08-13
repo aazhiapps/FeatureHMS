@@ -135,7 +135,7 @@ export default function Index() {
               <div
                 key={feature.id}
                 id={`feature-${feature.id}`}
-                className="group relative opacity-0"
+                className="group relative"
               >
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20">
                   {/* Feature Icon */}
