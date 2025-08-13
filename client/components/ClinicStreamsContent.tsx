@@ -16,44 +16,72 @@ const clinicStreamsSections: ContentSection[] = [
   {
     id: 'welcome',
     title: 'Begin Your Medical Journey',
-    description: 'Scroll to explore the future of healthcare streaming',
-    position: 0.1,
+    description: 'Scroll to explore the comprehensive healthcare platform',
+    position: 0.05,
     icon: '🏥'
   },
   {
-    id: 'monitoring',
-    title: 'Real-Time Patient Monitoring',
-    description: 'Advanced IoT sensors and AI-powered analytics provide continuous health monitoring, alerting healthcare providers instantly to any changes in patient condition.',
-    position: 0.25,
-    icon: '📊'
+    id: 'management',
+    title: 'Patient Management',
+    description: 'Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care.',
+    position: 0.15,
+    icon: '👥'
   },
   {
-    id: 'telemedicine',
-    title: 'Seamless Telemedicine',
-    description: 'Connect patients with healthcare providers through high-quality video consultations, secure messaging, and remote diagnosis capabilities.',
+    id: 'scheduling',
+    title: 'Appointment Scheduling',
+    description: 'Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows.',
+    position: 0.25,
+    icon: '📅'
+  },
+  {
+    id: 'records',
+    title: 'Electronic Medical Records',
+    description: 'Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility.',
+    position: 0.35,
+    icon: '📋'
+  },
+  {
+    id: 'billing',
+    title: 'Billing & Insurance',
+    description: 'Streamlined billing workflows with insurance verification and claims management for faster reimbursements.',
     position: 0.45,
-    icon: '💻'
+    icon: '💳'
   },
   {
     id: 'analytics',
-    title: 'Healthcare Analytics',
-    description: 'Powerful data analytics and machine learning algorithms help predict health trends, optimize treatment plans, and improve patient outcomes.',
+    title: 'Real-time Analytics',
+    description: 'Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions.',
+    position: 0.55,
+    icon: '📊'
+  },
+  {
+    id: 'resources',
+    title: 'Resource Management',
+    description: 'Optimize staff schedules, inventory, and facility resources to maximize operational efficiency.',
     position: 0.65,
-    icon: '🧠'
+    icon: '⏰'
   },
   {
-    id: 'integration',
-    title: 'Medical Device Integration',
-    description: 'Seamlessly integrate with existing medical devices, EHR systems, and hospital infrastructure for comprehensive care coordination.',
+    id: 'security',
+    title: 'Security Compliance',
+    description: 'HIPAA-compliant security infrastructure with role-based access control and audit trails.',
+    position: 0.75,
+    icon: '🛡️'
+  },
+  {
+    id: 'engagement',
+    title: 'Patient Engagement',
+    description: 'Patient portal for appointments, test results, and secure communication with healthcare providers.',
     position: 0.85,
-    icon: '🔗'
+    icon: '💬'
   },
   {
-    id: 'future',
-    title: 'The Future of Healthcare is Here',
-    description: 'Join thousands of healthcare providers revolutionizing patient care with ClinicStreams.',
+    id: 'complete',
+    title: 'Journey Complete!',
+    description: 'You have discovered all 8 comprehensive healthcare features.',
     position: 0.95,
-    icon: '🚀'
+    icon: '✅'
   }
 ];
 
