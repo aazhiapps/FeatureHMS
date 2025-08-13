@@ -334,16 +334,31 @@ export default function Index() {
                   id={`feature-${feature.id}`}
                   className="group relative opacity-0"
                 >
-                  <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20 overflow-hidden min-h-[280px] flex flex-col">
+                  <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 hover:bg-white/15 transition-all duration-500 hover:scale-105 hover:shadow-2xl border border-white/20 overflow-hidden min-h-[280px] flex flex-col relative">
+                    {/* Workflow Connection Indicator */}
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 workflow-connection">
+                      <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-green-400 rounded-full border-2 border-white shadow-lg">
+                        <div className="w-full h-full bg-white/30 rounded-full animate-pulse"></div>
+                      </div>
+                    </div>
+
+                    {/* Connection Line to Next Feature */}
+                    {index < features.length - 1 && (
+                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gradient-to-b from-blue-400 to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+                    )}
+
                     {/* 3D Discovery Indicator */}
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                         <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-green-400 rounded transform rotate-45"></div>
                       </div>
                       <div className="text-xs text-white/60 mt-1 text-center">
-                        3D View
+                        Connected
                       </div>
                     </div>
+
+                    {/* Pulse Effect for Discovery */}
+                    <div className="feature-pulse absolute inset-0 rounded-xl border-2 border-blue-400 opacity-0 scale-100"></div>
 
                     {/* Feature Icon */}
                     <div
