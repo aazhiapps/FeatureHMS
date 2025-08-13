@@ -11,7 +11,11 @@ import { PlaneProgressIndicator } from '../components/PlaneProgressIndicator';
 import { AtmosContent } from '../components/AtmosContent';
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
+  // Check URL parameters to skip loading
+  const urlParams = new URLSearchParams(window.location.search);
+  const skipLoading = urlParams.has('skip');
+
+  const [isLoading, setIsLoading] = useState(!skipLoading);
   const heroRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const titleRef = useRef<HTMLParagraphElement>(null);
