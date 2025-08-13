@@ -325,15 +325,15 @@ export default function Index() {
 
           {/* Main Features Layout */}
           <div className="relative h-full">
-            {/* Left Side Features */}
-            <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-20 w-80 space-y-6">
-              {features.slice(0, 4).map((feature, index) => (
+            {/* All Features on Left Side */}
+            <div className="fixed left-6 top-20 z-20 w-80 space-y-4 max-h-screen overflow-y-auto">
+              {features.map((feature, index) => (
                 <div
                   key={feature.id}
                   id={`feature-${feature.id}`}
                   className="group relative opacity-0"
                 >
-                  <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
+                  <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
                     {/* Animated Border */}
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                     
@@ -344,13 +344,13 @@ export default function Index() {
                     </div>
 
                     {/* Feature Icon */}
-                    <div className={`w-16 h-16 mb-4 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
+                    <div className={`w-14 h-14 mb-3 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
                       <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <span className="relative z-10">{feature.icon}</span>
                     </div>
 
                     {/* Feature Content */}
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-200 transition-colors duration-500">
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-500">
                       {feature.title}
                     </h3>
                     <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500">
@@ -358,7 +358,7 @@ export default function Index() {
                     </p>
 
                     {/* Status Indicator */}
-                    <div className="mt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="mt-3 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                       <span className="text-xs text-green-400 font-medium">Active in Network</span>
                     </div>
@@ -367,55 +367,23 @@ export default function Index() {
               ))}
             </div>
 
-            {/* Right Side Features */}
-            <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-20 w-80 space-y-6">
-              {features.slice(4, 8).map((feature, index) => (
-                <div
-                  key={feature.id}
-                  id={`feature-${feature.id}`}
-                  className="group relative opacity-0"
-                >
-                  <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-700 hover:scale-105 hover:shadow-2xl relative overflow-hidden">
-                    {/* Animated Border */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/20 via-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    
-                    {/* Connection Pulse */}
-                    <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-ping"></div>
-                      <div className="absolute inset-0 w-8 h-8 bg-gradient-to-r from-green-400 to-blue-400 rounded-full"></div>
-                    </div>
-
-                    {/* Feature Icon */}
-                    <div className={`w-16 h-16 mb-4 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-500 relative overflow-hidden shadow-lg`}>
-                      <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <span className="relative z-10">{feature.icon}</span>
-                    </div>
-
-                    {/* Feature Content */}
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-200 transition-colors duration-500">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500">
-                      {feature.description}
-                    </p>
-
-                    {/* Status Indicator */}
-                    <div className="mt-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <span className="text-xs text-green-400 font-medium">Active in Network</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Central 3D Drone Space */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-96 h-96 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
+            {/* Expanded Central 3D Drone Space */}
+            <div className="absolute left-96 right-0 top-0 bottom-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[500px] h-[500px] rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center">
                 <div className="text-center text-white/70">
                   <div className="text-6xl mb-4">🚁</div>
                   <p className="text-lg font-light">Medical Drone Navigation</p>
                   <p className="text-sm opacity-60">Follow the journey through our features</p>
+                  <div className="mt-6 grid grid-cols-2 gap-4 text-xs">
+                    <div className="bg-white/10 rounded-lg p-2">
+                      <div className="text-green-400 font-bold">Active</div>
+                      <div>System Online</div>
+                    </div>
+                    <div className="bg-white/10 rounded-lg p-2">
+                      <div className="text-blue-400 font-bold">Scanning</div>
+                      <div>Features</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -436,7 +404,7 @@ export default function Index() {
               ))}
             </div>
 
-            {/* Connection Lines */}
+            {/* Connection Lines from Left Features to Center */}
             <div className="absolute inset-0 pointer-events-none">
               <svg className="w-full h-full opacity-20">
                 <defs>
@@ -446,10 +414,11 @@ export default function Index() {
                     <stop offset="100%" stopColor="#10b981" stopOpacity="0.5" />
                   </linearGradient>
                 </defs>
-                <line x1="20%" y1="30%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
-                <line x1="80%" y1="30%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
-                <line x1="20%" y1="70%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
-                <line x1="80%" y1="70%" x2="50%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="20%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="35%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="50%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="65%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
+                <line x1="25%" y1="80%" x2="60%" y2="50%" stroke="url(#connectionGradient)" strokeWidth="1" className="animate-pulse" />
               </svg>
             </div>
           </div>
