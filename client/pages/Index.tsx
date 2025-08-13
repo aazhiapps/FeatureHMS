@@ -5,6 +5,7 @@ import { MagneticButton, ParallaxText, RevealText, CursorFollower } from '../com
 import { SmoothScrollController } from '../components/SmoothScrollController';
 import { ScrollDrivenEffects } from '../components/ScrollDrivenEffects';
 import { ScrollJourney } from '../components/ScrollJourney';
+import { AtmosEnhancedEffects } from '../components/AtmosEnhancedEffects';
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +46,7 @@ export default function Index() {
     <SmoothScrollController>
       <ScrollDrivenEffects>
         <ScrollJourney>
+          <AtmosEnhancedEffects />
           <div className="min-h-screen overflow-x-hidden">
             <CursorFollower />
 
