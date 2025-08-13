@@ -75,7 +75,7 @@ export const EnhancedLoadingScreen = ({ onComplete }: EnhancedLoadingScreenProps
           }
         }
       });
-    }, 2500);
+    }, 1500);
 
     return () => {
       clearTimeout(circleTimeout);
