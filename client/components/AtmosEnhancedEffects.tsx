@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export const AtmosEnhancedEffects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 

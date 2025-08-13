@@ -1,5 +1,7 @@
 import "./global.css";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -9,6 +11,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { SmoothScroll } from "./components/SmoothScroll";
+
+// Register GSAP plugins globally
+gsap.registerPlugin(ScrollTrigger);
 
 const queryClient = new QueryClient();
 

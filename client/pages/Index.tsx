@@ -7,8 +7,6 @@ import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
 import { SmoothScrollController } from "../components/SmoothScrollController";
 
-gsap.registerPlugin(ScrollTrigger);
-
 // TypeScript interface for DOM elements with cleanup handlers
 declare global {
   interface HTMLElement {
