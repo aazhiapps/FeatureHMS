@@ -110,10 +110,14 @@ function FloatingFeature({ feature, index }: { feature: any; index: number }) {
 
   const getFeatureColor = (category: string) => {
     switch (category) {
-      case 'monitoring': return '#00ff88';
-      case 'analytics': return '#0088ff';
-      case 'telemedicine': return '#ff6600';
-      case 'integration': return '#ff0088';
+      case 'management': return '#3b82f6';
+      case 'scheduling': return '#8b5cf6';
+      case 'records': return '#10b981';
+      case 'billing': return '#f59e0b';
+      case 'analytics': return '#ec4899';
+      case 'resources': return '#14b8a6';
+      case 'security': return '#ef4444';
+      case 'engagement': return '#06b6d4';
       default: return '#ffffff';
     }
   };
