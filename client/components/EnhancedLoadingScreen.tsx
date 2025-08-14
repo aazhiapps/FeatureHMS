@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { MedicineWaveEffect } from "./MedicineWaveEffect";
 
 interface EnhancedLoadingScreenProps {
   onComplete?: () => void;
