@@ -296,12 +296,11 @@ export const ClinicStreamsProgress = ({
                     cx="30"
                     cy={y}
                     r="12"
-                    className="md:r-15"
+                    className="md:r-15 animate-ping"
                     fill="none"
                     stroke="#00ff88"
                     strokeWidth="2"
                     opacity="0.4"
-                    className="animate-ping"
                   />
                 )}
 
