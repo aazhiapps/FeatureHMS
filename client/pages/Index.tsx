@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
-import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
+import { FeaturesOverlay } from "../components/FeaturesOverlay";
 import {
   MouseAnimationSystem,
   useMouseTilt,
