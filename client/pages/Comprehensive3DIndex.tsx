@@ -645,7 +645,7 @@ const Comprehensive3DIndex = () => {
               <button
                 key={page.id}
                 onClick={() => handleNavigation(page.id)}
-                className={`px-4 py-3 rounded-lg text-sm font-semibold transition-all group ${
+                className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all group min-w-[80px] ${
                   currentPage === page.id
                     ? 'bg-blue-600 text-white shadow-lg scale-105'
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:scale-105'
