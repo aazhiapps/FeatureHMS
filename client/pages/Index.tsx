@@ -15,7 +15,6 @@ import { MouseAnimationSystem } from "../components/MouseAnimationSystem";
 import { CountdownLoadingScreen } from "../components/CountdownLoadingScreen";
 import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
 import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
-import { CountdownLoadingScreen } from "../components/CountdownLoadingScreen";
 
 gsap.registerPlugin(ScrollTrigger);
 
