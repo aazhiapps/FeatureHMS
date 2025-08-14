@@ -94,6 +94,9 @@ const clinicStreamsSections: ContentSection[] = [
 
 export const ClinicStreamsContent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [currentSection, setCurrentSection] = useState<string>('welcome');
+  const [burstTrigger, setBurstTrigger] = useState(false);
+  const [burstPosition, setBurstPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (!containerRef.current) return;
