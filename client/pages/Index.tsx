@@ -13,6 +13,7 @@ import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
 import { SmoothScrollController } from "../components/SmoothScrollController";
 import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
 import { FeatureComparisonPage } from "../components/FeatureComparisonPage";
+import { NavigationFlowHeader } from "../components/NavigationFlowHeader";
 import { useScrollNavigation } from "../components/ScrollNavigationController";
 
 // TypeScript interface for DOM elements with cleanup handlers
