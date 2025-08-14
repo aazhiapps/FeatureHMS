@@ -605,6 +605,9 @@ const Comprehensive3DIndex = () => {
         {currentPage === 'features' && <HealthcareModulesViz />}
         {currentPage === 'comparison' && <ComprehensiveComparison />}
         {currentPage === 'journey' && <HealthcareJourney />}
+        {currentPage === 'pricing' && <Pricing3D />}
+        {currentPage === 'testimonials' && <Testimonials3D />}
+        {currentPage === 'roi' && <ROICalculator3D />}
         
         {/* Enhanced Background Particles */}
         {[...Array(100)].map((_, i) => (
