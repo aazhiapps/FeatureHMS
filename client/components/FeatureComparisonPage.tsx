@@ -67,7 +67,7 @@ const competitorsData: CompetitorData[] = [
       features: "unmatched value (pay 10 months, get 2 free)"
     },
     midPlan: {
-      price: "₹99,990 / year",
+      price: "��99,990 / year",
       features: "ideal for growing hospitals"
     },
     enterprisePlan: {
@@ -493,10 +493,84 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
   const handleCompetitorSelect = (index: number) => {
     setSelectedCompetitor(selectedCompetitor === index ? null : index);
-    
+
     // Trigger burst effect
     setBurstPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
     setBurstTrigger(prev => !prev);
+
+    // Animate card selection
+    const card = document.getElementById(`competitor-${index}`);
+    if (card) {
+      gsap.fromTo(card,
+        { scale: 1 },
+        {
+          scale: 1.05,
+          duration: 0.3,
+          yoyo: true,
+          repeat: 1,
+          ease: "power2.out"
+        }
+      );
+    }
+  };
+
+  const handleFeatureHighlight = (featureName: string) => {
+    setHighlightedFeature(featureName);
+
+    // Highlight all cells in the feature row
+    const featureRows = document.querySelectorAll(`[data-feature="${featureName}"]`);
+    featureRows.forEach(row => {
+      gsap.to(row, {
+        backgroundColor: "rgba(59, 130, 246, 0.2)",
+        scale: 1.02,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+  };
+
+  const handleFeatureUnhighlight = () => {
+    if (highlightedFeature) {
+      const featureRows = document.querySelectorAll(`[data-feature="${highlightedFeature}"]`);
+      featureRows.forEach(row => {
+        gsap.to(row, {
+          backgroundColor: "transparent",
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    }
+    setHighlightedFeature(null);
+  };
+
+  const animateTableFilter = (category: string) => {
+    setAnimatingTable(true);
+
+    // Hide all rows first
+    const allRows = document.querySelectorAll('tbody tr');
+    gsap.to(allRows, {
+      opacity: 0,
+      x: -50,
+      duration: 0.3,
+      stagger: 0.02,
+      ease: "power2.out",
+      onComplete: () => {
+        // Show filtered rows
+        const filteredRows = document.querySelectorAll(`[data-category="${category}"], [data-category="header"]`);
+        gsap.fromTo(filteredRows,
+          { opacity: 0, x: 50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.5,
+            stagger: 0.03,
+            ease: "back.out(1.7)",
+            onComplete: () => setAnimatingTable(false)
+          }
+        );
+      }
+    });
   };
 
   const renderStars = (rating: number) => {
