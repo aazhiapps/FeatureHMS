@@ -1228,27 +1228,93 @@ export default function Index() {
               comprehensive platform.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-8 md:mb-12 px-4">
-              <InteractiveButton
-                variant="primary"
-                size="lg"
-                className="w-full sm:w-auto"
-                magnetic={true}
-                tilt={true}
-                ripple={true}
-              >
-                Get Demo Now
-              </InteractiveButton>
-              <InteractiveButton
-                variant="secondary"
-                size="lg"
-                className="w-full sm:w-auto"
-                magnetic={true}
-                tilt={true}
-                ripple={true}
-              >
-                Contact Sales
-              </InteractiveButton>
+            <div className="space-y-6">
+              {/* Primary Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center">
+                <InteractiveButton
+                  variant="primary"
+                  size="xl"
+                  className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600"
+                  magnetic={true}
+                  tilt={true}
+                  ripple={true}
+                  onClick={handleScheduleDemo}
+                >
+                  <span className="flex items-center justify-center">
+                    <span className="text-2xl mr-3">🚀</span>
+                    Schedule Live Demo
+                  </span>
+                </InteractiveButton>
+
+                <InteractiveButton
+                  variant="secondary"
+                  size="xl"
+                  className="w-full sm:w-auto min-w-[200px] border-2 border-white/30 hover:border-white/50"
+                  magnetic={true}
+                  tilt={true}
+                  ripple={true}
+                  onClick={handleReplayJourney}
+                >
+                  <span className="flex items-center justify-center">
+                    <span className="text-2xl mr-3">🔁</span>
+                    Replay Journey
+                  </span>
+                </InteractiveButton>
+
+                <InteractiveButton
+                  variant="outline"
+                  size="xl"
+                  className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-purple-500/20 to-indigo-500/20 hover:from-purple-500/30 hover:to-indigo-500/30 border-2 border-purple-400/50 hover:border-purple-400/70"
+                  magnetic={true}
+                  tilt={true}
+                  ripple={true}
+                  onClick={handleShowComparison}
+                >
+                  <span className="flex items-center justify-center">
+                    <span className="text-2xl mr-3">🆚</span>
+                    Compare Solutions
+                  </span>
+                </InteractiveButton>
+              </div>
+
+              {/* Secondary Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
+                <InteractiveButton
+                  variant="ghost"
+                  size="md"
+                  className="text-white/80 hover:text-white border border-white/20 hover:border-white/40"
+                  magnetic={true}
+                >
+                  <span className="flex items-center">
+                    <span className="mr-2">📧</span>
+                    Contact Sales
+                  </span>
+                </InteractiveButton>
+
+                <InteractiveButton
+                  variant="ghost"
+                  size="md"
+                  className="text-white/80 hover:text-white border border-white/20 hover:border-white/40"
+                  magnetic={true}
+                >
+                  <span className="flex items-center">
+                    <span className="mr-2">📚</span>
+                    Documentation
+                  </span>
+                </InteractiveButton>
+
+                <InteractiveButton
+                  variant="ghost"
+                  size="md"
+                  className="text-white/80 hover:text-white border border-white/20 hover:border-white/40"
+                  magnetic={true}
+                >
+                  <span className="flex items-center">
+                    <span className="mr-2">💬</span>
+                    Support Chat
+                  </span>
+                </InteractiveButton>
+              </div>
             </div>
 
             {/* Journey Completion Stats */}
