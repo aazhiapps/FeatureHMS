@@ -172,10 +172,7 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
 
       {/* Skip button */}
       <button
-        onClick={() => {
-          setIsAutoScrolling(false);
-          onComplete?.();
-        }}
+        onClick={handleComplete}
         className="absolute bottom-8 right-8 bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full border border-white/30 hover:bg-white/30 transition-all duration-300 text-sm font-medium"
       >
         Skip Auto-Discovery →
