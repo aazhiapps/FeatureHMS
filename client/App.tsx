@@ -17,6 +17,7 @@ import { SmoothScroll } from "./components/SmoothScroll";
 gsap.registerPlugin(ScrollTrigger);
 
 // Lazy load pages for better performance
+const UltimateAnimatedIndex = lazy(() => import("./pages/UltimateAnimatedIndex"));
 const EnhancedIndex = lazy(() => import("./pages/EnhancedIndex"));
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
