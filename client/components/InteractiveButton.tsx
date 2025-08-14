@@ -11,6 +11,8 @@ interface InteractiveButtonProps {
   magnetic?: boolean;
   tilt?: boolean;
   ripple?: boolean;
+  disabled?: boolean;
+  id?: string;
 }
 
 export const InteractiveButton = ({
