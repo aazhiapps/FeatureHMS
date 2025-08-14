@@ -380,22 +380,19 @@ export const EnhancedLoadingScreen = ({
       {/* Loading Text */}
       <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center">
         <p className="text-blue-600 font-light text-lg mb-2">
-          {loadingPhase === "countdown"
-            ? "Preparing to Launch..."
-            : loadingPhase === "circles"
-              ? "Connecting to Healthcare Network..."
-                : "System Ready!"}
+          {loadingPhase === "countdown" ? "Preparing to Launch..." :
+           loadingPhase === "circles" ? "Connecting to Healthcare Network..." :
+           loadingPhase === "plane" ? "Deploying Medical Drone..." :
+           loadingPhase === "systemready" ? "All Systems Online!" : "Ready to Begin!"}
         </p>
         <div className="w-40 h-1 bg-blue-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all duration-1000"
             style={{
-              width:
-                loadingPhase === "countdown"
-                  ? "15%"
-                  : loadingPhase === "circles"
-                    ? "45%"
-                      : "100%",
+              width: loadingPhase === "countdown" ? "15%" :
+                     loadingPhase === "circles" ? "35%" :
+                     loadingPhase === "plane" ? "65%" :
+                     loadingPhase === "systemready" ? "95%" : "100%"
             }}
           ></div>
         </div>
