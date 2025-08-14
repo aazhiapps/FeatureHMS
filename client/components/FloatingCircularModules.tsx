@@ -102,6 +102,49 @@ export const FloatingCircularModules = ({
     },
   ];
 
+  // Scroll detection effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true);
+
+      // Hide center text while scrolling
+      if (centerTextRef.current) {
+        gsap.to(centerTextRef.current, {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.2,
+          ease: "power2.out"
+        });
+      }
+
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // Show center text after scrolling stops
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+        if (centerTextRef.current) {
+          gsap.to(centerTextRef.current, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            ease: "back.out(1.2)"
+          });
+        }
+      }, 150); // Wait 150ms after scroll stops
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (!containerRef.current || !isVisible) return;
 
