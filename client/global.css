@@ -602,4 +602,100 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
+
+  /* Enhanced circular system animations */
+  .orbital-glow {
+    animation: orbitalGlow 4s ease-in-out infinite;
+  }
+
+  .module-hover-glow {
+    animation: moduleHoverGlow 2s ease-in-out infinite;
+  }
+
+  .connection-pulse {
+    animation: connectionPulse 1.5s ease-in-out infinite;
+  }
+
+  .data-flow-particle {
+    animation: dataFlowParticle 3s linear infinite;
+  }
+
+  /* Enhanced keyframes */
+  @keyframes orbitalGlow {
+    0%, 100% { 
+      filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+    }
+    50% { 
+      filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.5));
+    }
+  }
+
+  @keyframes moduleHoverGlow {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    }
+    50% { 
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+    }
+  }
+
+  @keyframes connectionPulse {
+    0%, 100% { 
+      opacity: 0.6;
+      transform: scaleY(1);
+    }
+    50% { 
+      opacity: 1;
+      transform: scaleY(1.1);
+    }
+  }
+
+  @keyframes dataFlowParticle {
+    0% { 
+      transform: translate(-50%, -50%) rotate(0deg) translateX(50px) scale(0);
+      opacity: 0;
+    }
+    10% { 
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(36deg) translateX(60px) scale(1);
+    }
+    90% { 
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(324deg) translateX(120px) scale(1);
+    }
+    100% { 
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(360deg) translateX(130px) scale(0);
+    }
+  }
+
+  /* Enhanced responsive design */
+  @media (max-width: 1024px) {
+    .circular-system-container {
+      width: 400px !important;
+      height: 400px !important;
+    }
+
+    .outer-module {
+      width: 80px !important;
+      height: 60px !important;
+    }
+
+    .inner-module {
+      width: 70px !important;
+      height: 50px !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .three-column-layout {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+
+    .circular-system-container {
+      width: 320px !important;
+      height: 320px !important;
+    }
+  }
 }
