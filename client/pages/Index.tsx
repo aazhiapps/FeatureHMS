@@ -12,7 +12,6 @@ import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
 import { SmoothScrollController } from "../components/SmoothScrollController";
 import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
-import { DemoReplaySection } from "../components/DemoReplaySection";
 import { FeatureComparisonPage } from "../components/FeatureComparisonPage";
 import { useScrollNavigation } from "../components/ScrollNavigationController";
 
@@ -658,7 +657,7 @@ export default function Index() {
               }}
               data-parallax={String(0.1 + (i % 3) * 0.05)}
             >
-              {['🏥', '💊', '⚕���', '🩺', '💉', '🧬', '📊', '💗'][i]}
+              {['🏥', '💊', '⚕️', '🩺', '💉', '🧬', '📊', '💗'][i]}
             </div>
           ))}
         </div>
