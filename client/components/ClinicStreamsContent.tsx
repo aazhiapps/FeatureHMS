@@ -107,27 +107,43 @@ export const ClinicStreamsContent = () => {
         trigger: "body",
         start: "top top",
         end: "bottom bottom",
-        scrub: 1,
+        scrub: 0.8, // Smoother scrub for better transitions
         onUpdate: (self) => {
           const progress = self.progress;
           const sectionProgress = section.position;
-          const threshold = 0.08; // Reduced for better visibility
+          const threshold = 0.1; // Slightly larger for smoother transitions
 
-          // Show section when in range
-          if (Math.abs(progress - sectionProgress) < threshold) {
+          // Calculate distance and create smooth fade zones
+          const distance = Math.abs(progress - sectionProgress);
+          const fadeZone = threshold * 0.6;
+
+          if (distance < threshold) {
+            // Active zone - show section with smooth fade
+            const opacity = distance < fadeZone ? 1 : 1 - ((distance - fadeZone) / (threshold - fadeZone)) * 0.8;
+            const scale = distance < fadeZone ? 1 : 1 - ((distance - fadeZone) / (threshold - fadeZone)) * 0.1;
+            const blur = distance < fadeZone ? 0 : ((distance - fadeZone) / (threshold - fadeZone)) * 5;
+
             gsap.to(sectionElement, {
-              opacity: 1,
+              opacity: opacity,
               y: 0,
-              scale: 1,
-              duration: 1,
+              scale: scale,
+              rotationX: 0,
+              rotationY: 0,
+              filter: `blur(${blur}px)`,
+              duration: 1.5,
               ease: "power2.out",
             });
           } else {
+            // Inactive zone - hide section with enhanced 3D effects
+            const direction = progress > sectionProgress ? -1 : 1;
             gsap.to(sectionElement, {
               opacity: 0,
-              y: progress > sectionProgress ? -30 : 30,
-              scale: 0.95,
-              duration: 0.8,
+              y: direction * 50,
+              scale: 0.85,
+              rotationX: direction * 8,
+              rotationY: direction * 12,
+              filter: "blur(10px)",
+              duration: 1,
               ease: "power2.inOut",
             });
           }
