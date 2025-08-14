@@ -23,7 +23,10 @@ export const AutoScrollFeatures = ({
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const [burstTrigger, setBurstTrigger] = useState(false);
-  const [burstPosition, setBurstPosition] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const [burstPosition, setBurstPosition] = useState({
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+  });
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Memoize the completion callback to prevent re-renders
@@ -53,9 +56,9 @@ export const AutoScrollFeatures = ({
         // Trigger medicine burst on feature change
         setBurstPosition({
           x: window.innerWidth / 2 + (Math.random() - 0.5) * 200,
-          y: window.innerHeight / 2 + (Math.random() - 0.5) * 200
+          y: window.innerHeight / 2 + (Math.random() - 0.5) * 200,
         });
-        setBurstTrigger(prev => !prev);
+        setBurstTrigger((prev) => !prev);
 
         return nextIndex;
       });
@@ -223,10 +226,7 @@ export const AutoScrollFeatures = ({
       />
 
       {/* Medicine Burst Effect on Feature Change */}
-      <MedicineBurstEffect
-        trigger={burstTrigger}
-        position={burstPosition}
-      />
+      <MedicineBurstEffect trigger={burstTrigger} position={burstPosition} />
     </div>
   );
 };

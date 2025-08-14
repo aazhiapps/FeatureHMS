@@ -30,7 +30,9 @@ const MedicalDrone = React.forwardRef<
     if (ref && "current" in ref && ref.current) {
       // Enhanced floating motion with more natural movement
       ref.current.position.y =
-        position[1] + Math.sin(clock.elapsedTime * 1.2) * 0.3 + Math.sin(clock.elapsedTime * 2.1) * 0.1;
+        position[1] +
+        Math.sin(clock.elapsedTime * 1.2) * 0.3 +
+        Math.sin(clock.elapsedTime * 2.1) * 0.1;
       ref.current.rotation.y = Math.sin(clock.elapsedTime * 0.8) * 0.15;
       ref.current.rotation.x = Math.sin(clock.elapsedTime * 1.1) * 0.05;
       ref.current.rotation.z = Math.sin(clock.elapsedTime * 0.7) * 0.08;
@@ -52,11 +54,11 @@ const MedicalDrone = React.forwardRef<
     }
 
     // Update LED animations
-    const newLedIntensity = [0, 1, 2, 3].map(index =>
-      0.5 + Math.sin(clock.elapsedTime * 3 + index) * 0.3
+    const newLedIntensity = [0, 1, 2, 3].map(
+      (index) => 0.5 + Math.sin(clock.elapsedTime * 3 + index) * 0.3,
     );
-    const newGlowOpacity = [0, 1, 2, 3].map(index =>
-      0.2 + Math.sin(clock.elapsedTime * 2 + index) * 0.1
+    const newGlowOpacity = [0, 1, 2, 3].map(
+      (index) => 0.2 + Math.sin(clock.elapsedTime * 2 + index) * 0.1,
     );
     setLedIntensity(newLedIntensity);
     setGlowOpacity(newGlowOpacity);
@@ -141,7 +143,7 @@ function FloatingFeature({
   feature,
   index,
   onFeatureClick,
-  onJumpToSection
+  onJumpToSection,
 }: {
   feature: any;
   index: number;
@@ -162,11 +164,15 @@ function FloatingFeature({
 
       // Smooth rotation with slight tilting
       meshRef.current.rotation.y = clock.elapsedTime * 0.15 + index;
-      meshRef.current.rotation.x = Math.sin(clock.elapsedTime * 0.5 + index) * 0.1;
-      meshRef.current.rotation.z = Math.sin(clock.elapsedTime * 0.7 + index) * 0.05;
+      meshRef.current.rotation.x =
+        Math.sin(clock.elapsedTime * 0.5 + index) * 0.1;
+      meshRef.current.rotation.z =
+        Math.sin(clock.elapsedTime * 0.7 + index) * 0.05;
 
       // Scale pulsing for breathing effect
-      const scale = hovered ? 1.3 : 1 + Math.sin(clock.elapsedTime * 1.5 + index) * 0.05;
+      const scale = hovered
+        ? 1.3
+        : 1 + Math.sin(clock.elapsedTime * 1.5 + index) * 0.05;
       meshRef.current.scale.setScalar(scale);
     }
   });
@@ -201,12 +207,12 @@ function FloatingFeature({
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
-        document.body.style.cursor = 'pointer';
+        document.body.style.cursor = "pointer";
       }}
       onPointerOut={(e) => {
         e.stopPropagation();
         setHovered(false);
-        document.body.style.cursor = 'default';
+        document.body.style.cursor = "default";
       }}
       onClick={(e) => {
         e.stopPropagation();
@@ -214,16 +220,19 @@ function FloatingFeature({
 
         // Visual feedback
         if (meshRef.current) {
-          gsap.fromTo(meshRef.current.scale,
+          gsap.fromTo(
+            meshRef.current.scale,
             { x: 1, y: 1, z: 1 },
             {
-              x: 1.2, y: 1.2, z: 1.2,
+              x: 1.2,
+              y: 1.2,
+              z: 1.2,
               duration: 0.3,
               yoyo: true,
               repeat: 1,
               ease: "power2.out",
-              onComplete: () => setClicked(false)
-            }
+              onComplete: () => setClicked(false),
+            },
           );
         }
 
@@ -499,7 +508,7 @@ function MedicalEnvironment() {
 function MedicalScene({
   features,
   onFeatureClick,
-  onJumpToSection
+  onJumpToSection,
 }: {
   features: any[];
   onFeatureClick?: (featureIndex: number) => void;
@@ -559,7 +568,7 @@ function MedicalScene({
             y: position.y,
             z: position.z,
             duration: 0.5,
-            ease: "power2.out"
+            ease: "power2.out",
           });
 
           // Enhanced drone orientation with banking
@@ -581,7 +590,7 @@ function MedicalScene({
         const cameraOffset = new THREE.Vector3(
           Math.cos(cameraAngle) * cameraDistance,
           cameraHeight,
-          Math.sin(cameraAngle) * cameraDistance
+          Math.sin(cameraAngle) * cameraDistance,
         );
         const cameraPosition = position.clone().add(cameraOffset);
 
@@ -590,7 +599,7 @@ function MedicalScene({
           y: cameraPosition.y,
           z: cameraPosition.z,
           duration: 0.8,
-          ease: "power2.out"
+          ease: "power2.out",
         });
 
         // Smooth camera look-at with slight anticipation
@@ -606,9 +615,11 @@ function MedicalScene({
           setCurrentFeatureIndex(featureIndex);
 
           // Emit custom event for feature change
-          window.dispatchEvent(new CustomEvent('featureChange', {
-            detail: { featureIndex, feature: features[featureIndex] }
-          }));
+          window.dispatchEvent(
+            new CustomEvent("featureChange", {
+              detail: { featureIndex, feature: features[featureIndex] },
+            }),
+          );
 
           // Highlight current feature in workflow
           const currentFeature = features[featureIndex];

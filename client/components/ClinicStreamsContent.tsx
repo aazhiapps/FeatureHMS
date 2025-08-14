@@ -94,7 +94,7 @@ const clinicStreamsSections: ContentSection[] = [
 
 export const ClinicStreamsContent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentSection, setCurrentSection] = useState<string>('welcome');
+  const [currentSection, setCurrentSection] = useState<string>("welcome");
   const [burstTrigger, setBurstTrigger] = useState(false);
   const [burstPosition, setBurstPosition] = useState({ x: 0, y: 0 });
 
@@ -123,17 +123,29 @@ export const ClinicStreamsContent = () => {
 
           if (distance < threshold) {
             // Active zone - show section with smooth fade
-            const opacity = distance < fadeZone ? 1 : 1 - ((distance - fadeZone) / (threshold - fadeZone)) * 0.8;
-            const scale = distance < fadeZone ? 1 : 1 - ((distance - fadeZone) / (threshold - fadeZone)) * 0.1;
-            const blur = distance < fadeZone ? 0 : ((distance - fadeZone) / (threshold - fadeZone)) * 5;
+            const opacity =
+              distance < fadeZone
+                ? 1
+                : 1 - ((distance - fadeZone) / (threshold - fadeZone)) * 0.8;
+            const scale =
+              distance < fadeZone
+                ? 1
+                : 1 - ((distance - fadeZone) / (threshold - fadeZone)) * 0.1;
+            const blur =
+              distance < fadeZone
+                ? 0
+                : ((distance - fadeZone) / (threshold - fadeZone)) * 5;
 
             // Update current section for medicine effect
             if (distance < fadeZone && currentSection !== section.id) {
               setCurrentSection(section.id);
 
               // Trigger medicine burst effect on section change
-              setBurstPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-              setBurstTrigger(prev => !prev);
+              setBurstPosition({
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 2,
+              });
+              setBurstTrigger((prev) => !prev);
             }
 
             gsap.to(sectionElement, {
@@ -205,20 +217,36 @@ export const ClinicStreamsContent = () => {
               <div className="bg-gradient-to-r from-blue-500/30 to-green-500/30 backdrop-blur-lg rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/40 shadow-xl">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center">
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-green-400">8</div>
-                    <div className="text-xs md:text-sm text-white/80">Features</div>
+                    <div className="text-2xl md:text-3xl font-bold text-green-400">
+                      8
+                    </div>
+                    <div className="text-xs md:text-sm text-white/80">
+                      Features
+                    </div>
                   </div>
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-blue-400">100%</div>
-                    <div className="text-xs md:text-sm text-white/80">Complete</div>
+                    <div className="text-2xl md:text-3xl font-bold text-blue-400">
+                      100%
+                    </div>
+                    <div className="text-xs md:text-sm text-white/80">
+                      Complete
+                    </div>
                   </div>
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-purple-400">24/7</div>
-                    <div className="text-xs md:text-sm text-white/80">Support</div>
+                    <div className="text-2xl md:text-3xl font-bold text-purple-400">
+                      24/7
+                    </div>
+                    <div className="text-xs md:text-sm text-white/80">
+                      Support
+                    </div>
                   </div>
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-cyan-400">∞</div>
-                    <div className="text-xs md:text-sm text-white/80">Possibilities</div>
+                    <div className="text-2xl md:text-3xl font-bold text-cyan-400">
+                      ∞
+                    </div>
+                    <div className="text-xs md:text-sm text-white/80">
+                      Possibilities
+                    </div>
                   </div>
                 </div>
               </div>
@@ -236,16 +264,10 @@ export const ClinicStreamsContent = () => {
       ))}
 
       {/* Medicine Wave Effect */}
-      <SectionMedicineWave
-        sectionId={currentSection}
-        isVisible={true}
-      />
+      <SectionMedicineWave sectionId={currentSection} isVisible={true} />
 
       {/* Medicine Burst Effect */}
-      <MedicineBurstEffect
-        trigger={burstTrigger}
-        position={burstPosition}
-      />
+      <MedicineBurstEffect trigger={burstTrigger} position={burstPosition} />
     </div>
   );
 };

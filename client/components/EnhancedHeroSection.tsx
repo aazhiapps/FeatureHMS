@@ -40,6 +40,106 @@ export const EnhancedHeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const initializeAnimations = () => {
+      if (!isVisible) return;
+      
+      const timeline = gsap.timeline();
+
+      // Background animation
+      if (backgroundRef.current) {
+        timeline.fromTo(backgroundRef.current,
+          { scale: 1.1, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1.5, ease: "power2.out" }
+        );
+      }
+
+      // Title animation with typewriter effect
+      if (titleRef.current) {
+        const titleText = titleRef.current.textContent || '';
+        titleRef.current.textContent = '';
+        
+        timeline.to({}, { duration: 0.5 }) // Wait for background
+          .call(() => {
+            gsap.to(titleRef.current, {
+              duration: 2,
+              text: titleText,
+              ease: "none"
+            });
+          });
+
+        // Title entrance animation
+        timeline.fromTo(titleRef.current,
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          "-=2"
+        );
+      }
+
+      // Subtitle animation
+      if (subtitleRef.current) {
+        timeline.fromTo(subtitleRef.current,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+          "-=1.5"
+        );
+      }
+
+      // CTA buttons animation
+      if (ctaRef.current) {
+        const buttons = ctaRef.current.querySelectorAll('button');
+        timeline.fromTo(buttons,
+          { y: 20, opacity: 0, scale: 0.9 },
+          { 
+            y: 0, 
+            opacity: 1, 
+            scale: 1, 
+            duration: 0.6, 
+            ease: "back.out(1.7)", 
+            stagger: 0.2 
+          },
+          "-=1"
+        );
+      }
+
+      // Features animation
+      if (featuresRef.current) {
+        const featureCards = featuresRef.current.querySelectorAll('.feature-card');
+        timeline.fromTo(featureCards,
+          { y: 40, opacity: 0, rotationY: -15 },
+          { 
+            y: 0, 
+            opacity: 1, 
+            rotationY: 0, 
+            duration: 0.8, 
+            ease: "power2.out", 
+            stagger: 0.1 
+          },
+          "-=0.5"
+        );
+      }
+    };
+
+    // Initial animation on mount
+    initializeAnimations();
+
+    // Listen for welcome navigation events
+    const handleWelcomeNavigation = () => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setIsVisible(true);
+        initializeAnimations();
+      }, 100);
+    };
+
+    window.addEventListener('welcomeNavigation', handleWelcomeNavigation);
+
+    return () => {
+      window.removeEventListener('welcomeNavigation', handleWelcomeNavigation);
+    };
+  }, [isVisible]);
+
+  // Original useEffect for initial load (keeping for compatibility)
+  useEffect(() => {
     const timeline = gsap.timeline();
 
     // Background animation

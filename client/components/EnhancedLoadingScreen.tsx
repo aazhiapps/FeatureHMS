@@ -442,9 +442,15 @@ export const EnhancedLoadingScreen = ({
 
       {/* Medicine Wave Effect for Loading */}
       <MedicineWaveEffect
-        isActive={loadingPhase !== 'complete'}
-        intensity={loadingPhase === 'countdown' ? 1.5 : loadingPhase === 'systemready' ? 0.8 : 1.0}
-        particleCount={loadingPhase === 'systemready' ? 35 : 20}
+        isActive={loadingPhase !== "complete"}
+        intensity={
+          loadingPhase === "countdown"
+            ? 1.5
+            : loadingPhase === "systemready"
+              ? 0.8
+              : 1.0
+        }
+        particleCount={loadingPhase === "systemready" ? 35 : 20}
       />
 
       {/* CSS for spinning animation */}

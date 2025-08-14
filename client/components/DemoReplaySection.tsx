@@ -16,7 +16,12 @@ interface DemoReplaySectionProps {
   }>;
 }
 
-export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: DemoReplaySectionProps) => {
+export const DemoReplaySection = ({
+  onReplay,
+  onDemo,
+  onCompare,
+  features,
+}: DemoReplaySectionProps) => {
   const [animationPlaying, setAnimationPlaying] = useState(false);
   const [burstTrigger, setBurstTrigger] = useState(false);
   const [burstPosition, setBurstPosition] = useState({ x: 0, y: 0 });
@@ -31,7 +36,7 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
     gsap.set([statsRef.current, buttonsRef.current], {
       opacity: 0,
       y: 50,
-      scale: 0.9
+      scale: 0.9,
     });
 
     // Animate in when section is in view
@@ -44,7 +49,7 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
               y: 0,
               scale: 1,
               duration: 1.2,
-              ease: "back.out(1.7)"
+              ease: "back.out(1.7)",
             });
 
             gsap.to(buttonsRef.current, {
@@ -53,12 +58,12 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
               scale: 1,
               duration: 1.2,
               delay: 0.3,
-              ease: "back.out(1.7)"
+              ease: "back.out(1.7)",
             });
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     observer.observe(sectionRef.current);
@@ -68,10 +73,10 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
 
   const handleReplay = () => {
     setAnimationPlaying(true);
-    
+
     // Trigger medicine burst effect
     setBurstPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-    setBurstTrigger(prev => !prev);
+    setBurstTrigger((prev) => !prev);
 
     // Scroll to top with smooth animation
     gsap.to(window, {
@@ -81,34 +86,35 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
       onComplete: () => {
         setAnimationPlaying(false);
         onReplay?.();
-      }
+      },
     });
 
     // Add visual feedback
     if (buttonsRef.current) {
-      gsap.fromTo(buttonsRef.current, 
+      gsap.fromTo(
+        buttonsRef.current,
         { scale: 1 },
-        { 
+        {
           scale: 1.05,
           duration: 0.2,
           yoyo: true,
           repeat: 1,
-          ease: "power2.out"
-        }
+          ease: "power2.out",
+        },
       );
     }
   };
 
   const handleDemo = () => {
     // Trigger medicine burst at button position
-    const demoButton = document.getElementById('demo-button');
+    const demoButton = document.getElementById("demo-button");
     if (demoButton) {
       const rect = demoButton.getBoundingClientRect();
       setBurstPosition({
         x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2
+        y: rect.top + rect.height / 2,
       });
-      setBurstTrigger(prev => !prev);
+      setBurstTrigger((prev) => !prev);
     }
 
     onDemo?.();
@@ -116,42 +122,61 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
 
   const handleCompare = () => {
     // Trigger medicine burst at button position
-    const compareButton = document.getElementById('compare-button');
+    const compareButton = document.getElementById("compare-button");
     if (compareButton) {
       const rect = compareButton.getBoundingClientRect();
       setBurstPosition({
         x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2
+        y: rect.top + rect.height / 2,
       });
-      setBurstTrigger(prev => !prev);
+      setBurstTrigger((prev) => !prev);
     }
 
     onCompare?.();
   };
 
   const journeyStats = [
-    { label: "Features Explored", value: features.length, color: "text-green-400", icon: "🎯" },
-    { label: "Journey Complete", value: "100%", color: "text-blue-400", icon: "✅" },
-    { label: "Time Invested", value: "Well Spent", color: "text-purple-400", icon: "⏰" },
-    { label: "Healthcare Innovation", value: "Discovered", color: "text-cyan-400", icon: "🚀" }
+    {
+      label: "Features Explored",
+      value: features.length,
+      color: "text-green-400",
+      icon: "🎯",
+    },
+    {
+      label: "Journey Complete",
+      value: "100%",
+      color: "text-blue-400",
+      icon: "✅",
+    },
+    {
+      label: "Time Invested",
+      value: "Well Spent",
+      color: "text-purple-400",
+      icon: "⏰",
+    },
+    {
+      label: "Healthcare Innovation",
+      value: "Discovered",
+      color: "text-cyan-400",
+      icon: "🚀",
+    },
   ];
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="py-20 md:py-32 px-4 md:px-6 relative z-10 min-h-screen flex items-center bg-gradient-to-b from-transparent via-blue-900/30 to-blue-900/50"
     >
       <div className="max-w-6xl mx-auto w-full text-center">
         {/* Main Header */}
         <div className="mb-12 md:mb-16">
-          <div className="text-6xl md:text-8xl mb-6 animate-bounce">
-            🎊
-          </div>
+          <div className="text-6xl md:text-8xl mb-6 animate-bounce">🎊</div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent px-4 leading-tight">
             Journey Complete!
           </h2>
           <p className="text-lg md:text-xl text-white/90 mb-4 max-w-3xl mx-auto">
-            Congratulations! You've explored the complete ClinicStreams healthcare ecosystem.
+            Congratulations! You've explored the complete ClinicStreams
+            healthcare ecosystem.
           </p>
           <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto">
             Ready to see it in action or experience the journey again?
@@ -166,13 +191,15 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
           </h3>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
             {journeyStats.map((stat, index) => (
-              <InteractiveCard 
-                key={index} 
+              <InteractiveCard
+                key={index}
                 className="p-4 md:p-6 bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl border border-white/30"
                 glowEffect={true}
               >
                 <div className="text-3xl md:text-4xl mb-2">{stat.icon}</div>
-                <div className={`text-2xl md:text-3xl font-bold ${stat.color} mb-2`}>
+                <div
+                  className={`text-2xl md:text-3xl font-bold ${stat.color} mb-2`}
+                >
                   {stat.value}
                 </div>
                 <div className="text-sm md:text-base text-white/80">
@@ -309,7 +336,8 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
             Ready to Transform Your Healthcare Organization?
           </h3>
           <p className="text-base md:text-lg text-white/90 mb-6">
-            Join thousands of healthcare providers who are already revolutionizing patient care with ClinicStreams.
+            Join thousands of healthcare providers who are already
+            revolutionizing patient care with ClinicStreams.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div className="p-4">
@@ -319,7 +347,9 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
             </div>
             <div className="p-4">
               <div className="text-3xl mb-2">🛡️</div>
-              <div className="text-sm font-medium text-white">HIPAA Compliant</div>
+              <div className="text-sm font-medium text-white">
+                HIPAA Compliant
+              </div>
               <div className="text-xs text-white/70">Enterprise security</div>
             </div>
             <div className="p-4">
@@ -332,10 +362,7 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
       </div>
 
       {/* Medicine Burst Effect */}
-      <MedicineBurstEffect
-        trigger={burstTrigger}
-        position={burstPosition}
-      />
+      <MedicineBurstEffect trigger={burstTrigger} position={burstPosition} />
     </section>
   );
 };
