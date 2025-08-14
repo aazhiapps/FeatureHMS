@@ -35,6 +35,7 @@ export default function Index() {
     "scroll" | "manual"
   >("scroll");
   const [showDemoReplay, setShowDemoReplay] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
   const featuresRef = useRef<HTMLDivElement>(null);
 
   // Navigation controller
