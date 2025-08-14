@@ -267,9 +267,8 @@ export const ClinicStreamsProgress = ({
                     cx="30"
                     cy={y}
                     r="4"
-                    className="md:r-5"
+                    className="md:r-5 animate-pulse"
                     fill="#0066ff"
-                    className="animate-pulse"
                   />
                 )}
 
