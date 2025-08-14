@@ -160,9 +160,9 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
               </div>
 
               {/* Auto-scroll indicator */}
-              {index < features.length - 1 && (
+              {index < features.length - 1 && index === currentFeatureIndex && (
                 <div className="mt-6 text-white/60 text-sm">
-                  Next feature in {3 - Math.floor((Date.now() % 3000) / 1000)} seconds...
+                  Next feature in 3 seconds...
                 </div>
               )}
             </div>
