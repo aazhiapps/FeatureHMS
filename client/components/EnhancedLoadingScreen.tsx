@@ -130,23 +130,56 @@ export const EnhancedLoadingScreen = ({
 
       // After circles, transition to plane
       const circleTimeout = setTimeout(() => {
-        setLoadingPhase("complete");
+        setLoadingPhase("plane");
 
-        // Fade out circles and complete loading
+        // Fade out circles
         gsap.to(circles, {
           opacity: 0,
           scale: 0.8,
           duration: 0.8,
           stagger: 0.1,
           onComplete: () => {
-            // Final fade out
-            gsap.to(containerRef.current, {
-              opacity: 0,
-              duration: 0.8,
-              ease: "power2.out",
-              onComplete,
-            });
-          },
+            // Show plane animation
+            if (planeRef.current) {
+              gsap.fromTo(planeRef.current,
+                { x: -200, opacity: 0 },
+                {
+                  x: window.innerWidth + 100,
+                  opacity: 1,
+                  duration: 2,
+                  ease: "power2.inOut",
+                  onComplete: () => {
+                    if (features.length > 0) {
+                      setLoadingPhase('systemready');
+
+                      // Show system ready screen for 3 seconds
+                      setTimeout(() => {
+                        setLoadingPhase('complete');
+
+                        // Final fade out
+                        gsap.to(containerRef.current, {
+                          opacity: 0,
+                          duration: 0.8,
+                          ease: "power2.out",
+                          onComplete,
+                        });
+                      }, 3000);
+                    } else {
+                      setLoadingPhase('complete');
+
+                      // Final fade out
+                      gsap.to(containerRef.current, {
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        onComplete,
+                      });
+                    }
+                  }
+                }
+              );
+            }
+          }
         });
       }, 1500);
 
