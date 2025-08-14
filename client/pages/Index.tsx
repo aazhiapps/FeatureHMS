@@ -147,6 +147,7 @@ export default function Index() {
 
   const handleShowComparison = useCallback(() => {
     setShowComparison(true);
+    setCurrentPage('comparison');
   }, []);
 
   const handleCloseComparison = useCallback(() => {
@@ -250,7 +251,7 @@ export default function Index() {
       title: "Discharge Management",
       description:
         "Comprehensive discharge planning and management system ensuring smooth patient transitions.",
-      icon: "����",
+      icon: "🚪",
       color: "from-green-500 to-emerald-500",
       category: "Patient Flow",
       delay: 0.2,
