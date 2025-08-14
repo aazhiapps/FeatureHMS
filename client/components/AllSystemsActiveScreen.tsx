@@ -225,61 +225,129 @@ export const AllSystemsActiveScreen = ({
         </button>
       </div>
 
-      {/* Floating Molecules */}
-      <div className="absolute inset-0 pointer-events-none">
-        {molecules.map((molecule, index) => (
-          <div
-            key={molecule.id}
-            ref={(el) => {
-              if (el) moleculesRef.current[index] = el;
-            }}
-            className="absolute rounded-full shadow-lg opacity-80"
-            style={{
-              left: molecule.x,
-              top: molecule.y,
-              width: molecule.size,
-              height: molecule.size,
-              backgroundColor: molecule.color,
-              transform: `rotate(${molecule.rotation}deg)`,
-              boxShadow: `0 0 ${molecule.size}px ${molecule.color}40`,
-            }}
+      {/* Horizontal DNA Double Helix */}
+      <div
+        ref={dnaRef}
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+      >
+        {/* DNA Background Container */}
+        <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2">
+          {/* DNA Strands */}
+          <svg
+            width="100%"
+            height="200"
+            viewBox="0 0 800 200"
+            className="absolute top-1/2 left-0 transform -translate-y-1/2"
+            style={{ transform: `translateY(-50%) translateX(${-dnaProgress * 2}px)` }}
           >
-            {/* Molecule Core */}
-            <div className="absolute inset-1 rounded-full bg-white/30"></div>
-            
-            {/* Molecule Bonds */}
-            <div className="absolute top-1/2 left-1/2 w-full h-0.5 bg-white/50 transform -translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute top-1/2 left-1/2 w-0.5 h-full bg-white/50 transform -translate-x-1/2 -translate-y-1/2"></div>
-          </div>
-        ))}
-      </div>
+            <defs>
+              <linearGradient id="dnaGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
+              </linearGradient>
+              <linearGradient id="dnaGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#10b981" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#ef4444" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
 
-      {/* Connection Lines between nearby molecules */}
-      <svg className="absolute inset-0 pointer-events-none" width="100%" height="100%">
-        {molecules.map((molecule, index) => {
-          return molecules
-            .slice(index + 1)
-            .filter(otherMolecule => {
-              const distance = Math.sqrt(
-                Math.pow(molecule.x - otherMolecule.x, 2) + 
-                Math.pow(molecule.y - otherMolecule.y, 2)
+            {/* DNA Backbone - Top Strand */}
+            <path
+              d={Array.from({ length: 100 }, (_, i) => {
+                const x = i * 8;
+                const y = 60 + Math.sin((x + dnaProgress) * 0.05) * 20;
+                return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
+              }).join(' ')}
+              stroke="url(#dnaGradient1)"
+              strokeWidth="4"
+              fill="none"
+              className="drop-shadow-lg"
+            />
+
+            {/* DNA Backbone - Bottom Strand */}
+            <path
+              d={Array.from({ length: 100 }, (_, i) => {
+                const x = i * 8;
+                const y = 140 + Math.sin((x + dnaProgress + 180) * 0.05) * 20;
+                return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
+              }).join(' ')}
+              stroke="url(#dnaGradient2)"
+              strokeWidth="4"
+              fill="none"
+              className="drop-shadow-lg"
+            />
+
+            {/* Base Pairs - Connecting Lines */}
+            {Array.from({ length: 50 }, (_, i) => {
+              const x = i * 16;
+              const topY = 60 + Math.sin((x + dnaProgress) * 0.05) * 20;
+              const bottomY = 140 + Math.sin((x + dnaProgress + 180) * 0.05) * 20;
+              return (
+                <line
+                  key={i}
+                  x1={x}
+                  y1={topY}
+                  x2={x}
+                  y2={bottomY}
+                  stroke="rgba(255, 255, 255, 0.4)"
+                  strokeWidth="2"
+                  className="animate-pulse"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                />
               );
-              return distance < 150; // Only connect nearby molecules
-            })
-            .map((otherMolecule, otherIndex) => (
-              <line
-                key={`${molecule.id}-${otherMolecule.id}`}
-                x1={molecule.x + molecule.size / 2}
-                y1={molecule.y + molecule.size / 2}
-                x2={otherMolecule.x + otherMolecule.size / 2}
-                y2={otherMolecule.y + otherMolecule.size / 2}
-                stroke="rgba(255, 255, 255, 0.1)"
-                strokeWidth="1"
-                className="animate-pulse"
+            })}
+          </svg>
+
+          {/* DNA Bases */}
+          <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2">
+            {dnaBases.map((base, index) => {
+              const baseColors = {
+                A: '#ef4444', // red
+                T: '#3b82f6', // blue
+                G: '#10b981', // green
+                C: '#f59e0b', // amber
+              };
+
+              const helixOffset = Math.sin((base.x + dnaProgress) * 0.05) * (base.strand === 'top' ? -20 : 20);
+
+              return (
+                <div
+                  key={base.id}
+                  className="absolute w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-lg transition-all duration-300"
+                  style={{
+                    left: `${base.x - 200 + (dnaProgress * 2)}px`,
+                    top: `${base.y + helixOffset}px`,
+                    backgroundColor: baseColors[base.type],
+                    transform: `rotate(${base.rotation}deg) scale(${1 + Math.sin(dnaProgress * 0.1 + index) * 0.1})`,
+                    boxShadow: `0 0 10px ${baseColors[base.type]}80`,
+                    zIndex: base.strand === 'top' ? 10 : 5,
+                  }}
+                >
+                  {base.type}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* DNA Information Flow Particles */}
+          <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2">
+            {Array.from({ length: 8 }, (_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+                style={{
+                  left: `${(i * 100 + dnaProgress * 3) % window.innerWidth}px`,
+                  top: `${100 + Math.sin((i * 50 + dnaProgress) * 0.03) * 40}px`,
+                  animationDelay: `${i * 0.3}s`,
+                  boxShadow: '0 0 8px #3b82f6',
+                }}
               />
-            ));
-        })}
-      </svg>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Background Glow */}
       <div className="absolute inset-0 bg-gradient-radial from-blue-500/10 via-transparent to-transparent"></div>
