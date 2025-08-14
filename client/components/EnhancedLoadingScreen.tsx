@@ -3,17 +3,24 @@ import { gsap } from "gsap";
 
 interface EnhancedLoadingScreenProps {
   onComplete?: () => void;
+  features?: Array<{
+    id: string;
+    title: string;
+    icon: string;
+    color: string;
+  }>;
 }
 
 export const EnhancedLoadingScreen = ({
   onComplete,
+  features = [],
 }: EnhancedLoadingScreenProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const circlesRef = useRef<(HTMLDivElement | null)[]>([]);
   const planeRef = useRef<HTMLDivElement>(null);
   const countdownRef = useRef<HTMLDivElement>(null);
   const [loadingPhase, setLoadingPhase] = useState<
-    "countdown" | "circles" | "complete"
+    "countdown" | "circles" | "plane" | "systemready" | "complete"
   >("countdown");
   const [countdown, setCountdown] = useState(3);
 
