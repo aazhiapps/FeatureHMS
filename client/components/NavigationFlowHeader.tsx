@@ -217,6 +217,21 @@ export const NavigationFlowHeader = ({
         <div className="max-w-7xl mx-auto px-6">
           {/* Simplified Header Content */}
           <div className="header-content flex items-center justify-between">
+            {/* Logo */}
+            <div
+              ref={logoRef}
+              className="flex items-center space-x-3 cursor-pointer group"
+              onClick={() => onNavigate("journey")}
+            >
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                🏥
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-lg font-bold text-white">ClinicStreams</h1>
+                <p className="text-xs text-blue-200">Healthcare Platform</p>
+              </div>
+            </div>
+
             {/* Navigation with integrated journey steps */}
             <nav
               ref={navRef}
