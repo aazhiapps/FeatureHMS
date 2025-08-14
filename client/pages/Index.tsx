@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
 import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
+import { MouseAnimationSystem, useMouseTilt, useMagneticEffect, InteractiveParticles } from "../components/MouseAnimationSystem";
 import { ClinicStreamsJourney } from "../components/ClinicStreamsJourney";
 import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
@@ -554,7 +555,8 @@ export default function Index() {
   }
 
   return (
-    <SmoothScrollController>
+    <MouseAnimationSystem>
+      <SmoothScrollController>
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800 relative">
         {/* 3D Medical Journey Background */}
         <ClinicStreamsJourney features={clinicFeatures} />
@@ -1188,6 +1190,10 @@ export default function Index() {
           </div>
         </footer>
       </div>
-    </SmoothScrollController>
+
+      {/* Interactive Particles */}
+      <InteractiveParticles />
+      </SmoothScrollController>
+    </MouseAnimationSystem>
   );
 }
