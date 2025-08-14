@@ -37,18 +37,27 @@ export const ClinicStreamsProgress = ({
       trigger: "body",
       start: "top top",
       end: "bottom bottom",
-      scrub: 3,
+      scrub: 1.5, // Smoother scrub for better visual flow
       onUpdate: (self) => {
         const progress = self.progress;
 
-        gsap.set(path, {
+        // Smooth path drawing with subtle glow effect
+        gsap.to(path, {
           strokeDashoffset: pathLength * (1 - progress),
+          duration: 0.3,
+          ease: "power2.out"
         });
 
         const point = path.getPointAtLength(progress * pathLength);
-        gsap.set(droneIcon, {
+
+        // Enhanced drone movement with smooth rotation and scale
+        gsap.to(droneIcon, {
           x: point.x - 12,
           y: point.y - 12,
+          rotation: progress * 180 + Math.sin(progress * Math.PI * 4) * 10,
+          scale: 1 + Math.sin(progress * Math.PI * 8) * 0.1,
+          duration: 0.5,
+          ease: "power2.out"
         });
 
         // Medical metrics
