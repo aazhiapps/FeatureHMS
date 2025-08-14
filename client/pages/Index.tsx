@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
-import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
 import { AnimatedHeader } from "../components/AnimatedHeader";
 import { EnhancedHeroSection } from "../components/EnhancedHeroSection";
 import { ModernFeaturesSection } from "../components/ModernFeaturesSection";
@@ -14,6 +12,9 @@ import { FloatingCircularModules } from "../components/FloatingCircularModules";
 import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
 import { HeroMedicineInteraction } from "../components/HeroMedicineInteraction";
 import { MouseAnimationSystem } from "../components/MouseAnimationSystem";
+import { CountdownLoadingScreen } from "../components/CountdownLoadingScreen";
+import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
+import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
 import { CountdownLoadingScreen } from "../components/CountdownLoadingScreen";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,7 +32,7 @@ interface Feature {
 }
 
 export default function Index() {
-  const [currentPhase, setCurrentPhase] = useState<'countdown' | 'loading' | 'autoscroll' | 'journey' | 'complete'>('countdown');
+  const [currentPhase, setCurrentPhase] = useState<'countdown' | 'loading' | 'autoscroll' | 'main'>('countdown');
   const [selectedFeature, setSelectedFeature] = useState<number>(0);
   const [showCircularModules, setShowCircularModules] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -316,11 +317,7 @@ export default function Index() {
   }, []);
 
   const handleAutoScrollComplete = useCallback(() => {
-    setCurrentPhase('journey');
-    // Show circular modules after auto-scroll
-    setTimeout(() => {
-      setShowCircularModules(true);
-    }, 1000);
+    setCurrentPhase('main');
   }, []);
 
   const handleFeatureClick = useCallback((featureIndex: number) => {
@@ -354,7 +351,7 @@ export default function Index() {
 
   // Initialize scroll animations for journey phase
   useEffect(() => {
-    if (currentPhase !== 'journey' || !mainRef.current) return;
+    if (currentPhase !== 'main' || !mainRef.current) return;
 
     const initializeScrollAnimations = () => {
       // Smooth scroll reveal for sections
@@ -425,7 +422,7 @@ export default function Index() {
     );
   }
 
-  // Main healthcare journey experience
+  // Main website with all existing UI and animations
   return (
     <MouseAnimationSystem>
       <div ref={mainRef} className="min-h-screen bg-white relative overflow-x-hidden">
@@ -433,7 +430,7 @@ export default function Index() {
         <AnimatedHeader />
 
         {/* Hero Medicine Interaction */}
-        <HeroMedicineInteraction isActive={currentPhase === 'journey'} />
+        <HeroMedicineInteraction isActive={currentPhase === 'main'} />
 
         {/* 3D Healthcare Journey */}
         <ClinicStreamsJourney 
@@ -457,7 +454,7 @@ export default function Index() {
 
         {/* Floating Circular Modules */}
         <FloatingCircularModules 
-          isVisible={showCircularModules}
+          isVisible={currentPhase === 'main'}
           centerText="Healthcare Ecosystem"
         />
 
@@ -466,8 +463,8 @@ export default function Index() {
           {/* Enhanced Hero Section */}
           <EnhancedHeroSection />
 
-          {/* Circular Healthcare Management System */}
-          <section id="features" className="relative py-24 bg-gradient-to-br from-blue-50 via-white to-teal-50 overflow-hidden">
+          {/* Circular Healthcare Management System - Restored Original */}
+          <section id="features" className="relative py-24 bg-gradient-to-br from-blue-50 via-white to-teal-50 overflow-hidden min-h-screen">
             {/* Background Effects */}
             <div className="absolute inset-0">
               <div className="absolute top-20 left-10 w-40 h-40 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
