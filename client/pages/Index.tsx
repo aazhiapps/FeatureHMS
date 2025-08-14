@@ -707,6 +707,16 @@ export default function Index() {
     );
   }
 
+  if (showAllSystemsActive) {
+    return (
+      <AllSystemsActiveScreen
+        isActive={showAllSystemsActive}
+        onComplete={handleAllSystemsActiveComplete}
+        duration={4}
+      />
+    );
+  }
+
   return (
     <MouseAnimationSystem>
       <SmoothScrollController>
