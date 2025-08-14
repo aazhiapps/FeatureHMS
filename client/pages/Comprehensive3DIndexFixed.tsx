@@ -1,7 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { OrbitControls, Text, Sphere, Box, Float, Html, Torus, Ring, Cylinder } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useState, useEffect, useRef } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import {
+  OrbitControls,
+  Text,
+  Sphere,
+  Box,
+  Float,
+  Html,
+  Torus,
+  Ring,
+  Cylinder,
+} from "@react-three/drei";
+import * as THREE from "three";
 import {
   featuresData,
   competitorsData,
@@ -16,21 +26,30 @@ import {
   type FeatureData,
   type CompetitorData,
   type HealthcareModule,
-  type JourneyStep
-} from '../data/healthcareData';
-import { Pricing3D, Testimonials3D, ROICalculator3D } from '../components/3D/PricingAndTestimonials3D';
+  type JourneyStep,
+} from "../data/healthcareData";
+import {
+  Pricing3D,
+  Testimonials3D,
+  ROICalculator3D,
+} from "../components/3D/PricingAndTestimonials3D";
 
 // Enhanced Hero Section with Better Statistics Spacing
 const ComprehensiveHero = () => {
   const logoRef = useRef<THREE.Group>(null);
   const ringsRef = useRef<THREE.Group>(null);
-  const logoTexture = useLoader(THREE.TextureLoader, "https://cdn.builder.io/api/v1/image/assets%2F4109aee680574795abb204927cf7c9d7%2F81c19f9f153b41929a9b2b051a9fe82d?format=webp&width=800");
+  const logoTexture = useLoader(
+    THREE.TextureLoader,
+    "https://cdn.builder.io/api/v1/image/assets%2F4109aee680574795abb204927cf7c9d7%2F81c19f9f153b41929a9b2b051a9fe82d?format=webp&width=800",
+  );
 
   useFrame((state) => {
     if (logoRef.current) {
       // Smoother rotation animation
-      logoRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.1;
-      logoRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.2) * 0.3;
+      logoRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.8) * 0.1;
+      logoRef.current.position.y =
+        Math.sin(state.clock.elapsedTime * 1.2) * 0.3;
 
       // Gentle scale pulsing
       const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
@@ -45,7 +64,8 @@ const ComprehensiveHero = () => {
         ring.rotation.z = state.clock.elapsedTime * speed * direction;
 
         // Subtle scale animation
-        const scale = 1 + Math.sin(state.clock.elapsedTime * (1 + index * 0.3)) * 0.02;
+        const scale =
+          1 + Math.sin(state.clock.elapsedTime * (1 + index * 0.3)) * 0.02;
         ring.scale.setScalar(scale);
       });
     }
@@ -112,10 +132,15 @@ const ComprehensiveHero = () => {
       {/* Orbital Rings with Smoother Animation */}
       <group ref={ringsRef}>
         {[...Array(3)].map((_, i) => (
-          <Float key={i} speed={0.4 + i * 0.1} rotationIntensity={0.1} floatIntensity={0.2}>
+          <Float
+            key={i}
+            speed={0.4 + i * 0.1}
+            rotationIntensity={0.1}
+            floatIntensity={0.2}
+          >
             <Torus
               args={[5 + i * 1.8, 0.08, 8, 64]}
-              rotation={[Math.PI / 2, i * Math.PI / 4, 0]}
+              rotation={[Math.PI / 2, (i * Math.PI) / 4, 0]}
             >
               <meshStandardMaterial
                 color={i === 0 ? "#00aaff" : i === 1 ? "#10b981" : "#8b5cf6"}
@@ -130,7 +155,7 @@ const ComprehensiveHero = () => {
           </Float>
         ))}
       </group>
-      
+
       {/* Title with Better Spacing */}
       <Text
         position={[0, 9, 0]}
@@ -142,7 +167,7 @@ const ComprehensiveHero = () => {
       >
         ClinicStreams
       </Text>
-      
+
       {/* Subtitle with Better Positioning */}
       <Text
         position={[0, 6.5, 0]}
@@ -154,7 +179,7 @@ const ComprehensiveHero = () => {
       >
         Next-Generation Healthcare Management
       </Text>
-      
+
       {/* Statistics with Smoother Coordinated Animation */}
       {statistics.slice(0, 4).map((stat, index) => {
         const angle = (index / 4) * Math.PI * 2 + Math.PI / 4;
@@ -166,11 +191,13 @@ const ComprehensiveHero = () => {
             rotationIntensity={0.05}
             floatIntensity={0.2}
           >
-            <group position={[
-              Math.cos(angle) * radius,
-              Math.sin(angle) * radius * 0.3 + 2,
-              Math.sin(angle) * radius * 0.2
-            ]}>
+            <group
+              position={[
+                Math.cos(angle) * radius,
+                Math.sin(angle) * radius * 0.3 + 2,
+                Math.sin(angle) * radius * 0.2,
+              ]}
+            >
               <Box args={[4.2, 2.8, 0.9]}>
                 <meshStandardMaterial
                   color={stat.color}
@@ -196,11 +223,18 @@ const ComprehensiveHero = () => {
 
               <Html position={[0, 0, 0.5]} center>
                 <div className="text-center text-white bg-black/80 backdrop-blur-md rounded-xl p-4 border border-white/40 min-w-[130px] shadow-2xl">
-                  <div className="text-2xl font-bold mb-1 text-white drop-shadow-lg" style={{ color: stat.color }}>
+                  <div
+                    className="text-2xl font-bold mb-1 text-white drop-shadow-lg"
+                    style={{ color: stat.color }}
+                  >
                     {stat.value}
                   </div>
-                  <div className="text-sm font-semibold text-gray-100 mb-1">{stat.label}</div>
-                  <div className="text-xs text-gray-300 leading-relaxed">{stat.description}</div>
+                  <div className="text-sm font-semibold text-gray-100 mb-1">
+                    {stat.label}
+                  </div>
+                  <div className="text-xs text-gray-300 leading-relaxed">
+                    {stat.description}
+                  </div>
                 </div>
               </Html>
             </group>
@@ -225,23 +259,25 @@ const HealthcareModulesViz = () => {
       >
         Healthcare Modules
       </Text>
-      
+
       {healthcareModules.map((module, index) => (
-        <Float 
-          key={module.id} 
-          speed={0.5 + index * 0.1} 
-          rotationIntensity={0.3} 
+        <Float
+          key={module.id}
+          speed={0.5 + index * 0.1}
+          rotationIntensity={0.3}
           floatIntensity={0.5}
         >
-          <group position={[
-            module.position[0] * 1.0,
-            module.position[1] * 1.0,
-            module.position[2]
-          ]}>
+          <group
+            position={[
+              module.position[0] * 1.0,
+              module.position[1] * 1.0,
+              module.position[2],
+            ]}
+          >
             {/* Module Sphere with Better Size */}
             <Sphere args={[1.8, 16, 16]}>
-              <meshStandardMaterial 
-                color={module.color} 
+              <meshStandardMaterial
+                color={module.color}
                 emissive={module.color}
                 emissiveIntensity={0.4}
                 transparent
@@ -250,21 +286,23 @@ const HealthcareModulesViz = () => {
                 roughness={0.7}
               />
             </Sphere>
-            
+
             {/* Module Ring */}
             <Ring args={[2.3, 2.6, 32]} rotation={[Math.PI / 2, 0, 0]}>
-              <meshStandardMaterial 
+              <meshStandardMaterial
                 color={module.color}
                 transparent
                 opacity={0.3}
                 side={THREE.DoubleSide}
               />
             </Ring>
-            
+
             {/* Module Info with Better Styling */}
             <Html position={[0, -3.5, 0]} center>
               <div className="text-center max-w-[140px]">
-                <div className="text-3xl mb-2 drop-shadow-lg">{module.icon}</div>
+                <div className="text-3xl mb-2 drop-shadow-lg">
+                  {module.icon}
+                </div>
                 <div className="text-white text-sm font-bold bg-black/80 backdrop-blur-md rounded-lg px-3 py-2 border border-white/30 shadow-lg">
                   {module.name}
                 </div>
@@ -276,34 +314,34 @@ const HealthcareModulesViz = () => {
           </group>
         </Float>
       ))}
-      
+
       {/* Connection Lines with Better Visibility */}
-      {healthcareModules.map((module, moduleIndex) => 
+      {healthcareModules.map((module, moduleIndex) =>
         module.connections.map((connectionId, connectionIndex) => {
-          const connectedModule = healthcareModules.find(m => m.id === connectionId);
+          const connectedModule = healthcareModules.find(
+            (m) => m.id === connectionId,
+          );
           if (!connectedModule) return null;
-          
+
           return (
             <line key={`${module.id}-${connectionId}`}>
               <bufferGeometry>
                 <bufferAttribute
                   attach="attributes-position"
                   count={2}
-                  array={new Float32Array([
-                    ...module.position.map(p => p * 1.0),
-                    ...connectedModule.position.map(p => p * 1.0)
-                  ])}
+                  array={
+                    new Float32Array([
+                      ...module.position.map((p) => p * 1.0),
+                      ...connectedModule.position.map((p) => p * 1.0),
+                    ])
+                  }
                   itemSize={3}
                 />
               </bufferGeometry>
-              <lineBasicMaterial 
-                color="#ffffff" 
-                opacity={0.4} 
-                transparent 
-              />
+              <lineBasicMaterial color="#ffffff" opacity={0.4} transparent />
             </line>
           );
-        })
+        }),
       )}
     </group>
   );
@@ -312,12 +350,18 @@ const HealthcareModulesViz = () => {
 // Improved Feature Comparison with Better Grid Layout
 const ComprehensiveComparison = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
-  const categories = ['core', 'advanced', 'integration', 'analytics', 'support'];
-  const filteredFeatures = selectedCategory 
-    ? featuresData.filter(f => f.category === selectedCategory)
+
+  const categories = [
+    "core",
+    "advanced",
+    "integration",
+    "analytics",
+    "support",
+  ];
+  const filteredFeatures = selectedCategory
+    ? featuresData.filter((f) => f.category === selectedCategory)
     : featuresData.slice(0, 10);
-  
+
   return (
     <group>
       <Text
@@ -330,18 +374,27 @@ const ComprehensiveComparison = () => {
       >
         Feature Comparison
       </Text>
-      
+
       {/* Category Filters with Better Spacing */}
       {categories.map((category, index) => (
-        <Float key={category} speed={0.6} rotationIntensity={0.2} floatIntensity={0.3}>
+        <Float
+          key={category}
+          speed={0.6}
+          rotationIntensity={0.2}
+          floatIntensity={0.3}
+        >
           <group position={[(index - 2) * 5, 9, 2]}>
-            <Box 
+            <Box
               args={[4, 1.2, 0.6]}
-              onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+              onClick={() =>
+                setSelectedCategory(
+                  selectedCategory === category ? null : category,
+                )
+              }
             >
-              <meshStandardMaterial 
-                color={selectedCategory === category ? '#10b981' : '#6b7280'}
-                emissive={selectedCategory === category ? '#047857' : '#374151'}
+              <meshStandardMaterial
+                color={selectedCategory === category ? "#10b981" : "#6b7280"}
+                emissive={selectedCategory === category ? "#047857" : "#374151"}
                 emissiveIntensity={0.3}
                 metalness={0.2}
                 roughness={0.8}
@@ -359,13 +412,18 @@ const ComprehensiveComparison = () => {
           </group>
         </Float>
       ))}
-      
+
       {/* Competitor Headers with Better Layout */}
       {competitorsData.map((competitor, index) => (
-        <Float key={competitor.name} speed={0.4} rotationIntensity={0.1} floatIntensity={0.2}>
+        <Float
+          key={competitor.name}
+          speed={0.4}
+          rotationIntensity={0.1}
+          floatIntensity={0.2}
+        >
           <group position={[(index - 2) * 7, 5.5, 0]}>
             <Cylinder args={[1.8, 1.8, 0.6, 8]}>
-              <meshStandardMaterial 
+              <meshStandardMaterial
                 color={competitor.color}
                 emissive={competitor.color}
                 emissiveIntensity={0.3}
@@ -375,7 +433,9 @@ const ComprehensiveComparison = () => {
             </Cylinder>
             <Html position={[0, -2.5, 0]} center>
               <div className="text-center max-w-[120px]">
-                <div className="text-3xl mb-2 drop-shadow-lg">{competitor.logo}</div>
+                <div className="text-3xl mb-2 drop-shadow-lg">
+                  {competitor.logo}
+                </div>
                 <div className="text-white text-sm font-bold bg-black/80 backdrop-blur-md rounded-lg px-3 py-2 border border-white/30 shadow-lg">
                   {competitor.name}
                 </div>
@@ -384,7 +444,7 @@ const ComprehensiveComparison = () => {
           </group>
         </Float>
       ))}
-      
+
       {/* Feature Grid with Better Spacing */}
       {filteredFeatures.map((feature, featureIndex) => (
         <group key={feature.name} position={[0, 2 - featureIndex * 2.5, 0]}>
@@ -392,7 +452,7 @@ const ComprehensiveComparison = () => {
           <Float speed={0.3} rotationIntensity={0.1} floatIntensity={0.2}>
             <group position={[-18, 0, 0]}>
               <Box args={[6, 1.8, 0.4]}>
-                <meshStandardMaterial 
+                <meshStandardMaterial
                   color="#374151"
                   emissive="#1f2937"
                   emissiveIntensity={0.2}
@@ -408,7 +468,7 @@ const ComprehensiveComparison = () => {
               </Html>
             </group>
           </Float>
-          
+
           {/* Feature Support by Competitor with Better Layout */}
           {competitorsData.map((competitor, compIndex) => {
             const value = [
@@ -416,21 +476,32 @@ const ComprehensiveComparison = () => {
               feature.epicMyChart,
               feature.cernerPowerChart,
               feature.allscripts,
-              feature.nextGen
+              feature.nextGen,
             ][compIndex];
-            
-            const hasFeature = typeof value === 'boolean' ? value : value !== 'No' && value !== false;
-            const displayValue = typeof value === 'boolean' 
-              ? (value ? '✅' : '❌')
-              : value || '❌';
-            
+
+            const hasFeature =
+              typeof value === "boolean"
+                ? value
+                : value !== "No" && value !== false;
+            const displayValue =
+              typeof value === "boolean"
+                ? value
+                  ? "✅"
+                  : "❌"
+                : value || "❌";
+
             return (
-              <Float key={`${feature.name}-${competitor.name}`} speed={0.5} rotationIntensity={0.2} floatIntensity={0.3}>
+              <Float
+                key={`${feature.name}-${competitor.name}`}
+                speed={0.5}
+                rotationIntensity={0.2}
+                floatIntensity={0.3}
+              >
                 <group position={[(compIndex - 2) * 7, 0, 0]}>
                   <Sphere args={[1, 12, 12]}>
-                    <meshStandardMaterial 
-                      color={hasFeature ? '#10b981' : '#ef4444'}
-                      emissive={hasFeature ? '#047857' : '#dc2626'}
+                    <meshStandardMaterial
+                      color={hasFeature ? "#10b981" : "#ef4444"}
+                      emissive={hasFeature ? "#047857" : "#dc2626"}
                       emissiveIntensity={0.4}
                       metalness={0.2}
                       roughness={0.8}
@@ -465,26 +536,28 @@ const HealthcareJourney = () => {
       >
         Healthcare Implementation Journey
       </Text>
-      
+
       {journeySteps.map((step, index) => {
         const angle = (index / journeySteps.length) * Math.PI * 2;
         const radius = 12;
-        
+
         return (
-          <Float 
-            key={step.id} 
-            speed={0.6 + index * 0.1} 
-            rotationIntensity={0.3} 
+          <Float
+            key={step.id}
+            speed={0.6 + index * 0.1}
+            rotationIntensity={0.3}
             floatIntensity={0.5}
           >
-            <group position={[
-              Math.cos(angle) * radius,
-              Math.sin(angle) * radius * 0.4,
-              Math.sin(angle) * radius * 0.2
-            ]}>
+            <group
+              position={[
+                Math.cos(angle) * radius,
+                Math.sin(angle) * radius * 0.4,
+                Math.sin(angle) * radius * 0.2,
+              ]}
+            >
               {/* Step Sphere with Better Size */}
               <Sphere args={[2.2, 16, 16]}>
-                <meshStandardMaterial 
+                <meshStandardMaterial
                   color={step.color}
                   emissive={step.color}
                   emissiveIntensity={0.4}
@@ -492,7 +565,7 @@ const HealthcareJourney = () => {
                   roughness={0.7}
                 />
               </Sphere>
-              
+
               {/* Step Number */}
               <Text
                 position={[0, 0, 2.4]}
@@ -503,22 +576,28 @@ const HealthcareJourney = () => {
               >
                 {index + 1}
               </Text>
-              
+
               {/* Progress Ring */}
               <Torus args={[2.8, 0.2, 8, 32]}>
-                <meshStandardMaterial 
+                <meshStandardMaterial
                   color={step.color}
                   emissive={step.color}
                   emissiveIntensity={0.6}
                 />
               </Torus>
-              
+
               {/* Step Info with Better Design */}
               <Html position={[0, -5, 0]} center>
                 <div className="text-center bg-black/80 backdrop-blur-md rounded-lg p-4 border border-white/30 max-w-xs shadow-xl">
-                  <div className="text-xl font-bold text-white mb-2">{step.icon} {step.title}</div>
-                  <div className="text-sm text-blue-300 mb-2 font-semibold">{step.subtitle}</div>
-                  <div className="text-xs text-gray-300 mb-3 leading-relaxed">{step.description}</div>
+                  <div className="text-xl font-bold text-white mb-2">
+                    {step.icon} {step.title}
+                  </div>
+                  <div className="text-sm text-blue-300 mb-2 font-semibold">
+                    {step.subtitle}
+                  </div>
+                  <div className="text-xs text-gray-300 mb-3 leading-relaxed">
+                    {step.description}
+                  </div>
                   <div className="text-xs text-yellow-300 font-semibold bg-yellow-900/30 rounded px-2 py-1">
                     ⏱️ {step.timeline}
                   </div>
@@ -528,10 +607,14 @@ const HealthcareJourney = () => {
           </Float>
         );
       })}
-      
+
       {/* Connection Path with Better Design */}
-      <Torus args={[12, 0.15, 8, 64]} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-        <meshStandardMaterial 
+      <Torus
+        args={[12, 0.15, 8, 64]}
+        rotation={[Math.PI / 2, 0, 0]}
+        position={[0, 0, 0]}
+      >
+        <meshStandardMaterial
           color="#ffffff"
           emissive="#ffffff"
           emissiveIntensity={0.4}
@@ -551,11 +634,7 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
       <Float speed={0.5} rotationIntensity={0.2} floatIntensity={0.3}>
         <group>
           <Torus args={[8, 1.2, 16, 100]}>
-            <meshStandardMaterial 
-              color="#374151" 
-              transparent 
-              opacity={0.3}
-            />
+            <meshStandardMaterial color="#374151" transparent opacity={0.3} />
           </Torus>
           <Torus args={[8, 1.2, 16, Math.max(1, Math.floor(100 * progress))]}>
             <meshStandardMaterial
@@ -564,7 +643,7 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
               emissiveIntensity={0.8}
             />
           </Torus>
-          
+
           {/* Progress Text with Better Styling */}
           <Text
             position={[0, 0, 0]}
@@ -577,20 +656,27 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
           </Text>
         </group>
       </Float>
-      
+
       {/* System Status Indicators with Better Spacing */}
       {systemStatus.map((system, index) => {
         const isActive = progress >= system.threshold;
         const angle = (index / systemStatus.length) * Math.PI * 2;
         const radius = 18;
-        
+
         return (
-          <Float key={system.name} speed={0.8} rotationIntensity={0.3} floatIntensity={0.5}>
-            <group position={[
-              Math.cos(angle) * radius,
-              Math.sin(angle) * radius * 0.3,
-              Math.sin(angle) * radius * 0.2
-            ]}>
+          <Float
+            key={system.name}
+            speed={0.8}
+            rotationIntensity={0.3}
+            floatIntensity={0.5}
+          >
+            <group
+              position={[
+                Math.cos(angle) * radius,
+                Math.sin(angle) * radius * 0.3,
+                Math.sin(angle) * radius * 0.2,
+              ]}
+            >
               <Sphere args={[1, 12, 12]}>
                 <meshStandardMaterial
                   color={isActive ? "#10b981" : "#374151"}
@@ -598,11 +684,13 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
                   emissiveIntensity={isActive ? 0.8 : 0.2}
                 />
               </Sphere>
-              
+
               <Html position={[0, -2.5, 0]} center>
                 <div className="text-center max-w-[100px]">
                   <div className="text-2xl mb-1">{system.icon}</div>
-                  <div className={`text-xs font-bold ${isActive ? 'text-green-400' : 'text-gray-500'} bg-black/70 backdrop-blur-md rounded px-2 py-1`}>
+                  <div
+                    className={`text-xs font-bold ${isActive ? "text-green-400" : "text-gray-500"} bg-black/70 backdrop-blur-md rounded px-2 py-1`}
+                  >
                     {system.name}
                   </div>
                 </div>
@@ -611,7 +699,7 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
           </Float>
         );
       })}
-      
+
       {/* Title with Better Positioning */}
       <Text
         position={[0, 18, 0]}
@@ -623,12 +711,13 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
       >
         ClinicStreams
       </Text>
-      
+
       {/* Current Stage with Better Design */}
       <Html position={[0, -15, 0]} center>
         <div className="text-center text-white max-w-md">
           <div className="text-2xl font-bold mb-3 bg-black/70 backdrop-blur-md rounded-lg px-4 py-2">
-            {loadingStages[Math.floor(progress * loadingStages.length)] || 'Ready!'}
+            {loadingStages[Math.floor(progress * loadingStages.length)] ||
+              "Ready!"}
           </div>
           <div className="text-gray-300 text-lg">
             Preparing your healthcare management experience...
@@ -641,52 +730,56 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
 
 // Main Component with Improved Navigation
 const Comprehensive3DIndexFixed = () => {
-  const [currentPage, setCurrentPage] = useState('loading');
+  const [currentPage, setCurrentPage] = useState("loading");
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  
+
   useEffect(() => {
     // Simulate loading progress
     const interval = setInterval(() => {
-      setLoadingProgress(prev => {
+      setLoadingProgress((prev) => {
         const newProgress = prev + 0.02;
         if (newProgress >= 1) {
           clearInterval(interval);
           setTimeout(() => {
             setIsLoading(false);
-            setCurrentPage('home');
+            setCurrentPage("home");
           }, 500);
           return 1;
         }
         return newProgress;
       });
     }, 100);
-    
+
     return () => clearInterval(interval);
   }, []);
-  
+
   const handleNavigation = (page: string) => {
     setCurrentPage(page);
   };
-  
+
   const handleDemo = () => {
-    window.open('https://calendly.com/clinicstreams-demo', '_blank');
+    window.open("https://calendly.com/clinicstreams-demo", "_blank");
   };
-  
+
   if (isLoading) {
     return (
       <div className="w-full h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
         <Canvas camera={{ position: [0, 0, 25], fov: 75 }}>
           <ambientLight intensity={0.4} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          <pointLight position={[-10, 10, 10]} intensity={0.8} color="#3b82f6" />
-          
+          <pointLight
+            position={[-10, 10, 10]}
+            intensity={0.8}
+            color="#3b82f6"
+          />
+
           <EnhancedLoadingScreen progress={loadingProgress} />
         </Canvas>
       </div>
     );
   }
-  
+
   return (
     <div className="w-full h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       <Canvas camera={{ position: [0, 0, 30], fov: 75 }}>
@@ -695,8 +788,13 @@ const Comprehensive3DIndexFixed = () => {
         <directionalLight position={[10, 10, 5]} intensity={1.2} />
         <pointLight position={[-10, 10, 10]} intensity={0.8} color="#3b82f6" />
         <pointLight position={[10, -10, -10]} intensity={0.6} color="#10b981" />
-        <spotLight position={[0, 20, 0]} angle={0.3} intensity={2} color="#8b5cf6" />
-        
+        <spotLight
+          position={[0, 20, 0]}
+          angle={0.3}
+          intensity={2}
+          color="#8b5cf6"
+        />
+
         {/* Enhanced Controls with Smoother Movement */}
         <OrbitControls
           enablePan={false}
@@ -713,13 +811,13 @@ const Comprehensive3DIndexFixed = () => {
         />
 
         {/* Page Content */}
-        {currentPage === 'home' && <ComprehensiveHero />}
-        {currentPage === 'features' && <HealthcareModulesViz />}
-        {currentPage === 'comparison' && <ComprehensiveComparison />}
-        {currentPage === 'journey' && <HealthcareJourney />}
-        {currentPage === 'pricing' && <Pricing3D />}
-        {currentPage === 'testimonials' && <Testimonials3D />}
-        {currentPage === 'roi' && <ROICalculator3D />}
+        {currentPage === "home" && <ComprehensiveHero />}
+        {currentPage === "features" && <HealthcareModulesViz />}
+        {currentPage === "comparison" && <ComprehensiveComparison />}
+        {currentPage === "journey" && <HealthcareJourney />}
+        {currentPage === "pricing" && <Pricing3D />}
+        {currentPage === "testimonials" && <Testimonials3D />}
+        {currentPage === "roi" && <ROICalculator3D />}
 
         {/* Smoother Background Particles */}
         {[...Array(60)].map((_, i) => (
@@ -734,12 +832,20 @@ const Comprehensive3DIndexFixed = () => {
               position={[
                 (Math.random() - 0.5) * 70,
                 (Math.random() - 0.5) * 40,
-                (Math.random() - 0.5) * 40
+                (Math.random() - 0.5) * 40,
               ]}
             >
               <meshStandardMaterial
-                color={['#0ea5e9', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'][Math.floor(Math.random() * 5)]}
-                emissive={['#0ea5e9', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'][Math.floor(Math.random() * 5)]}
+                color={
+                  ["#0ea5e9", "#10b981", "#8b5cf6", "#f59e0b", "#ef4444"][
+                    Math.floor(Math.random() * 5)
+                  ]
+                }
+                emissive={
+                  ["#0ea5e9", "#10b981", "#8b5cf6", "#f59e0b", "#ef4444"][
+                    Math.floor(Math.random() * 5)
+                  ]
+                }
                 emissiveIntensity={0.4}
                 transparent
                 opacity={0.7}
@@ -748,32 +854,59 @@ const Comprehensive3DIndexFixed = () => {
           </Float>
         ))}
       </Canvas>
-      
+
       {/* Improved Navigation with Better Responsive Design */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-50 px-4 w-full max-w-6xl">
         <div className="bg-black/80 backdrop-blur-md rounded-xl p-4 border border-white/30 shadow-2xl">
           <div className="grid grid-cols-4 lg:grid-cols-8 gap-2">
             {[
-              { id: 'home', label: '🏠', desc: 'Home', longDesc: 'Overview' },
-              { id: 'features', label: '⚡', desc: 'Features', longDesc: 'Modules' },
-              { id: 'journey', label: '🏥', desc: 'Journey', longDesc: 'Process' },
-              { id: 'comparison', label: '🆚', desc: 'Compare', longDesc: 'Analysis' },
-              { id: 'pricing', label: '💰', desc: 'Pricing', longDesc: 'Plans' },
-              { id: 'testimonials', label: '💬', desc: 'Reviews', longDesc: 'Stories' },
-              { id: 'roi', label: '📈', desc: 'ROI', longDesc: 'Returns' }
+              { id: "home", label: "🏠", desc: "Home", longDesc: "Overview" },
+              {
+                id: "features",
+                label: "⚡",
+                desc: "Features",
+                longDesc: "Modules",
+              },
+              {
+                id: "journey",
+                label: "🏥",
+                desc: "Journey",
+                longDesc: "Process",
+              },
+              {
+                id: "comparison",
+                label: "🆚",
+                desc: "Compare",
+                longDesc: "Analysis",
+              },
+              {
+                id: "pricing",
+                label: "💰",
+                desc: "Pricing",
+                longDesc: "Plans",
+              },
+              {
+                id: "testimonials",
+                label: "💬",
+                desc: "Reviews",
+                longDesc: "Stories",
+              },
+              { id: "roi", label: "📈", desc: "ROI", longDesc: "Returns" },
             ].map((page) => (
               <button
                 key={page.id}
                 onClick={() => handleNavigation(page.id)}
                 className={`p-3 rounded-lg text-sm font-semibold transition-all group flex flex-col items-center justify-center min-h-[70px] ${
                   currentPage === page.id
-                    ? 'bg-blue-600 text-white shadow-lg scale-105 border-2 border-blue-400'
-                    : 'bg-white/10 text-white/80 hover:bg-white/20 hover:scale-105 border-2 border-transparent'
+                    ? "bg-blue-600 text-white shadow-lg scale-105 border-2 border-blue-400"
+                    : "bg-white/10 text-white/80 hover:bg-white/20 hover:scale-105 border-2 border-transparent"
                 }`}
                 title={page.longDesc}
               >
                 <div className="text-lg mb-1">{page.label}</div>
-                <div className="text-xs opacity-90 leading-tight text-center">{page.desc}</div>
+                <div className="text-xs opacity-90 leading-tight text-center">
+                  {page.desc}
+                </div>
               </button>
             ))}
             <button
@@ -782,12 +915,14 @@ const Comprehensive3DIndexFixed = () => {
               title="Schedule Demo"
             >
               <div className="text-lg mb-1">🎯</div>
-              <div className="text-xs opacity-90 leading-tight text-center">Demo</div>
+              <div className="text-xs opacity-90 leading-tight text-center">
+                Demo
+              </div>
             </button>
           </div>
         </div>
       </div>
-      
+
       {/* Improved Info Panels */}
       <div className="absolute top-4 left-4 z-50">
         <div className="bg-black/80 backdrop-blur-md rounded-xl p-4 text-white border border-white/30 max-w-sm shadow-xl">
@@ -795,45 +930,64 @@ const Comprehensive3DIndexFixed = () => {
             🏥 ClinicStreams 3D
           </div>
           <div className="text-sm text-gray-200 mb-3 leading-relaxed">
-            Comprehensive healthcare management experience with advanced 3D visualizations
+            Comprehensive healthcare management experience with advanced 3D
+            visualizations
           </div>
           <div className="text-xs text-gray-300 flex items-center justify-between p-2 bg-white/10 rounded">
-            <span>Current: <span className="font-bold text-blue-300">{currentPage.toUpperCase()}</span></span>
+            <span>
+              Current:{" "}
+              <span className="font-bold text-blue-300">
+                {currentPage.toUpperCase()}
+              </span>
+            </span>
             <span className="flex items-center">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
               <span className="text-green-400 font-semibold">Live</span>
             </span>
           </div>
-          {currentPage === 'comparison' && (
+          {currentPage === "comparison" && (
             <div className="mt-3 p-3 bg-blue-900/40 rounded-lg border border-blue-500/40">
-              <div className="text-sm font-bold mb-1 text-blue-300">💡 Navigation Tip</div>
+              <div className="text-sm font-bold mb-1 text-blue-300">
+                💡 Navigation Tip
+              </div>
               <div className="text-xs text-gray-200 leading-relaxed">
-                Click category filters above to focus on specific feature types. Use mouse to orbit and zoom the 3D view.
+                Click category filters above to focus on specific feature types.
+                Use mouse to orbit and zoom the 3D view.
               </div>
             </div>
           )}
         </div>
       </div>
-      
+
       {/* Enhanced Data Summary Panel */}
       <div className="absolute top-4 right-4 z-50">
         <div className="bg-black/80 backdrop-blur-md rounded-xl p-4 text-white border border-white/30 shadow-xl">
-          <div className="text-sm font-bold mb-3 text-center">📊 Data Overview</div>
+          <div className="text-sm font-bold mb-3 text-center">
+            📊 Data Overview
+          </div>
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="bg-white/10 rounded px-2 py-1 text-center">
-              <div className="font-bold text-blue-300">{featuresData.length}</div>
+              <div className="font-bold text-blue-300">
+                {featuresData.length}
+              </div>
               <div className="text-gray-300">Features</div>
             </div>
             <div className="bg-white/10 rounded px-2 py-1 text-center">
-              <div className="font-bold text-green-300">{competitorsData.length}</div>
+              <div className="font-bold text-green-300">
+                {competitorsData.length}
+              </div>
               <div className="text-gray-300">Competitors</div>
             </div>
             <div className="bg-white/10 rounded px-2 py-1 text-center">
-              <div className="font-bold text-purple-300">{healthcareModules.length}</div>
+              <div className="font-bold text-purple-300">
+                {healthcareModules.length}
+              </div>
               <div className="text-gray-300">Modules</div>
             </div>
             <div className="bg-white/10 rounded px-2 py-1 text-center">
-              <div className="font-bold text-yellow-300">{journeySteps.length}</div>
+              <div className="font-bold text-yellow-300">
+                {journeySteps.length}
+              </div>
               <div className="text-gray-300">Steps</div>
             </div>
           </div>
