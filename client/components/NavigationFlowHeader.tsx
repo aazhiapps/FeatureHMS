@@ -316,14 +316,12 @@ export const NavigationFlowHeader = ({
             <div className="max-w-7xl mx-auto px-6 py-3">
               <nav className="flex flex-col space-y-1">
                 {navigationItems.map((item) => {
-                  const correspondingStep = steps.find(s =>
-                    (item.href === "#journey" && s.id === "journey") ||
-                    (item.href === "#compare" && s.id === "comparison") ||
-                    (item.href === "#demo" && s.id === "demo")
-                  );
+                  const pageId = item.href === "#features" ? "autoscroll" :
+                               item.href === "#journey" ? "journey" :
+                               item.href === "#compare" ? "comparison" :
+                               item.href === "#demo" ? "demo" : "";
 
-                  const isCompleted = correspondingStep?.completed;
-                  const isActive = correspondingStep?.active;
+                  const { completed: isCompleted, active: isActive } = pageId ? getStepStatus(pageId) : { completed: false, active: false };
 
                   return (
                     <button
