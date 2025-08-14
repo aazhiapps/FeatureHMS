@@ -70,6 +70,21 @@ export const NavigationFlowHeader = ({
       { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
     );
 
+    // Animate logo
+    if (logoRef.current) {
+      gsap.fromTo(
+        logoRef.current,
+        { scale: 0, rotation: -180 },
+        {
+          scale: 1,
+          rotation: 0,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+          delay: 0.2,
+        },
+      );
+    }
+
     // Animate navigation items
     if (navRef.current) {
       const navItems = navRef.current.querySelectorAll(".nav-item");
