@@ -129,9 +129,20 @@ function FloatingFeature({ feature, index }: { feature: any; index: number }) {
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
+      // Enhanced floating with multiple sine waves for more natural movement
       meshRef.current.position.y =
-        feature.position[1] + Math.sin(clock.elapsedTime + index * 1.5) * 0.3;
-      meshRef.current.rotation.y = clock.elapsedTime * 0.1 + index;
+        feature.position[1] +
+        Math.sin(clock.elapsedTime * 0.8 + index * 1.5) * 0.4 +
+        Math.sin(clock.elapsedTime * 1.3 + index * 0.7) * 0.2;
+
+      // Smooth rotation with slight tilting
+      meshRef.current.rotation.y = clock.elapsedTime * 0.15 + index;
+      meshRef.current.rotation.x = Math.sin(clock.elapsedTime * 0.5 + index) * 0.1;
+      meshRef.current.rotation.z = Math.sin(clock.elapsedTime * 0.7 + index) * 0.05;
+
+      // Scale pulsing for breathing effect
+      const scale = hovered ? 1.3 : 1 + Math.sin(clock.elapsedTime * 1.5 + index) * 0.05;
+      meshRef.current.scale.setScalar(scale);
     }
   });
 
@@ -165,14 +176,28 @@ function FloatingFeature({ feature, index }: { feature: any; index: number }) {
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
     >
-      {/* Feature Container */}
-      <Box args={[2, 1.2, 0.2]} scale={hovered ? 1.2 : 1}>
-        <meshStandardMaterial
-          color={getFeatureColor(feature.category)}
-          transparent
-          opacity={0.8}
-        />
-      </Box>
+      {/* Enhanced Feature Container with glow */}
+      <group>
+        <Box args={[2, 1.2, 0.2]}>
+          <meshStandardMaterial
+            color={getFeatureColor(feature.category)}
+            transparent
+            opacity={hovered ? 0.95 : 0.85}
+            emissive={getFeatureColor(feature.category)}
+            emissiveIntensity={hovered ? 0.2 : 0.1}
+          />
+        </Box>
+        {/* Glow effect */}
+        {hovered && (
+          <Box args={[2.4, 1.6, 0.4]}>
+            <meshStandardMaterial
+              color={getFeatureColor(feature.category)}
+              transparent
+              opacity={0.15}
+            />
+          </Box>
+        )}
+      </group>
 
       {/* Feature Icon */}
       <group position={[0, 0, 0.2]}>
