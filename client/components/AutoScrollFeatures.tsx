@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { gsap } from "gsap";
 
 interface AutoScrollFeaturesProps {
@@ -19,18 +19,27 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Memoize the completion callback to prevent re-renders
+  const handleComplete = useCallback(() => {
+    setIsAutoScrolling(false);
+    // Use setTimeout to avoid setState during render
+    setTimeout(() => {
+      onComplete?.();
+    }, 0);
+  }, [onComplete]);
+
   useEffect(() => {
-    if (!isActive || !containerRef.current) return;
+    if (!isActive) return;
 
     setIsAutoScrolling(true);
-    
+    setCurrentFeatureIndex(0);
+
     // Auto-advance through features
     intervalRef.current = setInterval(() => {
       setCurrentFeatureIndex(prev => {
         const nextIndex = prev + 1;
         if (nextIndex >= features.length) {
-          setIsAutoScrolling(false);
-          onComplete?.();
+          handleComplete();
           return prev;
         }
         return nextIndex;
@@ -42,7 +51,7 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
         clearInterval(intervalRef.current);
       }
     };
-  }, [isActive, features.length, onComplete]);
+  }, [isActive, features.length, handleComplete]);
 
   useEffect(() => {
     if (!containerRef.current) return;
