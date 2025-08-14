@@ -28,38 +28,47 @@ export const AllSystemsActiveScreen = ({
   const [dnaProgress, setDnaProgress] = useState(0);
   const animationRef = useRef<number>();
 
-  // Generate floating molecules
+  // Generate DNA structure
   useEffect(() => {
     if (!isActive) return;
 
-    const generateMolecules = (): Molecule[] => {
-      const moleculeColors = [
-        "#3b82f6", // blue
-        "#10b981", // green
-        "#8b5cf6", // purple
-        "#f59e0b", // amber
-        "#ef4444", // red
-        "#06b6d4", // cyan
-        "#84cc16", // lime
-        "#f97316", // orange
-      ];
+    const generateDNABases = (): DNABase[] => {
+      const baseTypes: ('A' | 'T' | 'G' | 'C')[] = ['A', 'T', 'G', 'C'];
+      const bases: DNABase[] = [];
+      const baseCount = 40; // Number of base pairs
+      const baseSpacing = 20; // Distance between bases
 
-      return Array.from({ length: 25 }, (_, i) => ({
-        id: i,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        size: 8 + Math.random() * 16,
-        color: moleculeColors[Math.floor(Math.random() * moleculeColors.length)],
-        velocity: {
-          x: (Math.random() - 0.5) * 2,
-          y: (Math.random() - 0.5) * 2,
-        },
-        rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 4,
-      }));
+      for (let i = 0; i < baseCount; i++) {
+        const x = i * baseSpacing;
+        const centerY = window.innerHeight / 2;
+
+        // Top strand base
+        const topBase = baseTypes[Math.floor(Math.random() * baseTypes.length)];
+        bases.push({
+          id: i * 2,
+          x,
+          y: centerY - 30,
+          type: topBase,
+          strand: 'top',
+          rotation: 0,
+        });
+
+        // Bottom strand base (complementary)
+        const bottomBase = topBase === 'A' ? 'T' : topBase === 'T' ? 'A' : topBase === 'G' ? 'C' : 'G';
+        bases.push({
+          id: i * 2 + 1,
+          x,
+          y: centerY + 30,
+          type: bottomBase,
+          strand: 'bottom',
+          rotation: 0,
+        });
+      }
+
+      return bases;
     };
 
-    setMolecules(generateMolecules());
+    setDnaBases(generateDNABases());
   }, [isActive]);
 
   // Animate molecules
