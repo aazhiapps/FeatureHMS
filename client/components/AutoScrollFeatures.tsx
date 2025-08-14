@@ -214,6 +214,19 @@ export const AutoScrollFeatures = ({
           />
         ))}
       </div>
+
+      {/* Medicine Wave Effect */}
+      <MedicineWaveEffect
+        isActive={isActive}
+        intensity={1.3}
+        particleCount={30}
+      />
+
+      {/* Medicine Burst Effect on Feature Change */}
+      <MedicineBurstEffect
+        trigger={burstTrigger}
+        position={burstPosition}
+      />
     </div>
   );
 };
