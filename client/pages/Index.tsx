@@ -1209,6 +1209,13 @@ export default function Index() {
 
       {/* Interactive Particles */}
       <InteractiveParticles />
+
+      {/* Floating Action Button */}
+      <FloatingActionButton onClick={() => {
+        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+      }}>
+        <span className="text-xl">🚀</span>
+      </FloatingActionButton>
       </SmoothScrollController>
     </MouseAnimationSystem>
   );
