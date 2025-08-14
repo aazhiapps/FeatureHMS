@@ -253,7 +253,10 @@ export const FloatingCircularModules = ({
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border-2 border-white/30 flex flex-col items-center justify-center shadow-2xl"
         >
           <div className="text-3xl mb-2">🏥</div>
-          <div className="text-white text-xs font-bold text-center leading-tight px-2">
+          <div
+            ref={centerTextRef}
+            className="text-white text-xs font-bold text-center leading-tight px-2"
+          >
             {centerText}
           </div>
 
