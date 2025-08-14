@@ -6,6 +6,7 @@ import { MedicineBurstEffect } from "./MedicineWaveEffect";
 interface DemoReplaySectionProps {
   onReplay?: () => void;
   onDemo?: () => void;
+  onCompare?: () => void;
   features: Array<{
     id: string;
     title: string;
