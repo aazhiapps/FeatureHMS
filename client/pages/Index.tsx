@@ -44,6 +44,10 @@ export default function Index() {
     setShowAutoScroll(false);
   }, []);
 
+  // Apply enhanced mouse effects
+  useEnhancedParallax();
+  useMouseAttraction();
+
   // ClinicStreams 3D features data for medical journey - All 8 features
   const clinicFeatures = [
     {
