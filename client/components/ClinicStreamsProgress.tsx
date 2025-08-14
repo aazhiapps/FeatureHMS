@@ -165,8 +165,7 @@ export const ClinicStreamsProgress = ({
           width="60"
           height="300"
           viewBox="0 0 60 300"
-          className="md:w-[70px] md:h-[350px] lg:w-[80px] lg:h-[400px]"
-          className="overflow-visible"
+          className="md:w-[70px] md:h-[350px] lg:w-[80px] lg:h-[400px] overflow-visible"
         >
           <defs>
             <linearGradient
