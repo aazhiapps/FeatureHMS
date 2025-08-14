@@ -24,24 +24,27 @@ const MedicalDrone = React.forwardRef<
 
   useFrame(({ clock }) => {
     if (ref && "current" in ref && ref.current) {
-      // Gentle floating motion
+      // Enhanced floating motion with more natural movement
       ref.current.position.y =
-        position[1] + Math.sin(clock.elapsedTime * 1.5) * 0.2;
-      ref.current.rotation.y = Math.sin(clock.elapsedTime * 0.5) * 0.1;
+        position[1] + Math.sin(clock.elapsedTime * 1.2) * 0.3 + Math.sin(clock.elapsedTime * 2.1) * 0.1;
+      ref.current.rotation.y = Math.sin(clock.elapsedTime * 0.8) * 0.15;
+      ref.current.rotation.x = Math.sin(clock.elapsedTime * 1.1) * 0.05;
+      ref.current.rotation.z = Math.sin(clock.elapsedTime * 0.7) * 0.08;
     }
 
-    // Spinning propellers
-    propellerRefs.current.forEach((propeller) => {
+    // Enhanced spinning propellers with varying speeds
+    propellerRefs.current.forEach((propeller, index) => {
       if (propeller) {
-        propeller.rotation.y = clock.elapsedTime * 20;
+        propeller.rotation.y = clock.elapsedTime * (18 + index * 2);
+        // Add slight wobble for realism
+        propeller.rotation.x = Math.sin(clock.elapsedTime * 5 + index) * 0.02;
       }
     });
 
-    // Pulsing medical cross
+    // Enhanced pulsing medical cross with glow effect
     if (bodyRef.current) {
-      bodyRef.current.scale.setScalar(
-        1 + Math.sin(clock.elapsedTime * 3) * 0.1,
-      );
+      const pulse = 1 + Math.sin(clock.elapsedTime * 2.5) * 0.15;
+      bodyRef.current.scale.setScalar(pulse);
     }
   });
 
@@ -84,21 +87,36 @@ const MedicalDrone = React.forwardRef<
         </group>
       ))}
 
-      {/* LED Indicators */}
+      {/* Enhanced LED Indicators with pulsing */}
       {[
         [0.8, 0, 0.8],
         [-0.8, 0, 0.8],
         [0.8, 0, -0.8],
         [-0.8, 0, -0.8],
       ].map((pos, index) => (
-        <mesh key={index} position={pos as [number, number, number]}>
-          <Sphere args={[0.05]}>
-            <meshStandardMaterial
-              color={index % 2 === 0 ? "#00ff00" : "#0066ff"}
-              emissive={index % 2 === 0 ? "#003300" : "#001133"}
-            />
-          </Sphere>
-        </mesh>
+        <group key={index} position={pos as [number, number, number]}>
+          <mesh>
+            <Sphere args={[0.06]}>
+              <meshStandardMaterial
+                color={index % 2 === 0 ? "#00ff00" : "#0066ff"}
+                emissive={index % 2 === 0 ? "#00ff00" : "#0066ff"}
+                emissiveIntensity={0.5 + Math.sin(clock.elapsedTime * 3 + index) * 0.3}
+                transparent
+                opacity={0.9}
+              />
+            </Sphere>
+          </mesh>
+          {/* Glow effect */}
+          <mesh>
+            <Sphere args={[0.12]}>
+              <meshStandardMaterial
+                color={index % 2 === 0 ? "#00ff00" : "#0066ff"}
+                transparent
+                opacity={0.2 + Math.sin(clock.elapsedTime * 2 + index) * 0.1}
+              />
+            </Sphere>
+          </mesh>
+        </group>
       ))}
     </group>
   );
