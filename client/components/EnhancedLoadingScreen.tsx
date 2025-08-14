@@ -296,6 +296,87 @@ export const EnhancedLoadingScreen = ({
         </div>
       )}
 
+      {/* Plane Animation */}
+      {loadingPhase === "plane" && (
+        <div
+          ref={planeRef}
+          className="absolute top-1/2 transform -translate-y-1/2"
+        >
+          <div className="relative">
+            {/* Medical Drone */}
+            <div className="w-16 h-6 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg relative shadow-lg">
+              <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-red-500 rounded-full"></div>
+              <div className="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-red-500 rounded-full"></div>
+              <div className="absolute -top-1 -left-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
+              <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
+              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs">🏥</div>
+            </div>
+
+            {/* Medical Trail Effect */}
+            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-32 h-1 bg-gradient-to-r from-green-400 via-blue-400 to-transparent opacity-70"></div>
+          </div>
+        </div>
+      )}
+
+      {/* System Ready - Circular Feature List */}
+      {loadingPhase === "systemready" && (
+        <div className="text-center animate-fadeIn">
+          <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-8 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+            SYSTEM READY
+          </h1>
+
+          <p className="text-lg font-medium text-blue-600 mb-12 tracking-wide">
+            All {features.length} healthcare features are now available
+          </p>
+
+          {/* Circular Feature Display */}
+          <div className="relative w-80 h-80 mx-auto mb-8">
+            <div className="absolute inset-0 border-2 border-blue-300 rounded-full opacity-30 animate-spin" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute inset-4 border border-green-300 rounded-full opacity-20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
+
+            {features.map((feature, index) => {
+              const angle = (index / features.length) * 2 * Math.PI;
+              const radius = 120;
+              const x = Math.cos(angle) * radius;
+              const y = Math.sin(angle) * radius;
+
+              return (
+                <div
+                  key={feature.id}
+                  className="absolute w-16 h-16 transform -translate-x-1/2 -translate-y-1/2 animate-pulse"
+                  style={{
+                    left: `50%`,
+                    top: `50%`,
+                    transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
+                    animationDelay: `${index * 0.2}s`
+                  }}
+                >
+                  <div className={`w-full h-full rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center text-white text-xl shadow-lg border-2 border-white/30`}>
+                    {feature.icon}
+                  </div>
+                  <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
+                    {feature.title.split(' ')[0]}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Center logo */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-xl">
+                🏥
+              </div>
+            </div>
+          </div>
+
+          <p className="text-base text-gray-600 animate-pulse">
+            Initializing comprehensive healthcare platform...
+          </p>
+        </div>
+      )}
+
       {/* Loading Text */}
       <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center">
         <p className="text-blue-600 font-light text-lg mb-2">
