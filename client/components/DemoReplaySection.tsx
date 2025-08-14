@@ -104,14 +104,29 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
     const demoButton = document.getElementById('demo-button');
     if (demoButton) {
       const rect = demoButton.getBoundingClientRect();
-      setBurstPosition({ 
-        x: rect.left + rect.width / 2, 
-        y: rect.top + rect.height / 2 
+      setBurstPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
       });
       setBurstTrigger(prev => !prev);
     }
 
     onDemo?.();
+  };
+
+  const handleCompare = () => {
+    // Trigger medicine burst at button position
+    const compareButton = document.getElementById('compare-button');
+    if (compareButton) {
+      const rect = compareButton.getBoundingClientRect();
+      setBurstPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+      });
+      setBurstTrigger(prev => !prev);
+    }
+
+    onCompare?.();
   };
 
   const journeyStats = [
