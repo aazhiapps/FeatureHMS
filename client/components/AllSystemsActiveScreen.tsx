@@ -127,23 +127,21 @@ export const AllSystemsActiveScreen = ({
       { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }
     );
 
-    // Animate molecules entrance
-    moleculesRef.current.forEach((moleculeEl, index) => {
-      if (moleculeEl) {
-        gsap.fromTo(
-          moleculeEl,
-          { scale: 0, opacity: 0 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.6,
-            delay: index * 0.02,
-            ease: "back.out(1.7)",
-          }
-        );
-      }
-    });
-  }, [isActive, molecules.length]);
+    // Animate DNA entrance
+    if (dnaRef.current) {
+      gsap.fromTo(
+        dnaRef.current,
+        { opacity: 0, x: -200 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1.2,
+          delay: 0.5,
+          ease: "power2.out",
+        }
+      );
+    }
+  }, [isActive, dnaBases.length]);
 
   if (!isActive) return null;
 
