@@ -245,6 +245,22 @@ export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: Dem
                 {animationPlaying ? "Replaying..." : "Replay Journey"}
               </span>
             </InteractiveButton>
+
+            <InteractiveButton
+              id="compare-button"
+              variant="outline"
+              size="xl"
+              className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-purple-500/20 to-indigo-500/20 hover:from-purple-500/30 hover:to-indigo-500/30 border-2 border-purple-400/50 hover:border-purple-400/70"
+              magnetic={true}
+              tilt={true}
+              ripple={true}
+              onClick={handleCompare}
+            >
+              <span className="flex items-center justify-center">
+                <span className="text-2xl mr-3">🆚</span>
+                Compare Solutions
+              </span>
+            </InteractiveButton>
           </div>
 
           {/* Additional Options */}
