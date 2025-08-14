@@ -632,12 +632,15 @@ const Comprehensive3DIndex = () => {
       {/* Enhanced Navigation */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className="bg-black/60 backdrop-blur-md rounded-lg p-4 border border-white/20">
-          <div className="flex space-x-3">
+          <div className="flex flex-wrap gap-2 justify-center">
             {[
               { id: 'home', label: '🏠 Home', desc: 'Overview' },
               { id: 'features', label: '⚡ Features', desc: 'Modules' },
               { id: 'journey', label: '🏥 Journey', desc: 'Process' },
-              { id: 'comparison', label: '🆚 Compare', desc: 'Analysis' }
+              { id: 'comparison', label: '🆚 Compare', desc: 'Analysis' },
+              { id: 'pricing', label: '💰 Pricing', desc: 'Plans' },
+              { id: 'testimonials', label: '💬 Reviews', desc: 'Stories' },
+              { id: 'roi', label: '📈 ROI', desc: 'Returns' }
             ].map((page) => (
               <button
                 key={page.id}
