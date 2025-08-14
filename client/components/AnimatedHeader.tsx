@@ -234,19 +234,72 @@ export const AnimatedHeader = () => {
       });
       setActiveItem(href);
 
-    // Animate journey navigator
-    if (journeyRef.current) {
-      gsap.fromTo(journeyRef.current,
-        { opacity: 0, x: 50 },
-        { 
-          opacity: 1, 
-          x: 0, 
-          duration: 0.8, 
-          ease: "power2.out", 
-          delay: 1.2 
+      // Reset and re-trigger animations if going to home/welcome
+      if (href === '#home' || href === '#welcome') {
+        // Reset all animated elements
+        const elementsToReset = [
+          logoRef.current,
+          navRef.current?.querySelectorAll('.nav-item'),
+          journeyRef.current
+        ].filter(Boolean);
+
+        elementsToReset.forEach(element => {
+          if (element) {
+            if (element.length) {
+              // Handle NodeList
+              gsap.set(element, { opacity: 0, y: -20 });
+              gsap.to(element, {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                ease: "power2.out",
+                stagger: 0.1,
+                delay: 0.2
+              });
+            } else {
+              // Handle single element
+              gsap.set(element, { opacity: 0, scale: 0.8, x: 50 });
+              gsap.to(element, {
+                opacity: 1,
+                scale: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+                delay: 0.5
+              });
+            }
+          }
+        });
+
+        // Re-animate logo with special effect for welcome
+        if (logoRef.current) {
+          gsap.fromTo(logoRef.current,
+            { scale: 0.8, rotation: -10, opacity: 0.8 },
+            { 
+              scale: 1, 
+              rotation: 0, 
+              opacity: 1, 
+              duration: 1, 
+              ease: "back.out(1.7)",
+              delay: 0.3
+            }
+          );
         }
-      );
-    }
+      }
+
+      // Animate journey navigator
+      if (journeyRef.current) {
+        gsap.fromTo(journeyRef.current,
+          { opacity: 0, x: 50 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.8, 
+            ease: "power2.out", 
+            delay: 0.8 
+          }
+        );
+      }
     }
     setIsMobileMenuOpen(false);
   };
