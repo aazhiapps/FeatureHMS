@@ -19,7 +19,16 @@ declare global {
   }
 }
 
+// Import the enhanced version
+import EnhancedIndex from './EnhancedIndex';
+
 export default function Index() {
+  // Use the enhanced version with modern design
+  return <EnhancedIndex />;
+}
+
+// Keep the original implementation as backup
+function OriginalIndex() {
   const [isLoading, setIsLoading] = useState(true);
   const [showAutoScroll, setShowAutoScroll] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
