@@ -1240,6 +1240,12 @@ export default function Index() {
       {/* Mouse Glow Effect */}
       <MouseGlowEffect />
 
+      {/* Hero Medicine Interaction */}
+      <HeroMedicineInteraction isActive={!isLoading && !showAutoScroll} />
+
+      {/* Medicine Trail Effect */}
+      <MedicineTrailEffect />
+
       {/* Floating Action Button */}
       <FloatingActionButton onClick={() => {
         document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
