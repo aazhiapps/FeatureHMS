@@ -128,17 +128,22 @@ export default function Index() {
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
-    setCurrentPage("autoscroll");
-    // Show auto-scroll after a brief delay
+    setCurrentPage("journey");
+    // Show features overlay for 5 seconds after loading
     setTimeout(() => {
       setShowAutoScroll(true);
-    }, 1000);
+      // Auto-hide features overlay after 5 seconds
+      setTimeout(() => {
+        setShowAutoScroll(false);
+        setShowAllSystemsActive(true);
+      }, 5000);
+    }, 500);
   }, []);
 
   const handleAutoScrollComplete = useCallback(() => {
     setShowAutoScroll(false);
     setShowAllSystemsActive(true);
-    setCurrentPage("autoscroll"); // Keep autoscroll current page during all systems active
+    setCurrentPage("journey");
   }, []);
 
   const handleAllSystemsActiveComplete = useCallback(() => {
