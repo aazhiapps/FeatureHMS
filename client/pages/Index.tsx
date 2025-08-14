@@ -149,6 +149,48 @@ export default function Index() {
 
   const handleCloseComparison = useCallback(() => {
     setShowComparison(false);
+    setCurrentPage('journey');
+  }, []);
+
+  const handleNavigatePage = useCallback((page: 'loading' | 'autoscroll' | 'journey' | 'comparison' | 'demo') => {
+    switch (page) {
+      case 'loading':
+        setIsLoading(true);
+        setShowAutoScroll(false);
+        setShowComparison(false);
+        setCurrentPage('loading');
+        // Restart loading sequence
+        setTimeout(() => {
+          setIsLoading(false);
+          setCurrentPage('autoscroll');
+          setTimeout(() => {
+            setShowAutoScroll(true);
+          }, 1000);
+        }, 2000);
+        break;
+      case 'autoscroll':
+        setIsLoading(false);
+        setShowAutoScroll(true);
+        setShowComparison(false);
+        setCurrentPage('autoscroll');
+        break;
+      case 'journey':
+        setIsLoading(false);
+        setShowAutoScroll(false);
+        setShowComparison(false);
+        setCurrentPage('journey');
+        break;
+      case 'comparison':
+        setIsLoading(false);
+        setShowAutoScroll(false);
+        setShowComparison(true);
+        setCurrentPage('comparison');
+        break;
+      case 'demo':
+        setCurrentPage('demo');
+        window.open('https://calendly.com/clinicstreams-demo', '_blank');
+        break;
+    }
   }, []);
 
   // Apply enhanced mouse effects
