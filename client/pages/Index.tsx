@@ -652,7 +652,8 @@ export default function Index() {
                     <div
                       key={feature.id}
                       id={`feature-${feature.id}`}
-                      className="opacity-80 transform scale-95 cursor-pointer transition-all duration-500 hover:opacity-100 hover:scale-100"
+                      className="opacity-80 transform scale-95 cursor-pointer transition-all duration-500 hover:opacity-100 hover:scale-100 interactive"
+                      data-mouse-parallax="0.05"
                     >
                       <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/30 shadow-lg group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
                         {/* Glow effect overlay */}
