@@ -428,11 +428,20 @@ export const UltimateAnimatedIndex: React.FC = () => {
   return (
     <UltimateAnimationEngine>
       <div ref={mainRef} className="relative min-h-screen overflow-x-hidden">
+        {/* Performance Monitor */}
+        <PerformanceMonitor />
+
+        {/* Animated Navigation */}
+        <AnimatedNavigation />
+
         {/* Animated Background */}
         <AnimatedBackground />
 
-        {/* Floating Modules */}
-        <FloatingModules />
+        {/* Floating Modules - only if GPU accelerated */}
+        {animationConfig.enableComplexAnimations && <FloatingModules />}
+
+        {/* Floating Action Menu */}
+        <FloatingActionMenu />
 
         {/* Main Content */}
         <main className="relative z-10">
@@ -459,6 +468,47 @@ export const UltimateAnimatedIndex: React.FC = () => {
               </div>
             </MorphingCard>
           </section>
+
+          {/* Footer with Additional Links */}
+          <footer className="relative py-16 px-6 border-t border-white/10">
+            <div className="max-w-7xl mx-auto text-center">
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-4">
+                  Experience Different Versions
+                </h3>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <LiquidMorphButton
+                    variant="primary"
+                    size="sm"
+                    onClick={() => window.location.href = '/?version=ultimate'}
+                  >
+                    🌟 Ultimate (Current)
+                  </LiquidMorphButton>
+                  <LiquidMorphButton
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => window.location.href = '/?version=enhanced'}
+                  >
+                    ⚡ Enhanced
+                  </LiquidMorphButton>
+                  <LiquidMorphButton
+                    variant="medical"
+                    size="sm"
+                    onClick={() => window.location.href = '/?version=original'}
+                  >
+                    🔧 Original
+                  </LiquidMorphButton>
+                </div>
+              </div>
+
+              <p className="text-white/60 text-sm">
+                © 2024 ClinicStreams - Quantum Healthcare Technology Platform
+              </p>
+              <p className="text-white/40 text-xs mt-2">
+                Powered by Ultimate Animation Engine™ | GPU-Accelerated | 60fps Optimized
+              </p>
+            </div>
+          </footer>
         </main>
       </div>
     </UltimateAnimationEngine>
