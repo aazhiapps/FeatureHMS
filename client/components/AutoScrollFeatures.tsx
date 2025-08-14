@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { gsap } from "gsap";
+import { MedicineWaveEffect, MedicineBurstEffect } from "./MedicineWaveEffect";
 
 interface AutoScrollFeaturesProps {
   features: Array<{
