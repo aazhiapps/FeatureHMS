@@ -12,6 +12,8 @@ import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
 import { SmoothScrollController } from "../components/SmoothScrollController";
 import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
+import { DemoReplaySection } from "../components/DemoReplaySection";
+import { useScrollNavigation } from "../components/ScrollNavigationController";
 
 // TypeScript interface for DOM elements with cleanup handlers
 declare global {
@@ -31,7 +33,11 @@ export default function Index() {
   const [cardInteractionMode, setCardInteractionMode] = useState<
     "scroll" | "manual"
   >("scroll");
+  const [showDemoReplay, setShowDemoReplay] = useState(false);
   const featuresRef = useRef<HTMLDivElement>(null);
+
+  // Navigation controller
+  const { jumpToProgress, jumpToFeature, restartJourney, addFeedback } = useScrollNavigation();
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
@@ -44,6 +50,35 @@ export default function Index() {
   const handleAutoScrollComplete = useCallback(() => {
     setShowAutoScroll(false);
   }, []);
+
+  const handleReplayJourney = useCallback(() => {
+    setShowDemoReplay(false);
+    restartJourney(2).then(() => {
+      // Optionally restart the loading sequence or auto-scroll
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        setTimeout(() => {
+          setShowAutoScroll(true);
+        }, 1000);
+      }, 2000);
+    });
+  }, [restartJourney]);
+
+  const handleScheduleDemo = useCallback(() => {
+    // Trigger demo modal or redirect to demo scheduling
+    console.log('Demo scheduling requested');
+    // You can integrate with your demo scheduling system here
+    window.open('https://calendly.com/clinicstreams-demo', '_blank');
+  }, []);
+
+  const handleFeatureNavigation = useCallback((featureIndex: number) => {
+    jumpToFeature(featureIndex, clinicFeatures.length, 1.5);
+  }, [jumpToFeature, clinicFeatures.length]);
+
+  const handleProgressNavigation = useCallback((targetProgress: number) => {
+    jumpToProgress(targetProgress, 1.5);
+  }, [jumpToProgress]);
 
   // Apply enhanced mouse effects
   useEnhancedParallax();
@@ -568,8 +603,12 @@ export default function Index() {
         {/* 3D Medical Journey Background */}
         <ClinicStreamsJourney features={clinicFeatures} />
 
-        {/* Progress Indicator */}
-        <ClinicStreamsProgress features={clinicFeatures} />
+        {/* Progress Indicator - now with interactive navigation */}
+        <ClinicStreamsProgress
+          features={clinicFeatures}
+          onFeatureClick={handleFeatureNavigation}
+          onJumpToSection={handleProgressNavigation}
+        />
 
         {/* Dynamic Feature Details Display */}
         <FeatureDetailsDisplay features={features} />
@@ -601,7 +640,7 @@ export default function Index() {
               }}
               data-parallax={String(0.1 + (i % 3) * 0.05)}
             >
-              {['🏥', '💊', '⚕️', '🩺', '💉', '🧬', '📊', '💗'][i]}
+              {['���', '💊', '⚕️', '🩺', '💉', '🧬', '📊', '💗'][i]}
             </div>
           ))}
         </div>
@@ -1134,6 +1173,19 @@ export default function Index() {
             </div>
           </div>
         </section>
+
+        {/* Demo and Replay Section */}
+        <DemoReplaySection
+          onReplay={handleReplayJourney}
+          onDemo={handleScheduleDemo}
+          features={features.map(f => ({
+            id: f.id,
+            title: f.title,
+            icon: f.icon,
+            color: f.color,
+            category: f.category
+          }))}
+        />
 
         {/* Thank You Section */}
         <section className="py-20 md:py-32 px-4 md:px-6 text-center relative z-10 min-h-screen flex items-center bg-gradient-to-t from-blue-900/50 to-transparent">
