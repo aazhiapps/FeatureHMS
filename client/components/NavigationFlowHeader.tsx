@@ -102,6 +102,65 @@ export const NavigationFlowHeader = ({
 
   }, [currentPage]);
 
+  // Scroll detection for auto-hide
+  useEffect(() => {
+    if (!autoHideOnScroll) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down - hide header
+        if (!isHidden) {
+          setIsHidden(true);
+          gsap.to(headerRef.current, {
+            y: -120,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      } else if (currentScrollY < lastScrollY || currentScrollY < 50) {
+        // Scrolling up or near top - show header
+        if (isHidden) {
+          setIsHidden(false);
+          gsap.to(headerRef.current, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    const throttledScroll = () => {
+      requestAnimationFrame(handleScroll);
+    };
+
+    window.addEventListener('scroll', throttledScroll);
+    return () => window.removeEventListener('scroll', throttledScroll);
+  }, [lastScrollY, isHidden, autoHideOnScroll]);
+
+  const toggleMinimize = () => {
+    setIsMinimized(!isMinimized);
+
+    const content = headerRef.current?.querySelector('.header-content');
+    const quickActions = headerRef.current?.querySelector('.quick-actions');
+
+    if (!isMinimized) {
+      // Minimize
+      gsap.to(content, { height: 60, opacity: 0.7, duration: 0.4, ease: "power2.out" });
+      gsap.to(quickActions, { opacity: 0, height: 0, duration: 0.3, ease: "power2.out" });
+      gsap.to(toggleRef.current, { rotation: 180, duration: 0.3, ease: "power2.out" });
+    } else {
+      // Maximize
+      gsap.to(content, { height: 'auto', opacity: 1, duration: 0.4, ease: "power2.out" });
+      gsap.to(quickActions, { opacity: 1, height: 'auto', duration: 0.3, delay: 0.2, ease: "power2.out" });
+      gsap.to(toggleRef.current, { rotation: 0, duration: 0.3, ease: "power2.out" });
+    }
+  };
+
   const handleStepClick = (stepId: string) => {
     setAnimatingPath(true);
     
