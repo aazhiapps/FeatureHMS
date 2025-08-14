@@ -88,7 +88,9 @@ export const InteractiveButton = ({
       case 'secondary':
         return 'bg-white/10 backdrop-blur-md text-white border border-white/30 hover:bg-white/20';
       case 'ghost':
-        return 'text-gray-600 hover:bg-gray-100 hover:text-gray-800';
+        return 'bg-transparent text-white/80 border border-transparent hover:text-white hover:bg-white/10';
+      case 'outline':
+        return 'bg-transparent text-white border border-white/50 hover:bg-white/10 hover:border-white/70';
       default:
         return '';
     }
