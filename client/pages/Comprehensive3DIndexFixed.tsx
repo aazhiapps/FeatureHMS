@@ -70,7 +70,6 @@ const ComprehensiveHero = () => {
         color="white"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/roboto-bold.woff"
         letterSpacing={0.02}
       >
         ClinicStreams
@@ -83,7 +82,6 @@ const ComprehensiveHero = () => {
         color="#00aaff"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/roboto-bold.woff"
         letterSpacing={0.01}
       >
         Next-Generation Healthcare Management
@@ -91,8 +89,8 @@ const ComprehensiveHero = () => {
       
       {/* Statistics with Better Spacing and Layout */}
       {statistics.slice(0, 4).map((stat, index) => {
-        const angle = (index / 4) * Math.PI * 2 + Math.PI / 4; // Offset for better positioning
-        const radius = 15; // Increased radius for better spacing
+        const angle = (index / 4) * Math.PI * 2 + Math.PI / 4;
+        const radius = 15;
         return (
           <Float 
             key={index} 
@@ -102,10 +100,10 @@ const ComprehensiveHero = () => {
           >
             <group position={[
               Math.cos(angle) * radius,
-              Math.sin(angle) * radius * 0.4 + 2, // Better vertical positioning
+              Math.sin(angle) * radius * 0.4 + 2,
               Math.sin(angle) * radius * 0.3
             ]}>
-              <Box args={[4, 2.5, 0.8]}> {/* Larger boxes for better readability */}
+              <Box args={[4, 2.5, 0.8]}>
                 <meshStandardMaterial 
                   color={stat.color} 
                   emissive={stat.color}
@@ -152,7 +150,7 @@ const HealthcareModulesViz = () => {
           floatIntensity={0.5}
         >
           <group position={[
-            module.position[0] * 1.0, // Better spacing multiplier
+            module.position[0] * 1.0,
             module.position[1] * 1.0,
             module.position[2]
           ]}>
@@ -218,7 +216,6 @@ const HealthcareModulesViz = () => {
                 color="#ffffff" 
                 opacity={0.4} 
                 transparent 
-                linewidth={2}
               />
             </line>
           );
@@ -235,7 +232,7 @@ const ComprehensiveComparison = () => {
   const categories = ['core', 'advanced', 'integration', 'analytics', 'support'];
   const filteredFeatures = selectedCategory 
     ? featuresData.filter(f => f.category === selectedCategory)
-    : featuresData.slice(0, 10); // Reduced for better spacing
+    : featuresData.slice(0, 10);
   
   return (
     <group>
@@ -253,9 +250,9 @@ const ComprehensiveComparison = () => {
       {/* Category Filters with Better Spacing */}
       {categories.map((category, index) => (
         <Float key={category} speed={0.6} rotationIntensity={0.2} floatIntensity={0.3}>
-          <group position={[(index - 2) * 5, 9, 2]}> {/* Increased spacing */}
+          <group position={[(index - 2) * 5, 9, 2]}>
             <Box 
-              args={[4, 1.2, 0.6]} {/* Larger boxes */}
+              args={[4, 1.2, 0.6]}
               onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
             >
               <meshStandardMaterial 
@@ -272,7 +269,6 @@ const ComprehensiveComparison = () => {
               color="white"
               anchorX="center"
               anchorY="middle"
-              font="/fonts/roboto-bold.woff"
             >
               {category.toUpperCase()}
             </Text>
@@ -283,8 +279,8 @@ const ComprehensiveComparison = () => {
       {/* Competitor Headers with Better Layout */}
       {competitorsData.map((competitor, index) => (
         <Float key={competitor.name} speed={0.4} rotationIntensity={0.1} floatIntensity={0.2}>
-          <group position={[(index - 2) * 7, 5.5, 0]}> {/* Better spacing */}
-            <Cylinder args={[1.8, 1.8, 0.6, 8]}> {/* Larger cylinders */}
+          <group position={[(index - 2) * 7, 5.5, 0]}>
+            <Cylinder args={[1.8, 1.8, 0.6, 8]}>
               <meshStandardMaterial 
                 color={competitor.color}
                 emissive={competitor.color}
@@ -307,11 +303,11 @@ const ComprehensiveComparison = () => {
       
       {/* Feature Grid with Better Spacing */}
       {filteredFeatures.map((feature, featureIndex) => (
-        <group key={feature.name} position={[0, 2 - featureIndex * 2.5, 0]}> {/* Increased vertical spacing */}
+        <group key={feature.name} position={[0, 2 - featureIndex * 2.5, 0]}>
           {/* Feature Name with Better Design */}
           <Float speed={0.3} rotationIntensity={0.1} floatIntensity={0.2}>
-            <group position={[-18, 0, 0]}> {/* Moved further left */}
-              <Box args={[6, 1.8, 0.4]}> {/* Larger feature boxes */}
+            <group position={[-18, 0, 0]}>
+              <Box args={[6, 1.8, 0.4]}>
                 <meshStandardMaterial 
                   color="#374151"
                   emissive="#1f2937"
@@ -346,8 +342,8 @@ const ComprehensiveComparison = () => {
             
             return (
               <Float key={`${feature.name}-${competitor.name}`} speed={0.5} rotationIntensity={0.2} floatIntensity={0.3}>
-                <group position={[(compIndex - 2) * 7, 0, 0]}> {/* Better spacing */}
-                  <Sphere args={[1, 12, 12]}> {/* Larger spheres */}
+                <group position={[(compIndex - 2) * 7, 0, 0]}>
+                  <Sphere args={[1, 12, 12]}>
                     <meshStandardMaterial 
                       color={hasFeature ? '#10b981' : '#ef4444'}
                       emissive={hasFeature ? '#047857' : '#dc2626'}
@@ -388,7 +384,7 @@ const HealthcareJourney = () => {
       
       {journeySteps.map((step, index) => {
         const angle = (index / journeySteps.length) * Math.PI * 2;
-        const radius = 12; // Increased radius
+        const radius = 12;
         
         return (
           <Float 
@@ -420,7 +416,6 @@ const HealthcareJourney = () => {
                 color="white"
                 anchorX="center"
                 anchorY="middle"
-                font="/fonts/roboto-bold.woff"
               >
                 {index + 1}
               </Text>
@@ -493,7 +488,6 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
             color="#10b981"
             anchorX="center"
             anchorY="middle"
-            font="/fonts/roboto-bold.woff"
           >
             {Math.round(progress * 100)}%
           </Text>
@@ -504,7 +498,7 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
       {systemStatus.map((system, index) => {
         const isActive = progress >= system.threshold;
         const angle = (index / systemStatus.length) * Math.PI * 2;
-        const radius = 18; // Increased radius
+        const radius = 18;
         
         return (
           <Float key={system.name} speed={0.8} rotationIntensity={0.3} floatIntensity={0.5}>
@@ -541,7 +535,6 @@ const EnhancedLoadingScreen = ({ progress }: { progress: number }) => {
         color="white"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/roboto-bold.woff"
         letterSpacing={0.05}
       >
         ClinicStreams
