@@ -8,10 +8,14 @@ interface ClinicStreamsProgressProps {
     description: string;
     category: string;
   }>;
+  onFeatureClick?: (featureIndex: number) => void;
+  onJumpToSection?: (progress: number) => void;
 }
 
 export const ClinicStreamsProgress = ({
   features,
+  onFeatureClick,
+  onJumpToSection,
 }: ClinicStreamsProgressProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const droneIconRef = useRef<HTMLDivElement>(null);
@@ -19,6 +23,8 @@ export const ClinicStreamsProgress = ({
   const [discoveredFeatures, setDiscoveredFeatures] = useState<number[]>([]);
   const [currentAltitude, setCurrentAltitude] = useState(0);
   const [connectionStatus, setConnectionStatus] = useState("Connected");
+  const [isInteractive, setIsInteractive] = useState(true);
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || !droneIconRef.current || !pathRef.current)
@@ -219,19 +225,43 @@ export const ClinicStreamsProgress = ({
                   />
                 )}
 
-                {/* Workflow point circle */}
+                {/* Workflow point circle - now clickable */}
                 <circle
                   cx="30"
                   cy={y}
                   r="8"
-                  className="md:r-10"
+                  className="md:r-10 cursor-pointer hover:r-10 md:hover:r-12"
                   fill={isDiscovered ? "#00ff88" : "#f3f4f6"}
                   stroke={
+                    hoveredFeature === index ? "#ff6600" :
                     isActive ? "#0066ff" : isDiscovered ? "#00cc66" : "#d1d5db"
                   }
-                  strokeWidth={isActive ? "4" : "3"}
-                  className={isActive ? "md:stroke-[4]" : "md:stroke-[3]"}
-                  className={`transition-all duration-500 ${isDiscovered ? "drop-shadow-lg" : ""}`}
+                  strokeWidth={hoveredFeature === index ? "5" : isActive ? "4" : "3"}
+                  className={`transition-all duration-300 ${isDiscovered ? "drop-shadow-lg" : ""} hover:drop-shadow-xl`}
+                  onMouseEnter={() => setHoveredFeature(index)}
+                  onMouseLeave={() => setHoveredFeature(null)}
+                  onClick={() => {
+                    const targetProgress = index / (features.length - 1);
+                    onJumpToSection?.(targetProgress);
+                    onFeatureClick?.(index);
+
+                    // Visual feedback
+                    const circle = document.querySelector(`circle[data-feature-index="${index}"]`);
+                    if (circle) {
+                      gsap.fromTo(circle,
+                        { scale: 1 },
+                        {
+                          scale: 1.3,
+                          duration: 0.3,
+                          yoyo: true,
+                          repeat: 1,
+                          ease: "power2.out",
+                          transformOrigin: "center"
+                        }
+                      );
+                    }
+                  }}
+                  data-feature-index={index}
                 />
 
                 {/* Inner active indicator */}
@@ -246,14 +276,21 @@ export const ClinicStreamsProgress = ({
                   />
                 )}
 
-                {/* Feature category icon */}
+                {/* Feature category icon - also clickable */}
                 <text
                   x="30"
                   y={y + 2}
                   textAnchor="middle"
-                  fontSize="10"
-                  className="md:text-xs"
-                  fill={isDiscovered ? "#ffffff" : "#9ca3af"}
+                  fontSize={hoveredFeature === index ? "12" : "10"}
+                  className={`md:text-xs cursor-pointer transition-all duration-300 ${hoveredFeature === index ? 'animate-pulse' : ''}`}
+                  fill={hoveredFeature === index ? "#ff6600" : isDiscovered ? "#ffffff" : "#9ca3af"}
+                  onMouseEnter={() => setHoveredFeature(index)}
+                  onMouseLeave={() => setHoveredFeature(null)}
+                  onClick={() => {
+                    const targetProgress = index / (features.length - 1);
+                    onJumpToSection?.(targetProgress);
+                    onFeatureClick?.(index);
+                  }}
                 >
                   {isDiscovered ? getCategoryIcon(feature.category) : "○"}
                 </text>
@@ -273,15 +310,21 @@ export const ClinicStreamsProgress = ({
                   />
                 )}
 
-                {/* Workflow label */}
+                {/* Workflow label - also clickable */}
                 <text
                   x="45"
                   className="md:x-60"
                   y={y + 3}
-                  fontSize="7"
-                  className="md:text-[8px]"
-                  fill={isDiscovered ? "#00ff88" : "#9ca3af"}
-                  className="transition-all duration-500"
+                  fontSize={hoveredFeature === index ? "8" : "7"}
+                  className={`md:text-[8px] cursor-pointer transition-all duration-300 ${hoveredFeature === index ? 'font-bold' : ''}`}
+                  fill={hoveredFeature === index ? "#ff6600" : isDiscovered ? "#00ff88" : "#9ca3af"}
+                  onMouseEnter={() => setHoveredFeature(index)}
+                  onMouseLeave={() => setHoveredFeature(null)}
+                  onClick={() => {
+                    const targetProgress = index / (features.length - 1);
+                    onJumpToSection?.(targetProgress);
+                    onFeatureClick?.(index);
+                  }}
                 >
                   {feature.title.substring(0, 8)}...
                 </text>
@@ -290,27 +333,53 @@ export const ClinicStreamsProgress = ({
           })}
         </svg>
 
-        {/* Medical Drone Icon */}
+        {/* Medical Drone Icon - now clickable */}
         <div
           ref={droneIconRef}
-          className="absolute w-6 h-6 md:w-8 md:h-8 transition-transform duration-200"
+          className="absolute w-6 h-6 md:w-8 md:h-8 transition-transform duration-200 cursor-pointer group"
           style={{ left: 0, top: 0 }}
+          onClick={() => {
+            // Jump to current position or restart journey
+            onJumpToSection?.(0);
+
+            // Visual feedback
+            gsap.fromTo(droneIconRef.current,
+              { scale: 1, rotation: 0 },
+              {
+                scale: 1.2,
+                rotation: 360,
+                duration: 0.6,
+                ease: "back.out(1.7)",
+                onComplete: () => {
+                  gsap.to(droneIconRef.current, {
+                    scale: 1,
+                    duration: 0.3
+                  });
+                }
+              }
+            );
+          }}
+          title="Click to restart journey"
         >
-          <div className="w-full h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-xl shadow-xl flex items-center justify-center border-2 border-white">
-            <div className="text-white text-xs md:text-sm font-bold">🚁</div>
+          <div className="w-full h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-xl shadow-xl flex items-center justify-center border-2 border-white group-hover:border-yellow-300 group-hover:scale-110 transition-all duration-300">
+            <div className="text-white text-xs md:text-sm font-bold group-hover:animate-bounce">🚁</div>
           </div>
 
-          {/* Medical Trail */}
-          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 md:w-16 h-0.5 md:h-1 bg-gradient-to-r from-green-400 via-blue-400 to-transparent opacity-80"></div>
+          {/* Enhanced Medical Trail with hover effect */}
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 md:w-16 h-0.5 md:h-1 bg-gradient-to-r from-green-400 via-blue-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-1 md:group-hover:h-2 transition-all duration-300"></div>
+
+          {/* Hover glow effect */}
+          <div className="absolute inset-0 rounded-xl bg-yellow-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
         </div>
       </div>
 
-      {/* ClinicStreams Status Panel */}
-      <div className="mt-6 md:mt-8 bg-gradient-to-br from-white/10 to-blue-500/10 backdrop-blur-md rounded-lg md:rounded-xl p-3 md:p-5 shadow-2xl border border-white/20">
+      {/* ClinicStreams Status Panel - now with interaction hints */}
+      <div className="mt-6 md:mt-8 bg-gradient-to-br from-white/10 to-blue-500/10 backdrop-blur-md rounded-lg md:rounded-xl p-3 md:p-5 shadow-2xl border border-white/20 hover:border-white/40 transition-all duration-300 group">
         <div className="flex items-center mb-2">
           <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-          <div className="text-xs md:text-sm font-semibold text-white">
+          <div className="text-xs md:text-sm font-semibold text-white group-hover:text-blue-200 transition-colors duration-300">
             ClinicStreams Status
+            <span className="text-xs text-white/50 ml-2 group-hover:text-white/70">(Click elements to navigate)</span>
           </div>
         </div>
 
