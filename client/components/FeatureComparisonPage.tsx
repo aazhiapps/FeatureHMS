@@ -338,9 +338,13 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
   const [activeTab, setActiveTab] = useState<'overview' | 'pricing' | 'features' | 'advanced'>('overview');
   const [burstTrigger, setBurstTrigger] = useState(false);
   const [burstPosition, setBurstPosition] = useState({ x: 0, y: 0 });
+  const [animatingTable, setAnimatingTable] = useState(false);
+  const [highlightedFeature, setHighlightedFeature] = useState<string | null>(null);
+  const [floatingElements, setFloatingElements] = useState<Array<{id: number, x: number, y: number, emoji: string}>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
