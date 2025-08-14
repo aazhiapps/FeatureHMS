@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Scene3D } from '../components/3D/Scene3D';
-import { HeroSection3D } from '../components/3D/HeroSection3D';
-import { Navigation3D, FloatingActionMenu3D } from '../components/3D/Navigation3D';
-import { FeatureComparison3D } from '../components/3D/FeatureComparison3D';
-import { LoadingScreen3D } from '../components/3D/LoadingScreen3D';
-import { MedicalEnvironment3D } from '../components/3D/MedicalEnvironment3D';
-import { 
-  HolographicMesh, 
-  DNAHelixMesh, 
-  MedicalParticles, 
-  HeartMonitorMesh,
-  ScannerBeamMesh,
-  EnergyFieldMesh
-} from '../components/3D/Shaders3D';
 import { Html, PerformanceMonitor, AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 import { ErrorBoundary } from 'react-error-boundary';
 import { gsap } from 'gsap';
+
+// Lazy load heavy 3D components for better performance
+const Scene3D = lazy(() => import('../components/3D/Scene3D').then(m => ({ default: m.Scene3D })));
+const HeroSection3D = lazy(() => import('../components/3D/HeroSection3D').then(m => ({ default: m.HeroSection3D })));
+const Navigation3D = lazy(() => import('../components/3D/Navigation3D').then(m => ({ default: m.Navigation3D })));
+const FloatingActionMenu3D = lazy(() => import('../components/3D/Navigation3D').then(m => ({ default: m.FloatingActionMenu3D })));
+const FeatureComparison3D = lazy(() => import('../components/3D/FeatureComparison3D').then(m => ({ default: m.FeatureComparison3D })));
+const LoadingScreen3D = lazy(() => import('../components/3D/LoadingScreen3D').then(m => ({ default: m.LoadingScreen3D })));
+const MedicalEnvironment3D = lazy(() => import('../components/3D/MedicalEnvironment3D').then(m => ({ default: m.MedicalEnvironment3D })));
+const MedicalParticles = lazy(() => import('../components/3D/Shaders3D').then(m => ({ default: m.MedicalParticles })));
+const DNAHelixMesh = lazy(() => import('../components/3D/Shaders3D').then(m => ({ default: m.DNAHelixMesh })));
+const HeartMonitorMesh = lazy(() => import('../components/3D/Shaders3D').then(m => ({ default: m.HeartMonitorMesh })));
+const ScannerBeamMesh = lazy(() => import('../components/3D/Shaders3D').then(m => ({ default: m.ScannerBeamMesh })));
+const EnergyFieldMesh = lazy(() => import('../components/3D/Shaders3D').then(m => ({ default: m.EnergyFieldMesh })));
 
 interface Enhanced3DIndexProps {
   initialPage?: 'loading' | 'hero' | 'journey' | 'comparison' | 'demo';
