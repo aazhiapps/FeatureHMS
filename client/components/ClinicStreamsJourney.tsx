@@ -12,6 +12,8 @@ interface ClinicStreamsJourneyProps {
     category: string;
     position: [number, number, number];
   }>;
+  onFeatureClick?: (featureIndex: number) => void;
+  onJumpToSection?: (progress: number) => void;
 }
 
 // Medical Drone/Device Model
@@ -135,9 +137,20 @@ const MedicalDrone = React.forwardRef<
 });
 
 // Floating Medical Feature Displays
-function FloatingFeature({ feature, index }: { feature: any; index: number }) {
+function FloatingFeature({
+  feature,
+  index,
+  onFeatureClick,
+  onJumpToSection
+}: {
+  feature: any;
+  index: number;
+  onFeatureClick?: (featureIndex: number) => void;
+  onJumpToSection?: (progress: number) => void;
+}) {
   const meshRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   useFrame(({ clock }) => {
     if (meshRef.current) {
@@ -185,8 +198,40 @@ function FloatingFeature({ feature, index }: { feature: any; index: number }) {
     <group
       ref={meshRef}
       position={feature.position}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+        document.body.style.cursor = 'default';
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        setClicked(true);
+
+        // Visual feedback
+        if (meshRef.current) {
+          gsap.fromTo(meshRef.current.scale,
+            { x: 1, y: 1, z: 1 },
+            {
+              x: 1.2, y: 1.2, z: 1.2,
+              duration: 0.3,
+              yoyo: true,
+              repeat: 1,
+              ease: "power2.out",
+              onComplete: () => setClicked(false)
+            }
+          );
+        }
+
+        // Navigate to feature
+        const targetProgress = index / (8 - 1); // Assuming 8 features
+        onJumpToSection?.(targetProgress);
+        onFeatureClick?.(index);
+      }}
     >
       {/* Enhanced Feature Container with glow */}
       <group>
@@ -194,9 +239,9 @@ function FloatingFeature({ feature, index }: { feature: any; index: number }) {
           <meshStandardMaterial
             color={getFeatureColor(feature.category)}
             transparent
-            opacity={hovered ? 0.95 : 0.85}
+            opacity={clicked ? 1 : hovered ? 0.95 : 0.85}
             emissive={getFeatureColor(feature.category)}
-            emissiveIntensity={hovered ? 0.2 : 0.1}
+            emissiveIntensity={clicked ? 0.4 : hovered ? 0.2 : 0.1}
           />
         </Box>
         {/* Glow effect */}
@@ -451,7 +496,15 @@ function MedicalEnvironment() {
 }
 
 // Main Medical Scene
-function MedicalScene({ features }: { features: any[] }) {
+function MedicalScene({
+  features,
+  onFeatureClick,
+  onJumpToSection
+}: {
+  features: any[];
+  onFeatureClick?: (featureIndex: number) => void;
+  onJumpToSection?: (progress: number) => void;
+}) {
   const { camera } = useThree();
   const droneRef = useRef<THREE.Group>(null);
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0);
@@ -633,9 +686,15 @@ function MedicalScene({ features }: { features: any[] }) {
       {/* Medical Drone */}
       <MedicalDrone ref={droneRef} />
 
-      {/* Floating Features */}
+      {/* Floating Features - now clickable */}
       {features.map((feature, index) => (
-        <FloatingFeature key={index} feature={feature} index={index} />
+        <FloatingFeature
+          key={index}
+          feature={feature}
+          index={index}
+          onFeatureClick={onFeatureClick}
+          onJumpToSection={onJumpToSection}
+        />
       ))}
 
       <MedicalEnvironment />
@@ -645,6 +704,8 @@ function MedicalScene({ features }: { features: any[] }) {
 
 export const ClinicStreamsJourney = ({
   features,
+  onFeatureClick,
+  onJumpToSection,
 }: ClinicStreamsJourneyProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -654,7 +715,11 @@ export const ClinicStreamsJourney = ({
         camera={{ position: [8, 5, 8], fov: 75 }}
         gl={{ alpha: true, antialias: true }}
       >
-        <MedicalScene features={features} />
+        <MedicalScene
+          features={features}
+          onFeatureClick={onFeatureClick}
+          onJumpToSection={onJumpToSection}
+        />
       </Canvas>
     </div>
   );
