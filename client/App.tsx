@@ -29,7 +29,8 @@ const App = () => (
       <BrowserRouter>
         <SmoothScroll />
         <Routes>
-          <Route path="/" element={<Comprehensive3DIndex />} />
+          <Route path="/" element={<Comprehensive3DIndexFixed />} />
+          <Route path="/original" element={<Comprehensive3DIndex />} />
           <Route path="/simple" element={<Simple3DIndex />} />
           <Route path="/advanced" element={<Enhanced3DIndex />} />
           <Route path="/legacy" element={<Index />} />
