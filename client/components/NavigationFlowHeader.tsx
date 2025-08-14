@@ -288,14 +288,45 @@ export const NavigationFlowHeader = ({
               })}
             </nav>
 
-            {/* Live Status */}
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-green-300 font-medium">Live</span>
+            {/* Welcome Options and Live Status */}
+            <div className="flex items-center space-x-4">
+              {/* Welcome Message */}
+              <div className="hidden md:block text-right">
+                <div className="text-sm text-white font-medium">Welcome back!</div>
+                <div className="text-xs text-blue-200">Healthcare Admin</div>
+              </div>
+
+              {/* User Menu */}
+              <div className="hidden md:flex items-center space-x-3">
+                <button className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 group">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:scale-110 transition-transform duration-200">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                  </svg>
+                </button>
+                <button className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 group">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:scale-110 transition-transform duration-200">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </button>
+                <button
+                  className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 px-3 py-1.5 rounded-lg font-medium text-white text-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  onClick={() => window.open("https://calendly.com/clinicstreams-demo", "_blank")}
+                >
+                  Get Demo
+                </button>
+              </div>
+
+              {/* Live Status */}
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-sm text-green-300 font-medium">Live</span>
+              </div>
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden ml-4 p-1.5 rounded-md text-white hover:bg-white/10 transition-all duration-300"
+                className="md:hidden p-1.5 rounded-md text-white hover:bg-white/10 transition-all duration-300"
                 onClick={handleMobileMenuToggle}
               >
                 <div className="w-4 h-4 flex flex-col justify-center space-y-0.5">
