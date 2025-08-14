@@ -697,17 +697,21 @@ const Comprehensive3DIndexFixed = () => {
         <pointLight position={[10, -10, -10]} intensity={0.6} color="#10b981" />
         <spotLight position={[0, 20, 0]} angle={0.3} intensity={2} color="#8b5cf6" />
         
-        {/* Enhanced Controls */}
+        {/* Enhanced Controls with Smoother Movement */}
         <OrbitControls
           enablePan={false}
           enableZoom={true}
           enableRotate={true}
-          maxDistance={50}
-          minDistance={20}
+          maxDistance={45}
+          minDistance={18}
           autoRotate={true}
-          autoRotateSpeed={0.2}
+          autoRotateSpeed={0.1}
+          enableDamping={true}
+          dampingFactor={0.05}
+          rotateSpeed={0.3}
+          zoomSpeed={0.5}
         />
-        
+
         {/* Page Content */}
         {currentPage === 'home' && <ComprehensiveHero />}
         {currentPage === 'features' && <HealthcareModulesViz />}
@@ -716,21 +720,29 @@ const Comprehensive3DIndexFixed = () => {
         {currentPage === 'pricing' && <Pricing3D />}
         {currentPage === 'testimonials' && <Testimonials3D />}
         {currentPage === 'roi' && <ROICalculator3D />}
-        
-        {/* Enhanced Background Particles */}
-        {[...Array(80)].map((_, i) => (
-          <Float key={i} speed={0.5 + Math.random()} rotationIntensity={0.2} floatIntensity={0.3}>
+
+        {/* Smoother Background Particles */}
+        {[...Array(60)].map((_, i) => (
+          <Float
+            key={i}
+            speed={0.2 + Math.random() * 0.3}
+            rotationIntensity={0.1}
+            floatIntensity={0.15}
+          >
             <Sphere
-              args={[0.04, 4, 4]}
+              args={[0.03 + Math.random() * 0.02, 4, 4]}
               position={[
-                (Math.random() - 0.5) * 80,
-                (Math.random() - 0.5) * 50,
-                (Math.random() - 0.5) * 50
+                (Math.random() - 0.5) * 70,
+                (Math.random() - 0.5) * 40,
+                (Math.random() - 0.5) * 40
               ]}
             >
-              <meshStandardMaterial 
-                color={['#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'][Math.floor(Math.random() * 5)]} 
-                emissiveIntensity={0.6}
+              <meshStandardMaterial
+                color={['#0ea5e9', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'][Math.floor(Math.random() * 5)]}
+                emissive={['#0ea5e9', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'][Math.floor(Math.random() * 5)]}
+                emissiveIntensity={0.4}
+                transparent
+                opacity={0.7}
               />
             </Sphere>
           </Float>
