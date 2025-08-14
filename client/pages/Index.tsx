@@ -666,7 +666,17 @@ export default function Index() {
     <MouseAnimationSystem>
       <SmoothScrollController>
       {/* Navigation Header */}
-      <NavigationFlowHeader currentPage={currentPage} onNavigate={handleNavigatePage} />
+      <NavigationFlowHeader
+        currentPage={currentPage}
+        onNavigate={handleNavigatePage}
+        autoHideOnScroll={true}
+      />
+
+      {/* Floating Circular Modules */}
+      <FloatingCircularModules
+        isVisible={currentPage === 'journey'}
+        centerText="All Systems Online!"
+      />
 
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800 relative pt-32">
         {/* 3D Medical Journey Background - now with interactive navigation */}
