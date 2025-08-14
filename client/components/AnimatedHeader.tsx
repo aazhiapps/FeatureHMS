@@ -236,6 +236,9 @@ export const AnimatedHeader = () => {
 
       // Reset and re-trigger animations if going to home/welcome
       if (href === '#home' || href === '#welcome') {
+        // Dispatch custom event for welcome navigation
+        window.dispatchEvent(new CustomEvent('welcomeNavigation'));
+        
         // Reset all animated elements
         const elementsToReset = [
           logoRef.current,

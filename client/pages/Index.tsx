@@ -3,1507 +3,782 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
 import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
-import {
-  MouseAnimationSystem,
-  useMouseTilt,
-  useMagneticEffect,
-  InteractiveParticles,
-} from "../components/MouseAnimationSystem";
-import {
-  InteractiveButton,
-  InteractiveCard,
-  FloatingActionButton,
-} from "../components/InteractiveButton";
-import {
-  Scene3DMouseEffects,
-  useEnhancedParallax,
-  useMouseAttraction,
-  MouseGlowEffect,
-} from "../components/Scene3DMouseEffects";
-import {
-  HeroMedicineInteraction,
-  MedicineTrailEffect,
-} from "../components/HeroMedicineInteraction";
+import { AnimatedHeader } from "../components/AnimatedHeader";
+import { EnhancedHeroSection } from "../components/EnhancedHeroSection";
+import { ModernFeaturesSection } from "../components/ModernFeaturesSection";
 import { ClinicStreamsJourney } from "../components/ClinicStreamsJourney";
-import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
-import { SmoothScrollController } from "../components/SmoothScrollController";
-import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
-import { FeatureComparisonPage } from "../components/FeatureComparisonPage";
-import { NavigationFlowHeader } from "../components/NavigationFlowHeader";
+import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
+import { DemoReplaySection } from "../components/DemoReplaySection";
 import { FloatingCircularModules } from "../components/FloatingCircularModules";
+import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
+import { HeroMedicineInteraction } from "../components/HeroMedicineInteraction";
+import { MouseAnimationSystem } from "../components/MouseAnimationSystem";
 import { CountdownLoadingScreen } from "../components/CountdownLoadingScreen";
-import { useScrollNavigation } from "../components/ScrollNavigationController";
 
-// TypeScript interface for DOM elements with cleanup handlers
-declare global {
-  interface HTMLElement {
-    _cleanupHandlers?: {
-      handleMouseEnter: () => void;
-      handleMouseLeave: () => void;
-    };
-  }
+gsap.registerPlugin(ScrollTrigger);
+
+interface Feature {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  category: string;
+  benefits: string[];
+  stats: { label: string; value: string }[];
+  position: [number, number, number];
 }
 
 export default function Index() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showAutoScroll, setShowAutoScroll] = useState(false);
-  const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
-  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
-  const [cardInteractionMode, setCardInteractionMode] = useState<
-    "scroll" | "manual"
-  >("scroll");
-  const [showDemoReplay, setShowDemoReplay] = useState(false);
-  const [showComparison, setShowComparison] = useState(false);
-  const [currentPage, setCurrentPage] = useState<
-    "loading" | "autoscroll" | "journey" | "comparison" | "demo"
-  >("loading");
-  const featuresRef = useRef<HTMLDivElement>(null);
+  const [currentPhase, setCurrentPhase] = useState<'countdown' | 'loading' | 'autoscroll' | 'journey' | 'complete'>('countdown');
+  const [selectedFeature, setSelectedFeature] = useState<number>(0);
+  const [showCircularModules, setShowCircularModules] = useState(false);
+  const mainRef = useRef<HTMLDivElement>(null);
 
-  // Navigation controller
-  const { jumpToProgress, jumpToFeature, restartJourney, addFeedback } =
-    useScrollNavigation();
-
-  // ClinicStreams 3D features data for medical journey - All 8 features
-  const clinicFeatures = [
+  // Healthcare management features based on the circular design
+  const features: Feature[] = [
     {
-      title: "Patient Management",
-      description:
-        "Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care",
-      category: "management",
-      position: [8, 5, -10] as [number, number, number],
+      id: 'front-office',
+      title: 'Front Office Management',
+      description: 'Comprehensive patient registration, appointment scheduling, and front desk operations management.',
+      icon: '🏢',
+      color: 'from-blue-500 to-cyan-500',
+      category: 'management',
+      benefits: [
+        'Streamlined patient registration',
+        'Automated appointment scheduling',
+        'Real-time queue management',
+        'Insurance verification'
+      ],
+      stats: [
+        { label: 'Registration Time', value: '2 min' },
+        { label: 'Efficiency Gain', value: '65%' }
+      ],
+      position: [0, 15, -10]
     },
     {
-      title: "Appointment Scheduling",
-      description:
-        "Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows",
-      category: "scheduling",
-      position: [-5, 8, -20] as [number, number, number],
+      id: 'lab-management',
+      title: 'Lab Management',
+      description: 'Complete laboratory information system with test ordering, result tracking, and quality control.',
+      icon: '🧪',
+      color: 'from-green-500 to-emerald-500',
+      category: 'laboratory',
+      benefits: [
+        'Digital test ordering',
+        'Automated result delivery',
+        'Quality control tracking',
+        'Equipment integration'
+      ],
+      stats: [
+        { label: 'Result Speed', value: '3x faster' },
+        { label: 'Accuracy', value: '99.9%' }
+      ],
+      position: [12, 10, -15]
     },
     {
-      title: "Electronic Medical Records",
-      description:
-        "Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility",
-      category: "records",
-      position: [12, -3, -30] as [number, number, number],
+      id: 'pharmacy',
+      title: 'Pharmacy Management',
+      description: 'Integrated pharmacy system with inventory management, prescription tracking, and drug interaction alerts.',
+      icon: '💊',
+      color: 'from-purple-500 to-pink-500',
+      category: 'pharmacy',
+      benefits: [
+        'Inventory optimization',
+        'Drug interaction alerts',
+        'Prescription tracking',
+        'Automated reordering'
+      ],
+      stats: [
+        { label: 'Stock Accuracy', value: '98%' },
+        { label: 'Cost Savings', value: '25%' }
+      ],
+      position: [-12, 10, -15]
     },
     {
-      title: "Billing & Insurance",
-      description:
-        "Streamlined billing workflows with insurance verification and claims management for faster reimbursements",
-      category: "billing",
-      position: [-8, 6, -40] as [number, number, number],
+      id: 'opd-cpoe',
+      title: 'OPD/CPOE',
+      description: 'Outpatient department management with computerized physician order entry system.',
+      icon: '👨‍⚕️',
+      color: 'from-indigo-500 to-blue-500',
+      category: 'clinical',
+      benefits: [
+        'Digital order entry',
+        'Clinical decision support',
+        'Workflow optimization',
+        'Error reduction'
+      ],
+      stats: [
+        { label: 'Order Accuracy', value: '99.5%' },
+        { label: 'Time Saved', value: '40%' }
+      ],
+      position: [0, 5, -20]
     },
     {
-      title: "Real-time Analytics",
-      description:
-        "Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions",
-      category: "analytics",
-      position: [10, 3, -50] as [number, number, number],
+      id: 'telemedicine',
+      title: 'Telemedicine',
+      description: 'Remote healthcare delivery platform with video consultations and digital health monitoring.',
+      icon: '📱',
+      color: 'from-teal-500 to-cyan-500',
+      category: 'telehealth',
+      benefits: [
+        'Remote consultations',
+        'Digital health monitoring',
+        'Secure video calls',
+        'Mobile accessibility'
+      ],
+      stats: [
+        { label: 'Patient Reach', value: '300%' },
+        { label: 'Satisfaction', value: '95%' }
+      ],
+      position: [8, 0, -25]
     },
     {
-      title: "Resource Management",
-      description:
-        "Optimize staff schedules, inventory, and facility resources to maximize operational efficiency",
-      category: "resources",
-      position: [-6, 9, -60] as [number, number, number],
+      id: 'billing',
+      title: 'Billing Modules',
+      description: 'Comprehensive billing and revenue cycle management with insurance claims processing.',
+      icon: '💳',
+      color: 'from-yellow-500 to-orange-500',
+      category: 'financial',
+      benefits: [
+        'Automated billing',
+        'Insurance claims',
+        'Revenue tracking',
+        'Payment processing'
+      ],
+      stats: [
+        { label: 'Collection Rate', value: '92%' },
+        { label: 'Processing Time', value: '50% faster' }
+      ],
+      position: [-8, 0, -25]
     },
     {
-      title: "Security Compliance",
-      description:
-        "HIPAA-compliant security infrastructure with role-based access control and audit trails",
-      category: "security",
-      position: [14, -1, -70] as [number, number, number],
+      id: 'admission',
+      title: 'Admission Management',
+      description: 'Patient admission workflow with bed management, pre-authorization, and discharge planning.',
+      icon: '🏥',
+      color: 'from-red-500 to-pink-500',
+      category: 'inpatient',
+      benefits: [
+        'Bed management',
+        'Pre-authorization',
+        'Discharge planning',
+        'Length of stay optimization'
+      ],
+      stats: [
+        { label: 'Bed Utilization', value: '85%' },
+        { label: 'Discharge Time', value: '30% faster' }
+      ],
+      position: [-12, -5, -20]
     },
     {
-      title: "Patient Engagement",
-      description:
-        "Patient portal for appointments, test results, and secure communication with healthcare providers",
-      category: "engagement",
-      position: [-10, 7, -80] as [number, number, number],
+      id: 'vital-room',
+      title: 'Vital Room Management',
+      description: 'Critical care monitoring with real-time vital signs tracking and alert systems.',
+      icon: '💗',
+      color: 'from-rose-500 to-red-500',
+      category: 'critical',
+      benefits: [
+        'Real-time monitoring',
+        'Automated alerts',
+        'Trend analysis',
+        'Emergency protocols'
+      ],
+      stats: [
+        { label: 'Response Time', value: '<30 sec' },
+        { label: 'Alert Accuracy', value: '99.8%' }
+      ],
+      position: [0, -10, -15]
     },
+    {
+      id: 'accounts',
+      title: 'Accounts Management',
+      description: 'Financial management system with accounting, budgeting, and financial reporting capabilities.',
+      icon: '📊',
+      color: 'from-emerald-500 to-green-500',
+      category: 'accounting',
+      benefits: [
+        'Financial reporting',
+        'Budget management',
+        'Cost analysis',
+        'Audit trails'
+      ],
+      stats: [
+        { label: 'Report Generation', value: 'Real-time' },
+        { label: 'Accuracy', value: '99.9%' }
+      ],
+      position: [12, -5, -20]
+    },
+    {
+      id: 'discharge',
+      title: 'Discharge Management',
+      description: 'Streamlined patient discharge process with documentation, billing, and follow-up care coordination.',
+      icon: '📋',
+      color: 'from-violet-500 to-purple-500',
+      category: 'workflow',
+      benefits: [
+        'Automated documentation',
+        'Billing integration',
+        'Follow-up scheduling',
+        'Care coordination'
+      ],
+      stats: [
+        { label: 'Discharge Time', value: '45% faster' },
+        { label: 'Documentation', value: '100% complete' }
+      ],
+      position: [8, -15, -10]
+    },
+    {
+      id: 'ambulance',
+      title: 'Ambulance Management',
+      description: 'Emergency medical services coordination with GPS tracking, dispatch, and resource management.',
+      icon: '🚑',
+      color: 'from-orange-500 to-red-500',
+      category: 'emergency',
+      benefits: [
+        'GPS tracking',
+        'Dispatch optimization',
+        'Resource allocation',
+        'Emergency protocols'
+      ],
+      stats: [
+        { label: 'Response Time', value: '8 min avg' },
+        { label: 'Fleet Efficiency', value: '90%' }
+      ],
+      position: [0, -20, -5]
+    },
+    {
+      id: 'nursing',
+      title: 'Nursing Station Management',
+      description: 'Nursing workflow management with patient care plans, medication administration, and shift coordination.',
+      icon: '👩‍⚕️',
+      color: 'from-cyan-500 to-teal-500',
+      category: 'nursing',
+      benefits: [
+        'Care plan management',
+        'Medication tracking',
+        'Shift coordination',
+        'Patient monitoring'
+      ],
+      stats: [
+        { label: 'Care Quality', value: '98%' },
+        { label: 'Efficiency', value: '55% better' }
+      ],
+      position: [-8, -15, -10]
+    },
+    {
+      id: 'insurance',
+      title: 'Insurance Module',
+      description: 'Insurance verification, claims processing, and coverage management with real-time eligibility checks.',
+      icon: '🛡️',
+      color: 'from-blue-500 to-indigo-500',
+      category: 'insurance',
+      benefits: [
+        'Real-time verification',
+        'Claims automation',
+        'Coverage tracking',
+        'Denial management'
+      ],
+      stats: [
+        { label: 'Claim Success', value: '94%' },
+        { label: 'Processing Speed', value: '70% faster' }
+      ],
+      position: [-12, -10, -5]
+    },
+    {
+      id: 'cssd',
+      title: 'CSSD Module',
+      description: 'Central Sterile Supply Department management with sterilization tracking and instrument management.',
+      icon: '🧼',
+      color: 'from-green-500 to-lime-500',
+      category: 'sterilization',
+      benefits: [
+        'Sterilization tracking',
+        'Instrument management',
+        'Quality assurance',
+        'Compliance monitoring'
+      ],
+      stats: [
+        { label: 'Sterility Rate', value: '100%' },
+        { label: 'Efficiency', value: '60% better' }
+      ],
+      position: [12, -10, -5]
+    }
   ];
 
+  // Phase transition handlers with proper animation resets
+  const handleCountdownComplete = useCallback(() => {
+    setCurrentPhase('loading');
+  }, []);
+
   const handleLoadingComplete = useCallback(() => {
-    setIsLoading(false);
-    setCurrentPage("autoscroll");
-    // Show auto-scroll after a brief delay
-    setTimeout(() => {
-      setShowAutoScroll(true);
-    }, 1000);
+    setCurrentPhase('autoscroll');
   }, []);
 
   const handleAutoScrollComplete = useCallback(() => {
-    setShowAutoScroll(false);
-    setCurrentPage("journey");
+    setCurrentPhase('journey');
+    // Show circular modules after auto-scroll
+    setTimeout(() => {
+      setShowCircularModules(true);
+    }, 1000);
   }, []);
 
-  const handleReplayJourney = useCallback(() => {
-    setShowDemoReplay(false);
-    restartJourney(2).then(() => {
-      // Optionally restart the loading sequence or auto-scroll
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        setTimeout(() => {
-          setShowAutoScroll(true);
-        }, 1000);
-      }, 2000);
+  const handleFeatureClick = useCallback((featureIndex: number) => {
+    setSelectedFeature(featureIndex);
+  }, []);
+
+  const handleJumpToSection = useCallback((progress: number) => {
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const targetScrollY = documentHeight * progress;
+    
+    gsap.to(window, {
+      scrollTo: { y: targetScrollY },
+      duration: 2,
+      ease: "power2.inOut"
     });
-  }, [restartJourney]);
-
-  const handleScheduleDemo = useCallback(() => {
-    // Trigger demo modal or redirect to demo scheduling
-    console.log("Demo scheduling requested");
-    // You can integrate with your demo scheduling system here
-    window.open("https://calendly.com/clinicstreams-demo", "_blank");
   }, []);
 
-  const handleFeatureNavigation = useCallback(
-    (featureIndex: number) => {
-      jumpToFeature(featureIndex, clinicFeatures.length, 1.5);
-    },
-    [jumpToFeature, clinicFeatures.length],
-  );
-
-  const handleProgressNavigation = useCallback(
-    (targetProgress: number) => {
-      jumpToProgress(targetProgress, 1.5);
-    },
-    [jumpToProgress],
-  );
-
-  const handleShowComparison = useCallback(() => {
-    setShowComparison(true);
-    setCurrentPage("comparison");
+  const handleReplay = useCallback(() => {
+    // Reset all states and restart from countdown
+    setCurrentPhase('countdown');
+    setSelectedFeature(0);
+    setShowCircularModules(false);
+    
+    // Scroll to top
+    gsap.to(window, {
+      scrollTo: { y: 0 },
+      duration: 1,
+      ease: "power2.out"
+    });
   }, []);
 
-  const handleCloseComparison = useCallback(() => {
-    setShowComparison(false);
-    setCurrentPage("journey");
-  }, []);
-
-  const handleNavigatePage = useCallback(
-    (page: "loading" | "autoscroll" | "journey" | "comparison" | "demo") => {
-      switch (page) {
-        case "loading":
-          setIsLoading(true);
-          setShowAutoScroll(false);
-          setShowComparison(false);
-          setCurrentPage("loading");
-          // Restart loading sequence
-          setTimeout(() => {
-            setIsLoading(false);
-            setCurrentPage("autoscroll");
-            setTimeout(() => {
-              setShowAutoScroll(true);
-            }, 1000);
-          }, 2000);
-          break;
-        case "autoscroll":
-          setIsLoading(false);
-          setShowAutoScroll(true);
-          setShowComparison(false);
-          setCurrentPage("autoscroll");
-          break;
-        case "journey":
-          setIsLoading(false);
-          setShowAutoScroll(false);
-          setShowComparison(false);
-          setCurrentPage("journey");
-          break;
-        case "comparison":
-          setIsLoading(false);
-          setShowAutoScroll(false);
-          setShowComparison(true);
-          setCurrentPage("comparison");
-          break;
-        case "demo":
-          setCurrentPage("demo");
-          window.open("https://calendly.com/clinicstreams-demo", "_blank");
-          break;
-      }
-    },
-    [],
-  );
-
-  // Apply enhanced mouse effects
-  useEnhancedParallax();
-  useMouseAttraction();
-
-  // Healthcare Management Modules - Based on circular design
-  const features = [
-    {
-      id: "front-office",
-      title: "Front Office Management",
-      description:
-        "Comprehensive front office operations including patient registration, appointment scheduling, and reception management.",
-      icon: "🏢",
-      color: "from-blue-500 to-cyan-500",
-      category: "Front Office",
-      delay: 0.1,
-      angle: 0,
-      radius: 180,
-      benefits: [
-        "Streamlined patient registration process",
-        "Automated appointment scheduling",
-        "Real-time front desk operations",
-        "Patient check-in/check-out management",
-      ],
-      stats: [
-        { label: "Daily Check-ins", value: "500+" },
-        { label: "Efficiency Gain", value: "45%" },
-      ],
-    },
-    {
-      id: "lab-management",
-      title: "Lab Management",
-      description:
-        "Complete laboratory information management system with test ordering, result tracking, and quality control.",
-      icon: "🧪",
-      color: "from-indigo-500 to-purple-500",
-      category: "Laboratory",
-      delay: 0.15,
-      angle: 45,
-      radius: 180,
-      benefits: [
-        "Automated test result processing",
-        "Quality control monitoring",
-        "Sample tracking and management",
-        "Integration with diagnostic equipment",
-      ],
-      stats: [
-        { label: "Tests/Day", value: "1.2K+" },
-        { label: "Accuracy", value: "99.8%" },
-      ],
-    },
-    {
-      id: "discharge-management",
-      title: "Discharge Management",
-      description:
-        "Comprehensive discharge planning and management system ensuring smooth patient transitions.",
-      icon: "🚪",
-      color: "from-green-500 to-emerald-500",
-      category: "Patient Flow",
-      delay: 0.2,
-      angle: 90,
-      radius: 180,
-      benefits: [
-        "Automated discharge planning",
-        "Care transition coordination",
-        "Follow-up appointment scheduling",
-        "Medication reconciliation",
-      ],
-      stats: [
-        { label: "Discharge Time", value: "-40%" },
-        { label: "Readmission Rate", value: "-25%" },
-      ],
-    },
-    {
-      id: "accounts-management",
-      title: "Accounts Management",
-      description:
-        "Complete financial management system with billing, accounts receivable, and revenue cycle management.",
-      icon: "💰",
-      color: "from-yellow-500 to-orange-500",
-      category: "Financial",
-      delay: 0.25,
-      angle: 135,
-      radius: 180,
-      benefits: [
-        "Automated billing processes",
-        "Real-time financial reporting",
-        "Insurance claims management",
-        "Revenue cycle optimization",
-      ],
-      stats: [
-        { label: "Collection Rate", value: "95%" },
-        { label: "Processing Time", value: "-75%" },
-      ],
-    },
-    {
-      id: "ambulance-management",
-      title: "Ambulance Management",
-      description:
-        "Emergency medical services coordination with real-time tracking and dispatch management.",
-      icon: "🚑",
-      color: "from-purple-500 to-pink-500",
-      category: "Emergency",
-      delay: 0.3,
-      angle: 180,
-      radius: 180,
-      benefits: [
-        "Real-time ambulance tracking",
-        "Automated dispatch system",
-        "Emergency response coordination",
-        "Patient transport management",
-      ],
-      stats: [
-        { label: "Response Time", value: "8 min" },
-        { label: "Fleet Utilization", value: "92%" },
-      ],
-    },
-    {
-      id: "nursing-station",
-      title: "Nursing Station Management",
-      description:
-        "Comprehensive nursing workflow management with patient monitoring and care coordination.",
-      icon: "👩‍⚕️",
-      color: "from-teal-500 to-blue-500",
-      category: "Clinical Care",
-      delay: 0.35,
-      angle: 225,
-      radius: 180,
-      benefits: [
-        "Patient care workflow optimization",
-        "Medication administration tracking",
-        "Vital signs monitoring",
-        "Nurse-patient communication",
-      ],
-      stats: [
-        { label: "Care Quality", value: "98%" },
-        { label: "Response Time", value: "3 min" },
-      ],
-    },
-    {
-      id: "insurance-module",
-      title: "Insurance Module",
-      description:
-        "Complete insurance management system with verification, authorization, and claims processing.",
-      icon: "📋",
-      color: "from-red-500 to-pink-500",
-      category: "Insurance",
-      delay: 0.4,
-      angle: 270,
-      radius: 180,
-      benefits: [
-        "Real-time insurance verification",
-        "Pre-authorization management",
-        "Claims processing automation",
-        "Coverage analysis and reporting",
-      ],
-      stats: [
-        { label: "Verification Speed", value: "30s" },
-        { label: "Approval Rate", value: "94%" },
-      ],
-    },
-    {
-      id: "admission-management",
-      title: "Admission Management",
-      description:
-        "Streamlined patient admission process with bed management and care team coordination.",
-      icon: "🏥",
-      color: "from-cyan-500 to-teal-500",
-      category: "Patient Flow",
-      delay: 0.45,
-      angle: 315,
-      radius: 180,
-      benefits: [
-        "Automated bed assignment",
-        "Care team coordination",
-        "Admission documentation",
-        "Patient flow optimization",
-      ],
-      stats: [
-        { label: "Admission Time", value: "15 min" },
-        { label: "Bed Utilization", value: "89%" },
-      ],
-    },
-  ];
-
+  // Initialize scroll animations for journey phase
   useEffect(() => {
-    if (!featuresRef.current) return;
+    if (currentPhase !== 'journey' || !mainRef.current) return;
 
-    // Create a timeout to ensure DOM elements are ready
-    const timeout = setTimeout(() => {
-      // Central card movement animations
-      features.forEach((feature, index) => {
-        const element = document.getElementById(`feature-${feature.id}`);
-        if (element) {
-          // Initial state
-          gsap.set(element, {
-            opacity: 0,
-            scale: 0.9,
-            z: -100 * index,
-            rotationY: 0,
-            rotationX: 0,
-          });
-
-          // Scroll-triggered card movement
-          ScrollTrigger.create({
-            trigger: "body",
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 3,
-            onUpdate: (self) => {
-              if (cardInteractionMode === "manual") return;
-
-              const progress = self.progress;
-              const featureProgress = index / (features.length - 1);
-              const threshold = 0.15;
-
-              // Calculate distance from current progress
-              const distance = Math.abs(progress - featureProgress);
-
-              if (distance < threshold) {
-                // Show current feature
-                const opacity = 1 - (distance / threshold) * 0.7;
-                const scale = 0.9 + (1 - distance / threshold) * 0.1;
-
-                gsap.to(element, {
-                  opacity: opacity,
-                  scale: scale,
-                  z: 0,
-                  rotationY: 0,
-                  rotationX: 0,
-                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
-                  filter: "blur(0px)",
-                  duration: 1.2,
-                  ease: "power2.out",
-                });
-              } else {
-                // Hide other features
-                gsap.to(element, {
-                  opacity: 0.25,
-                  scale: 0.8,
-                  z: -60,
-                  rotationY: progress > featureProgress ? -20 : 20,
-                  rotationX: 8,
-                  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
-                  filter: "blur(2px)",
-                  duration: 1,
-                  ease: "power2.out",
-                });
-              }
-            },
-          });
-
-          // Enhanced hover interaction
-          const handleMouseEnter = () => {
-            setHoveredFeature(index);
-            setCardInteractionMode("manual");
-
-            gsap.to(element, {
-              scale: 1.08,
-              z: 30,
-              rotationY: 0,
-              rotationX: -8,
-              opacity: 1,
-              boxShadow: "0 25px 50px rgba(59, 130, 246, 0.4)",
-              filter: "blur(0px) brightness(1.1)",
-              duration: 0.6,
-              ease: "back.out(1.7)",
-            });
-
-            // Add glow effect
-            gsap.to(element.querySelector(".card-glow"), {
-              opacity: 0.6,
-              scale: 1.1,
-              duration: 0.5,
-              ease: "power2.out",
-            });
-          };
-
-          const handleMouseLeave = () => {
-            setHoveredFeature(null);
-
-            // Return to scroll mode after delay
-            setTimeout(() => {
-              if (!selectedFeature) {
-                setCardInteractionMode("scroll");
-              }
-            }, 1000);
-
-            gsap.to(element, {
-              scale: 1,
-              z: 0,
-              rotationY: 0,
-              rotationX: 0,
-              duration: 0.5,
-              ease: "power2.out",
-            });
-
-            // Remove glow effect
-            gsap.to(element.querySelector(".card-glow"), {
-              opacity: 0,
-              scale: 1,
-              duration: 0.5,
-              ease: "power2.out",
-            });
-          };
-
-          // Click interaction
-          const handleClick = () => {
-            setSelectedFeature(selectedFeature === index ? null : index);
-            setCardInteractionMode("manual");
-
-            if (selectedFeature !== index) {
-              // Expand selected card
-              gsap.to(element, {
-                scale: 1.1,
-                z: 50,
-                rotationY: 0,
-                rotationX: -10,
-                opacity: 1,
-                duration: 0.8,
-                ease: "back.out(1.2)",
-              });
-
-              // Hide other cards
-              features.forEach((_, otherIndex) => {
-                if (otherIndex !== index) {
-                  const otherElement = document.getElementById(
-                    `feature-${features[otherIndex].id}`,
-                  );
-                  if (otherElement) {
-                    gsap.to(otherElement, {
-                      opacity: 0.2,
-                      scale: 0.8,
-                      z: -100,
-                      rotationY: otherIndex < index ? -30 : 30,
-                      duration: 0.8,
-                      ease: "power2.out",
-                    });
-                  }
-                }
-              });
-            } else {
-              // Return all cards to normal
-              features.forEach((_, cardIndex) => {
-                const cardElement = document.getElementById(
-                  `feature-${features[cardIndex].id}`,
-                );
-                if (cardElement) {
-                  gsap.to(cardElement, {
-                    opacity: 1,
-                    scale: 1,
-                    z: 0,
-                    rotationY: 0,
-                    rotationX: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                  });
-                }
-              });
-              setCardInteractionMode("scroll");
-            }
-          };
-
-          element.addEventListener("mouseenter", handleMouseEnter);
-          element.addEventListener("mouseleave", handleMouseLeave);
-          element.addEventListener("click", handleClick);
-
-          // Store cleanup functions
-          element._cleanupHandlers = {
-            handleMouseEnter,
-            handleMouseLeave,
-            handleClick,
-          };
-        }
-      });
-
-      // Mobile scroll-based feature visibility
-      features.forEach((feature, index) => {
-        const mobileElement = document.getElementById(
-          `mobile-feature-${feature.id}`,
-        );
-        if (mobileElement) {
-          gsap.set(mobileElement, {
-            opacity: 0,
-            y: 50,
-            scale: 0.9,
-          });
-
-          gsap.to(mobileElement, {
+    const initializeScrollAnimations = () => {
+      // Smooth scroll reveal for sections
+      const sections = mainRef.current?.querySelectorAll('section');
+      sections?.forEach((section, index) => {
+        gsap.fromTo(section,
+          { opacity: 0, y: 50 },
+          {
             opacity: 1,
             y: 0,
-            scale: 1,
             duration: 1,
-            delay: index * 0.1,
             ease: "power2.out",
             scrollTrigger: {
-              trigger: mobileElement,
-              start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play none none reverse",
+              trigger: section,
+              start: "top 80%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse"
             },
-          });
-        }
+            delay: index * 0.1
+          }
+        );
       });
-    }, 100);
+    };
 
+    const timeout = setTimeout(initializeScrollAnimations, 500);
+    
     return () => {
       clearTimeout(timeout);
-
-      // Clean up event listeners
-      features.forEach((feature) => {
-        const element = document.getElementById(`feature-${feature.id}`);
-        if (element && element._cleanupHandlers) {
-          element.removeEventListener(
-            "mouseenter",
-            element._cleanupHandlers.handleMouseEnter,
-          );
-          element.removeEventListener(
-            "mouseleave",
-            element._cleanupHandlers.handleMouseLeave,
-          );
-          element.removeEventListener(
-            "click",
-            element._cleanupHandlers.handleClick,
-          );
-          delete element._cleanupHandlers;
-        }
-      });
-
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [isLoading]); // Only depend on isLoading to prevent re-runs while loading
+  }, [currentPhase]);
 
-  if (isLoading) {
+  // Countdown loading screen (5 seconds)
+  if (currentPhase === 'countdown') {
     return (
-      <CountdownLoadingScreen
-        onComplete={handleLoadingComplete}
-        duration={6}
-        title="ClinicStreams"
-        subtitle="Digital Medical Systems"
+      <CountdownLoadingScreen 
+        onComplete={handleCountdownComplete}
+        duration={5}
+        title="ClinicStreams Healthcare"
+        subtitle="Initializing Medical Systems..."
       />
     );
   }
 
-  if (showComparison) {
+  // Enhanced loading screen with circular features
+  if (currentPhase === 'loading') {
     return (
-      <>
-        <NavigationFlowHeader
-          currentPage={currentPage}
-          onNavigate={handleNavigatePage}
-          autoHideOnScroll={true}
-        />
-        <FloatingCircularModules
-          isVisible={true}
-          centerText="Feature Analysis"
-        />
-        <div className="pt-32">
-          <FeatureComparisonPage onClose={handleCloseComparison} />
-        </div>
-      </>
+      <EnhancedLoadingScreen 
+        onComplete={handleLoadingComplete} 
+        features={features.map(f => ({
+          id: f.id,
+          title: f.title,
+          icon: f.icon,
+          color: f.color
+        }))}
+      />
     );
   }
 
-  if (showAutoScroll) {
+  // Auto-scroll features presentation
+  if (currentPhase === 'autoscroll') {
     return (
-      <AutoScrollFeatures
-        features={features}
-        isActive={showAutoScroll}
+      <AutoScrollFeatures 
+        features={features} 
+        isActive={true} 
         onComplete={handleAutoScrollComplete}
       />
     );
   }
 
+  // Main healthcare journey experience
   return (
     <MouseAnimationSystem>
-      <SmoothScrollController>
-        {/* Navigation Header */}
-        <NavigationFlowHeader
-          currentPage={currentPage}
-          onNavigate={handleNavigatePage}
-          autoHideOnScroll={true}
+      <div ref={mainRef} className="min-h-screen bg-white relative overflow-x-hidden">
+        {/* Animated Header with Journey Navigator */}
+        <AnimatedHeader />
+
+        {/* Hero Medicine Interaction */}
+        <HeroMedicineInteraction isActive={currentPhase === 'journey'} />
+
+        {/* 3D Healthcare Journey */}
+        <ClinicStreamsJourney 
+          features={features}
+          onFeatureClick={handleFeatureClick}
+          onJumpToSection={handleJumpToSection}
         />
+
+        {/* Scroll-driven Content */}
+        <ClinicStreamsContent />
+
+        {/* Progress Indicator */}
+        <ClinicStreamsProgress 
+          features={features}
+          onFeatureClick={handleFeatureClick}
+          onJumpToSection={handleJumpToSection}
+        />
+
+        {/* Feature Details Display */}
+        <FeatureDetailsDisplay features={features} />
 
         {/* Floating Circular Modules */}
-        <FloatingCircularModules
-          isVisible={currentPage === "journey"}
-          centerText="All Systems Online!"
+        <FloatingCircularModules 
+          isVisible={showCircularModules}
+          centerText="Healthcare Ecosystem"
         />
 
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800 relative pt-32">
-          {/* 3D Medical Journey Background - now with interactive navigation */}
-          <ClinicStreamsJourney
-            features={clinicFeatures}
-            onFeatureClick={handleFeatureNavigation}
-            onJumpToSection={handleProgressNavigation}
-          />
+        {/* Main Content Sections */}
+        <div className="relative z-10">
+          {/* Enhanced Hero Section */}
+          <EnhancedHeroSection />
 
-          {/* Progress Indicator - now with interactive navigation */}
-          <ClinicStreamsProgress
-            features={clinicFeatures}
-            onFeatureClick={handleFeatureNavigation}
-            onJumpToSection={handleProgressNavigation}
-          />
-
-          {/* Dynamic Feature Details Display */}
-          <FeatureDetailsDisplay features={features} />
-
-          {/* Scroll-Triggered Content */}
-          <ClinicStreamsContent />
-          {/* Clean Navigation */}
-          <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 relative">
-            <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-              <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                ClinicStreams
-              </div>
-              <button
-                className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 interactive"
-                data-mouse-parallax="0.1"
-              >
-                Get Demo
-              </button>
+          {/* Circular Healthcare Management System */}
+          <section id="features" className="relative py-24 bg-gradient-to-br from-blue-50 via-white to-teal-50 overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0">
+              <div className="absolute top-20 left-10 w-40 h-40 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-20 right-10 w-60 h-60 bg-teal-200/20 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-200/10 rounded-full blur-3xl animate-pulse" />
             </div>
-          </nav>
 
-          {/* Floating Medical Elements */}
-          <div className="fixed inset-0 pointer-events-none z-5 overflow-hidden">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div
-                key={i}
-                className="medical-element absolute text-blue-300/20 text-4xl floating-particle"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${i * 0.5}s`,
-                }}
-                data-parallax={String(0.1 + (i % 3) * 0.05)}
-              >
-                {["🏥", "💊", "⚕️", "🩺", "💉", "🧬", "📊", "💗"][i]}
-              </div>
-            ))}
-          </div>
-
-          {/* Hero Section */}
-          <section className="pt-16 pb-32 px-6 text-center min-h-screen flex items-center relative z-10">
-            <div className="max-w-4xl mx-auto w-full">
-              <h1
-                className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent"
-                data-mouse-parallax="0.03"
-                data-mouse-attract="300"
-              >
-                ClinicStreams
-              </h1>
-              <p className="text-xl md:text-2xl text-white/80 mb-8">
-                The Future of Healthcare Technology
-              </p>
-              <p className="text-lg text-white/60 max-w-2xl mx-auto mb-12">
-                Revolutionizing patient care through AI-powered monitoring,
-                seamless telemedicine, and intelligent healthcare analytics
-              </p>
-
-              {/* Scroll Indicator */}
-              <div className="animate-bounce">
-                <div className="w-1 h-3 bg-white/70 rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-pulse"></div>
-                <p className="text-white/50 text-sm mt-2">Scroll to explore</p>
-              </div>
-            </div>
-          </section>
-
-          {/* Features Section */}
-          <section
-            className="relative min-h-[400vh] py-20 md:py-32"
-            ref={featuresRef}
-          >
-            {/* Section Header */}
-            <div className="relative z-30 bg-gradient-to-b from-blue-900/95 to-blue-800/80 backdrop-blur-xl py-12 md:py-16 border-b border-white/30 shadow-2xl mb-20">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center mb-4">
-                  <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mr-4"></div>
-                  <span className="text-blue-300 text-sm font-medium tracking-widest uppercase">
-                    Healthcare Innovation
-                  </span>
-                  <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent ml-4"></div>
+            <div className="relative z-10 max-w-7xl mx-auto px-6">
+              {/* Section Header */}
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center space-x-2 bg-blue-100/80 backdrop-blur-sm text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                  <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                  <span>Comprehensive Healthcare Management</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-white mb-4 md:mb-6 bg-gradient-to-r from-white via-blue-100 to-green-100 bg-clip-text text-transparent px-4 leading-tight">
-                  Healthcare Innovation Journey
+                
+                <h2 className="text-heading-1 text-gray-900 mb-6">
+                  Integrated Healthcare Ecosystem
                 </h2>
-                <p className="text-base md:text-xl lg:text-2xl text-white/90 max-w-5xl mx-auto px-4 leading-relaxed font-light">
-                  Follow our medical drone as it navigates through
-                  ClinicStreams' revolutionary features
+                
+                <p className="text-body-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                  Experience our complete healthcare management system with interconnected modules designed for seamless workflow integration.
                 </p>
-                <div className="mt-6 flex justify-center">
-                  <div className="flex space-x-2">
-                    {Array.from({ length: 8 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-2 h-2 rounded-full bg-white/30 animate-pulse"
-                        style={{ animationDelay: `${i * 0.2}s` }}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
               </div>
-            </div>
 
-            {/* Three Column Layout */}
-            <div className="relative min-h-[300vh] py-20">
-              <div className="w-full max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8 min-h-screen items-start">
-                {/* Left Side - Feature Cards */}
-                <div className="col-span-4 sticky top-32 max-h-screen overflow-y-auto scrollbar-hide">
-                  <h3 className="text-xl font-bold text-white mb-6 text-center">
+              {/* Three Column Layout */}
+              <div className="grid grid-cols-12 gap-8 items-start">
+                {/* Left Column - Feature Cards */}
+                <div className="col-span-12 lg:col-span-3 space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span className="w-3 h-3 bg-blue-500 rounded-full mr-3 animate-pulse"></span>
                     Healthcare Modules
                   </h3>
-                  <div className="space-y-4">
+                  
+                  <div className="space-y-3 max-h-[600px] overflow-y-auto scrollbar-hide">
                     {features.map((feature, index) => (
                       <div
                         key={feature.id}
-                        id={`feature-${feature.id}`}
-                        className="opacity-80 transform scale-95 cursor-pointer transition-all duration-500 hover:opacity-100 hover:scale-100 interactive"
-                        data-mouse-parallax="0.05"
+                        id={`feature-${feature.category}`}
+                        className={`feature-card p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer group ${
+                          selectedFeature === index 
+                            ? 'border-blue-500 bg-blue-50 shadow-lg scale-105' 
+                            : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-md hover:scale-102'
+                        }`}
+                        onClick={() => handleFeatureClick(index)}
                       >
-                        <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/30 shadow-lg group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
-                          {/* Glow effect overlay */}
-                          <div className="card-glow absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/20 to-blue-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
-
-                          {/* Animated border */}
-                          <div
-                            className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-blue-400/50 via-purple-400/50 to-teal-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                            style={{
-                              WebkitMask:
-                                "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                              WebkitMaskComposite: "subtract",
-                            }}
-                          ></div>
-                          {/* Card Header */}
-                          <div className="flex items-center mb-3">
-                            <div
-                              className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center text-lg shadow-lg mr-3 group-hover:scale-110 transition-all duration-300`}
-                            >
-                              {feature.icon}
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="text-base font-bold text-white mb-1 group-hover:text-blue-100 transition-colors duration-300">
-                                {feature.title}
-                              </h4>
-                              <div className="text-xs text-blue-300 uppercase tracking-wide font-medium">
-                                {feature.category}
-                              </div>
-                            </div>
-                            <div
-                              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                                hoveredFeature === index
-                                  ? "bg-green-400 animate-pulse"
-                                  : "bg-white/40"
-                              }`}
-                            ></div>
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className={`w-10 h-10 rounded-lg bg-gradient-to-r ${feature.color} flex items-center justify-center text-white text-lg group-hover:scale-110 transition-transform duration-300`}>
+                            {feature.icon}
                           </div>
-
-                          {/* Card Description */}
-                          <p className="text-white/80 text-xs leading-relaxed mb-3 group-hover:text-white/95 transition-colors duration-300 line-clamp-2">
-                            {feature.description}
-                          </p>
-
-                          {/* Quick Stats */}
-                          <div className="grid grid-cols-2 gap-2">
-                            {feature.stats.map((stat, idx) => (
-                              <div
-                                key={idx}
-                                className="text-center p-2 bg-white/5 rounded-md border border-white/10"
-                              >
-                                <div className="text-xs font-bold text-blue-400">
-                                  {stat.value}
-                                </div>
-                                <div className="text-xs text-white/60">
-                                  {stat.label}
-                                </div>
-                              </div>
-                            ))}
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-gray-900 text-sm">{feature.title}</h4>
+                            <p className="text-xs text-gray-500 uppercase tracking-wide">{feature.category}</p>
                           </div>
                         </div>
+                        
+                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">{feature.description}</p>
+                        
+                        <div className="grid grid-cols-2 gap-2">
+                          {feature.stats.map((stat, statIndex) => (
+                            <div key={statIndex} className="text-center p-2 bg-gray-50 rounded-lg">
+                              <div className="text-sm font-bold text-gray-900">{stat.value}</div>
+                              <div className="text-xs text-gray-500">{stat.label}</div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Pulse effect for active feature */}
+                        <div className="feature-pulse absolute inset-0 rounded-xl border-2 border-transparent opacity-0"></div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Center - Feature Tree */}
-                <div className="col-span-4 sticky top-32 flex items-center justify-center min-h-screen">
-                  <div className="relative">
-                    {/* Circular Healthcare Management System */}
-                    <div className="relative w-[500px] h-[500px]">
-                      {/* Circular System Structure */}
-                      <svg
-                        width="500"
-                        height="500"
-                        viewBox="0 0 500 500"
-                        className="absolute inset-0"
-                      >
-                        <defs>
-                          <linearGradient
-                            id="circularGradient"
-                            x1="0%"
-                            y1="0%"
-                            x2="100%"
-                            y2="100%"
-                          >
-                            <stop
-                              offset="0%"
-                              stopColor="#3b82f6"
-                              stopOpacity="0.8"
-                            />
-                            <stop
-                              offset="50%"
-                              stopColor="#8b5cf6"
-                              stopOpacity="0.6"
-                            />
-                            <stop
-                              offset="100%"
-                              stopColor="#10b981"
-                              stopOpacity="0.8"
-                            />
-                          </linearGradient>
-                          <linearGradient
-                            id="innerCircleGradient"
-                            x1="0%"
-                            y1="0%"
-                            x2="100%"
-                            y2="100%"
-                          >
-                            <stop
-                              offset="0%"
-                              stopColor="#ef4444"
-                              stopOpacity="0.6"
-                            />
-                            <stop
-                              offset="50%"
-                              stopColor="#f97316"
-                              stopOpacity="0.4"
-                            />
-                            <stop
-                              offset="100%"
-                              stopColor="#eab308"
-                              stopOpacity="0.6"
-                            />
-                          </linearGradient>
-                          <filter id="glow">
-                            <feGaussianBlur
-                              stdDeviation="3"
-                              result="coloredBlur"
-                            />
-                            <feMerge>
-                              <feMergeNode in="coloredBlur" />
-                              <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                          </filter>
-                        </defs>
+                {/* Center Column - Circular Healthcare Tree */}
+                <div className="col-span-12 lg:col-span-6 flex items-center justify-center">
+                  <div className="relative w-[500px] h-[500px]">
+                    {/* Outer Orbital Ring */}
+                    <div className="absolute inset-0 border-2 border-blue-200/50 rounded-full animate-spin opacity-30" style={{ animationDuration: '30s' }}></div>
+                    <div className="absolute inset-4 border border-teal-200/40 rounded-full animate-spin opacity-20" style={{ animationDuration: '25s', animationDirection: 'reverse' }}></div>
+                    <div className="absolute inset-8 border border-purple-200/30 rounded-full animate-spin opacity-15" style={{ animationDuration: '20s' }}></div>
 
-                        {/* Outer Circle - Main System */}
-                        <circle
-                          cx="250"
-                          cy="250"
-                          r="200"
-                          stroke="url(#circularGradient)"
-                          strokeWidth="4"
-                          fill="none"
-                          filter="url(#glow)"
-                          className="animate-spin"
-                          style={{ animationDuration: "20s" }}
-                        />
+                    {/* Central Healthcare Hub */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-blue-500 via-teal-500 to-green-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-2xl border-4 border-white module-glow">
+                      🏥
+                      <div className="absolute inset-0 rounded-full border-4 border-blue-400/50 animate-ping"></div>
+                      <div className="absolute inset-0 rounded-full border-2 border-green-400/30 animate-pulse" style={{ animationDelay: '1s' }}></div>
+                    </div>
 
-                        {/* Inner Circle - Core Modules */}
-                        <circle
-                          cx="250"
-                          cy="250"
-                          r="120"
-                          stroke="url(#innerCircleGradient)"
-                          strokeWidth="3"
-                          fill="none"
-                          filter="url(#glow)"
-                          className="animate-spin"
-                          style={{
-                            animationDuration: "15s",
-                            animationDirection: "reverse",
-                          }}
-                        />
+                    {/* Healthcare Management Modules */}
+                    {features.slice(0, 12).map((feature, index) => {
+                      const angle = (index / 12) * 2 * Math.PI;
+                      const radius = 180;
+                      const x = Math.cos(angle) * radius + 250;
+                      const y = Math.sin(angle) * radius + 250;
 
-                        {/* Connection Lines from Center */}
-                        {features.map((feature, index) => {
-                          const angle = (feature.angle * Math.PI) / 180;
-                          const x =
-                            250 + Math.cos(angle) * (feature.radius + 20);
-                          const y =
-                            250 + Math.sin(angle) * (feature.radius + 20);
-                          const isActive = hoveredFeature === index;
-
-                          return (
-                            <line
-                              key={`line-${index}`}
-                              x1="250"
-                              y1="250"
-                              x2={x}
-                              y2={y}
-                              stroke={isActive ? "#10b981" : "#3b82f6"}
-                              strokeWidth={isActive ? "3" : "1"}
-                              opacity={isActive ? "0.8" : "0.3"}
-                              className="transition-all duration-500"
-                            />
-                          );
-                        })}
-
-                        {/* Feature Module Nodes */}
-                        {features.map((feature, index) => {
-                          const angle = (feature.angle * Math.PI) / 180;
-                          const x =
-                            250 + Math.cos(angle) * (feature.radius + 20);
-                          const y =
-                            250 + Math.sin(angle) * (feature.radius + 20);
-                          const isActive = hoveredFeature === index;
-
-                          return (
-                            <g key={index}>
-                              {/* Module Background */}
-                              <rect
-                                x={x - 40}
-                                y={y - 15}
-                                width="80"
-                                height="30"
-                                rx="15"
-                                fill={isActive ? "#10b981" : "#3b82f6"}
-                                opacity={isActive ? "0.9" : "0.6"}
-                                className="transition-all duration-500 cursor-pointer"
-                                onClick={() => {
-                                  setHoveredFeature(index);
-                                  setSelectedFeature(index);
-                                }}
-                              />
-
-                              {/* Module Node */}
-                              <circle
-                                cx={x}
-                                cy={y}
-                                r={isActive ? "20" : "16"}
-                                fill={isActive ? "#10b981" : "#3b82f6"}
-                                stroke="#ffffff"
-                                strokeWidth="4"
-                                className="transition-all duration-500 cursor-pointer"
-                                onClick={() => {
-                                  setHoveredFeature(index);
-                                  setSelectedFeature(index);
-                                }}
-                              />
-
-                              {/* Module Icon */}
-                              <text
-                                x={x}
-                                y={y + 6}
-                                textAnchor="middle"
-                                fontSize="20"
-                                fill="white"
-                                className="pointer-events-none"
-                              >
-                                {feature.icon}
-                              </text>
-
-                              {/* Orbital Ring for Active Module */}
-                              {isActive && (
-                                <g>
-                                  <circle
-                                    cx={x}
-                                    cy={y}
-                                    r="30"
-                                    fill="none"
-                                    stroke="#10b981"
-                                    strokeWidth="3"
-                                    opacity="0.6"
-                                    className="animate-ping"
-                                  />
-                                  <circle
-                                    cx={x}
-                                    cy={y}
-                                    r="36"
-                                    fill="none"
-                                    stroke="#10b981"
-                                    strokeWidth="2"
-                                    opacity="0.4"
-                                    className="animate-pulse"
-                                  />
-                                </g>
-                              )}
-
-                              {/* Data Flow Animation */}
-                              {isActive && (
-                                <g>
-                                  {[0, 1, 2].map((dot) => (
-                                    <circle
-                                      key={dot}
-                                      cx={
-                                        250 + Math.cos(angle) * (80 + dot * 50)
-                                      }
-                                      cy={
-                                        250 + Math.sin(angle) * (80 + dot * 50)
-                                      }
-                                      r="3"
-                                      fill="#10b981"
-                                      className="animate-pulse"
-                                      style={{
-                                        animationDelay: `${dot * 0.3}s`,
-                                        animationDuration: "1.5s",
-                                      }}
-                                    />
-                                  ))}
-                                </g>
-                              )}
-                            </g>
-                          );
-                        })}
-                      </svg>
-
-                      {/* Central Healthcare Hub */}
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-blue-500/40 to-green-500/40 backdrop-blur-xl border-4 border-white/50 flex items-center justify-center shadow-2xl">
-                        <div className="text-5xl animate-bounce">🏥</div>
-
-                        {/* Rotating Ring */}
+                      return (
                         <div
-                          className="absolute inset-0 rounded-full border-3 border-blue-400/30 animate-spin"
-                          style={{ animationDuration: "8s" }}
+                          key={feature.id}
+                          className={`absolute w-16 h-16 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group circular-module ${
+                            selectedFeature === index ? 'active' : ''
+                          }`}
+                          style={{ left: `${x}px`, top: `${y}px` }}
+                          onClick={() => handleFeatureClick(index)}
                         >
-                          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full"></div>
-                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-green-400 rounded-full"></div>
-                          <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-purple-400 rounded-full"></div>
-                          <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full"></div>
-                        </div>
-                      </div>
+                          <div className={`w-full h-full rounded-full bg-gradient-to-br ${feature.color} flex items-center justify-center text-white text-lg shadow-lg border-2 border-white/50 transition-all duration-500 group-hover:scale-110 ${
+                            selectedFeature === index ? 'scale-125 shadow-2xl' : ''
+                          }`}>
+                            {feature.icon}
+                          </div>
+                          
+                          {/* Module Label */}
+                          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-700 text-center whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            {feature.title.split(' ')[0]}
+                          </div>
 
-                      {/* Core Modules Labels */}
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        {/* Telemedicine */}
-                        <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-3 py-1 rounded-full">
-                          TELEMEDICINE
+                          {/* Connection Line to Center */}
+                          <div 
+                            className="absolute top-1/2 left-1/2 w-0.5 bg-gradient-to-r from-blue-400/30 to-transparent origin-center transition-all duration-500"
+                            style={{
+                              height: `${radius - 32}px`,
+                              transform: `translate(-50%, -50%) rotate(${angle + Math.PI}rad)`,
+                              opacity: selectedFeature === index ? 1 : 0.3
+                            }}
+                          ></div>
+
+                          {/* Data Flow Animation */}
+                          {selectedFeature === index && (
+                            <div 
+                              className="absolute w-2 h-2 bg-green-400 rounded-full data-flow-animation"
+                              style={{
+                                left: '50%',
+                                top: '50%',
+                                transform: `translate(-50%, -50%) rotate(${angle + Math.PI}rad) translateY(-${radius/2}px)`
+                              }}
+                            ></div>
+                          )}
+
+                          {/* Active Ring */}
+                          {selectedFeature === index && (
+                            <div className="absolute inset-0 rounded-full border-2 border-green-400 animate-ping"></div>
+                          )}
                         </div>
-                        {/* Billing Modules */}
-                        <div className="absolute -left-16 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs font-medium text-white bg-blue-500/80 px-3 py-1 rounded-full">
-                          BILLING
-                        </div>
-                        {/* OPD/CPOE */}
-                        <div className="absolute -top-20 -left-12 text-xs font-medium text-white bg-cyan-500/80 px-3 py-1 rounded-full">
-                          OPD/CPOE
-                        </div>
-                        {/* Vital Room */}
-                        <div className="absolute -bottom-12 -left-12 text-xs font-medium text-white bg-green-500/80 px-3 py-1 rounded-full">
-                          VITAL ROOM
-                        </div>
-                        {/* CSSD Module */}
-                        <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-3 py-1 rounded-full">
-                          CSSD MODULE
-                        </div>
+                      );
+                    })}
+
+                    {/* Core System Labels */}
+                    <div className="absolute top-[30%] left-1/2 transform -translate-x-1/2 text-center">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-md border border-blue-200">
+                        <span className="text-xs font-medium text-blue-700">TELEMEDICINE</span>
+                      </div>
+                    </div>
+
+                    <div className="absolute bottom-[30%] left-1/2 transform -translate-x-1/2 text-center">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-md border border-green-200">
+                        <span className="text-xs font-medium text-green-700">BILLING CORE</span>
+                      </div>
+                    </div>
+
+                    <div className="absolute left-[25%] top-1/2 transform -translate-y-1/2 text-center">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-md border border-purple-200">
+                        <span className="text-xs font-medium text-purple-700">OPD/CPOE</span>
+                      </div>
+                    </div>
+
+                    <div className="absolute right-[25%] top-1/2 transform -translate-y-1/2 text-center">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-md border border-orange-200">
+                        <span className="text-xs font-medium text-orange-700">VITAL ROOM</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Right Side - Drone Explanation */}
-                <div className="col-span-4 sticky top-32 max-h-screen overflow-y-auto scrollbar-hide">
-                  {/* Drone Display */}
-                  <div className="mb-6">
-                    <div className="relative w-40 h-40 mx-auto">
-                      {/* Main Drone */}
-                      <div
-                        className={`absolute inset-0 rounded-full border-3 border-blue-400/60 bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md animate-pulse flex items-center justify-center transition-all duration-500 shadow-xl ${
-                          hoveredFeature !== null
-                            ? "border-green-400/80 bg-gradient-to-br from-green-500/40 to-blue-500/40 scale-110"
-                            : ""
-                        }`}
-                      >
-                        <div
-                          className={`text-5xl animate-bounce transition-all duration-500 drop-shadow-lg ${
-                            hoveredFeature !== null
-                              ? "scale-125 animate-pulse"
-                              : ""
-                          }`}
-                        >
-                          🚁
-                        </div>
+                {/* Right Column - Drone Explanation */}
+                <div className="col-span-12 lg:col-span-3">
+                  <div className="bg-gradient-to-br from-white/80 via-blue-50/80 to-teal-50/80 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-white/50">
+                    <div className="flex items-center mb-4">
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg flex items-center justify-center text-white text-sm mr-3 animate-pulse">
+                        🚁
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-800">System Analysis</h3>
+                    </div>
+
+                    {/* Selected Feature Details */}
+                    <div className="mb-6">
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${features[selectedFeature].color} flex items-center justify-center text-white text-xl mb-3 shadow-lg`}>
+                        {features[selectedFeature].icon}
+                      </div>
+                      
+                      <h4 className="text-xl font-bold text-gray-900 mb-2">
+                        {features[selectedFeature].title}
+                      </h4>
+                      
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                        {features[selectedFeature].description}
+                      </p>
+
+                      {/* Key Benefits */}
+                      <div className="mb-4">
+                        <h5 className="text-sm font-semibold text-gray-800 mb-2">Key Benefits:</h5>
+                        <ul className="space-y-1">
+                          {features[selectedFeature].benefits.map((benefit, index) => (
+                            <li key={index} className="flex items-start text-xs text-gray-600">
+                              <div className="w-1.5 h-1.5 bg-green-400 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                              {benefit}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
 
-                      {/* Rotating Elements */}
-                      <div
-                        className="absolute inset-0 animate-spin"
-                        style={{ animationDuration: "6s" }}
-                      >
-                        {[0, 1, 2, 3, 4, 5].map((i) => (
-                          <div
-                            key={i}
-                            className="absolute w-2 h-2 bg-blue-400 rounded-full shadow-lg"
-                            style={{
-                              top: "50%",
-                              left: "50%",
-                              transform: `rotate(${i * 60}deg) translateX(70px) translateY(-4px)`,
-                            }}
-                          />
+                      {/* Performance Stats */}
+                      <div className="grid grid-cols-2 gap-3">
+                        {features[selectedFeature].stats.map((stat, index) => (
+                          <div key={index} className="bg-white/70 rounded-lg p-3 text-center border border-gray-200">
+                            <div className="text-lg font-bold text-gray-900">{stat.value}</div>
+                            <div className="text-xs text-gray-500">{stat.label}</div>
+                          </div>
                         ))}
                       </div>
                     </div>
-                  </div>
 
-                  {/* Feature Explanation */}
-                  <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/30 shadow-xl">
-                    {hoveredFeature !== null ? (
-                      <div className="animate-fadeIn">
-                        <div className="flex items-center mb-4">
-                          <div
-                            className={`w-12 h-12 rounded-xl bg-gradient-to-br ${features[hoveredFeature].color} flex items-center justify-center text-xl shadow-lg mr-3`}
-                          >
-                            {features[hoveredFeature].icon}
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold text-white mb-1">
-                              {features[hoveredFeature].title}
-                            </h3>
-                            <div className="text-sm text-blue-300 uppercase tracking-wide font-medium">
-                              {features[hoveredFeature].category}
-                            </div>
-                          </div>
-                        </div>
-
-                        <p className="text-white/90 text-base leading-relaxed mb-4">
-                          {features[hoveredFeature].description}
-                        </p>
-
-                        <div className="mb-4">
-                          <h4 className="text-base font-semibold text-white mb-3 flex items-center">
-                            <div className="w-1 h-5 bg-gradient-to-b from-blue-400 to-green-400 rounded-full mr-3"></div>
-                            Key Benefits
-                          </h4>
-                          <div className="space-y-2">
-                            {features[hoveredFeature].benefits
-                              .slice(0, 3)
-                              .map((benefit, idx) => (
-                                <div key={idx} className="flex items-start">
-                                  <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                  <span className="text-white/80 text-sm leading-relaxed">
-                                    {benefit}
-                                  </span>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3">
-                          {features[hoveredFeature].stats.map((stat, idx) => (
-                            <div
-                              key={idx}
-                              className="text-center p-3 bg-white/10 rounded-lg border border-white/20"
-                            >
-                              <div className="text-lg font-bold text-blue-400 mb-1">
-                                {stat.value}
-                              </div>
-                              <div className="text-xs text-white/70">
-                                {stat.label}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                    {/* Drone Status */}
+                    <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg p-3 border border-green-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-green-800">Drone Status</span>
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                       </div>
-                    ) : (
-                      <div className="text-center">
-                        <div className="text-4xl mb-4">🎯</div>
-                        <h3 className="text-lg font-bold text-white mb-3">
-                          Explore Healthcare Features
-                        </h3>
-                        <p className="text-white/70 text-sm leading-relaxed mb-4">
-                          Click on any feature card or tree node to see detailed
-                          information about our comprehensive healthcare
-                          solutions.
-                        </p>
-                        <div className="flex justify-center space-x-2">
-                          {features.map((_, idx) => (
-                            <div
-                              key={idx}
-                              className="w-2 h-2 bg-white/40 rounded-full animate-pulse"
-                              style={{ animationDelay: `${idx * 0.2}s` }}
-                            ></div>
-                          ))}
-                        </div>
+                      <div className="text-xs text-green-700">
+                        Analyzing {features[selectedFeature].category} module...
                       </div>
-                    )}
+                      <div className="text-xs text-green-600 mt-1">
+                        Module {selectedFeature + 1} of {features.length} • Active
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Thank You Section */}
-          <section className="py-20 md:py-32 px-4 md:px-6 text-center relative z-10 min-h-screen flex items-center bg-gradient-to-t from-blue-900/50 to-transparent">
-            <div className="max-w-4xl mx-auto w-full">
-              <div className="mb-8">
-                <div className="text-4xl md:text-6xl lg:text-8xl mb-4 md:mb-6">
-                  🙏
-                </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-4 md:mb-6 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent px-4">
-                  Thank You for Exploring ClinicStreams
-                </h2>
-              </div>
+          {/* Modern Features Section */}
+          <ModernFeaturesSection />
 
-              <p className="text-base md:text-lg lg:text-xl text-white/90 mb-6 md:mb-8 max-w-3xl mx-auto px-4">
-                You've discovered all our healthcare technology solutions
-              </p>
-
-              <p className="text-sm md:text-base lg:text-lg text-white/70 mb-8 md:mb-12 max-w-2xl mx-auto px-4">
-                Ready to revolutionize your healthcare organization? Join
-                thousands of providers already transforming patient care with
-                our comprehensive platform.
-              </p>
-
-              <div className="space-y-6">
-                {/* Primary Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center">
-                  <InteractiveButton
-                    variant="primary"
-                    size="xl"
-                    className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600"
-                    magnetic={true}
-                    tilt={true}
-                    ripple={true}
-                    onClick={handleScheduleDemo}
-                  >
-                    <span className="flex items-center justify-center">
-                      <span className="text-2xl mr-3">🚀</span>
-                      Schedule Live Demo
-                    </span>
-                  </InteractiveButton>
-
-                  <InteractiveButton
-                    variant="secondary"
-                    size="xl"
-                    className="w-full sm:w-auto min-w-[200px] border-2 border-white/30 hover:border-white/50"
-                    magnetic={true}
-                    tilt={true}
-                    ripple={true}
-                    onClick={handleReplayJourney}
-                  >
-                    <span className="flex items-center justify-center">
-                      <span className="text-2xl mr-3">🔁</span>
-                      Replay Journey
-                    </span>
-                  </InteractiveButton>
-
-                  <InteractiveButton
-                    variant="outline"
-                    size="xl"
-                    className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-purple-500/20 to-indigo-500/20 hover:from-purple-500/30 hover:to-indigo-500/30 border-2 border-purple-400/50 hover:border-purple-400/70"
-                    magnetic={true}
-                    tilt={true}
-                    ripple={true}
-                    onClick={handleShowComparison}
-                  >
-                    <span className="flex items-center justify-center">
-                      <span className="text-2xl mr-3">🆚</span>
-                      Compare Solutions
-                    </span>
-                  </InteractiveButton>
-                </div>
-
-                {/* Secondary Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
-                  <InteractiveButton
-                    variant="ghost"
-                    size="md"
-                    className="text-white/80 hover:text-white border border-white/20 hover:border-white/40"
-                    magnetic={true}
-                  >
-                    <span className="flex items-center">
-                      <span className="mr-2">📧</span>
-                      Contact Sales
-                    </span>
-                  </InteractiveButton>
-
-                  <InteractiveButton
-                    variant="ghost"
-                    size="md"
-                    className="text-white/80 hover:text-white border border-white/20 hover:border-white/40"
-                    magnetic={true}
-                  >
-                    <span className="flex items-center">
-                      <span className="mr-2">📚</span>
-                      Documentation
-                    </span>
-                  </InteractiveButton>
-
-                  <InteractiveButton
-                    variant="ghost"
-                    size="md"
-                    className="text-white/80 hover:text-white border border-white/20 hover:border-white/40"
-                    magnetic={true}
-                  >
-                    <span className="flex items-center">
-                      <span className="mr-2">💬</span>
-                      Support Chat
-                    </span>
-                  </InteractiveButton>
-                </div>
-              </div>
-
-              {/* Journey Completion Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto px-4">
-                <InteractiveCard className="p-4" glowEffect={true}>
-                  <div className="text-xl md:text-2xl font-bold text-green-400 mb-1">
-                    8
-                  </div>
-                  <div className="text-xs md:text-sm text-white/80">
-                    Features Explored
-                  </div>
-                </InteractiveCard>
-                <InteractiveCard className="p-4" glowEffect={true}>
-                  <div className="text-xl md:text-2xl font-bold text-blue-400 mb-1">
-                    100%
-                  </div>
-                  <div className="text-xs md:text-sm text-white/80">
-                    Journey Complete
-                  </div>
-                </InteractiveCard>
-                <InteractiveCard className="p-4" glowEffect={true}>
-                  <div className="text-xl md:text-2xl font-bold text-purple-400 mb-1">
-                    24/7
-                  </div>
-                  <div className="text-xs md:text-sm text-white/80">
-                    Support Available
-                  </div>
-                </InteractiveCard>
-                <InteractiveCard className="p-4" glowEffect={true}>
-                  <div className="text-xl md:text-2xl font-bold text-cyan-400 mb-1">
-                    ∞
-                  </div>
-                  <div className="text-xs md:text-sm text-white/80">
-                    Possibilities
-                  </div>
-                </InteractiveCard>
-              </div>
-            </div>
-          </section>
+          {/* Demo Replay Section */}
+          <DemoReplaySection 
+            onReplay={handleReplay}
+            onDemo={() => console.log('Demo requested')}
+            onCompare={() => console.log('Compare requested')}
+            features={features}
+          />
 
           {/* Footer */}
-          <footer className="py-8 md:py-12 px-4 md:px-6 border-t border-white/30 relative z-10 bg-gradient-to-t from-blue-900/30 to-transparent">
-            <div className="max-w-7xl mx-auto text-center">
-              <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-2 md:mb-4">
-                ClinicStreams
+          <footer className="py-16 bg-gray-900 text-white">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl flex items-center justify-center text-white font-bold">
+                      🏥
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold">ClinicStreams</h3>
+                      <p className="text-sm text-gray-400">Healthcare Technology</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-400 mb-4">
+                    Transforming healthcare through intelligent technology and innovative solutions.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-4">Product</h4>
+                  <ul className="space-y-2 text-gray-400">
+                    <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">API</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-4">Company</h4>
+                  <ul className="space-y-2 text-gray-400">
+                    <li><a href="#" className="hover:text-white transition-colors">About</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-4">Support</h4>
+                  <ul className="space-y-2 text-gray-400">
+                    <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
+                  </ul>
+                </div>
               </div>
-              <p className="text-xs md:text-sm text-white/70">
-                © 2024 ClinicStreams. Revolutionizing Healthcare Technology.
-              </p>
+              
+              <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p className="text-gray-400 text-sm">
+                  © 2024 ClinicStreams. All rights reserved.
+                </p>
+                <div className="flex space-x-6 mt-4 md:mt-0">
+                  <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</a>
+                  <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms</a>
+                  <a href="#" className="text-gray-400 hover:text-white transition-colors">Cookies</a>
+                </div>
+              </div>
             </div>
           </footer>
         </div>
-
-        {/* Interactive Particles */}
-        <InteractiveParticles />
-
-        {/* 3D Scene Mouse Effects */}
-        <Scene3DMouseEffects />
-
-        {/* Mouse Glow Effect */}
-        <MouseGlowEffect />
-
-        {/* Hero Medicine Interaction */}
-        <HeroMedicineInteraction isActive={!isLoading && !showAutoScroll} />
-
-        {/* Medicine Trail Effect */}
-        <MedicineTrailEffect />
-
-        {/* Floating Action Button */}
-        <FloatingActionButton
-          onClick={() => {
-            document
-              .getElementById("features")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
-        >
-          <span className="text-xl">🚀</span>
-        </FloatingActionButton>
-      </SmoothScrollController>
+      </div>
     </MouseAnimationSystem>
   );
 }
