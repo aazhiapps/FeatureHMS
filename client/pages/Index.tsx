@@ -706,15 +706,6 @@ export default function Index() {
     );
   }
 
-  if (showAutoScroll) {
-    return (
-      <AutoScrollFeatures
-        features={features}
-        isActive={showAutoScroll}
-        onComplete={handleAutoScrollComplete}
-      />
-    );
-  }
 
   if (showAllSystemsActive) {
     return (
