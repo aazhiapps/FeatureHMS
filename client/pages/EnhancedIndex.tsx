@@ -1,440 +1,476 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
-import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
-import { AnimatedHeader } from "../components/AnimatedHeader";
-import { EnhancedHeroSection } from "../components/EnhancedHeroSection";
-import { ModernFeaturesSection } from "../components/ModernFeaturesSection";
+import React, { 
+  Suspense, 
+  lazy, 
+  useState, 
+  useEffect, 
+  useCallback, 
+  useMemo,
+  memo
+} from "react";
+import { ErrorBoundary, HealthcareErrorBoundary } from "../design-system/components/ErrorBoundary";
+import { LoadingOverlay, useLoadingState } from "../design-system/components/LoadingSystem";
+import { AnimatedContainer } from "../design-system/components/AnimatedContainer";
+import { Button, CallToActionButton } from "../design-system/components/Button";
+import { Card, HealthcareCard, StatsCard } from "../design-system/components/Card";
 
-gsap.registerPlugin(ScrollTrigger);
+// Lazy load heavy components for better performance
+const CountdownLoadingScreen = lazy(() => 
+  import("../components/CountdownLoadingScreen").then(module => ({ 
+    default: module.CountdownLoadingScreen 
+  }))
+);
 
-interface Feature {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  color: string;
-}
+const AutoScrollFeatures = lazy(() => 
+  import("../components/AutoScrollFeatures").then(module => ({ 
+    default: module.AutoScrollFeatures 
+  }))
+);
 
-export default function EnhancedIndex() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showAutoScroll, setShowAutoScroll] = useState(false);
-  const mainRef = useRef<HTMLDivElement>(null);
+const AllSystemsActiveScreen = lazy(() => 
+  import("../components/AllSystemsActiveScreen").then(module => ({ 
+    default: module.AllSystemsActiveScreen 
+  }))
+);
 
-  // Features data for loading screen and auto-scroll
-  const features: Feature[] = [
-    {
-      id: 'management',
-      title: 'Patient Management',
-      description: 'Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care.',
-      icon: '👥',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      id: 'scheduling',
-      title: 'Appointment Scheduling',
-      description: 'Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows.',
-      icon: '📅',
-      color: 'from-indigo-500 to-purple-500'
-    },
-    {
-      id: 'records',
-      title: 'Electronic Medical Records',
-      description: 'Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility.',
-      icon: '📋',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      id: 'billing',
-      title: 'Billing & Insurance',
-      description: 'Streamlined billing workflows with insurance verification and claims management for faster reimbursements.',
-      icon: '💳',
-      color: 'from-yellow-500 to-orange-500'
-    },
-    {
-      id: 'analytics',
-      title: 'Real-time Analytics',
-      description: 'Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions.',
-      icon: '📊',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      id: 'resources',
-      title: 'Resource Management',
-      description: 'Optimize staff schedules, inventory, and facility resources to maximize operational efficiency.',
-      icon: '⏰',
-      color: 'from-teal-500 to-blue-500'
-    },
-    {
-      id: 'security',
-      title: 'Security Compliance',
-      description: 'HIPAA-compliant security infrastructure with role-based access control and audit trails.',
-      icon: '🛡️',
-      color: 'from-red-500 to-pink-500'
-    },
-    {
-      id: 'engagement',
-      title: 'Patient Engagement',
-      description: 'Patient portal for appointments, test results, and secure communication with healthcare providers.',
-      icon: '💬',
-      color: 'from-cyan-500 to-teal-500'
-    }
-  ];
+const FeatureComparisonPage = lazy(() => 
+  import("../components/FeatureComparisonPage").then(module => ({ 
+    default: module.FeatureComparisonPage 
+  }))
+);
 
-  const handleLoadingComplete = useCallback(() => {
-    setIsLoading(false);
-    // Show auto-scroll after a brief delay
-    setTimeout(() => {
-      setShowAutoScroll(true);
-    }, 1000);
-  }, []);
+const NavigationFlowHeader = lazy(() => 
+  import("../components/NavigationFlowHeader").then(module => ({ 
+    default: module.NavigationFlowHeader 
+  }))
+);
 
-  const handleAutoScrollComplete = useCallback(() => {
-    setShowAutoScroll(false);
-  }, []);
+const FloatingCircularModules = lazy(() => 
+  import("../components/FloatingCircularModules").then(module => ({ 
+    default: module.FloatingCircularModules 
+  }))
+);
 
-  useEffect(() => {
-    if (!mainRef.current || isLoading || showAutoScroll) return;
+// Memoized components for performance
+const MouseAnimationSystem = lazy(() => 
+  import("../components/MouseAnimationSystem").then(module => ({ 
+    default: module.MouseAnimationSystem 
+  }))
+);
 
-    // Initialize scroll-triggered animations for the main content
-    const initializeScrollAnimations = () => {
-      // Smooth scroll reveal for sections
-      const sections = mainRef.current?.querySelectorAll('section');
-      sections?.forEach((section, index) => {
-        gsap.fromTo(section,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              end: "bottom 20%",
-              toggleActions: "play none none reverse"
-            },
-            delay: index * 0.1
-          }
-        );
-      });
+// Application state type
+type AppState = 'loading' | 'autoscroll' | 'systems-active' | 'journey' | 'comparison' | 'demo';
 
-      // Parallax effects for background elements
-      const parallaxElements = mainRef.current?.querySelectorAll('.parallax');
-      parallaxElements?.forEach((element) => {
-        gsap.to(element, {
-          y: -100,
-          ease: "none",
-          scrollTrigger: {
-            trigger: element,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          }
-        });
-      });
-    };
+// Healthcare modules configuration
+const healthcareModules = [
+  {
+    id: "patient-management",
+    title: "Patient Management",
+    description: "Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care",
+    icon: "👥",
+    color: "from-blue-500 to-cyan-500",
+    category: "Core System",
+    metrics: { patients: "12.5K+", satisfaction: "98.2%" },
+    status: "active" as const,
+  },
+  {
+    id: "appointment-scheduling",
+    title: "Appointment Scheduling", 
+    description: "Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows",
+    icon: "📅",
+    color: "from-green-500 to-emerald-500",
+    category: "Operations",
+    metrics: { appointments: "2.8K/day", efficiency: "+45%" },
+    status: "active" as const,
+  },
+  {
+    id: "medical-records",
+    title: "Electronic Medical Records",
+    description: "Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility",
+    icon: "📋",
+    color: "from-purple-500 to-indigo-500",
+    category: "Documentation",
+    metrics: { records: "50K+", compliance: "100%" },
+    status: "active" as const,
+  },
+  {
+    id: "billing-insurance",
+    title: "Billing & Insurance",
+    description: "Streamlined billing workflows with insurance verification and claims management for faster reimbursements",
+    icon: "💰",
+    color: "from-amber-500 to-orange-500",
+    category: "Financial",
+    metrics: { claims: "99.1%", processing: "-75%" },
+    status: "active" as const,
+  },
+  {
+    id: "analytics",
+    title: "Real-time Analytics",
+    description: "Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions",
+    icon: "📊",
+    color: "from-emerald-500 to-teal-500",
+    category: "Intelligence",
+    metrics: { insights: "24/7", accuracy: "99.8%" },
+    status: "active" as const,
+  },
+  {
+    id: "telemedicine",
+    title: "Telemedicine Platform",
+    description: "Integrated video consultation platform with secure communication and remote patient monitoring",
+    icon: "💻",
+    color: "from-violet-500 to-purple-500",
+    category: "Remote Care",
+    metrics: { consultations: "500+/day", uptime: "99.9%" },
+    status: "active" as const,
+  },
+  {
+    id: "pharmacy",
+    title: "Pharmacy Management",
+    description: "Complete pharmacy workflow with prescription management, inventory tracking, and drug interaction alerts",
+    icon: "💊",
+    color: "from-pink-500 to-rose-500",
+    category: "Pharmacy",
+    metrics: { prescriptions: "1.2K/day", safety: "100%" },
+    status: "active" as const,
+  },
+  {
+    id: "laboratory",
+    title: "Laboratory Integration",
+    description: "Seamless lab management with test ordering, result tracking, and quality control monitoring",
+    icon: "🧪",
+    color: "from-cyan-500 to-blue-500",
+    category: "Diagnostics",
+    metrics: { tests: "800+/day", turnaround: "-40%" },
+    status: "active" as const,
+  },
+] as const;
 
-    const timeout = setTimeout(initializeScrollAnimations, 500);
+// Main Enhanced Index Component
+const EnhancedIndex: React.FC = memo(() => {
+  // State management
+  const [currentState, setCurrentState] = useState<AppState>('loading');
+  const [isInitialized, setIsInitialized] = useState(false);
+  
+  // Loading state management
+  const {
+    isLoading: isTransitioning,
+    progress: transitionProgress,
+    message: transitionMessage,
+    startLoading: startTransition,
+    updateProgress: updateTransitionProgress,
+    finishLoading: finishTransition,
+  } = useLoadingState();
+
+  // Memoized features for performance
+  const features = useMemo(() => healthcareModules.map(module => ({
+    id: module.id,
+    title: module.title,
+    description: module.description,
+    icon: module.icon,
+    color: module.color,
+    category: module.category,
+    benefits: [
+      `Streamlined ${module.category.toLowerCase()} operations`,
+      'Real-time data synchronization',
+      'Enhanced security and compliance',
+      'Improved workflow efficiency'
+    ],
+    stats: [
+      { label: 'Daily Usage', value: module.metrics.patients || module.metrics.appointments || '1K+' },
+      { label: 'Efficiency', value: module.metrics.efficiency || module.metrics.satisfaction || '+25%' }
+    ]
+  })), []);
+
+  // Navigation handlers with performance optimization
+  const handleStateTransition = useCallback((newState: AppState) => {
+    if (newState === currentState) return;
     
-    return () => {
-      clearTimeout(timeout);
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, [isLoading, showAutoScroll]);
+    startTransition(`Transitioning to ${newState}...`);
+    
+    // Simulate transition progress
+    const steps = 10;
+    const interval = 50;
+    let step = 0;
+    
+    const progressInterval = setInterval(() => {
+      step++;
+      updateTransitionProgress((step / steps) * 100);
+      
+      if (step >= steps) {
+        clearInterval(progressInterval);
+        setCurrentState(newState);
+        finishTransition();
+      }
+    }, interval);
+  }, [currentState, startTransition, updateTransitionProgress, finishTransition]);
 
-  // Loading screen
-  if (isLoading) {
+  // Loading completion handler
+  const handleLoadingComplete = useCallback(() => {
+    handleStateTransition('autoscroll');
+  }, [handleStateTransition]);
+
+  // Auto-scroll completion handler
+  const handleAutoScrollComplete = useCallback(() => {
+    handleStateTransition('systems-active');
+  }, [handleStateTransition]);
+
+  // Systems active completion handler
+  const handleSystemsActiveComplete = useCallback(() => {
+    handleStateTransition('journey');
+    setIsInitialized(true);
+  }, [handleStateTransition]);
+
+  // Navigation handler for header
+  const handleNavigate = useCallback((page: AppState) => {
+    handleStateTransition(page);
+  }, [handleStateTransition]);
+
+  // Loading states render
+  if (currentState === 'loading') {
     return (
-      <EnhancedLoadingScreen 
-        onComplete={handleLoadingComplete} 
-        features={features.map(f => ({
-          id: f.id,
-          title: f.title,
-          icon: f.icon,
-          color: f.color
-        }))}
-      />
+      <ErrorBoundary level="page">
+        <Suspense fallback={<LoadingOverlay isVisible={true} variant="medical" message="Initializing Healthcare Platform..." />}>
+          <CountdownLoadingScreen
+            onComplete={handleLoadingComplete}
+            duration={6}
+            title="ClinicStreams"
+            subtitle="Digital Medical Systems"
+          />
+        </Suspense>
+      </ErrorBoundary>
     );
   }
 
-  // Auto-scroll features presentation
-  if (showAutoScroll) {
+  if (currentState === 'autoscroll') {
     return (
-      <AutoScrollFeatures 
-        features={features} 
-        isActive={showAutoScroll} 
-        onComplete={handleAutoScrollComplete}
-      />
+      <ErrorBoundary level="page">
+        <Suspense fallback={<LoadingOverlay isVisible={true} variant="default" message="Loading Features..." />}>
+          <AutoScrollFeatures
+            features={features}
+            isActive={true}
+            onComplete={handleAutoScrollComplete}
+          />
+        </Suspense>
+      </ErrorBoundary>
     );
   }
 
-  // Main website content
-  return (
-    <div ref={mainRef} className="min-h-screen bg-white relative overflow-x-hidden">
-      {/* Animated Header */}
-      <AnimatedHeader />
+  if (currentState === 'systems-active') {
+    return (
+      <ErrorBoundary level="page">
+        <Suspense fallback={<LoadingOverlay isVisible={true} variant="dna" message="Activating Systems..." />}>
+          <AllSystemsActiveScreen
+            isActive={true}
+            onComplete={handleSystemsActiveComplete}
+            duration={4}
+          />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
 
-      {/* Enhanced Hero Section */}
-      <EnhancedHeroSection />
-
-      {/* Modern Features Section */}
-      <ModernFeaturesSection />
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-teal-100/80 backdrop-blur-sm text-teal-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <span className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
-              <span>Trusted by Healthcare Leaders</span>
+  if (currentState === 'comparison') {
+    return (
+      <ErrorBoundary level="page">
+        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+          <Suspense fallback={<LoadingOverlay isVisible={true} message="Loading Comparison..." />}>
+            <NavigationFlowHeader
+              currentPage="comparison"
+              onNavigate={handleNavigate}
+              autoHideOnScroll={true}
+            />
+            <FloatingCircularModules
+              isVisible={true}
+              centerText="Feature Analysis"
+            />
+            <div className="pt-20">
+              <FeatureComparisonPage onClose={() => handleNavigate('journey')} />
             </div>
-            
-            <h2 className="text-heading-1 text-gray-900 mb-6">
-              What our customers say
-            </h2>
-            
-            <p className="text-body-lg text-gray-600 max-w-3xl mx-auto">
-              Join thousands of healthcare providers who have transformed their practice with ClinicStreams.
-            </p>
-          </div>
+          </Suspense>
+        </div>
+      </ErrorBoundary>
+    );
+  }
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Dr. Sarah Johnson",
-                role: "Chief Medical Officer",
-                organization: "Metropolitan Health System",
-                content: "ClinicStreams has revolutionized how we manage patient care. The efficiency gains are remarkable.",
-                rating: 5,
-                image: "👩‍⚕️"
-              },
-              {
-                name: "Michael Chen",
-                role: "IT Director",
-                organization: "Regional Medical Center",
-                content: "Implementation was seamless, and the support team is exceptional. Highly recommended.",
-                rating: 5,
-                image: "👨‍💼"
-              },
-              {
-                name: "Dr. Maria Rodriguez",
-                role: "Practice Manager",
-                organization: "Family Care Clinic",
-                content: "The analytics features have given us insights we never had before. Patient satisfaction is up 40%.",
-                rating: 5,
-                image: "👩‍⚕️"
-              }
-            ].map((testimonial, index) => (
-              <div
-                key={index}
-                className="card hover-lift bg-white p-8 text-center"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-6">
-                  {testimonial.image}
-                </div>
-                
-                <div className="flex justify-center mb-4">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-xl">★</span>
+  // Main journey/dashboard view
+  return (
+    <ErrorBoundary level="page">
+      <Suspense fallback={<LoadingOverlay isVisible={true} variant="medical" message="Loading Dashboard..." />}>
+        <MouseAnimationSystem>
+          <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative">
+            {/* Navigation Header */}
+            <NavigationFlowHeader
+              currentPage={currentState}
+              onNavigate={handleNavigate}
+              autoHideOnScroll={true}
+            />
+
+            {/* Floating Modules */}
+            <FloatingCircularModules
+              isVisible={currentState === 'journey'}
+              centerText="All Systems Online!"
+            />
+
+            {/* Hero Section */}
+            <section className="pt-24 pb-16 px-6 text-center relative z-10">
+              <div className="max-w-6xl mx-auto">
+                <AnimatedContainer animation="fadeInUp" animationDelay={0.2}>
+                  <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
+                    ClinicStreams
+                  </h1>
+                  <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto">
+                    Next-Generation Healthcare Management Platform
+                  </p>
+                  <p className="text-lg text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
+                    Revolutionizing patient care through AI-powered monitoring, seamless telemedicine, 
+                    and intelligent healthcare analytics for the modern medical practice.
+                  </p>
+                </AnimatedContainer>
+
+                <AnimatedContainer animation="fadeInUp" animationDelay={0.6}>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                    <CallToActionButton
+                      onClick={() => window.open('https://calendly.com/clinicstreams-demo', '_blank')}
+                    >
+                      Schedule Live Demo
+                    </CallToActionButton>
+                    
+                    <Button
+                      variant="glass"
+                      size="lg"
+                      onClick={() => handleNavigate('comparison')}
+                      leftIcon={
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                      }
+                    >
+                      Compare Features
+                    </Button>
+                  </div>
+                </AnimatedContainer>
+
+                {/* Stats Cards */}
+                <AnimatedContainer animation="fadeInUp" animationDelay={0.8}>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <StatsCard
+                      title="Active Patients"
+                      value="12.5K+"
+                      change="+18% this month"
+                      changeType="positive"
+                      icon={<span className="text-2xl">👥</span>}
+                    />
+                    <StatsCard
+                      title="System Uptime"
+                      value="99.9%"
+                      change="Industry leading"
+                      changeType="positive"
+                      icon={<span className="text-2xl">⚡</span>}
+                    />
+                    <StatsCard
+                      title="Cost Reduction"
+                      value="40%"
+                      change="Average savings"
+                      changeType="positive"
+                      icon={<span className="text-2xl">💰</span>}
+                    />
+                    <StatsCard
+                      title="Satisfaction"
+                      value="98.2%"
+                      change="Patient rating"
+                      changeType="positive"
+                      icon={<span className="text-2xl">⭐</span>}
+                    />
+                  </div>
+                </AnimatedContainer>
+              </div>
+            </section>
+
+            {/* Healthcare Modules Grid */}
+            <section className="py-16 px-6 relative z-10">
+              <div className="max-w-7xl mx-auto">
+                <AnimatedContainer animation="fadeInUp" className="text-center mb-12">
+                  <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
+                    Comprehensive Healthcare Solutions
+                  </h2>
+                  <p className="text-xl text-white/80 max-w-3xl mx-auto">
+                    Integrated modules designed to streamline every aspect of healthcare operations
+                  </p>
+                </AnimatedContainer>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {healthcareModules.map((module, index) => (
+                    <AnimatedContainer
+                      key={module.id}
+                      animation="fadeInUp"
+                      animationDelay={index * 0.1}
+                      hoverAnimation="lift"
+                    >
+                      <HealthcareErrorBoundary>
+                        <HealthcareCard
+                          icon={<span className="text-2xl">{module.icon}</span>}
+                          status={module.status}
+                          metric={Object.values(module.metrics)[0]}
+                          metricLabel={Object.keys(module.metrics)[0]}
+                          className="h-full"
+                        >
+                          <div>
+                            <h3 className="font-semibold text-gray-900 mb-2">{module.title}</h3>
+                            <p className="text-sm text-gray-600 mb-3 line-clamp-2">{module.description}</p>
+                            <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                              {module.category}
+                            </span>
+                          </div>
+                        </HealthcareCard>
+                      </HealthcareErrorBoundary>
+                    </AnimatedContainer>
                   ))}
                 </div>
-                
-                <p className="text-body text-gray-600 mb-6 italic">
-                  "{testimonial.content}"
-                </p>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
-                  <p className="text-sm text-blue-600">{testimonial.organization}</p>
-                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-purple-100/80 backdrop-blur-sm text-purple-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
-              <span>Flexible Pricing Plans</span>
-            </div>
-            
-            <h2 className="text-heading-1 text-gray-900 mb-6">
-              Choose the right plan for your practice
-            </h2>
-            
-            <p className="text-body-lg text-gray-600 max-w-3xl mx-auto">
-              Scalable solutions designed to grow with your healthcare organization.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                name: "Starter",
-                price: "$99",
-                period: "per month",
-                description: "Perfect for small practices",
-                features: [
-                  "Up to 500 patients",
-                  "Basic scheduling",
-                  "EMR access",
-                  "Email support"
-                ],
-                color: "from-blue-500 to-blue-600",
-                popular: false
-              },
-              {
-                name: "Professional",
-                price: "$299",
-                period: "per month",
-                description: "Ideal for growing practices",
-                features: [
-                  "Up to 2,500 patients",
-                  "Advanced analytics",
-                  "API integrations",
-                  "Priority support",
-                  "Custom workflows"
-                ],
-                color: "from-teal-500 to-teal-600",
-                popular: true
-              },
-              {
-                name: "Enterprise",
-                price: "Custom",
-                period: "contact us",
-                description: "For large healthcare systems",
-                features: [
-                  "Unlimited patients",
-                  "White-label solution",
-                  "24/7 phone support",
-                  "Custom integrations",
-                  "Dedicated account manager"
-                ],
-                color: "from-purple-500 to-purple-600",
-                popular: false
-              }
-            ].map((plan, index) => (
-              <div
-                key={index}
-                className={`card hover-lift relative ${
-                  plan.popular 
-                    ? 'border-2 border-teal-500 shadow-2xl scale-105' 
-                    : 'border border-gray-200'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
+            {/* Call to Action Section */}
+            <section className="py-16 px-6 text-center relative z-10">
+              <AnimatedContainer animation="fadeInUp">
+                <Card variant="glass" size="lg" className="max-w-4xl mx-auto">
+                  <div className="text-center">
+                    <h3 className="text-3xl font-bold text-white mb-4">
+                      Ready to Transform Your Healthcare Practice?
+                    </h3>
+                    <p className="text-white/80 mb-8 max-w-2xl mx-auto">
+                      Join thousands of healthcare providers who trust ClinicStreams to deliver 
+                      exceptional patient care while reducing operational costs.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <CallToActionButton size="xl">
+                        Start Free Trial
+                      </CallToActionButton>
+                      <Button
+                        variant="outline"
+                        size="xl"
+                        onClick={() => handleNavigate('comparison')}
+                      >
+                        View Pricing
+                      </Button>
                     </div>
                   </div>
-                )}
-                
-                <div className={`w-12 h-12 bg-gradient-to-r ${plan.color} rounded-xl flex items-center justify-center text-white text-xl mb-6`}>
-                  {index === 0 ? '🏥' : index === 1 ? '⚡' : '🏢'}
-                </div>
-                
-                <h3 className="text-heading-3 text-gray-900 mb-2">{plan.name}</h3>
-                <p className="text-body-sm text-gray-500 mb-6">{plan.description}</p>
-                
-                <div className="mb-6">
-                  <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-                  <span className="text-gray-500 ml-1">/{plan.period}</span>
-                </div>
-                
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center space-x-3">
-                      <div className={`w-5 h-5 bg-gradient-to-r ${plan.color} rounded-full flex items-center justify-center flex-shrink-0`}>
-                        <span className="text-white text-xs">✓</span>
-                      </div>
-                      <span className="text-sm text-gray-600">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <button className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 hover:scale-105 ${
-                  plan.popular
-                    ? 'bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg hover:shadow-xl'
-                    : 'border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600'
-                }`}>
-                  {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
-                </button>
-              </div>
-            ))}
+                </Card>
+              </AnimatedContainer>
+            </section>
           </div>
-        </div>
-      </section>
+        </MouseAnimationSystem>
 
-      {/* Footer */}
-      <footer className="py-16 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            <div>
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl flex items-center justify-center text-white font-bold">
-                  🏥
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">ClinicStreams</h3>
-                  <p className="text-sm text-gray-400">Healthcare Technology</p>
-                </div>
-              </div>
-              <p className="text-gray-400 mb-4">
-                Transforming healthcare through intelligent technology and innovative solutions.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © 2024 ClinicStreams. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Cookies</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+        {/* Transition Loading Overlay */}
+        <LoadingOverlay
+          isVisible={isTransitioning}
+          variant="medical"
+          message={transitionMessage}
+          progress={transitionProgress}
+        />
+      </Suspense>
+    </ErrorBoundary>
   );
-}
+});
+
+EnhancedIndex.displayName = 'EnhancedIndex';
+
+export default EnhancedIndex;
