@@ -71,49 +71,31 @@ export const AllSystemsActiveScreen = ({
     setDnaBases(generateDNABases());
   }, [isActive]);
 
-  // Animate molecules
+  // Animate DNA helix
   useEffect(() => {
-    if (!isActive || molecules.length === 0) return;
+    if (!isActive || dnaBases.length === 0) return;
 
-    const animateMolecules = () => {
-      setMolecules(prev => 
-        prev.map(molecule => {
-          let newX = molecule.x + molecule.velocity.x;
-          let newY = molecule.y + molecule.velocity.y;
-          let newVelX = molecule.velocity.x;
-          let newVelY = molecule.velocity.y;
+    const animateDNA = () => {
+      setDnaProgress(prev => (prev + 2) % 360); // Continuous rotation
 
-          // Bounce off walls
-          if (newX <= 0 || newX >= window.innerWidth - molecule.size) {
-            newVelX = -newVelX;
-            newX = Math.max(0, Math.min(newX, window.innerWidth - molecule.size));
-          }
-          if (newY <= 0 || newY >= window.innerHeight - molecule.size) {
-            newVelY = -newVelY;
-            newY = Math.max(0, Math.min(newY, window.innerHeight - molecule.size));
-          }
-
-          return {
-            ...molecule,
-            x: newX,
-            y: newY,
-            velocity: { x: newVelX, y: newVelY },
-            rotation: molecule.rotation + molecule.rotationSpeed,
-          };
-        })
+      setDnaBases(prev =>
+        prev.map(base => ({
+          ...base,
+          rotation: base.rotation + (base.strand === 'top' ? 1 : -1),
+        }))
       );
 
-      animationRef.current = requestAnimationFrame(animateMolecules);
+      animationRef.current = requestAnimationFrame(animateDNA);
     };
 
-    animationRef.current = requestAnimationFrame(animateMolecules);
+    animationRef.current = requestAnimationFrame(animateDNA);
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isActive, molecules.length]);
+  }, [isActive, dnaBases.length]);
 
   // Progress animation and completion
   useEffect(() => {
