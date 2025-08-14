@@ -24,6 +24,8 @@ export const InteractiveButton = ({
   magnetic = true,
   tilt = true,
   ripple = true,
+  disabled = false,
+  id,
 }: InteractiveButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const rippleRef = useRef<HTMLDivElement>(null);
