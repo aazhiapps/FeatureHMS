@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Enhanced3DIndex from "./pages/Enhanced3DIndex";
 import Simple3DIndex from "./pages/Simple3DIndex";
 import Comprehensive3DIndex from "./pages/Comprehensive3DIndex";
+import Comprehensive3DIndexFixed from "./pages/Comprehensive3DIndexFixed";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { SmoothScroll } from "./components/SmoothScroll";
