@@ -112,7 +112,7 @@ const MedicalDrone = React.forwardRef<
               <meshStandardMaterial
                 color={index % 2 === 0 ? "#00ff00" : "#0066ff"}
                 emissive={index % 2 === 0 ? "#00ff00" : "#0066ff"}
-                emissiveIntensity={0.5 + Math.sin(clock.elapsedTime * 3 + index) * 0.3}
+                emissiveIntensity={ledIntensity[index] || 0.5}
                 transparent
                 opacity={0.9}
               />
@@ -124,7 +124,7 @@ const MedicalDrone = React.forwardRef<
               <meshStandardMaterial
                 color={index % 2 === 0 ? "#00ff00" : "#0066ff"}
                 transparent
-                opacity={0.2 + Math.sin(clock.elapsedTime * 2 + index) * 0.1}
+                opacity={glowOpacity[index] || 0.2}
               />
             </Sphere>
           </mesh>
