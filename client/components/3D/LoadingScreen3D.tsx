@@ -9,8 +9,8 @@ import {
   Html, 
   Plane,
   Ring,
-  Cone,
-  Box
+  Box,
+  RoundedBox
 } from '@react-three/drei';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
@@ -22,308 +22,151 @@ interface LoadingScreen3DProps {
   duration?: number;
 }
 
-// Holographic Medical Scanner
-const HolographicScanner = ({ progress }: { progress: number }) => {
-  const scannerRef = useRef<THREE.Group>(null);
-  const beamRef = useRef<THREE.Mesh>(null);
-  const ringsRef = useRef<THREE.Group>(null);
+// Healthcare System Icons Component
+const HealthcareIcon = ({ 
+  position, 
+  icon, 
+  label, 
+  color, 
+  isActive, 
+  index 
+}: { 
+  position: [number, number, number];
+  icon: string;
+  label: string;
+  color: string;
+  isActive: boolean;
+  index: number;
+}) => {
+  const iconRef = useRef<THREE.Group>(null);
   
   useFrame((state) => {
-    if (scannerRef.current) {
-      scannerRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-    }
-    
-    if (beamRef.current) {
-      // Scanning beam animation
-      beamRef.current.position.y = Math.sin(state.clock.elapsedTime * 4) * 8 - 2;
-      beamRef.current.material.opacity = Math.sin(state.clock.elapsedTime * 6) * 0.3 + 0.7;
+    if (iconRef.current) {
+      const pulse = Math.sin(state.clock.elapsedTime * 3 + index) * 0.1 + 1;
+      iconRef.current.scale.setScalar(isActive ? pulse : 0.8);
       
-      // Progress-based intensity
-      beamRef.current.material.emissiveIntensity = progress * 2;
-    }
-    
-    if (ringsRef.current) {
-      ringsRef.current.children.forEach((ring, index) => {
-        ring.rotation.z = state.clock.elapsedTime * (1 + index * 0.5);
-        ring.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2 + index) * 0.1);
-      });
+      if (isActive) {
+        iconRef.current.rotation.y = state.clock.elapsedTime * 0.5;
+      }
     }
   });
   
   return (
     <Float speed={0.5} rotationIntensity={0.1} floatIntensity={0.2}>
-      <group ref={scannerRef}>
-        {/* Main Scanner Base */}
-        <Cylinder args={[8, 8, 2, 32]} position={[0, -8, 0]}>
-          <meshStandardMaterial 
-            color="#1a202c" 
-            metalness={0.9} 
-            roughness={0.1}
-            emissive="#2d3748"
-            emissiveIntensity={0.3}
-          />
-        </Cylinder>
-        
-        {/* Scanner Tube */}
-        <Torus args={[12, 3, 16, 100]} position={[0, 0, 0]}>
-          <meshStandardMaterial 
-            color="#00aaff"
-            emissive="#0088cc"
-            emissiveIntensity={0.6}
-            transparent
-            opacity={0.8}
-            metalness={0.5}
-            roughness={0.3}
-          />
-        </Torus>
-        
-        {/* Inner Scanner Rings */}
-        <group ref={ringsRef}>
-          {[...Array(4)].map((_, i) => (
-            <Torus 
-              key={i}
-              args={[10 - i * 1.5, 0.3, 8, 64]} 
-              position={[0, 0, 0]}
-            >
-              <meshStandardMaterial 
-                color="#00ff88"
-                emissive="#00cc66"
-                emissiveIntensity={0.8 - i * 0.1}
-                transparent
-                opacity={0.7 - i * 0.1}
-              />
-            </Torus>
-          ))}
-        </group>
-        
-        {/* Scanning Beam */}
-        <mesh ref={beamRef} position={[0, 0, 0]}>
-          <cylinderGeometry args={[0.2, 0.2, 16, 8]} />
+      <group ref={iconRef} position={position}>
+        {/* Icon Background */}
+        <RoundedBox args={[2.5, 2.5, 0.3]} radius={0.3}>
           <meshStandardMaterial
-            color="#00ffff"
-            emissive="#00ffff"
-            emissiveIntensity={1.5}
-            transparent
-            opacity={0.8}
+            color={isActive ? color : "#2a2a3a"}
+            emissive={isActive ? color : "#111"}
+            emissiveIntensity={isActive ? 0.3 : 0.1}
+            metalness={0.2}
+            roughness={0.8}
           />
-        </mesh>
+        </RoundedBox>
         
-        {/* Vertical Beam */}
-        <mesh position={[0, 0, 0]}>
-          <cylinderGeometry args={[8, 8, 0.2, 32]} />
-          <meshStandardMaterial
-            color="#00aaff"
-            emissive="#00aaff"
-            emissiveIntensity={progress}
-            transparent
-            opacity={0.4}
-          />
-        </mesh>
-        
-        {/* Medical Data Points */}
-        {[...Array(16)].map((_, i) => {
-          const angle = (i / 16) * Math.PI * 2;
-          const radius = 14;
-          return (
-            <Sphere 
-              key={i}
-              args={[0.3, 8, 8]} 
-              position={[
-                Math.cos(angle) * radius,
-                Math.sin(i * 0.5) * 2,
-                Math.sin(angle) * radius
-              ]}
+        {/* Icon Display */}
+        <Html center position={[0, 0, 0.2]}>
+          <div className="flex flex-col items-center">
+            <div 
+              className="text-3xl mb-1 transition-all duration-500"
+              style={{ 
+                opacity: isActive ? 1 : 0.4,
+                transform: `scale(${isActive ? 1 : 0.8})`
+              }}
             >
-              <meshStandardMaterial
-                color={i % 3 === 0 ? "#ff6b6b" : i % 3 === 1 ? "#4ecdc4" : "#feca57"}
-                emissive={i % 3 === 0 ? "#ff6b6b" : i % 3 === 1 ? "#4ecdc4" : "#feca57"}
-                emissiveIntensity={progress * 0.8}
-              />
-            </Sphere>
-          );
-        })}
-        
-        {/* Progress Indicators */}
-        {[...Array(8)].map((_, i) => {
-          const isActive = i < progress * 8;
-          return (
-            <Box
-              key={i}
-              args={[0.5, 0.5, 0.5]}
-              position={[-10 + i * 2.5, 6, 0]}
+              {icon}
+            </div>
+            <div 
+              className="text-xs font-semibold text-center max-w-20 leading-tight"
+              style={{ 
+                color: isActive ? '#ffffff' : '#888888',
+                fontSize: '10px'
+              }}
             >
-              <meshStandardMaterial
-                color={isActive ? "#00ff00" : "#333333"}
-                emissive={isActive ? "#00aa00" : "#111111"}
-                emissiveIntensity={isActive ? 0.8 : 0.1}
-              />
-            </Box>
-          );
-        })}
+              {label}
+            </div>
+          </div>
+        </Html>
+        
+        {/* Active Glow Effect */}
+        {isActive && (
+          <Ring args={[1.8, 2.2, 32]} rotation={[0, 0, 0]}>
+            <meshStandardMaterial
+              color={color}
+              transparent
+              opacity={0.3}
+              emissive={color}
+              emissiveIntensity={0.4}
+              side={THREE.DoubleSide}
+            />
+          </Ring>
+        )}
       </group>
     </Float>
   );
 };
 
-// Medical Data Visualization
-const MedicalDataViz = ({ progress }: { progress: number }) => {
-  const dataRef = useRef<THREE.Group>(null);
+// Central Progress Circle
+const ProgressCircle = ({ progress, stage }: { progress: number; stage: string }) => {
+  const circleRef = useRef<THREE.Group>(null);
+  const progressRingRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
-    if (dataRef.current) {
-      dataRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-      
-      // Animate individual data points
-      dataRef.current.children.forEach((child, index) => {
-        if (child.type === 'Mesh') {
-          child.position.y = Math.sin(state.clock.elapsedTime * 2 + index * 0.5) * 2;
-          child.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 3 + index) * 0.2);
-        }
-      });
+    if (circleRef.current) {
+      circleRef.current.rotation.z = state.clock.elapsedTime * 0.1;
     }
-  });
-  
-  const dataTypes = [
-    { name: 'ECG', icon: '💓', color: '#ff6b6b', position: [20, 5, 5] },
-    { name: 'X-Ray', icon: '🦴', color: '#4ecdc4', position: [-20, 8, -5] },
-    { name: 'Blood', icon: '🩸', color: '#ff4757', position: [15, -5, -10] },
-    { name: 'DNA', icon: '🧬', color: '#3742fa', position: [-15, -8, 8] },
-    { name: 'Brain', icon: '🧠', color: '#ffa502', position: [0, 12, -15] },
-    { name: 'Temp', icon: '🌡️', color: '#2ed573', position: [0, -12, 10] }
-  ];
-  
-  return (
-    <group ref={dataRef}>
-      {dataTypes.map((data, index) => {
-        const isVisible = progress > index / dataTypes.length;
-        
-        return (
-          <Float 
-            key={data.name}
-            speed={1 + index * 0.2} 
-            rotationIntensity={0.3} 
-            floatIntensity={0.5}
-          >
-            <group position={data.position}>
-              {/* Data Sphere */}
-              <Sphere args={[1.5, 16, 16]}>
-                <meshStandardMaterial
-                  color={data.color}
-                  emissive={data.color}
-                  emissiveIntensity={isVisible ? 0.5 : 0.1}
-                  transparent
-                  opacity={isVisible ? 0.9 : 0.3}
-                />
-              </Sphere>
-              
-              {/* Data Icon */}
-              <Html center>
-                <div 
-                  className="text-4xl select-none"
-                  style={{ 
-                    opacity: isVisible ? 1 : 0.3,
-                    transform: `scale(${isVisible ? 1 : 0.5})`
-                  }}
-                >
-                  {data.icon}
-                </div>
-              </Html>
-              
-              {/* Data Streams */}
-              {isVisible && [...Array(3)].map((_, i) => (
-                <Ring
-                  key={i}
-                  args={[2 + i * 0.5, 2.2 + i * 0.5, 32]}
-                  rotation={[Math.PI / 2, i * Math.PI / 3, 0]}
-                >
-                  <meshStandardMaterial
-                    color={data.color}
-                    transparent
-                    opacity={0.3 - i * 0.1}
-                    side={THREE.DoubleSide}
-                  />
-                </Ring>
-              ))}
-              
-              {/* Connection to Scanner */}
-              {isVisible && (
-                <line>
-                  <bufferGeometry>
-                    <bufferAttribute
-                      attach="attributes-position"
-                      count={2}
-                      array={new Float32Array([
-                        0, 0, 0,
-                        -data.position[0] * 0.5,
-                        -data.position[1] * 0.5,
-                        -data.position[2] * 0.5
-                      ])}
-                      itemSize={3}
-                    />
-                  </bufferGeometry>
-                  <lineBasicMaterial 
-                    color={data.color} 
-                    opacity={0.6} 
-                    transparent 
-                  />
-                </line>
-              )}
-            </group>
-          </Float>
-        );
-      })}
-    </group>
-  );
-};
-
-// Circular Progress Ring
-const ProgressRing3D = ({ progress, stage }: { progress: number; stage: string }) => {
-  const ringRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (ringRef.current) {
-      ringRef.current.rotation.z = state.clock.elapsedTime * 2;
+    
+    if (progressRingRef.current) {
+      // Update progress ring based on actual progress
+      const geometry = progressRingRef.current.geometry as THREE.TorusGeometry;
+      const newThetaLength = progress * Math.PI * 2;
+      progressRingRef.current.geometry = new THREE.TorusGeometry(6, 0.4, 16, 64, 0, newThetaLength);
     }
   });
   
   return (
-    <Float speed={0.3} rotationIntensity={0.1} floatIntensity={0.1}>
-      <group position={[0, -18, 8]}>
-        {/* Background Ring */}
-        <Torus args={[6, 0.5, 8, 32]}>
+    <Float speed={0.2} rotationIntensity={0.05} floatIntensity={0.1}>
+      <group ref={circleRef} position={[0, 0, 0]}>
+        {/* Background Circle */}
+        <Torus args={[6, 0.4, 16, 64]}>
           <meshStandardMaterial 
-            color="#333333" 
+            color="#2a2a3a" 
             transparent 
-            opacity={0.3}
+            opacity={0.6}
+            metalness={0.3}
+            roughness={0.7}
           />
         </Torus>
         
         {/* Progress Ring */}
-        <mesh ref={ringRef}>
-          <torusGeometry 
-            args={[6, 0.5, 8, Math.max(1, Math.floor(32 * progress))]} 
-          />
+        <mesh ref={progressRingRef}>
+          <torusGeometry args={[6, 0.4, 16, 64, 0, progress * Math.PI * 2]} />
           <meshStandardMaterial
-            color="#00ff88"
-            emissive="#00cc66"
-            emissiveIntensity={0.8}
+            color="#00d4aa"
+            emissive="#00a688"
+            emissiveIntensity={0.6}
+            metalness={0.4}
+            roughness={0.3}
           />
         </mesh>
         
-        {/* Central Progress Display */}
-        <Cylinder args={[4, 4, 1, 32]}>
+        {/* Central Display Background */}
+        <Cylinder args={[4.5, 4.5, 0.5, 32]}>
           <meshStandardMaterial
-            color="#1a202c"
-            emissive="#2d3748"
+            color="#1a1a2e"
+            emissive="#0f0f1a"
             emissiveIntensity={0.3}
+            metalness={0.5}
+            roughness={0.6}
           />
         </Cylinder>
         
-        {/* Progress Text */}
+        {/* Progress Percentage */}
         <Text
-          position={[0, 0, 1]}
-          fontSize={2}
-          color="#00ff88"
+          position={[0, 0.5, 0.3]}
+          fontSize={2.2}
+          color="#00d4aa"
           anchorX="center"
           anchorY="middle"
           font="/fonts/roboto-bold.woff"
@@ -331,14 +174,14 @@ const ProgressRing3D = ({ progress, stage }: { progress: number; stage: string }
           {Math.round(progress * 100)}%
         </Text>
         
-        {/* Stage Text */}
-        <Html position={[0, -8, 0]} center>
+        {/* Stage Information */}
+        <Html position={[0, -6, 0]} center>
           <div className="text-center">
-            <div className="text-white text-xl font-bold mb-2">
-              {stage}
+            <div className="text-white text-lg font-bold mb-1">
+              Loading Integration Layer...
             </div>
-            <div className="text-gray-300 text-sm">
-              Initializing Healthcare Systems...
+            <div className="text-gray-300 text-sm max-w-64">
+              Preparing your healthcare workflow
             </div>
           </div>
         </Html>
@@ -347,62 +190,48 @@ const ProgressRing3D = ({ progress, stage }: { progress: number; stage: string }
   );
 };
 
-// System Status Indicators
-const SystemStatus = ({ progress }: { progress: number }) => {
-  const systems = [
-    { name: 'Patient Database', icon: '👥', threshold: 0.1 },
-    { name: 'Medical Records', icon: '📋', threshold: 0.25 },
-    { name: 'Scheduling System', icon: '📅', threshold: 0.4 },
-    { name: 'Security Protocols', icon: '🔒', threshold: 0.55 },
-    { name: 'Analytics Engine', icon: '📊', threshold: 0.7 },
-    { name: 'AI Diagnostics', icon: '🤖', threshold: 0.85 },
-    { name: 'Integration Layer', icon: '🔗', threshold: 0.95 }
-  ];
+// Healthcare Particle System
+const HealthcareParticles = ({ progress }: { progress: number }) => {
+  const particlesRef = useRef<THREE.Group>(null);
+  
+  useFrame((state) => {
+    if (particlesRef.current) {
+      particlesRef.current.children.forEach((particle, index) => {
+        const time = state.clock.elapsedTime;
+        particle.position.y += Math.sin(time + index) * 0.01;
+        particle.rotation.y = time * 0.5 + index;
+        
+        // Fade in based on progress
+        if (particle instanceof THREE.Mesh && particle.material instanceof THREE.MeshStandardMaterial) {
+          particle.material.opacity = Math.min(progress * 2, 0.6);
+        }
+      });
+    }
+  });
   
   return (
-    <Float speed={0.8} rotationIntensity={0.2} floatIntensity={0.4}>
-      <group position={[25, 0, 0]}>
-        {systems.map((system, index) => {
-          const isActive = progress >= system.threshold;
-          const yPos = (index - systems.length / 2) * 3;
-          
-          return (
-            <group key={system.name} position={[0, yPos, 0]}>
-              {/* Status Indicator */}
-              <Sphere args={[0.5, 8, 8]}>
-                <meshStandardMaterial
-                  color={isActive ? "#00ff00" : "#333333"}
-                  emissive={isActive ? "#00aa00" : "#111111"}
-                  emissiveIntensity={isActive ? 0.8 : 0.1}
-                />
-              </Sphere>
-              
-              {/* Connection Line */}
-              <Cylinder args={[0.05, 0.05, 4, 8]} position={[-2, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-                <meshStandardMaterial
-                  color={isActive ? "#00ff00" : "#333333"}
-                  emissive={isActive ? "#00aa00" : "#111111"}
-                  emissiveIntensity={isActive ? 0.5 : 0.1}
-                />
-              </Cylinder>
-              
-              {/* System Info */}
-              <Html position={[-6, 0, 0]} center>
-                <div className="flex items-center space-x-2">
-                  <span className="text-2xl">{system.icon}</span>
-                  <div className="text-white text-sm">
-                    <div className="font-bold">{system.name}</div>
-                    <div className={`text-xs ${isActive ? 'text-green-400' : 'text-gray-500'}`}>
-                      {isActive ? 'Online' : 'Initializing...'}
-                    </div>
-                  </div>
-                </div>
-              </Html>
-            </group>
-          );
-        })}
-      </group>
-    </Float>
+    <group ref={particlesRef}>
+      {[...Array(50)].map((_, i) => (
+        <Float key={i} speed={0.3 + Math.random() * 0.5} rotationIntensity={0.1} floatIntensity={0.3}>
+          <mesh
+            position={[
+              (Math.random() - 0.5) * 60,
+              (Math.random() - 0.5) * 40,
+              (Math.random() - 0.5) * 50
+            ]}
+          >
+            <sphereGeometry args={[0.05, 8, 8]} />
+            <meshStandardMaterial
+              color="#00d4aa"
+              emissive="#00a688"
+              emissiveIntensity={0.4}
+              transparent
+              opacity={0.3}
+            />
+          </mesh>
+        </Float>
+      ))}
+    </group>
   );
 };
 
@@ -416,6 +245,18 @@ export const LoadingScreen3D: React.FC<LoadingScreen3DProps> = ({
   const sceneRef = useRef<THREE.Group>(null);
   const [animationProgress, setAnimationProgress] = useState(0);
   const startTime = useRef(Date.now());
+  
+  // Healthcare system icons configuration
+  const healthcareSystems = [
+    { icon: '👥', label: 'Patient Database', color: '#00d4aa', angle: 0 },
+    { icon: '📋', label: 'Medical Records', color: '#4fc3f7', angle: Math.PI / 4 },
+    { icon: '📅', label: 'Scheduling System', color: '#66bb6a', angle: Math.PI / 2 },
+    { icon: '🔒', label: 'Security Protocols', color: '#ffca28', angle: 3 * Math.PI / 4 },
+    { icon: '📊', label: 'Analytics Engine', color: '#ff7043', angle: Math.PI },
+    { icon: '🤖', label: 'AI Diagnostics', color: '#ab47bc', angle: 5 * Math.PI / 4 },
+    { icon: '🔗', label: 'Integration Layer', color: '#ec407a', angle: 3 * Math.PI / 2 },
+    { icon: '✅', label: 'Final Checks', color: '#26a69a', angle: 7 * Math.PI / 4 }
+  ];
   
   useFrame(() => {
     const elapsed = Date.now() - startTime.current;
@@ -440,91 +281,114 @@ export const LoadingScreen3D: React.FC<LoadingScreen3DProps> = ({
   
   return (
     <group ref={sceneRef}>
-      {/* Enhanced Lighting */}
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[10, 10, 5]} intensity={1.5} color="#ffffff" />
-      <pointLight position={[0, 20, 10]} intensity={2} color="#00aaff" />
-      <spotLight position={[-20, 15, 20]} angle={0.3} intensity={1.5} color="#00ff88" />
-      <spotLight position={[20, 15, -20]} angle={0.3} intensity={1.5} color="#ff6b6b" />
+      {/* Enhanced Lighting Setup */}
+      <ambientLight intensity={0.4} color="#f0f0ff" />
+      <directionalLight position={[10, 10, 5]} intensity={1.2} color="#ffffff" />
+      <pointLight position={[0, 15, 8]} intensity={1.5} color="#00d4aa" />
+      <spotLight position={[-15, 10, 15]} angle={0.4} intensity={1} color="#4fc3f7" />
+      <spotLight position={[15, 10, -15]} angle={0.4} intensity={1} color="#66bb6a" />
       
-      {/* Main Scanner */}
-      <HolographicScanner progress={currentProgress} />
-      
-      {/* Medical Data Visualization */}
-      <MedicalDataViz progress={currentProgress} />
-      
-      {/* Progress Ring */}
-      <ProgressRing3D progress={currentProgress} stage={stage} />
-      
-      {/* System Status */}
-      <SystemStatus progress={currentProgress} />
-      
-      {/* Title */}
-      <Float speed={0.3} rotationIntensity={0.05} floatIntensity={0.1}>
+      {/* Brand Title */}
+      <Float speed={0.2} rotationIntensity={0.02} floatIntensity={0.05}>
         <Text
-          position={[0, 25, 0]}
-          fontSize={4}
+          position={[0, 15, 0]}
+          fontSize={4.5}
           color="#ffffff"
           anchorX="center"
           anchorY="middle"
           font="/fonts/roboto-bold.woff"
+          letterSpacing={0.05}
         >
           ClinicStreams
         </Text>
-        
-        <Text
-          position={[0, 20, 0]}
-          fontSize={1.5}
-          color="#00aaff"
-          anchorX="center"
-          anchorY="middle"
-          font="/fonts/roboto-bold.woff"
-        >
-          Next-Generation Healthcare Management
-        </Text>
       </Float>
       
+      {/* Central Progress Circle */}
+      <ProgressCircle progress={currentProgress} stage={stage} />
+      
+      {/* Healthcare System Icons in Circle */}
+      {healthcareSystems.map((system, index) => {
+        const radius = 12;
+        const x = Math.cos(system.angle) * radius;
+        const z = Math.sin(system.angle) * radius;
+        const isActive = currentProgress >= (index / healthcareSystems.length);
+        
+        return (
+          <HealthcareIcon
+            key={system.label}
+            position={[x, 0, z]}
+            icon={system.icon}
+            label={system.label}
+            color={system.color}
+            isActive={isActive}
+            index={index}
+          />
+        );
+      })}
+      
       {/* Background Particles */}
-      {[...Array(100)].map((_, i) => (
-        <Float key={i} speed={0.5 + Math.random()} rotationIntensity={0.1} floatIntensity={0.2}>
-          <mesh
-            position={[
-              (Math.random() - 0.5) * 100,
-              (Math.random() - 0.5) * 60,
-              (Math.random() - 0.5) * 80
-            ]}
-          >
-            <sphereGeometry args={[0.1, 4, 4]} />
-            <meshStandardMaterial
-              color={['#00aaff', '#00ff88', '#ff6b6b', '#feca57'][Math.floor(Math.random() * 4)]}
-              emissive={['#0077cc', '#00cc66', '#cc5555', '#cc9944'][Math.floor(Math.random() * 4)]}
-              emissiveIntensity={0.5}
-            />
-          </mesh>
-        </Float>
-      ))}
+      <HealthcareParticles progress={currentProgress} />
+      
+      {/* Connection Lines between Active Systems */}
+      {healthcareSystems.map((system, index) => {
+        const isActive = currentProgress >= (index / healthcareSystems.length);
+        const nextIndex = (index + 1) % healthcareSystems.length;
+        const isNextActive = currentProgress >= (nextIndex / healthcareSystems.length);
+        
+        if (isActive && isNextActive) {
+          const radius = 12;
+          const x1 = Math.cos(system.angle) * radius;
+          const z1 = Math.sin(system.angle) * radius;
+          const x2 = Math.cos(healthcareSystems[nextIndex].angle) * radius;
+          const z2 = Math.sin(healthcareSystems[nextIndex].angle) * radius;
+          
+          const midX = (x1 + x2) / 2;
+          const midZ = (z1 + z2) / 2;
+          const distance = Math.sqrt((x2 - x1) ** 2 + (z2 - z1) ** 2);
+          const angle = Math.atan2(z2 - z1, x2 - x1);
+          
+          return (
+            <Float key={`connection-${index}`} speed={0.3} rotationIntensity={0.05} floatIntensity={0.1}>
+              <mesh 
+                position={[midX, 0, midZ]} 
+                rotation={[0, angle, 0]}
+              >
+                <cylinderGeometry args={[0.02, 0.02, distance, 8]} />
+                <meshStandardMaterial
+                  color="#00d4aa"
+                  emissive="#00a688"
+                  emissiveIntensity={0.4}
+                  transparent
+                  opacity={0.6}
+                />
+              </mesh>
+            </Float>
+          );
+        }
+        return null;
+      })}
       
       {/* Completion Effect */}
       {currentProgress >= 0.95 && (
-        <Float speed={2} rotationIntensity={0.5} floatIntensity={0.8}>
+        <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.5}>
           <group>
-            {[...Array(20)].map((_, i) => {
-              const angle = (i / 20) * Math.PI * 2;
-              const radius = 30;
+            {[...Array(12)].map((_, i) => {
+              const angle = (i / 12) * Math.PI * 2;
+              const radius = 20;
               return (
                 <Sphere
                   key={i}
-                  args={[0.5, 8, 8]}
+                  args={[0.3, 8, 8]}
                   position={[
                     Math.cos(angle) * radius,
-                    Math.sin(angle * 2) * 10,
+                    Math.sin(angle * 3) * 5,
                     Math.sin(angle) * radius
                   ]}
                 >
                   <meshStandardMaterial
                     color="#00ff00"
-                    emissive="#00ff00"
-                    emissiveIntensity={1}
+                    emissive="#00d4aa"
+                    emissiveIntensity={1.2}
                   />
                 </Sphere>
               );
@@ -532,6 +396,16 @@ export const LoadingScreen3D: React.FC<LoadingScreen3DProps> = ({
           </group>
         </Float>
       )}
+      
+      {/* Background Gradient Plane */}
+      <Plane args={[100, 100]} position={[0, 0, -25]} rotation={[0, 0, 0]}>
+        <meshStandardMaterial
+          color="#0a0a1a"
+          transparent
+          opacity={0.8}
+          side={THREE.DoubleSide}
+        />
+      </Plane>
     </group>
   );
 };
