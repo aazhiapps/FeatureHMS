@@ -250,7 +250,7 @@ export default function Index() {
       title: "Discharge Management",
       description:
         "Comprehensive discharge planning and management system ensuring smooth patient transitions.",
-      icon: "🚪",
+      icon: "����",
       color: "from-green-500 to-emerald-500",
       category: "Patient Flow",
       delay: 0.2,
@@ -642,7 +642,14 @@ export default function Index() {
   }
 
   if (showComparison) {
-    return <FeatureComparisonPage onClose={handleCloseComparison} />;
+    return (
+      <>
+        <NavigationFlowHeader currentPage={currentPage} onNavigate={handleNavigatePage} />
+        <div className="pt-32">
+          <FeatureComparisonPage onClose={handleCloseComparison} />
+        </div>
+      </>
+    );
   }
 
   if (showAutoScroll) {
