@@ -210,12 +210,6 @@ export const NavigationFlowHeader = ({
     }
   };
 
-  const canNavigateTo = (stepId: string) => {
-    const stepIndex = steps.findIndex((s) => s.id === stepId);
-    const currentIndex = steps.findIndex((s) => s.id === currentPage);
-    // Allow going back to any previous step or current step
-    return stepIndex <= currentIndex + 1;
-  };
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
