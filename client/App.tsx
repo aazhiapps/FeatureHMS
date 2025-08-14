@@ -34,29 +34,7 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Prevent double root creation in development
+// Create and render the React root
 const rootElement = document.getElementById("root")!;
-if (!rootElement.hasAttribute("data-root-created")) {
-  rootElement.setAttribute("data-root-created", "true");
-
-  try {
-    createRoot(rootElement).render(<App />);
-  } catch (error) {
-    console.error("Error rendering app:", error);
-    // Fallback for HMR issues
-    setTimeout(() => {
-      if (!rootElement.hasAttribute("data-root-rendered")) {
-        rootElement.setAttribute("data-root-rendered", "true");
-        createRoot(rootElement).render(<App />);
-      }
-    }, 100);
-  }
-}
-
-// HMR handling for development
-if (import.meta.hot) {
-  import.meta.hot.accept(() => {
-    // Prevent HMR from breaking the app
-    console.log("HMR update received");
-  });
-}
+const root = createRoot(rootElement);
+root.render(<App />);
