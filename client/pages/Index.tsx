@@ -104,6 +104,7 @@ export default function Index() {
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
+    setCurrentPage('autoscroll');
     // Show auto-scroll after a brief delay
     setTimeout(() => {
       setShowAutoScroll(true);
@@ -112,6 +113,7 @@ export default function Index() {
 
   const handleAutoScrollComplete = useCallback(() => {
     setShowAutoScroll(false);
+    setCurrentPage('journey');
   }, []);
 
   const handleReplayJourney = useCallback(() => {
