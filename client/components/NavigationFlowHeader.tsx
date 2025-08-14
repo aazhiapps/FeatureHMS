@@ -43,6 +43,7 @@ export const NavigationFlowHeader = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const headerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLNavElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
