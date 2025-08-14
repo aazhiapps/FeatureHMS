@@ -113,7 +113,7 @@ const competitorsData: CompetitorData[] = [
   {
     name: "Insta HMS",
     tagline: "by Practo",
-    logo: "📱",
+    logo: "��",
     deployment: "Cloud (SaaS)",
     idealSize: "Clinics & small/mid hospitals",
     abdmReadiness: "Partial – confirm scope",
@@ -745,15 +745,42 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
       </div>
 
       {/* Feature Matrix Section */}
-      <div className="relative z-10 px-6 pb-12">
+      <div ref={tableRef} className="relative z-10 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-light text-white mb-4 parallax-element">
               Complete Feature Matrix
             </h2>
-            <p className="text-lg text-white/70">
+            <p className="text-lg text-white/70 parallax-element">
               Side-by-side comparison of all features across HMS solutions
             </p>
+          </div>
+
+          {/* Interactive Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {[
+              { id: 'all', label: 'All Features', icon: '📋', color: 'blue' },
+              { id: 'deployment', label: 'Deployment', icon: '🏗️', color: 'blue' },
+              { id: 'pricing', label: 'Pricing', icon: '💰', color: 'green' },
+              { id: 'core', label: 'Core Features', icon: '🏥', color: 'purple' },
+              { id: 'advanced', label: 'Advanced', icon: '🚀', color: 'cyan' }
+            ].map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => filter.id === 'all' ? window.location.reload() : animateTableFilter(filter.id)}
+                disabled={animatingTable}
+                className={`
+                  px-4 py-2 rounded-full border-2 transition-all duration-300 transform hover:scale-105
+                  bg-${filter.color}-500/20 border-${filter.color}-400/50 text-${filter.color}-300
+                  hover:bg-${filter.color}-500/30 hover:border-${filter.color}-400/70
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                  flex items-center space-x-2
+                `}
+              >
+                <span>{filter.icon}</span>
+                <span className="text-sm font-medium">{filter.label}</span>
+              </button>
+            ))}
           </div>
 
           {/* Comprehensive Comparison Table */}
