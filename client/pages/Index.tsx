@@ -587,6 +587,24 @@ export default function Index() {
           </div>
         </nav>
 
+        {/* Floating Medical Elements */}
+        <div className="fixed inset-0 pointer-events-none z-5 overflow-hidden">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div
+              key={i}
+              className="medical-element absolute text-blue-300/20 text-4xl floating-particle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${i * 0.5}s`,
+              }}
+              data-parallax={String(0.1 + (i % 3) * 0.05)}
+            >
+              {['🏥', '💊', '⚕️', '🩺', '💉', '🧬', '📊', '💗'][i]}
+            </div>
+          ))}
+        </div>
+
         {/* Hero Section */}
         <section className="pt-32 pb-32 px-6 text-center min-h-screen flex items-center relative z-10">
           <div className="max-w-4xl mx-auto w-full">
