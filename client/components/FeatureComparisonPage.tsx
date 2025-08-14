@@ -1289,6 +1289,139 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
         </div>
       )}
 
+      {/* Next Steps & CTA */}
+      <div className="relative z-10 px-6 pb-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
+              Ready to Transform Your Healthcare Operations?
+            </h2>
+            <p className="text-xl text-white/80 max-w-3xl mx-auto">
+              Join 500+ healthcare providers who chose ClinicStreams for superior value and comprehensive features
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Live Demo Card */}
+            <InteractiveCard className="p-8 bg-gradient-to-br from-green-500/20 to-blue-500/20 border-green-400/30">
+              <div className="text-center">
+                <div className="text-6xl mb-4">🚀</div>
+                <h3 className="text-2xl font-bold text-white mb-4">See ClinicStreams in Action</h3>
+                <p className="text-white/80 mb-6">
+                  Get a personalized demo tailored to your healthcare organization's needs
+                </p>
+                <ul className="text-left space-y-2 mb-6 text-white/80">
+                  <li>• Live OPD → IPD → Discharge workflow demo</li>
+                  <li>• Custom ROI projection for your organization</li>
+                  <li>• Feature comparison with your current system</li>
+                  <li>• Migration timeline and cost estimate</li>
+                </ul>
+                <InteractiveButton
+                  variant="primary"
+                  size="xl"
+                  className="w-full bg-gradient-to-r from-green-500 to-blue-500"
+                  magnetic={true}
+                  tilt={true}
+                  ripple={true}
+                >
+                  Schedule Free Demo
+                </InteractiveButton>
+              </div>
+            </InteractiveCard>
+
+            {/* Custom Quote Card */}
+            <InteractiveCard className="p-8 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border-purple-400/30">
+              <div className="text-center">
+                <div className="text-6xl mb-4">💼</div>
+                <h3 className="text-2xl font-bold text-white mb-4">Get Custom Pricing</h3>
+                <p className="text-white/80 mb-6">
+                  Receive a detailed proposal with pricing tailored to your specific requirements
+                </p>
+                <ul className="text-left space-y-2 mb-6 text-white/80">
+                  <li>• Detailed feature requirement analysis</li>
+                  <li>• Custom pricing based on your user count</li>
+                  <li>• Implementation timeline and support plan</li>
+                  <li>• Competitive comparison report</li>
+                </ul>
+                <InteractiveButton
+                  variant="secondary"
+                  size="xl"
+                  className="w-full border-2 border-purple-400/50"
+                  magnetic={true}
+                  tilt={true}
+                  ripple={true}
+                >
+                  Get Custom Quote
+                </InteractiveButton>
+              </div>
+            </InteractiveCard>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <InteractiveCard className="p-4 text-center">
+              <div className="text-3xl font-bold text-green-400 mb-1">500+</div>
+              <div className="text-sm text-white/70">Healthcare Providers</div>
+            </InteractiveCard>
+            <InteractiveCard className="p-4 text-center">
+              <div className="text-3xl font-bold text-blue-400 mb-1">99.9%</div>
+              <div className="text-sm text-white/70">Uptime Guarantee</div>
+            </InteractiveCard>
+            <InteractiveCard className="p-4 text-center">
+              <div className="text-3xl font-bold text-purple-400 mb-1">24/7</div>
+              <div className="text-sm text-white/70">Expert Support</div>
+            </InteractiveCard>
+            <InteractiveCard className="p-4 text-center">
+              <div className="text-3xl font-bold text-cyan-400 mb-1">0</div>
+              <div className="text-sm text-white/70">Setup Costs</div>
+            </InteractiveCard>
+          </div>
+
+          {/* Contact Options */}
+          <div className="bg-black/20 backdrop-blur-xl rounded-2xl border border-white/20 p-8">
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-white mb-2">Get Started Today</h3>
+              <p className="text-white/70">Choose the best way to connect with our team</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-4xl mb-3">📞</div>
+                <h4 className="text-lg font-semibold text-white mb-2">Call Us</h4>
+                <p className="text-white/70 text-sm mb-3">Speak directly with our HMS experts</p>
+                <div className="text-blue-400 font-semibold">+91-XXXX-XXXXXX</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl mb-3">💬</div>
+                <h4 className="text-lg font-semibold text-white mb-2">Live Chat</h4>
+                <p className="text-white/70 text-sm mb-3">Get instant answers to your questions</p>
+                <InteractiveButton variant="ghost" size="sm">
+                  Start Chat
+                </InteractiveButton>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl mb-3">📧</div>
+                <h4 className="text-lg font-semibold text-white mb-2">Email Us</h4>
+                <p className="text-white/70 text-sm mb-3">Send us your requirements</p>
+                <div className="text-blue-400 font-semibold">sales@clinicstreams.com</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Back to Journey Button */}
+          <div className="text-center mt-12">
+            <InteractiveButton
+              onClick={onClose}
+              variant="outline"
+              size="lg"
+              className="border-2 border-white/30"
+            >
+              ← Back to Healthcare Journey
+            </InteractiveButton>
+          </div>
+        </div>
+      </div>
+
       {/* Medicine Burst Effect */}
       <MedicineBurstEffect
         trigger={burstTrigger}
