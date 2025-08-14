@@ -137,6 +137,12 @@ export default function Index() {
 
   const handleAutoScrollComplete = useCallback(() => {
     setShowAutoScroll(false);
+    setShowAllSystemsActive(true);
+    setCurrentPage("autoscroll"); // Keep autoscroll current page during all systems active
+  }, []);
+
+  const handleAllSystemsActiveComplete = useCallback(() => {
+    setShowAllSystemsActive(false);
     setCurrentPage("journey");
   }, []);
 
