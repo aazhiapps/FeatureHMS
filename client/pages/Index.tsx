@@ -33,6 +33,7 @@ import { FeatureComparisonPage } from "../components/FeatureComparisonPage";
 import { NavigationFlowHeader } from "../components/NavigationFlowHeader";
 import { FloatingCircularModules } from "../components/FloatingCircularModules";
 import { CountdownLoadingScreen } from "../components/CountdownLoadingScreen";
+import { AllSystemsActiveScreen } from "../components/AllSystemsActiveScreen";
 import { useScrollNavigation } from "../components/ScrollNavigationController";
 
 // TypeScript interface for DOM elements with cleanup handlers
