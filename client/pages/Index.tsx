@@ -596,6 +596,10 @@ export default function Index() {
     );
   }
 
+  if (showComparison) {
+    return <FeatureComparisonPage onClose={handleCloseComparison} />;
+  }
+
   if (showAutoScroll) {
     return (
       <AutoScrollFeatures
