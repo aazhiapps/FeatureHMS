@@ -26,7 +26,8 @@ const App = () => (
       <BrowserRouter>
         <SmoothScroll />
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Enhanced3DIndex />} />
+          <Route path="/legacy" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
