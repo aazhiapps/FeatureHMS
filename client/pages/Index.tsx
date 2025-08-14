@@ -49,6 +49,7 @@ declare global {
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
   const [showAutoScroll, setShowAutoScroll] = useState(false);
+  const [showAllSystemsActive, setShowAllSystemsActive] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
   const [cardInteractionMode, setCardInteractionMode] = useState<
