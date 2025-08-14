@@ -346,34 +346,47 @@ export const NavigationFlowHeader = ({
             ref={mobileMenuRef}
             className="md:hidden absolute top-full left-0 right-0 bg-blue-900/95 backdrop-blur-xl border-t border-white/20 shadow-xl"
           >
-            <div className="max-w-7xl mx-auto px-6 py-4">
-              <nav className="flex flex-col space-y-2">
-                {navigationItems.map((item) => (
-                  <button
-                    key={item.href}
-                    className="flex items-center space-x-3 p-3 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 group"
-                    onClick={() => handleNavItemClick(item)}
-                  >
-                    <span className="text-lg group-hover:scale-110 transition-transform duration-200">
-                      {item.icon}
-                    </span>
-                    <span className="font-medium">{item.label}</span>
-                  </button>
-                ))}
+            <div className="max-w-7xl mx-auto px-6 py-3">
+              <nav className="flex flex-col space-y-1">
+                {navigationItems.map((item) => {
+                  const correspondingStep = steps.find(s =>
+                    (item.href === "#journey" && s.id === "journey") ||
+                    (item.href === "#compare" && s.id === "comparison") ||
+                    (item.href === "#demo" && s.id === "demo")
+                  );
 
-                <div className="border-t border-white/20 pt-4 mt-4">
-                  <button
-                    className="w-full bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 px-4 py-2 rounded-lg font-semibold text-white shadow-lg transition-all duration-300"
-                    onClick={() =>
-                      window.open(
-                        "https://calendly.com/clinicstreams-demo",
-                        "_blank",
-                      )
-                    }
-                  >
-                    Get Demo
-                  </button>
-                </div>
+                  const isCompleted = correspondingStep?.completed;
+                  const isActive = correspondingStep?.active;
+
+                  return (
+                    <button
+                      key={item.href}
+                      className={`flex items-center space-x-3 p-2 rounded-md transition-all duration-300 group ${
+                        isActive
+                          ? "text-white bg-white/10"
+                          : isCompleted
+                          ? "text-green-300 hover:text-white hover:bg-white/5"
+                          : "text-white/70 hover:text-white hover:bg-white/5"
+                      }`}
+                      onClick={() => handleNavItemClick(item)}
+                    >
+                      <span className="text-base group-hover:scale-110 transition-transform duration-200">
+                        {item.icon}
+                      </span>
+                      <span className="font-medium">{item.label}</span>
+
+                      {/* Completion indicator */}
+                      {isCompleted && !isActive && (
+                        <span className="text-xs text-green-400 ml-auto">✓</span>
+                      )}
+
+                      {/* Active indicator */}
+                      {isActive && (
+                        <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse ml-auto"></div>
+                      )}
+                    </button>
+                  );
+                })}
               </nav>
             </div>
           </div>
