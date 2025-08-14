@@ -218,8 +218,7 @@ export const ClinicStreamsProgress = ({
                     y2={y + 270 / (features.length - 1) - 8}
                     stroke={isDiscovered ? "#00ff88" : "#e5e7eb"}
                     strokeWidth="2"
-                    className="md:stroke-[3]"
-                    className="transition-all duration-500"
+                    className="md:stroke-[3] transition-all duration-500"
                   />
                 )}
 
