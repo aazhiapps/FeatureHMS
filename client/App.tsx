@@ -1,4 +1,5 @@
 import "./global.css";
+import "./styles/ultimate-animations.css";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
