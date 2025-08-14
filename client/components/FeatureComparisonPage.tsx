@@ -67,7 +67,7 @@ const competitorsData: CompetitorData[] = [
       features: "unmatched value (pay 10 months, get 2 free)"
     },
     midPlan: {
-      price: "��99,990 / year",
+      price: "₹99,990 / year",
       features: "ideal for growing hospitals"
     },
     enterprisePlan: {
@@ -683,22 +683,46 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
   return (
     <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
-      {/* Background Effects */}
+      {/* Enhanced Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-indigo-600/10" />
+
+      {/* Animated floating healthcare elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-20">
+        {floatingElements.map((element) => (
+          <div
+            key={element.id}
+            id={`floating-${element.id}`}
+            className="absolute text-4xl parallax-element pointer-events-none"
+            style={{
+              left: element.x,
+              top: element.y,
+              filter: 'blur(1px)',
+              transform: 'translateZ(0)' // Force GPU acceleration
+            }}
+          >
+            {element.emoji}
+          </div>
+        ))}
+      </div>
+
+      {/* Interactive particle system */}
       <div className="absolute inset-0 opacity-30">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {Array.from({ length: 30 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse"
+            className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse parallax-element"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
+              animationDelay: `${i * 0.2}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
             }}
           />
         ))}
       </div>
+
+      {/* Gradient overlay with animation */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 animate-pulse" style={{ animationDuration: '4s' }} />
 
       {/* Header */}
       <div ref={headingRef} className="relative z-10 pt-20 pb-16 px-6 text-center">
