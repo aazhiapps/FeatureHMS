@@ -49,6 +49,14 @@ export const AutoScrollFeatures = ({
           handleComplete();
           return prev;
         }
+
+        // Trigger medicine burst on feature change
+        setBurstPosition({
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 200,
+          y: window.innerHeight / 2 + (Math.random() - 0.5) * 200
+        });
+        setBurstTrigger(prev => !prev);
+
         return nextIndex;
       });
     }, 3000); // 3 seconds per feature
