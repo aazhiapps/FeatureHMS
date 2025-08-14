@@ -89,81 +89,89 @@ export default function Index() {
     },
   ];
 
-  // UI features data for cards - All 8 features from the image
+  // Healthcare Management Modules - Based on circular design
   const features = [
     {
-      id: "management",
-      title: "Patient Management",
+      id: "front-office",
+      title: "Front Office Management",
       description:
-        "Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care.",
-      icon: "👥",
+        "Comprehensive front office operations including patient registration, appointment scheduling, and reception management.",
+      icon: "🏢",
       color: "from-blue-500 to-cyan-500",
-      category: "Core System",
+      category: "Front Office",
       delay: 0.1,
+      angle: 0,
+      radius: 180,
       benefits: [
-        "Unified patient profiles with complete medical history",
-        "Real-time updates across all departments",
-        "Advanced search and filtering capabilities",
-        "Automated care plan recommendations"
+        "Streamlined patient registration process",
+        "Automated appointment scheduling",
+        "Real-time front desk operations",
+        "Patient check-in/check-out management"
       ],
       stats: [
-        { label: "Patient Records", value: "50K+" },
-        { label: "Data Accuracy", value: "99.9%" }
+        { label: "Daily Check-ins", value: "500+" },
+        { label: "Efficiency Gain", value: "45%" }
       ]
     },
     {
-      id: "scheduling",
-      title: "Appointment Scheduling",
+      id: "lab-management",
+      title: "Lab Management",
       description:
-        "Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows.",
-      icon: "📅",
+        "Complete laboratory information management system with test ordering, result tracking, and quality control.",
+      icon: "🧪",
       color: "from-indigo-500 to-purple-500",
-      category: "Operations",
+      category: "Laboratory",
       delay: 0.15,
+      angle: 45,
+      radius: 180,
       benefits: [
-        "AI-powered optimal scheduling algorithms",
-        "Automated SMS and email reminders",
-        "Real-time availability updates",
-        "Multi-provider calendar synchronization"
+        "Automated test result processing",
+        "Quality control monitoring",
+        "Sample tracking and management",
+        "Integration with diagnostic equipment"
       ],
       stats: [
-        { label: "No-Show Rate", value: "<5%" },
-        { label: "Efficiency Gain", value: "40%" }
+        { label: "Tests/Day", value: "1.2K+" },
+        { label: "Accuracy", value: "99.8%" }
       ]
     },
     {
-      id: "records",
-      title: "Electronic Medical Records",
+      id: "discharge-management",
+      title: "Discharge Management",
       description:
-        "Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility.",
-      icon: "📋",
+        "Comprehensive discharge planning and management system ensuring smooth patient transitions.",
+      icon: "🚪",
       color: "from-green-500 to-emerald-500",
-      category: "Documentation",
+      category: "Patient Flow",
       delay: 0.2,
+      angle: 90,
+      radius: 180,
       benefits: [
-        "HIPAA-compliant secure storage",
-        "Voice-to-text documentation",
-        "Template-based quick entry",
-        "Integrated clinical decision support"
+        "Automated discharge planning",
+        "Care transition coordination",
+        "Follow-up appointment scheduling",
+        "Medication reconciliation"
       ],
       stats: [
-        { label: "Documentation Time", value: "-60%" },
-        { label: "Compliance Score", value: "100%" }
+        { label: "Discharge Time", value: "-40%" },
+        { label: "Readmission Rate", value: "-25%" }
       ]
     },
     {
-      id: "billing",
-      title: "Billing & Insurance",
+      id: "accounts-management",
+      title: "Accounts Management",
       description:
-        "Streamlined billing workflows with insurance verification and claims management for faster reimbursements.",
-      icon: "💳",
+        "Complete financial management system with billing, accounts receivable, and revenue cycle management.",
+      icon: "💰",
       color: "from-yellow-500 to-orange-500",
       category: "Financial",
       delay: 0.25,
+      angle: 135,
+      radius: 180,
       benefits: [
-        "Automated insurance verification",
-        "Real-time claims processing",
-        "Denial management and appeals",
+        "Automated billing processes",
+        "Real-time financial reporting",
+        "Insurance claims management",
         "Revenue cycle optimization"
       ],
       stats: [
@@ -172,83 +180,91 @@ export default function Index() {
       ]
     },
     {
-      id: "analytics",
-      title: "Real-time Analytics",
+      id: "ambulance-management",
+      title: "Ambulance Management",
       description:
-        "Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions.",
-      icon: "📊",
+        "Emergency medical services coordination with real-time tracking and dispatch management.",
+      icon: "🚑",
       color: "from-purple-500 to-pink-500",
-      category: "Intelligence",
+      category: "Emergency",
       delay: 0.3,
+      angle: 180,
+      radius: 180,
       benefits: [
-        "Real-time performance dashboards",
-        "Predictive analytics and forecasting",
-        "Custom report generation",
-        "Population health insights"
+        "Real-time ambulance tracking",
+        "Automated dispatch system",
+        "Emergency response coordination",
+        "Patient transport management"
       ],
       stats: [
-        { label: "Data Points", value: "1M+" },
-        { label: "Report Speed", value: "<2s" }
+        { label: "Response Time", value: "8 min" },
+        { label: "Fleet Utilization", value: "92%" }
       ]
     },
     {
-      id: "resources",
-      title: "Resource Management",
+      id: "nursing-station",
+      title: "Nursing Station Management",
       description:
-        "Optimize staff schedules, inventory, and facility resources to maximize operational efficiency.",
-      icon: "⏰",
+        "Comprehensive nursing workflow management with patient monitoring and care coordination.",
+      icon: "👩‍⚕️",
       color: "from-teal-500 to-blue-500",
-      category: "Operations",
+      category: "Clinical Care",
       delay: 0.35,
+      angle: 225,
+      radius: 180,
       benefits: [
-        "Intelligent staff scheduling",
-        "Equipment utilization tracking",
-        "Inventory management automation",
-        "Capacity planning optimization"
+        "Patient care workflow optimization",
+        "Medication administration tracking",
+        "Vital signs monitoring",
+        "Nurse-patient communication"
       ],
       stats: [
-        { label: "Efficiency Gain", value: "35%" },
-        { label: "Cost Reduction", value: "25%" }
+        { label: "Care Quality", value: "98%" },
+        { label: "Response Time", value: "3 min" }
       ]
     },
     {
-      id: "security",
-      title: "Security Compliance",
+      id: "insurance-module",
+      title: "Insurance Module",
       description:
-        "HIPAA-compliant security infrastructure with role-based access control and audit trails.",
-      icon: "🛡️",
+        "Complete insurance management system with verification, authorization, and claims processing.",
+      icon: "📋",
       color: "from-red-500 to-pink-500",
-      category: "Security",
+      category: "Insurance",
       delay: 0.4,
+      angle: 270,
+      radius: 180,
       benefits: [
-        "End-to-end encryption",
-        "Multi-factor authentication",
-        "Comprehensive audit logging",
-        "Regular security assessments"
+        "Real-time insurance verification",
+        "Pre-authorization management",
+        "Claims processing automation",
+        "Coverage analysis and reporting"
       ],
       stats: [
-        { label: "Security Score", value: "A+" },
-        { label: "Uptime", value: "99.99%" }
+        { label: "Verification Speed", value: "30s" },
+        { label: "Approval Rate", value: "94%" }
       ]
     },
     {
-      id: "engagement",
-      title: "Patient Engagement",
+      id: "admission-management",
+      title: "Admission Management",
       description:
-        "Patient portal for appointments, test results, and secure communication with healthcare providers.",
-      icon: "💬",
+        "Streamlined patient admission process with bed management and care team coordination.",
+      icon: "🏥",
       color: "from-cyan-500 to-teal-500",
-      category: "Communication",
+      category: "Patient Flow",
       delay: 0.45,
+      angle: 315,
+      radius: 180,
       benefits: [
-        "Secure patient messaging",
-        "Online appointment booking",
-        "Test results portal access",
-        "Educational content delivery"
+        "Automated bed assignment",
+        "Care team coordination",
+        "Admission documentation",
+        "Patient flow optimization"
       ],
       stats: [
-        { label: "Patient Satisfaction", value: "98%" },
-        { label: "Portal Usage", value: "85%" }
+        { label: "Admission Time", value: "15 min" },
+        { label: "Bed Utilization", value: "89%" }
       ]
     },
   ];
@@ -616,15 +632,20 @@ export default function Index() {
               {/* Center - Feature Tree */}
               <div className="col-span-4 flex items-center justify-center">
                 <div className="relative">
-                  {/* Central Feature Tree */}
-                  <div className="relative w-80 h-96">
-                    {/* Tree Structure */}
-                    <svg width="320" height="384" viewBox="0 0 320 384" className="absolute inset-0">
+                  {/* Circular Healthcare Management System */}
+                  <div className="relative w-96 h-96">
+                    {/* Circular System Structure */}
+                    <svg width="384" height="384" viewBox="0 0 384 384" className="absolute inset-0">
                       <defs>
-                        <linearGradient id="treeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <linearGradient id="circularGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
                           <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
                           <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
+                        </linearGradient>
+                        <linearGradient id="innerCircleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#ef4444" stopOpacity="0.6" />
+                          <stop offset="50%" stopColor="#f97316" stopOpacity="0.4" />
+                          <stop offset="100%" stopColor="#eab308" stopOpacity="0.6" />
                         </linearGradient>
                         <filter id="glow">
                           <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -635,44 +656,72 @@ export default function Index() {
                         </filter>
                       </defs>
                       
-                      {/* Main Tree Path */}
-                      <path
-                        d="M160,20 Q180,60 160,100 Q140,140 160,180 Q180,220 160,260 Q140,300 160,340 L160,364"
-                        stroke="url(#treeGradient)"
-                        strokeWidth="4"
+                      {/* Outer Circle - Main System */}
+                      <circle
+                        cx="192"
+                        cy="192"
+                        r="160"
+                        stroke="url(#circularGradient)"
+                        strokeWidth="3"
                         fill="none"
-                        strokeLinecap="round"
                         filter="url(#glow)"
-                        className="animate-pulse"
+                        className="animate-spin"
+                        style={{ animationDuration: '20s' }}
                       />
                       
-                      {/* Feature Nodes */}
+                      {/* Inner Circle - Core Modules */}
+                      <circle
+                        cx="192"
+                        cy="192"
+                        r="100"
+                        stroke="url(#innerCircleGradient)"
+                        strokeWidth="2"
+                        fill="none"
+                        filter="url(#glow)"
+                        className="animate-spin"
+                        style={{ animationDuration: '15s', animationDirection: 'reverse' }}
+                      />
+                      
+                      {/* Connection Lines from Center */}
                       {features.map((feature, index) => {
-                        const y = 40 + (index * 40);
-                        const x = 160 + (index % 2 === 0 ? -20 : 20);
+                        const angle = (feature.angle * Math.PI) / 180;
+                        const x = 192 + Math.cos(angle) * feature.radius;
+                        const y = 192 + Math.sin(angle) * feature.radius;
+                        const isActive = hoveredFeature === index;
+                        
+                        return (
+                          <line
+                            key={`line-${index}`}
+                            x1="192"
+                            y1="192"
+                            x2={x}
+                            y2={y}
+                            stroke={isActive ? "#10b981" : "#3b82f6"}
+                            strokeWidth={isActive ? "3" : "1"}
+                            opacity={isActive ? "0.8" : "0.3"}
+                            className="transition-all duration-500"
+                          />
+                        );
+                      })}
+                      
+                      {/* Feature Module Nodes */}
+                      {features.map((feature, index) => {
+                        const angle = (feature.angle * Math.PI) / 180;
+                        const x = 192 + Math.cos(angle) * feature.radius;
+                        const y = 192 + Math.sin(angle) * feature.radius;
                         const isActive = hoveredFeature === index;
                         
                         return (
                           <g key={index}>
-                            {/* Connection Line */}
-                            <line
-                              x1="160"
-                              y1={y}
-                              x2={x}
-                              y2={y}
-                              stroke={isActive ? "#10b981" : "#3b82f6"}
-                              strokeWidth="2"
-                              className="transition-all duration-500"
-                            />
-                            
-                            {/* Feature Node */}
-                            <circle
-                              cx={x}
-                              cy={y}
-                              r={isActive ? "12" : "8"}
+                            {/* Module Background */}
+                            <rect
+                              x={x - 35}
+                              y={y - 12}
+                              width="70"
+                              height="24"
+                              rx="12"
                               fill={isActive ? "#10b981" : "#3b82f6"}
-                              stroke="#ffffff"
-                              strokeWidth="2"
+                              opacity={isActive ? "0.9" : "0.6"}
                               className="transition-all duration-500 cursor-pointer"
                               onClick={() => {
                                 setHoveredFeature(index);
@@ -680,39 +729,118 @@ export default function Index() {
                               }}
                             />
                             
-                            {/* Feature Icon */}
+                            {/* Module Node */}
+                            <circle
+                              cx={x}
+                              cy={y}
+                              r={isActive ? "16" : "12"}
+                              fill={isActive ? "#10b981" : "#3b82f6"}
+                              stroke="#ffffff"
+                              strokeWidth="3"
+                              className="transition-all duration-500 cursor-pointer"
+                              onClick={() => {
+                                setHoveredFeature(index);
+                                setSelectedFeature(index);
+                              }}
+                            />
+                            
+                            {/* Module Icon */}
                             <text
                               x={x}
-                              y={y + 4}
+                              y={y + 6}
                               textAnchor="middle"
-                              fontSize="12"
+                              fontSize="16"
                               fill="white"
                               className="pointer-events-none"
                             >
                               {feature.icon}
                             </text>
                             
-                            {/* Pulse Effect for Active */}
+                            {/* Orbital Ring for Active Module */}
                             {isActive && (
-                              <circle
-                                cx={x}
-                                cy={y}
-                                r="16"
-                                fill="none"
-                                stroke="#10b981"
-                                strokeWidth="2"
-                                opacity="0.5"
-                                className="animate-ping"
-                              />
+                              <g>
+                                <circle
+                                  cx={x}
+                                  cy={y}
+                                  r="24"
+                                  fill="none"
+                                  stroke="#10b981"
+                                  strokeWidth="2"
+                                  opacity="0.6"
+                                  className="animate-ping"
+                                />
+                                <circle
+                                  cx={x}
+                                  cy={y}
+                                  r="30"
+                                  fill="none"
+                                  stroke="#10b981"
+                                  strokeWidth="1"
+                                  opacity="0.4"
+                                  className="animate-pulse"
+                                />
+                              </g>
+                            )}
+                            
+                            {/* Data Flow Animation */}
+                            {isActive && (
+                              <g>
+                                {[0, 1, 2].map((dot) => (
+                                  <circle
+                                    key={dot}
+                                    cx={192 + Math.cos(angle) * (60 + dot * 40)}
+                                    cy={192 + Math.sin(angle) * (60 + dot * 40)}
+                                    r="2"
+                                    fill="#10b981"
+                                    className="animate-pulse"
+                                    style={{ 
+                                      animationDelay: `${dot * 0.3}s`,
+                                      animationDuration: '1.5s'
+                                    }}
+                                  />
+                                ))}
+                              </g>
                             )}
                           </g>
                         );
                       })}
                     </svg>
                     
-                    {/* Central Progress Indicator */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md border-2 border-white/40 flex items-center justify-center">
-                      <div className="text-2xl animate-pulse">🏥</div>
+                    {/* Central Healthcare Hub */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-gradient-to-br from-blue-500/40 to-green-500/40 backdrop-blur-xl border-3 border-white/50 flex items-center justify-center shadow-2xl">
+                      <div className="text-4xl animate-bounce">🏥</div>
+                      
+                      {/* Rotating Ring */}
+                      <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-spin" style={{ animationDuration: '8s' }}>
+                        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-blue-400 rounded-full"></div>
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-green-400 rounded-full"></div>
+                        <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-400 rounded-full"></div>
+                        <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-cyan-400 rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Core Modules Labels */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      {/* Telemedicine */}
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-2 py-1 rounded-full">
+                        TELEMEDICINE
+                      </div>
+                      {/* Billing Modules */}
+                      <div className="absolute -left-12 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs font-medium text-white bg-blue-500/80 px-2 py-1 rounded-full">
+                        BILLING
+                      </div>
+                      {/* OPD/CPOE */}
+                      <div className="absolute -top-16 -left-8 text-xs font-medium text-white bg-cyan-500/80 px-2 py-1 rounded-full">
+                        OPD/CPOE
+                      </div>
+                      {/* Vital Room */}
+                      <div className="absolute -bottom-8 -left-8 text-xs font-medium text-white bg-green-500/80 px-2 py-1 rounded-full">
+                        VITAL ROOM
+                      </div>
+                      {/* CSSD Module */}
+                      <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-2 py-1 rounded-full">
+                        CSSD MODULE
+                      </div>
                     </div>
                   </div>
                 </div>
