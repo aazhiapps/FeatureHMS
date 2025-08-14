@@ -91,65 +91,31 @@ export const NavigationFlowHeader = ({
   ];
 
   useEffect(() => {
-    if (!headerRef.current || !pathRef.current) return;
+    if (!headerRef.current) return;
 
-    // Animate header entrance with enhanced effects
+    // Animate header entrance
     gsap.fromTo(
       headerRef.current,
-      { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "back.out(1.7)" },
+      { y: -50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
     );
-
-    // Animate logo
-    if (logoRef.current) {
-      gsap.fromTo(
-        logoRef.current,
-        { scale: 0, rotation: -180 },
-        {
-          scale: 1,
-          rotation: 0,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-          delay: 0.3,
-        },
-      );
-    }
 
     // Animate navigation items
     if (navRef.current) {
       const navItems = navRef.current.querySelectorAll(".nav-item");
       gsap.fromTo(
         navItems,
-        { opacity: 0, y: -20 },
+        { opacity: 0, y: -10 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
+          duration: 0.4,
           ease: "power2.out",
-          stagger: 0.1,
-          delay: 0.5,
+          stagger: 0.05,
+          delay: 0.3,
         },
       );
     }
-
-    // Animate progress path
-    const path = pathRef.current;
-    const pathLength = path.getTotalLength();
-    const completedSteps = steps.filter((step) => step.completed).length;
-    const progressPercent =
-      (completedSteps + (steps.find((s) => s.active) ? 0.5 : 0)) / steps.length;
-
-    gsap.set(path, {
-      strokeDasharray: pathLength,
-      strokeDashoffset: pathLength,
-    });
-
-    gsap.to(path, {
-      strokeDashoffset: pathLength * (1 - progressPercent),
-      duration: 2,
-      ease: "power2.out",
-      delay: 0.8,
-    });
   }, [currentPage]);
 
   // Scroll detection for auto-hide
