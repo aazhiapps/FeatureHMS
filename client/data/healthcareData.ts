@@ -59,6 +59,33 @@ export interface NavigationStep {
   route: string;
 }
 
+export interface PricingTier {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  color: string;
+  popular: boolean;
+}
+
+export interface Testimonial {
+  name: string;
+  title: string;
+  organization: string;
+  quote: string;
+  avatar: string;
+  rating: number;
+}
+
+export interface Statistic {
+  value: string;
+  label: string;
+  description: string;
+  icon: string;
+  color: string;
+}
+
 // Comprehensive Feature Comparison Data
 export const featuresData: FeatureData[] = [
   {
