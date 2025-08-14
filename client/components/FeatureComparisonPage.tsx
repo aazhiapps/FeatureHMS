@@ -1279,14 +1279,16 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                           </div>
                         </div>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-3">
+                      <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
                         <div
-                          className={`h-3 rounded-full ${
-                            competitor.isTopPick ? 'bg-gradient-to-r from-green-500 to-blue-500' :
+                          className={`pricing-bar h-3 rounded-full transition-all duration-500 hover:h-4 ${
+                            competitor.isTopPick ? 'bg-gradient-to-r from-green-500 to-blue-500 shadow-lg' :
                             'bg-gradient-to-r from-gray-500 to-gray-400'
                           }`}
                           style={{ width: `${Math.max(barWidth, 5)}%` }}
                         />
+                        {/* Animated shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-pulse" />
                       </div>
                       <div className="text-xs text-white/60">
                         Annual: ₹{(annualCost / 100000).toFixed(1)}L
