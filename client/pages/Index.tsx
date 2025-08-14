@@ -142,6 +142,14 @@ export default function Index() {
     jumpToProgress(targetProgress, 1.5);
   }, [jumpToProgress]);
 
+  const handleShowComparison = useCallback(() => {
+    setShowComparison(true);
+  }, []);
+
+  const handleCloseComparison = useCallback(() => {
+    setShowComparison(false);
+  }, []);
+
   // Apply enhanced mouse effects
   useEnhancedParallax();
   useMouseAttraction();
