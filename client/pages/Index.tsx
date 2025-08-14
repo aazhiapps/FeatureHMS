@@ -652,7 +652,12 @@ export default function Index() {
                       id={`feature-${feature.id}`}
                       className="opacity-80 transform scale-95 cursor-pointer transition-all duration-500 hover:opacity-100 hover:scale-100"
                     >
-                      <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/30 shadow-lg group hover:shadow-xl transition-all duration-300">
+                      <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/30 shadow-lg group hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
+                        {/* Glow effect overlay */}
+                        <div className="card-glow absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/20 to-blue-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+
+                        {/* Animated border */}
+                        <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-blue-400/50 via-purple-400/50 to-teal-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'subtract' }}></div>
                         {/* Card Header */}
                         <div className="flex items-center mb-3">
                           <div
