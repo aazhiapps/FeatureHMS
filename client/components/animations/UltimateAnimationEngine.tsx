@@ -1,35 +1,60 @@
-import React, { useEffect, useRef, useCallback, useState, useMemo } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+import React, {
+  useEffect,
+  useRef,
+  useCallback,
+  useState,
+  useMemo,
+} from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 
 // Register GSAP plugins
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 }
 
 // Ultimate Animation Engine Interface
 interface AnimationConfig {
   entrance?: {
-    type: 'fadeInUp' | 'slideInLeft' | 'scaleIn' | 'rotateIn' | 'morphIn' | 'particleIn' | 'liquidMorph';
+    type:
+      | "fadeInUp"
+      | "slideInLeft"
+      | "scaleIn"
+      | "rotateIn"
+      | "morphIn"
+      | "particleIn"
+      | "liquidMorph";
     duration?: number;
     delay?: number;
     ease?: string;
     stagger?: number;
   };
   hover?: {
-    type: 'lift' | 'glow' | 'morph' | 'particle' | 'liquid' | 'magneticPull' | 'holographic';
+    type:
+      | "lift"
+      | "glow"
+      | "morph"
+      | "particle"
+      | "liquid"
+      | "magneticPull"
+      | "holographic";
     intensity?: number;
     duration?: number;
   };
   scroll?: {
-    type: 'parallax' | 'reveal' | 'morphPath' | 'particleTrail' | 'liquidFlow';
+    type: "parallax" | "reveal" | "morphPath" | "particleTrail" | "liquidFlow";
     speed?: number;
-    direction?: 'up' | 'down' | 'left' | 'right';
+    direction?: "up" | "down" | "left" | "right";
   };
   interaction?: {
-    type: 'magnetic' | 'repulsive' | 'morphing' | 'particleExplosion' | 'liquidRipple';
+    type:
+      | "magnetic"
+      | "repulsive"
+      | "morphing"
+      | "particleExplosion"
+      | "liquidRipple";
     radius?: number;
     strength?: number;
   };
@@ -44,9 +69,9 @@ class ParticleSystem {
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext('2d')!;
+    this.ctx = canvas.getContext("2d")!;
     this.resize();
-    window.addEventListener('resize', this.resize.bind(this));
+    window.addEventListener("resize", this.resize.bind(this));
   }
 
   private resize() {
@@ -72,11 +97,11 @@ class ParticleSystem {
 
   private animate = () => {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
+
     this.particles.forEach((particle, index) => {
       particle.update();
       particle.draw(this.ctx);
-      
+
       if (particle.isDead()) {
         this.particles.splice(index, 1);
       }
@@ -85,11 +110,16 @@ class ParticleSystem {
     this.animationId = requestAnimationFrame(this.animate);
   };
 
-  explode(x: number, y: number, count: number = 50, config?: Partial<ParticleConfig>) {
+  explode(
+    x: number,
+    y: number,
+    count: number = 50,
+    config?: Partial<ParticleConfig>,
+  ) {
     for (let i = 0; i < count; i++) {
       const angle = (Math.PI * 2 * i) / count;
       const velocity = 2 + Math.random() * 3;
-      
+
       this.addParticle({
         x,
         y,
@@ -98,7 +128,7 @@ class ParticleSystem {
         life: 60,
         size: 2 + Math.random() * 3,
         color: `hsl(${200 + Math.random() * 60}, 80%, 60%)`,
-        ...config
+        ...config,
       });
     }
   }
@@ -108,7 +138,7 @@ class ParticleSystem {
     for (let i = 0; i < rippleCount; i++) {
       const angle = (Math.PI * 2 * i) / rippleCount;
       const delay = i * 2;
-      
+
       setTimeout(() => {
         this.addParticle({
           x,
@@ -118,7 +148,7 @@ class ParticleSystem {
           life: 120,
           size: 1 + Math.random() * 2,
           color: `rgba(59, 130, 246, ${0.8 - i * 0.03})`,
-          type: 'liquid'
+          type: "liquid",
         });
       }, delay);
     }
@@ -133,7 +163,7 @@ interface ParticleConfig {
   life: number;
   size: number;
   color: string;
-  type?: 'normal' | 'medical' | 'liquid' | 'holographic';
+  type?: "normal" | "medical" | "liquid" | "holographic";
 }
 
 class Particle {
@@ -156,14 +186,14 @@ class Particle {
     this.maxLife = config.life;
     this.size = config.size;
     this.color = config.color;
-    this.type = config.type || 'normal';
+    this.type = config.type || "normal";
   }
 
   update() {
     this.x += this.vx;
     this.y += this.vy;
     this.life--;
-    
+
     // Add gravity and friction
     this.vy += 0.05;
     this.vx *= 0.98;
@@ -172,24 +202,24 @@ class Particle {
 
   draw(ctx: CanvasRenderingContext2D) {
     const alpha = this.life / this.maxLife;
-    
+
     ctx.save();
     ctx.globalAlpha = alpha;
-    
+
     switch (this.type) {
-      case 'medical':
+      case "medical":
         this.drawMedical(ctx);
         break;
-      case 'liquid':
+      case "liquid":
         this.drawLiquid(ctx);
         break;
-      case 'holographic':
+      case "holographic":
         this.drawHolographic(ctx);
         break;
       default:
         this.drawNormal(ctx);
     }
-    
+
     ctx.restore();
   }
 
@@ -203,15 +233,32 @@ class Particle {
   private drawMedical(ctx: CanvasRenderingContext2D) {
     // Draw medical cross
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x - this.size/4, this.y - this.size, this.size/2, this.size * 2);
-    ctx.fillRect(this.x - this.size, this.y - this.size/4, this.size * 2, this.size/2);
+    ctx.fillRect(
+      this.x - this.size / 4,
+      this.y - this.size,
+      this.size / 2,
+      this.size * 2,
+    );
+    ctx.fillRect(
+      this.x - this.size,
+      this.y - this.size / 4,
+      this.size * 2,
+      this.size / 2,
+    );
   }
 
   private drawLiquid(ctx: CanvasRenderingContext2D) {
-    const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+    const gradient = ctx.createRadialGradient(
+      this.x,
+      this.y,
+      0,
+      this.x,
+      this.y,
+      this.size,
+    );
     gradient.addColorStop(0, this.color);
-    gradient.addColorStop(1, 'transparent');
-    
+    gradient.addColorStop(1, "transparent");
+
     ctx.fillStyle = gradient;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -239,20 +286,20 @@ class Particle {
 class LiquidMorph {
   static createMorphPath(from: string, to: string): gsap.core.Timeline {
     const tl = gsap.timeline();
-    
+
     // Create intermediate morphing shapes
     const morphSteps = [
       from,
       `M50,50 C20,20 80,20 50,50 C80,80 20,80 50,50 Z`, // Intermediate blob
-      to
+      to,
     ];
 
     morphSteps.forEach((path, index) => {
       if (index > 0) {
-        tl.to('.morph-target', {
+        tl.to(".morph-target", {
           attr: { d: path },
           duration: 0.3,
-          ease: 'power2.inOut'
+          ease: "power2.inOut",
         });
       }
     });
@@ -261,39 +308,39 @@ class LiquidMorph {
   }
 
   static liquidButton(element: HTMLElement) {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    
-    svg.style.position = 'absolute';
-    svg.style.top = '0';
-    svg.style.left = '0';
-    svg.style.width = '100%';
-    svg.style.height = '100%';
-    svg.style.pointerEvents = 'none';
-    
-    path.setAttribute('d', 'M0,0 L100,0 L100,100 L0,100 Z');
-    path.setAttribute('fill', 'rgba(59, 130, 246, 0.2)');
-    path.classList.add('liquid-morph');
-    
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+    svg.style.position = "absolute";
+    svg.style.top = "0";
+    svg.style.left = "0";
+    svg.style.width = "100%";
+    svg.style.height = "100%";
+    svg.style.pointerEvents = "none";
+
+    path.setAttribute("d", "M0,0 L100,0 L100,100 L0,100 Z");
+    path.setAttribute("fill", "rgba(59, 130, 246, 0.2)");
+    path.classList.add("liquid-morph");
+
     svg.appendChild(path);
     element.appendChild(svg);
 
     return {
       morph: (intensity: number) => {
-        const morphedPath = `M0,${intensity*5} C${20+intensity*10},${-intensity*3} ${80-intensity*10},${-intensity*3} 100,${intensity*5} L100,${100-intensity*5} C${80-intensity*10},${100+intensity*3} ${20+intensity*10},${100+intensity*3} 0,${100-intensity*5} Z`;
+        const morphedPath = `M0,${intensity * 5} C${20 + intensity * 10},${-intensity * 3} ${80 - intensity * 10},${-intensity * 3} 100,${intensity * 5} L100,${100 - intensity * 5} C${80 - intensity * 10},${100 + intensity * 3} ${20 + intensity * 10},${100 + intensity * 3} 0,${100 - intensity * 5} Z`;
         gsap.to(path, {
           attr: { d: morphedPath },
           duration: 0.3,
-          ease: 'power2.out'
+          ease: "power2.out",
         });
       },
       reset: () => {
         gsap.to(path, {
-          attr: { d: 'M0,0 L100,0 L100,100 L0,100 Z' },
+          attr: { d: "M0,0 L100,0 L100,100 L0,100 Z" },
           duration: 0.5,
-          ease: 'elastic.out(1, 0.3)'
+          ease: "elastic.out(1, 0.3)",
         });
-      }
+      },
     };
   }
 }
@@ -301,8 +348,8 @@ class LiquidMorph {
 // Holographic Effects
 class HolographicEffects {
   static addHologram(element: HTMLElement) {
-    const hologram = document.createElement('div');
-    hologram.className = 'holographic-overlay';
+    const hologram = document.createElement("div");
+    hologram.className = "holographic-overlay";
     hologram.style.cssText = `
       position: absolute;
       top: 0;
@@ -322,9 +369,9 @@ class HolographicEffects {
     element.appendChild(hologram);
 
     // Add CSS animation
-    if (!document.querySelector('#holographic-styles')) {
-      const style = document.createElement('style');
-      style.id = 'holographic-styles';
+    if (!document.querySelector("#holographic-styles")) {
+      const style = document.createElement("style");
+      style.id = "holographic-styles";
       style.textContent = `
         @keyframes holographicScan {
           0% { transform: translateX(-100%) skewX(-15deg); }
@@ -348,8 +395,8 @@ class HolographicEffects {
     }
 
     return {
-      activate: () => element.classList.add('holographic-glow'),
-      deactivate: () => element.classList.remove('holographic-glow')
+      activate: () => element.classList.add("holographic-glow"),
+      deactivate: () => element.classList.remove("holographic-glow"),
     };
   }
 }
@@ -364,7 +411,7 @@ class MagneticField {
   }
 
   private bindEvents() {
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener("mousemove", (e) => {
       this.mouse.x = e.clientX;
       this.mouse.y = e.clientY;
       this.updateMagneticElements();
@@ -384,16 +431,19 @@ class MagneticField {
       const rect = element.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
+
       const distance = Math.sqrt(
-        Math.pow(this.mouse.x - centerX, 2) + 
-        Math.pow(this.mouse.y - centerY, 2)
+        Math.pow(this.mouse.x - centerX, 2) +
+          Math.pow(this.mouse.y - centerY, 2),
       );
 
       if (distance < config.radius) {
         const force = (config.radius - distance) / config.radius;
-        const angle = Math.atan2(this.mouse.y - centerY, this.mouse.x - centerX);
-        
+        const angle = Math.atan2(
+          this.mouse.y - centerY,
+          this.mouse.x - centerX,
+        );
+
         const moveX = Math.cos(angle) * force * config.strength;
         const moveY = Math.sin(angle) * force * config.strength;
 
@@ -401,14 +451,14 @@ class MagneticField {
           x: moveX,
           y: moveY,
           duration: 0.3,
-          ease: 'power2.out'
+          ease: "power2.out",
         });
       } else {
         gsap.to(element, {
           x: 0,
           y: 0,
           duration: 0.5,
-          ease: 'elastic.out(1, 0.3)'
+          ease: "elastic.out(1, 0.3)",
         });
       }
     });
@@ -436,7 +486,7 @@ export const UltimateAnimationEngine: React.FC<{
     // Initialize systems
     particleSystem.current = new ParticleSystem(canvasRef.current);
     magneticField.current = new MagneticField();
-    
+
     particleSystem.current.start();
 
     return () => {
@@ -444,17 +494,26 @@ export const UltimateAnimationEngine: React.FC<{
     };
   }, []);
 
-  const addMagneticEffect = useCallback((element: HTMLElement, config: MagneticConfig) => {
-    magneticField.current?.addElement(element, config);
-  }, []);
+  const addMagneticEffect = useCallback(
+    (element: HTMLElement, config: MagneticConfig) => {
+      magneticField.current?.addElement(element, config);
+    },
+    [],
+  );
 
-  const createParticleExplosion = useCallback((x: number, y: number, intensity: number = 1) => {
-    particleSystem.current?.explode(x, y, Math.floor(50 * intensity));
-  }, []);
+  const createParticleExplosion = useCallback(
+    (x: number, y: number, intensity: number = 1) => {
+      particleSystem.current?.explode(x, y, Math.floor(50 * intensity));
+    },
+    [],
+  );
 
-  const createLiquidRipple = useCallback((x: number, y: number, intensity: number = 1) => {
-    particleSystem.current?.liquidRipple(x, y, intensity);
-  }, []);
+  const createLiquidRipple = useCallback(
+    (x: number, y: number, intensity: number = 1) => {
+      particleSystem.current?.liquidRipple(x, y, intensity);
+    },
+    [],
+  );
 
   return (
     <div ref={containerRef} className="relative w-full h-full overflow-hidden">
@@ -462,9 +521,9 @@ export const UltimateAnimationEngine: React.FC<{
       <canvas
         ref={canvasRef}
         className="fixed top-0 left-0 w-full h-full pointer-events-none z-40"
-        style={{ mixBlendMode: 'screen' }}
+        style={{ mixBlendMode: "screen" }}
       />
-      
+
       {/* Enhanced Children with Animation Context */}
       <AnimationProvider
         config={config}
@@ -495,15 +554,24 @@ const AnimationProvider: React.FC<{
   magneticField: MagneticField | null;
   onParticleExplosion: (x: number, y: number, intensity?: number) => void;
   onLiquidRipple: (x: number, y: number, intensity?: number) => void;
-}> = ({ children, config, particleSystem, magneticField, onParticleExplosion, onLiquidRipple }) => {
+}> = ({
+  children,
+  config,
+  particleSystem,
+  magneticField,
+  onParticleExplosion,
+  onLiquidRipple,
+}) => {
   return (
-    <AnimationContext.Provider value={{
-      config,
-      particleSystem,
-      magneticField,
-      onParticleExplosion,
-      onLiquidRipple
-    }}>
+    <AnimationContext.Provider
+      value={{
+        config,
+        particleSystem,
+        magneticField,
+        onParticleExplosion,
+        onLiquidRipple,
+      }}
+    >
       {children}
     </AnimationContext.Provider>
   );
@@ -513,7 +581,7 @@ const AnimationProvider: React.FC<{
 export const useAnimation = () => {
   const context = React.useContext(AnimationContext);
   if (!context) {
-    throw new Error('useAnimation must be used within AnimationProvider');
+    throw new Error("useAnimation must be used within AnimationProvider");
   }
   return context;
 };

@@ -706,7 +706,6 @@ export default function Index() {
     );
   }
 
-
   if (showAllSystemsActive) {
     return (
       <AllSystemsActiveScreen

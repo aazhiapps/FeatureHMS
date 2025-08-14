@@ -113,7 +113,7 @@ export const FloatingCircularModules = ({
           opacity: 0,
           scale: 0.8,
           duration: 0.2,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
 
@@ -130,15 +130,15 @@ export const FloatingCircularModules = ({
             opacity: 1,
             scale: 1,
             duration: 0.3,
-            ease: "back.out(1.2)"
+            ease: "back.out(1.2)",
           });
         }
       }, 150); // Wait 150ms after scroll stops
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }

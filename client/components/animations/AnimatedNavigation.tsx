@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { gsap } from 'gsap';
-import { LiquidMorphButton } from './VisuallyStunningComponents';
+import React, { useRef, useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { LiquidMorphButton } from "./VisuallyStunningComponents";
 
 interface NavigationItem {
   id: string;
@@ -10,17 +10,17 @@ interface NavigationItem {
 }
 
 const navigationItems: NavigationItem[] = [
-  { id: 'home', label: 'Home', icon: '🏠', href: '#home' },
-  { id: 'features', label: 'Features', icon: '✨', href: '#features' },
-  { id: 'dashboard', label: 'Dashboard', icon: '📊', href: '#dashboard' },
-  { id: 'analytics', label: 'Analytics', icon: '🧬', href: '#analytics' },
-  { id: 'contact', label: 'Contact', icon: '📞', href: '#contact' }
+  { id: "home", label: "Home", icon: "🏠", href: "#home" },
+  { id: "features", label: "Features", icon: "✨", href: "#features" },
+  { id: "dashboard", label: "Dashboard", icon: "📊", href: "#dashboard" },
+  { id: "analytics", label: "Analytics", icon: "🧬", href: "#analytics" },
+  { id: "contact", label: "Contact", icon: "📞", href: "#contact" },
 ];
 
 export const AnimatedNavigation: React.FC = () => {
   const navRef = useRef<HTMLNavElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const [activeItem, setActiveItem] = useState('home');
+  const [activeItem, setActiveItem] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -29,14 +29,22 @@ export const AnimatedNavigation: React.FC = () => {
     if (!nav || !logo) return;
 
     // Initial animation
-    gsap.fromTo(nav,
+    gsap.fromTo(
+      nav,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'back.out(1.7)', delay: 0.5 }
+      { y: 0, opacity: 1, duration: 1, ease: "back.out(1.7)", delay: 0.5 },
     );
 
-    gsap.fromTo(logo,
+    gsap.fromTo(
+      logo,
       { scale: 0, rotation: -180 },
-      { scale: 1, rotation: 0, duration: 1, ease: 'elastic.out(1, 0.3)', delay: 0.7 }
+      {
+        scale: 1,
+        rotation: 0,
+        duration: 1,
+        ease: "elastic.out(1, 0.3)",
+        delay: 0.7,
+      },
     );
 
     // Scroll effect
@@ -44,17 +52,19 @@ export const AnimatedNavigation: React.FC = () => {
       const scrolled = window.scrollY > 50;
       if (scrolled !== isScrolled) {
         setIsScrolled(scrolled);
-        
+
         gsap.to(nav, {
-          backdropFilter: scrolled ? 'blur(20px)' : 'blur(10px)',
-          backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.4)',
-          duration: 0.3
+          backdropFilter: scrolled ? "blur(20px)" : "blur(10px)",
+          backgroundColor: scrolled
+            ? "rgba(0, 0, 0, 0.8)"
+            : "rgba(0, 0, 0, 0.4)",
+          duration: 0.3,
         });
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isScrolled]);
 
   const handleNavClick = (itemId: string) => {
@@ -126,15 +136,16 @@ const NavItem: React.FC<{
     if (!element) return;
 
     // Entrance animation
-    gsap.fromTo(element,
+    gsap.fromTo(
+      element,
       { opacity: 0, y: -20 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 0.5, 
-        ease: 'back.out(1.7)', 
-        delay: 1 + index * 0.1 
-      }
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "back.out(1.7)",
+        delay: 1 + index * 0.1,
+      },
     );
 
     const handleMouseEnter = () => {
@@ -142,7 +153,7 @@ const NavItem: React.FC<{
         scale: 1.1,
         y: -2,
         duration: 0.3,
-        ease: 'power2.out'
+        ease: "power2.out",
       });
     };
 
@@ -151,16 +162,16 @@ const NavItem: React.FC<{
         scale: 1,
         y: 0,
         duration: 0.3,
-        ease: 'power2.out'
+        ease: "power2.out",
       });
     };
 
-    element.addEventListener('mouseenter', handleMouseEnter);
-    element.addEventListener('mouseleave', handleMouseLeave);
+    element.addEventListener("mouseenter", handleMouseEnter);
+    element.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      element.removeEventListener('mouseenter', handleMouseEnter);
-      element.removeEventListener('mouseleave', handleMouseLeave);
+      element.removeEventListener("mouseenter", handleMouseEnter);
+      element.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [index]);
 
@@ -170,9 +181,10 @@ const NavItem: React.FC<{
       onClick={onClick}
       className={`
         relative px-4 py-2 rounded-lg font-medium transition-all duration-300
-        ${isActive 
-          ? 'text-cyan-400 bg-white/10 shadow-lg' 
-          : 'text-white/80 hover:text-white hover:bg-white/5'
+        ${
+          isActive
+            ? "text-cyan-400 bg-white/10 shadow-lg"
+            : "text-white/80 hover:text-white hover:bg-white/5"
         }
       `}
     >
@@ -180,12 +192,12 @@ const NavItem: React.FC<{
       {isActive && (
         <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-400/20 to-purple-500/20 border border-cyan-400/50" />
       )}
-      
+
       <span className="relative z-10 flex items-center space-x-2">
         <span className="text-lg">{item.icon}</span>
         <span>{item.label}</span>
       </span>
-      
+
       {/* Holographic glow for active item */}
       {isActive && (
         <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-400/10 to-purple-500/10 animate-pulse" />
@@ -210,9 +222,15 @@ const MobileMenuButton: React.FC = () => {
       className="md:hidden p-2 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-300"
     >
       <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-        <div className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1' : ''}`} />
-        <div className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
-        <div className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1' : ''}`} />
+        <div
+          className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? "rotate-45 translate-y-1" : ""}`}
+        />
+        <div
+          className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? "opacity-0" : ""}`}
+        />
+        <div
+          className={`w-full h-0.5 bg-white transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-1" : ""}`}
+        />
       </div>
     </button>
   );
@@ -224,10 +242,10 @@ export const FloatingActionMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const actions = [
-    { icon: '🚨', label: 'Emergency', color: 'from-red-500 to-pink-600' },
-    { icon: '💬', label: 'Support', color: 'from-blue-500 to-cyan-600' },
-    { icon: '📊', label: 'Analytics', color: 'from-purple-500 to-indigo-600' },
-    { icon: '⚙️', label: 'Settings', color: 'from-gray-500 to-slate-600' }
+    { icon: "🚨", label: "Emergency", color: "from-red-500 to-pink-600" },
+    { icon: "💬", label: "Support", color: "from-blue-500 to-cyan-600" },
+    { icon: "📊", label: "Analytics", color: "from-purple-500 to-indigo-600" },
+    { icon: "⚙️", label: "Settings", color: "from-gray-500 to-slate-600" },
   ];
 
   useEffect(() => {
@@ -235,16 +253,17 @@ export const FloatingActionMenu: React.FC = () => {
     if (!menu) return;
 
     // Entrance animation
-    gsap.fromTo(menu,
+    gsap.fromTo(
+      menu,
       { scale: 0, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)', delay: 2 }
+      { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)", delay: 2 },
     );
   }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    
-    const actionButtons = menuRef.current?.querySelectorAll('.action-btn');
+
+    const actionButtons = menuRef.current?.querySelectorAll(".action-btn");
     if (actionButtons) {
       actionButtons.forEach((btn, index) => {
         gsap.to(btn, {
@@ -252,8 +271,8 @@ export const FloatingActionMenu: React.FC = () => {
           y: isOpen ? 0 : -(index + 1) * 60,
           opacity: isOpen ? 0 : 1,
           duration: 0.3,
-          ease: 'back.out(1.7)',
-          delay: index * 0.05
+          ease: "back.out(1.7)",
+          delay: index * 0.05,
         });
       });
     }
@@ -267,7 +286,9 @@ export const FloatingActionMenu: React.FC = () => {
           key={index}
           className="action-btn absolute bottom-0 right-0 mb-4 opacity-0 scale-0"
         >
-          <button className={`w-12 h-12 rounded-full bg-gradient-to-r ${action.color} flex items-center justify-center text-white shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300`}>
+          <button
+            className={`w-12 h-12 rounded-full bg-gradient-to-r ${action.color} flex items-center justify-center text-white shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300`}
+          >
             <span className="text-xl">{action.icon}</span>
           </button>
           <span className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-black/80 text-white px-2 py-1 rounded text-sm whitespace-nowrap">
@@ -281,8 +302,10 @@ export const FloatingActionMenu: React.FC = () => {
         onClick={toggleMenu}
         className="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 flex items-center justify-center text-white shadow-2xl hover:shadow-cyan-500/50 transform hover:scale-110 transition-all duration-300"
       >
-        <span className={`text-2xl transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}>
-          {isOpen ? '✕' : '✨'}
+        <span
+          className={`text-2xl transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+        >
+          {isOpen ? "✕" : "✨"}
         </span>
       </button>
     </div>
@@ -299,33 +322,44 @@ export const AnimatedBreadcrumb: React.FC<{
     const breadcrumb = breadcrumbRef.current;
     if (!breadcrumb) return;
 
-    const breadcrumbItems = breadcrumb.querySelectorAll('.breadcrumb-item');
-    gsap.fromTo(breadcrumbItems,
+    const breadcrumbItems = breadcrumb.querySelectorAll(".breadcrumb-item");
+    gsap.fromTo(
+      breadcrumbItems,
       { opacity: 0, x: -20 },
-      { 
-        opacity: 1, 
-        x: 0, 
-        duration: 0.5, 
-        ease: 'power2.out', 
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+        ease: "power2.out",
         stagger: 0.1,
-        delay: 0.3
-      }
+        delay: 0.3,
+      },
     );
   }, [items]);
 
   return (
-    <div ref={breadcrumbRef} className="flex items-center space-x-2 text-sm text-white/70">
+    <div
+      ref={breadcrumbRef}
+      className="flex items-center space-x-2 text-sm text-white/70"
+    >
       {items.map((item, index) => (
-        <div key={index} className="breadcrumb-item flex items-center space-x-2">
+        <div
+          key={index}
+          className="breadcrumb-item flex items-center space-x-2"
+        >
           {index > 0 && (
             <span className="text-white/40">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
               </svg>
             </span>
           )}
           {item.href ? (
-            <a 
+            <a
               href={item.href}
               className="hover:text-cyan-400 transition-colors duration-200"
             >
@@ -343,5 +377,5 @@ export const AnimatedBreadcrumb: React.FC<{
 export default {
   AnimatedNavigation,
   FloatingActionMenu,
-  AnimatedBreadcrumb
+  AnimatedBreadcrumb,
 };

@@ -27,7 +27,7 @@ export const FeaturesOverlay = ({
   const handleComplete = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-    
+
     // Fade out animation before completing
     if (containerRef.current) {
       gsap.to(containerRef.current, {
@@ -36,7 +36,7 @@ export const FeaturesOverlay = ({
         ease: "power2.inOut",
         onComplete: () => {
           onComplete?.();
-        }
+        },
       });
     } else {
       onComplete?.();
@@ -51,21 +51,23 @@ export const FeaturesOverlay = ({
 
     // Fade in animation
     if (containerRef.current) {
-      gsap.fromTo(containerRef.current, 
+      gsap.fromTo(
+        containerRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 0.3, ease: "power2.out" }
+        { opacity: 1, duration: 0.3, ease: "power2.out" },
       );
     }
 
     // Calculate timing: 5 seconds total for all features
     const timePerFeature = 5000 / features.length;
-    
+
     // Progress bar animation
     progressIntervalRef.current = setInterval(() => {
-      setProgress(prev => {
-        const newProgress = prev + (100 / (5000 / 50)); // Update every 50ms
+      setProgress((prev) => {
+        const newProgress = prev + 100 / (5000 / 50); // Update every 50ms
         if (newProgress >= 100) {
-          if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+          if (progressIntervalRef.current)
+            clearInterval(progressIntervalRef.current);
           return 100;
         }
         return newProgress;
@@ -90,7 +92,8 @@ export const FeaturesOverlay = ({
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
-      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+      if (progressIntervalRef.current)
+        clearInterval(progressIntervalRef.current);
       clearTimeout(completeTimeout);
     };
   }, [isVisible, features.length, handleComplete]);

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { FloatingMoleculeAnimation } from './FloatingMoleculeAnimation';
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { FloatingMoleculeAnimation } from "./FloatingMoleculeAnimation";
 
 interface MousePosition {
   x: number;
@@ -11,12 +11,16 @@ interface MouseAnimationSystemProps {
   children: React.ReactNode;
 }
 
-export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) => {
+export const MouseAnimationSystem = ({
+  children,
+}: MouseAnimationSystemProps) => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const trailRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState<MousePosition>({ x: 0, y: 0 });
-  const [cursorVariant, setCursorVariant] = useState<'default' | 'hover' | 'click' | 'text'>('default');
+  const [cursorVariant, setCursorVariant] = useState<
+    "default" | "hover" | "click" | "text"
+  >("default");
   const [isVisible, setIsVisible] = useState(false);
   const trailDotsRef = useRef<HTMLDivElement[]>([]);
 
@@ -35,7 +39,7 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
           x: newPos.x,
           y: newPos.y,
           duration: 0.1,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
 
@@ -45,7 +49,7 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
           x: newPos.x,
           y: newPos.y,
           duration: 0.05,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
 
@@ -58,8 +62,8 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
           gsap.set(dot, {
             x: trail[index].x,
             y: trail[index].y,
-            opacity: (12 - index) / 12 * 0.8,
-            scale: (12 - index) / 12 * 0.8
+            opacity: ((12 - index) / 12) * 0.8,
+            scale: ((12 - index) / 12) * 0.8,
           });
         }
       });
@@ -76,33 +80,33 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
     // Enhanced hover detection for interactive elements
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
+
       if (target.matches('button, a, [role="button"], .interactive')) {
-        setCursorVariant('hover');
-      } else if (target.matches('input, textarea, [contenteditable]')) {
-        setCursorVariant('text');
+        setCursorVariant("hover");
+      } else if (target.matches("input, textarea, [contenteditable]")) {
+        setCursorVariant("text");
       } else {
-        setCursorVariant('default');
+        setCursorVariant("default");
       }
     };
 
-    const handleMouseDown = () => setCursorVariant('click');
-    const handleMouseUp = () => setCursorVariant('default');
+    const handleMouseDown = () => setCursorVariant("click");
+    const handleMouseUp = () => setCursorVariant("default");
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mouseover', handleMouseOver);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mouseenter", handleMouseEnter);
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      document.removeEventListener('mouseover', handleMouseOver);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseenter", handleMouseEnter);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -111,34 +115,34 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
 
   const getCursorStyles = () => {
     switch (cursorVariant) {
-      case 'hover':
+      case "hover":
         return {
-          width: '60px',
-          height: '60px',
-          backgroundColor: 'rgba(59, 130, 246, 0.2)',
-          border: '2px solid rgb(59, 130, 246)',
-          mixBlendMode: 'difference' as const,
+          width: "60px",
+          height: "60px",
+          backgroundColor: "rgba(59, 130, 246, 0.2)",
+          border: "2px solid rgb(59, 130, 246)",
+          mixBlendMode: "difference" as const,
         };
-      case 'click':
+      case "click":
         return {
-          width: '30px',
-          height: '30px',
-          backgroundColor: 'rgba(239, 68, 68, 0.3)',
-          border: '2px solid rgb(239, 68, 68)',
+          width: "30px",
+          height: "30px",
+          backgroundColor: "rgba(239, 68, 68, 0.3)",
+          border: "2px solid rgb(239, 68, 68)",
         };
-      case 'text':
+      case "text":
         return {
-          width: '2px',
-          height: '24px',
-          backgroundColor: 'rgb(59, 130, 246)',
-          borderRadius: '1px',
+          width: "2px",
+          height: "24px",
+          backgroundColor: "rgb(59, 130, 246)",
+          borderRadius: "1px",
         };
       default:
         return {
-          width: '40px',
-          height: '40px',
-          backgroundColor: 'rgba(255, 255, 255, 0.1)',
-          border: '2px solid rgba(255, 255, 255, 0.3)',
+          width: "40px",
+          height: "40px",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          border: "2px solid rgba(255, 255, 255, 0.3)",
         };
     }
   };
@@ -149,10 +153,10 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
       <div
         ref={cursorRef}
         className={`fixed pointer-events-none z-[9999] rounded-full backdrop-blur-sm transition-all duration-300 ${
-          isVisible ? 'opacity-100' : 'opacity-0'
+          isVisible ? "opacity-100" : "opacity-0"
         }`}
         style={{
-          transform: 'translate(-50%, -50%)',
+          transform: "translate(-50%, -50%)",
           ...getCursorStyles(),
         }}
       >
@@ -173,7 +177,7 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
             }}
             className="absolute w-3 h-3 bg-blue-400 rounded-full opacity-0"
             style={{
-              transform: 'translate(-50%, -50%)',
+              transform: "translate(-50%, -50%)",
               filter: `blur(${index * 0.5}px)`,
             }}
           />
@@ -197,29 +201,34 @@ interface MouseParallaxContainerProps {
   mousePos: MousePosition;
 }
 
-const MouseParallaxContainer = ({ children, mousePos }: MouseParallaxContainerProps) => {
+const MouseParallaxContainer = ({
+  children,
+  mousePos,
+}: MouseParallaxContainerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const elements = containerRef.current.querySelectorAll('[data-mouse-parallax]');
-    
+    const elements = containerRef.current.querySelectorAll(
+      "[data-mouse-parallax]",
+    );
+
     elements.forEach((element) => {
       const htmlElement = element as HTMLElement;
-      const speed = parseFloat(htmlElement.dataset.mouseParallax || '0.1');
+      const speed = parseFloat(htmlElement.dataset.mouseParallax || "0.1");
       const rect = htmlElement.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
+
       const deltaX = (mousePos.x - centerX) * speed;
       const deltaY = (mousePos.y - centerY) * speed;
-      
+
       gsap.to(htmlElement, {
         x: deltaX,
         y: deltaY,
         duration: 0.8,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     });
   }, [mousePos]);
@@ -232,7 +241,10 @@ const MouseParallaxContainer = ({ children, mousePos }: MouseParallaxContainerPr
 };
 
 // Mouse 3D Tilt Effect Hook
-export const useMouseTilt = (elementRef: React.RefObject<HTMLElement>, intensity = 0.3) => {
+export const useMouseTilt = (
+  elementRef: React.RefObject<HTMLElement>,
+  intensity = 0.3,
+) => {
   useEffect(() => {
     if (!elementRef.current) return;
 
@@ -243,19 +255,19 @@ export const useMouseTilt = (elementRef: React.RefObject<HTMLElement>, intensity
       const rect = element.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
+
       const deltaX = (e.clientX - centerX) / (rect.width / 2);
       const deltaY = (e.clientY - centerY) / (rect.height / 2);
-      
+
       const rotateY = deltaX * intensity * 20;
       const rotateX = -deltaY * intensity * 20;
-      
+
       gsap.to(element, {
         rotationY: rotateY,
         rotationX: rotateX,
         transformPerspective: 1000,
         duration: 0.5,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     };
 
@@ -264,16 +276,16 @@ export const useMouseTilt = (elementRef: React.RefObject<HTMLElement>, intensity
         rotationY: 0,
         rotationX: 0,
         duration: 0.8,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     };
 
-    element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
+    element.addEventListener("mousemove", handleMouseMove);
+    element.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      element.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', handleMouseLeave);
+      element.removeEventListener("mousemove", handleMouseMove);
+      element.removeEventListener("mouseleave", handleMouseLeave);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -282,7 +294,10 @@ export const useMouseTilt = (elementRef: React.RefObject<HTMLElement>, intensity
 };
 
 // Magnetic Button Effect Hook
-export const useMagneticEffect = (elementRef: React.RefObject<HTMLElement>, strength = 0.3) => {
+export const useMagneticEffect = (
+  elementRef: React.RefObject<HTMLElement>,
+  strength = 0.3,
+) => {
   useEffect(() => {
     if (!elementRef.current) return;
 
@@ -293,19 +308,19 @@ export const useMagneticEffect = (elementRef: React.RefObject<HTMLElement>, stre
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const distance = Math.sqrt(
-        Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2)
+        Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2),
       );
-      
+
       if (distance < 100) {
         const deltaX = (e.clientX - centerX) * strength;
         const deltaY = (e.clientY - centerY) * strength;
-        
+
         gsap.to(element, {
           x: deltaX,
           y: deltaY,
           scale: 1.05,
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       } else {
         gsap.to(element, {
@@ -313,7 +328,7 @@ export const useMagneticEffect = (elementRef: React.RefObject<HTMLElement>, stre
           y: 0,
           scale: 1,
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
     };
@@ -324,16 +339,16 @@ export const useMagneticEffect = (elementRef: React.RefObject<HTMLElement>, stre
         y: 0,
         scale: 1,
         duration: 0.5,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener("mousemove", handleMouseMove);
+    element.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener("mousemove", handleMouseMove);
+      element.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [elementRef, strength]);
 };
@@ -357,22 +372,23 @@ export const InteractiveParticles = () => {
         const dx = e.clientX - particle.x;
         const dy = e.clientY - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (distance < 150) {
           const force = (150 - distance) / 150;
           particle.vx -= (dx / distance) * force * 0.5;
           particle.vy -= (dy / distance) * force * 0.5;
         }
-        
+
         particle.x += particle.vx;
         particle.y += particle.vy;
         particle.vx *= 0.99;
         particle.vy *= 0.99;
-        
+
         // Boundary collision
         if (particle.x < 0 || particle.x > window.innerWidth) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > window.innerHeight) particle.vy *= -1;
-        
+        if (particle.y < 0 || particle.y > window.innerHeight)
+          particle.vy *= -1;
+
         const particleElement = particlesRef.current[index];
         if (particleElement) {
           gsap.set(particleElement, {
@@ -383,10 +399,10 @@ export const InteractiveParticles = () => {
       });
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -400,8 +416,8 @@ export const InteractiveParticles = () => {
           }}
           className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
           style={{
-            left: Math.random() * 100 + '%',
-            top: Math.random() * 100 + '%',
+            left: Math.random() * 100 + "%",
+            top: Math.random() * 100 + "%",
           }}
         />
       ))}
