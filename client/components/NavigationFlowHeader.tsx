@@ -14,6 +14,7 @@ interface NavigationStep {
 interface NavigationFlowHeaderProps {
   currentPage: 'loading' | 'autoscroll' | 'journey' | 'comparison' | 'demo';
   onNavigate: (page: 'loading' | 'autoscroll' | 'journey' | 'comparison' | 'demo') => void;
+  autoHideOnScroll?: boolean;
 }
 
 export const NavigationFlowHeader = ({ currentPage, onNavigate }: NavigationFlowHeaderProps) => {
