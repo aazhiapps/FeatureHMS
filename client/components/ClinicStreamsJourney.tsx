@@ -21,6 +21,8 @@ const MedicalDrone = React.forwardRef<
 >(({ position = [0, 0, 0] }, ref) => {
   const propellerRefs = useRef<(THREE.Mesh | null)[]>([]);
   const bodyRef = useRef<THREE.Mesh>(null);
+  const [ledIntensity, setLedIntensity] = useState([0.5, 0.5, 0.5, 0.5]);
+  const [glowOpacity, setGlowOpacity] = useState([0.2, 0.2, 0.2, 0.2]);
 
   useFrame(({ clock }) => {
     if (ref && "current" in ref && ref.current) {
@@ -46,6 +48,16 @@ const MedicalDrone = React.forwardRef<
       const pulse = 1 + Math.sin(clock.elapsedTime * 2.5) * 0.15;
       bodyRef.current.scale.setScalar(pulse);
     }
+
+    // Update LED animations
+    const newLedIntensity = [0, 1, 2, 3].map(index =>
+      0.5 + Math.sin(clock.elapsedTime * 3 + index) * 0.3
+    );
+    const newGlowOpacity = [0, 1, 2, 3].map(index =>
+      0.2 + Math.sin(clock.elapsedTime * 2 + index) * 0.1
+    );
+    setLedIntensity(newLedIntensity);
+    setGlowOpacity(newGlowOpacity);
   });
 
   return (
