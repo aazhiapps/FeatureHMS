@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text, Sphere, Box, Float, Html, Torus, Ring, Cylinder } from '@react-three/drei';
 import * as THREE from 'three';
-import { 
-  featuresData, 
-  competitorsData, 
-  healthcareModules, 
-  journeySteps, 
+import {
+  featuresData,
+  competitorsData,
+  healthcareModules,
+  journeySteps,
   navigationSteps,
   loadingStages,
   systemStatus,
@@ -18,6 +18,7 @@ import {
   type HealthcareModule,
   type JourneyStep
 } from '../data/healthcareData';
+import { Pricing3D, Testimonials3D, ROICalculator3D } from '../components/3D/PricingAndTestimonials3D';
 
 // Enhanced Hero Section with Statistics
 const ComprehensiveHero = () => {
