@@ -36,9 +36,16 @@ const queryClient = new QueryClient({
 
 // Performance-optimized App component
 const App = () => {
-  // Use enhanced version by default, fallback to original if needed
-  const useEnhancedVersion = process.env.NODE_ENV === 'production' || 
-                            window.location.search.includes('enhanced=true');
+  // Use ultimate animated version by default for the best visual experience
+  const getDefaultComponent = () => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get('version') === 'enhanced') return <EnhancedIndex />;
+    if (params.get('version') === 'original') return <Index />;
+
+    // Default to ultimate animated version for stunning visuals
+    return <UltimateAnimatedIndex />;
+  };
 
   return (
     <ErrorBoundary level="page" showDetails={process.env.NODE_ENV === 'development'}>
@@ -48,27 +55,33 @@ const App = () => {
           <Sonner />
           <BrowserRouter>
             <SmoothScroll />
-            <Suspense 
+            <Suspense
               fallback={
-                <LoadingOverlay 
-                  isVisible={true} 
-                  variant="medical" 
-                  message="Loading ClinicStreams Healthcare Platform..." 
-                />
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+                  <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4"></div>
+                    <h3 className="text-xl font-semibold text-white mb-2">Initializing Quantum Systems</h3>
+                    <p className="text-white/70">Loading ClinicStreams Healthcare Platform...</p>
+                  </div>
+                </div>
               }
             >
               <Routes>
-                <Route 
-                  path="/" 
-                  element={useEnhancedVersion ? <EnhancedIndex /> : <Index />} 
+                <Route
+                  path="/"
+                  element={getDefaultComponent()}
                 />
-                <Route 
-                  path="/enhanced" 
-                  element={<EnhancedIndex />} 
+                <Route
+                  path="/ultimate"
+                  element={<UltimateAnimatedIndex />}
                 />
-                <Route 
-                  path="/original" 
-                  element={<Index />} 
+                <Route
+                  path="/enhanced"
+                  element={<EnhancedIndex />}
+                />
+                <Route
+                  path="/original"
+                  element={<Index />}
                 />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
