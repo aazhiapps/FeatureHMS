@@ -24,18 +24,29 @@ import { Pricing3D, Testimonials3D, ROICalculator3D } from '../components/3D/Pri
 const ComprehensiveHero = () => {
   const logoRef = useRef<THREE.Group>(null);
   const ringsRef = useRef<THREE.Group>(null);
+  const logoTexture = useLoader(THREE.TextureLoader, "https://cdn.builder.io/api/v1/image/assets%2F4109aee680574795abb204927cf7c9d7%2F81c19f9f153b41929a9b2b051a9fe82d?format=webp&width=800");
 
   useFrame((state) => {
     if (logoRef.current) {
       // Smoother rotation animation
-      logoRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+      logoRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.1;
       logoRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.2) * 0.3;
+
+      // Gentle scale pulsing
+      const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
+      logoRef.current.scale.setScalar(scale);
     }
 
     if (ringsRef.current) {
       // Counter-rotating rings for dynamic effect
       ringsRef.current.children.forEach((ring, index) => {
-        ring.rotation.z = state.clock.elapsedTime * (0.3 + index * 0.1) * (index % 2 === 0 ? 1 : -1);
+        const direction = index % 2 === 0 ? 1 : -1;
+        const speed = 0.2 + index * 0.05;
+        ring.rotation.z = state.clock.elapsedTime * speed * direction;
+
+        // Subtle scale animation
+        const scale = 1 + Math.sin(state.clock.elapsedTime * (1 + index * 0.3)) * 0.02;
+        ring.scale.setScalar(scale);
       });
     }
   });
@@ -43,39 +54,56 @@ const ComprehensiveHero = () => {
   return (
     <group>
       {/* Central Logo */}
-      <Float speed={0.6} rotationIntensity={0.2} floatIntensity={0.3}>
+      <Float speed={0.4} rotationIntensity={0.1} floatIntensity={0.2}>
         <group ref={logoRef} position={[0, 0, 0]}>
-          {/* Logo Background Circle */}
+          {/* Logo Background Circle with Medical Theme */}
           <mesh>
-            <circleGeometry args={[4, 64]} />
+            <circleGeometry args={[4.2, 64]} />
             <meshStandardMaterial
               color="#ffffff"
               transparent
-              opacity={0.95}
-              metalness={0.1}
-              roughness={0.1}
+              opacity={0.98}
+              metalness={0.05}
+              roughness={0.05}
+              emissive="#f8fafc"
+              emissiveIntensity={0.1}
             />
           </mesh>
 
           {/* Logo Image */}
-          <mesh position={[0, 0, 0.01]}>
-            <planeGeometry args={[7, 7]} />
+          <mesh position={[0, 0, 0.02]}>
+            <planeGeometry args={[7.5, 7.5]} />
             <meshStandardMaterial
-              map={new THREE.TextureLoader().load("https://cdn.builder.io/api/v1/image/assets%2F4109aee680574795abb204927cf7c9d7%2F81c19f9f153b41929a9b2b051a9fe82d?format=webp&width=800")}
+              map={logoTexture}
               transparent
               alphaTest={0.1}
+              metalness={0}
+              roughness={1}
             />
           </mesh>
 
-          {/* Subtle glow effect */}
+          {/* Outer Medical Glow Ring */}
           <mesh>
-            <circleGeometry args={[4.5, 64]} />
+            <ringGeometry args={[4.3, 4.8, 64]} />
             <meshStandardMaterial
-              color="#00aaff"
+              color="#0ea5e9"
               transparent
-              opacity={0.1}
-              emissive="#00aaff"
-              emissiveIntensity={0.3}
+              opacity={0.3}
+              emissive="#0ea5e9"
+              emissiveIntensity={0.4}
+              side={THREE.DoubleSide}
+            />
+          </mesh>
+
+          {/* Inner Subtle Glow */}
+          <mesh>
+            <circleGeometry args={[4.6, 64]} />
+            <meshStandardMaterial
+              color="#0ea5e9"
+              transparent
+              opacity={0.08}
+              emissive="#0ea5e9"
+              emissiveIntensity={0.2}
             />
           </mesh>
         </group>
