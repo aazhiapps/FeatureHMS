@@ -37,18 +37,12 @@ export const NavigationFlowHeader = ({
   onNavigate,
   autoHideOnScroll = true,
 }: NavigationFlowHeaderProps) => {
-  const [hoveredStep, setHoveredStep] = useState<string | null>(null);
-  const [animatingPath, setAnimatingPath] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeNavItem, setActiveNavItem] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   const headerRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLNavElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
