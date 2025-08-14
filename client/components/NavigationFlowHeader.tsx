@@ -367,27 +367,12 @@ export const NavigationFlowHeader = ({
         }`}
       >
         <div className="max-w-7xl mx-auto px-6">
-          {/* Main Header Content */}
+          {/* Simplified Header Content */}
           <div className="header-content flex items-center justify-between">
-            {/* Logo and Brand */}
-            <div
-              ref={logoRef}
-              className="flex items-center space-x-3 cursor-pointer group"
-              onClick={() => onNavigate("journey")}
-            >
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                🏥
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-white">ClinicStreams</h1>
-                <p className="text-xs text-blue-200">Healthcare Technology</p>
-              </div>
-            </div>
-
-            {/* Desktop Navigation */}
+            {/* Navigation with integrated journey steps */}
             <nav
               ref={navRef}
-              className="hidden md:flex items-center space-x-1 relative"
+              className="flex items-center space-x-4 relative"
             >
               {/* Navigation Indicator */}
               <div
@@ -396,70 +381,63 @@ export const NavigationFlowHeader = ({
                 style={{ width: 0 }}
               />
 
-              {navigationItems.map((item, index) => (
-                <button
-                  key={item.href}
-                  className="nav-item px-3 py-2 rounded-lg font-medium transition-all duration-300 group relative text-white/80 hover:text-white hover:bg-white/10"
-                  onClick={() => handleNavItemClick(item)}
-                  onMouseEnter={() => handleNavItemHover(index, true)}
-                  onMouseLeave={() => handleNavItemHover(index, false)}
-                >
-                  <span className="flex items-center space-x-2">
+              {navigationItems.map((item, index) => {
+                const correspondingStep = steps.find(s =>
+                  (item.href === "#journey" && s.id === "journey") ||
+                  (item.href === "#compare" && s.id === "comparison") ||
+                  (item.href === "#demo" && s.id === "demo")
+                );
+
+                const isCompleted = correspondingStep?.completed;
+                const isActive = correspondingStep?.active;
+
+                return (
+                  <button
+                    key={item.href}
+                    className={`nav-item px-3 py-1.5 rounded-md font-medium transition-all duration-300 group relative flex items-center space-x-2 ${
+                      isActive
+                        ? "text-white bg-white/10"
+                        : isCompleted
+                        ? "text-green-300 hover:text-white hover:bg-white/5"
+                        : "text-white/70 hover:text-white hover:bg-white/5"
+                    }`}
+                    onClick={() => handleNavItemClick(item)}
+                    onMouseEnter={() => handleNavItemHover(index, true)}
+                    onMouseLeave={() => handleNavItemHover(index, false)}
+                  >
                     <span className="text-sm group-hover:scale-110 transition-transform duration-200">
                       {item.icon}
                     </span>
-                    <span className="text-sm">{item.label}</span>
-                  </span>
+                    <span className="text-sm font-medium">{item.label}</span>
 
-                  {/* Hover effect */}
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </button>
-              ))}
+                    {/* Completion indicator */}
+                    {isCompleted && !isActive && (
+                      <span className="text-xs text-green-400">✓</span>
+                    )}
+
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+                    )}
+
+                    {/* Hover effect */}
+                    <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </button>
+                );
+              })}
             </nav>
 
-            {/* Controls */}
-            <div className="flex items-center space-x-3">
-              <div className="hidden md:flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-xs text-green-300">Live</span>
-              </div>
-
-              {/* CTA Button */}
-              <button
-                className="hidden md:block bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 px-4 py-2 rounded-lg font-semibold text-white text-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                onClick={() =>
-                  window.open("https://calendly.com/clinicstreams-demo", "_blank")
-                }
-              >
-                Get Demo
-              </button>
-
-              {/* Minimize/Maximize Toggle */}
-              <button
-                ref={toggleRef}
-                onClick={toggleMinimize}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110"
-                title={isMinimized ? "Expand Navigation" : "Minimize Navigation"}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="text-white/70"
-                >
-                  <path d="M18 15l-6-6-6 6" />
-                </svg>
-              </button>
+            {/* Live Status */}
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm text-green-300 font-medium">Live</span>
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-all duration-300"
+                className="md:hidden ml-4 p-1.5 rounded-md text-white hover:bg-white/10 transition-all duration-300"
                 onClick={handleMobileMenuToggle}
               >
-                <div className="w-5 h-5 flex flex-col justify-center space-y-1">
+                <div className="w-4 h-4 flex flex-col justify-center space-y-0.5">
                   <div
                     className={`w-full h-0.5 bg-current transition-all duration-300 ${
                       isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
@@ -479,137 +457,6 @@ export const NavigationFlowHeader = ({
               </button>
             </div>
           </div>
-
-          {/* Journey Flow Progress - Collapsible */}
-          {!isMinimized && (
-            <div className="journey-flow mt-4">
-              {/* Progress Path */}
-              <div className="relative">
-                <div className="absolute top-4 left-0 right-0 z-0">
-                  <svg
-                    width="100%"
-                    height="4"
-                    className="overflow-visible"
-                    preserveAspectRatio="none"
-                  >
-                    <defs>
-                      <linearGradient
-                        id="pathGradient"
-                        x1="0%"
-                        y1="0%"
-                        x2="100%"
-                        y2="0%"
-                      >
-                        <stop offset="0%" stopColor="#3b82f6" />
-                        <stop offset="50%" stopColor="#8b5cf6" />
-                        <stop offset="100%" stopColor="#10b981" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      ref={pathRef}
-                      d={`M 0,2 L ${window.innerWidth - 100},2`}
-                      stroke="url(#pathGradient)"
-                      strokeWidth="3"
-                      fill="none"
-                      strokeLinecap="round"
-                      className="drop-shadow-lg"
-                    />
-                    <path
-                      d={`M 0,2 L ${window.innerWidth - 100},2`}
-                      stroke="rgba(255,255,255,0.1)"
-                      strokeWidth="3"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
-
-                {/* Journey Steps */}
-                <div className="relative z-10 flex justify-between items-center">
-                  {steps.map((step, index) => {
-                    const isClickable = canNavigateTo(step.id);
-                    const isHovered = hoveredStep === step.id;
-
-                    return (
-                      <div
-                        key={step.id}
-                        className="relative group"
-                        onMouseEnter={() => setHoveredStep(step.id)}
-                        onMouseLeave={() => setHoveredStep(null)}
-                      >
-                        {/* Step Circle */}
-                        <button
-                          onClick={() =>
-                            isClickable && !animatingPath && handleStepClick(step.id)
-                          }
-                          disabled={!isClickable || animatingPath}
-                          className={`
-                            relative w-8 h-8 rounded-full border-2 transition-all duration-500 transform
-                            flex items-center justify-center text-sm font-bold
-                            ${
-                              step.completed
-                                ? "bg-gradient-to-br from-green-500 to-blue-500 border-green-400 text-white shadow-lg"
-                                : step.active
-                                ? "bg-gradient-to-br from-blue-500 to-purple-500 border-blue-400 text-white shadow-lg animate-pulse"
-                                : "bg-white/10 border-white/30 text-white/60"
-                            }
-                            ${
-                              isClickable && !animatingPath
-                                ? "cursor-pointer hover:scale-110 hover:shadow-xl"
-                                : !isClickable
-                                ? "cursor-not-allowed opacity-50"
-                                : "cursor-wait"
-                            }
-                            ${isHovered && isClickable ? "scale-110 shadow-xl" : ""}
-                          `}
-                        >
-                          <span className="relative z-10 text-xs">{step.icon}</span>
-
-                          {/* Completion check */}
-                          {step.completed && (
-                            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">
-                              ✓
-                            </div>
-                          )}
-
-                          {/* Active indicator */}
-                          {step.active && (
-                            <div className="absolute inset-0 rounded-full border border-blue-400 animate-ping" />
-                          )}
-                        </button>
-
-                        {/* Step Info - Tooltip */}
-                        <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-center min-w-max">
-                          <div
-                            className={`text-xs font-medium transition-colors duration-300 ${
-                              step.active
-                                ? "text-blue-300"
-                                : step.completed
-                                ? "text-green-300"
-                                : "text-white/60"
-                            }`}
-                          >
-                            {step.title}
-                          </div>
-                          <div
-                            className={`text-xs mt-1 transition-opacity duration-300 ${
-                              isHovered ? "opacity-100" : "opacity-0"
-                            }`}
-                          >
-                            <div className="bg-black/80 backdrop-blur-md rounded px-2 py-1 border border-white/20">
-                              <div className="text-white/90 text-xs">
-                                {step.description}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Mobile Menu */}
