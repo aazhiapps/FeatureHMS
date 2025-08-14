@@ -37,15 +37,15 @@ const queryClient = new QueryClient({
 
 // Performance-optimized App component
 const App = () => {
-  // Use ultimate animated version by default for the best visual experience
+  // Use original design as default home page with all versions accessible
   const getDefaultComponent = () => {
     const params = new URLSearchParams(window.location.search);
 
     if (params.get('version') === 'enhanced') return <EnhancedIndex />;
-    if (params.get('version') === 'original') return <Index />;
+    if (params.get('version') === 'ultimate') return <UltimateAnimatedIndex />;
 
-    // Default to ultimate animated version for stunning visuals
-    return <UltimateAnimatedIndex />;
+    // Default to original design for the comprehensive healthcare experience
+    return <Index />;
   };
 
   return (
