@@ -5,6 +5,7 @@ import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
 import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
 import { MouseAnimationSystem, useMouseTilt, useMagneticEffect, InteractiveParticles } from "../components/MouseAnimationSystem";
 import { InteractiveButton, InteractiveCard, FloatingActionButton } from "../components/InteractiveButton";
+import { Scene3DMouseEffects, useEnhancedParallax, useMouseAttraction, MouseGlowEffect } from "../components/Scene3DMouseEffects";
 import { ClinicStreamsJourney } from "../components/ClinicStreamsJourney";
 import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
