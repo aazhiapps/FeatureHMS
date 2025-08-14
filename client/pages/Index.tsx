@@ -644,7 +644,15 @@ export default function Index() {
   if (showComparison) {
     return (
       <>
-        <NavigationFlowHeader currentPage={currentPage} onNavigate={handleNavigatePage} />
+        <NavigationFlowHeader
+          currentPage={currentPage}
+          onNavigate={handleNavigatePage}
+          autoHideOnScroll={true}
+        />
+        <FloatingCircularModules
+          isVisible={true}
+          centerText="Feature Analysis"
+        />
         <div className="pt-32">
           <FeatureComparisonPage onClose={handleCloseComparison} />
         </div>
