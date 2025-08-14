@@ -548,9 +548,337 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
         </div>
       </div>
 
+      {/* Feature Matrix Section */}
+      <div className="relative z-10 px-6 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
+              Complete Feature Matrix
+            </h2>
+            <p className="text-lg text-white/70">
+              Side-by-side comparison of all features across HMS solutions
+            </p>
+          </div>
+
+          {/* Comprehensive Comparison Table */}
+          <div className="bg-black/20 backdrop-blur-xl rounded-2xl border border-white/20 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[1200px]">
+                <thead>
+                  <tr className="bg-gradient-to-r from-blue-600/30 to-purple-600/30">
+                    <th className="text-left p-4 text-white font-semibold border-r border-white/20">Feature</th>
+                    {competitorsData.map((competitor, index) => (
+                      <th key={index} className={`text-center p-4 text-white font-semibold border-r border-white/20 ${competitor.isTopPick ? 'bg-green-500/20' : ''}`}>
+                        <div className="flex flex-col items-center">
+                          <div className="text-2xl mb-1">{competitor.logo}</div>
+                          <div className="text-sm">{competitor.name}</div>
+                          {competitor.isTopPick && <div className="text-xs text-green-300">Top Pick</div>}
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Deployment & Infrastructure */}
+                  <tr className="border-b border-white/10">
+                    <td colSpan={6} className="p-3 bg-blue-500/10 text-blue-300 font-semibold">
+                      🏗️ Deployment & Infrastructure
+                    </td>
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Deployment Type</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        {competitor.deployment.split('–')[0].trim()}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Ideal Organization Size</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        {competitor.idealSize}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">ABDM Readiness</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          competitor.abdmReadiness.includes('Ready') ? 'bg-green-500/20 text-green-300' :
+                          competitor.abdmReadiness.includes('Partial') ? 'bg-yellow-500/20 text-yellow-300' :
+                          'bg-gray-500/20 text-gray-300'
+                        }`}>
+                          {competitor.abdmReadiness}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+
+                  {/* Pricing */}
+                  <tr className="border-b border-white/10">
+                    <td colSpan={6} className="p-3 bg-green-500/10 text-green-300 font-semibold">
+                      💰 Pricing Structure
+                    </td>
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Entry Plan</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <div className="text-green-400 font-semibold">{competitor.entryPlan.price}</div>
+                        <div className="text-white/60 text-xs">{competitor.entryPlan.features}</div>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Implementation Fee</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          competitor.implementationFee.includes('Included') ? 'bg-green-500/20 text-green-300' :
+                          'bg-yellow-500/20 text-yellow-300'
+                        }`}>
+                          {competitor.implementationFee}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Staff Accounts</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        {competitor.staffAccounts}
+                      </td>
+                    ))}
+                  </tr>
+
+                  {/* Core Features */}
+                  <tr className="border-b border-white/10">
+                    <td colSpan={6} className="p-3 bg-purple-500/10 text-purple-300 font-semibold">
+                      🏥 Core Clinical Features
+                    </td>
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">EMR / EHR</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        {competitor.features.emr}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Patient Management</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.features.patientManagement ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Appointment Scheduling</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.features.appointmentScheduling ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Billing & Invoicing</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.features.billing ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Inventory Management</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.features.inventory ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Pharmacy Management</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.features.pharmacy ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Laboratory (LIS)</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.features.laboratory ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Ward/Bed Management</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        {competitor.features.wardManagement}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Reports & Analytics</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        {competitor.features.reports}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Patient Portal</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          competitor.features.patientPortal === 'Included' ? 'bg-green-500/20 text-green-300' :
+                          competitor.features.patientPortal === 'Available' ? 'bg-blue-500/20 text-blue-300' :
+                          'bg-yellow-500/20 text-yellow-300'
+                        }`}>
+                          {competitor.features.patientPortal}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Local Language Support</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          competitor.features.localLanguage === 'Available' ? 'bg-green-500/20 text-green-300' :
+                          'bg-yellow-500/20 text-yellow-300'
+                        }`}>
+                          {competitor.features.localLanguage}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+
+                  {/* Advanced Features */}
+                  <tr className="border-b border-white/10">
+                    <td colSpan={6} className="p-3 bg-cyan-500/10 text-cyan-300 font-semibold">
+                      🚀 Advanced & Enterprise Features
+                    </td>
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">AI / Predictive Analytics</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.advanced.aiAnalytics ? '✅' : '❌'}</span>
+                        {competitor.advanced.aiAnalytics && (
+                          <div className="text-xs text-green-300 mt-1">Integrated insights</div>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Multi-facility Management</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.advanced.multiFacility ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Custom Integrations</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          competitor.advanced.customIntegrations.includes('Yes') ? 'bg-green-500/20 text-green-300' :
+                          'bg-yellow-500/20 text-yellow-300'
+                        }`}>
+                          {competitor.advanced.customIntegrations}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">TeleHealth / E-Consult</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className="text-2xl">{competitor.advanced.telehealth ? '✅' : '❌'}</span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Insurance / TPA Integration</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          competitor.advanced.insurance.includes('Yes') ? 'bg-green-500/20 text-green-300' :
+                          'bg-yellow-500/20 text-yellow-300'
+                        }`}>
+                          {competitor.advanced.insurance}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Priority Support / SLA</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        {competitor.advanced.prioritySupport}
+                      </td>
+                    ))}
+                  </tr>
+
+                  {/* Overall Rating */}
+                  <tr className="border-b border-white/10">
+                    <td colSpan={6} className="p-3 bg-yellow-500/10 text-yellow-300 font-semibold">
+                      ⭐ Overall Rating & Value
+                    </td>
+                  </tr>
+                  <tr className="border-b border-white/10 hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Overall Rating</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <div className="flex justify-center items-center">
+                          {renderStars(competitor.rating)}
+                        </div>
+                        <div className="text-sm text-white/70 mt-1">({competitor.rating}/5)</div>
+                      </td>
+                    ))}
+                  </tr>
+                  <tr className="hover:bg-white/5">
+                    <td className="p-3 text-white/80 border-r border-white/10">Value Proposition</td>
+                    {competitorsData.map((competitor, index) => (
+                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                        <div className="space-y-1">
+                          <div className="text-green-400 font-semibold">
+                            {competitor.pros[0]?.substring(0, 40)}...
+                          </div>
+                          {competitor.isTopPick && (
+                            <div className="text-yellow-300 text-xs font-semibold">
+                              🏆 BEST VALUE
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Competitors Grid */}
       <div ref={cardsRef} className="relative z-10 px-6 pb-20">
         <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
+              Detailed Competitor Analysis
+            </h2>
+            <p className="text-lg text-white/70">
+              Click on any card below for in-depth feature breakdown
+            </p>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {competitorsData.map((competitor, index) => (
               <InteractiveCard
