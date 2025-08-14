@@ -993,6 +993,251 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
         </div>
       </div>
 
+      {/* Detailed Pricing Analysis */}
+      <div className="relative z-10 px-6 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
+              💰 Pricing Analysis & ROI Comparison
+            </h2>
+            <p className="text-lg text-white/70">
+              5-year total cost of ownership comparison
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Cost Comparison Chart */}
+            <InteractiveCard className="p-6">
+              <h3 className="text-xl font-bold text-white mb-6 text-center">
+                5-Year Cost Comparison (50 Users)
+              </h3>
+              <div className="space-y-4">
+                {competitorsData.map((competitor, index) => {
+                  let annualCost = 0;
+                  let fiveYearCost = 0;
+
+                  // Calculate costs based on pricing model
+                  if (competitor.name === "ClinicStreams") {
+                    annualCost = 99990; // Mid plan
+                    fiveYearCost = annualCost * 5;
+                  } else if (competitor.name === "Suvarna HIS") {
+                    fiveYearCost = 2500000; // One-time + AMC
+                  } else {
+                    // Per-user pricing
+                    const monthlyPerUser = competitor.name === "Insta HMS" ? 1200 :
+                                         competitor.name === "DocEngage HMS" ? 2499 : 1500;
+                    annualCost = monthlyPerUser * 12 * 50;
+                    fiveYearCost = annualCost * 5;
+                  }
+
+                  const maxCost = 6000000; // For scaling the bars
+                  const barWidth = (fiveYearCost / maxCost) * 100;
+
+                  return (
+                    <div key={index} className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center">
+                          <span className="text-xl mr-2">{competitor.logo}</span>
+                          <span className="text-white font-medium">{competitor.name}</span>
+                          {competitor.isTopPick && <span className="ml-2 text-green-400">🏆</span>}
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-white">
+                            ₹{(fiveYearCost / 100000).toFixed(1)}L
+                          </div>
+                          <div className="text-xs text-white/60">
+                            5-year total
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-3">
+                        <div
+                          className={`h-3 rounded-full ${
+                            competitor.isTopPick ? 'bg-gradient-to-r from-green-500 to-blue-500' :
+                            'bg-gradient-to-r from-gray-500 to-gray-400'
+                          }`}
+                          style={{ width: `${Math.max(barWidth, 5)}%` }}
+                        />
+                      </div>
+                      <div className="text-xs text-white/60">
+                        Annual: ₹{(annualCost / 100000).toFixed(1)}L
+                        {competitor.name !== "Suvarna HIS" && " recurring"}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </InteractiveCard>
+
+            {/* ROI Calculator */}
+            <InteractiveCard className="p-6">
+              <h3 className="text-xl font-bold text-white mb-6 text-center">
+                🎯 ClinicStreams ROI Benefits
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-green-500/10 rounded-lg p-4 border border-green-500/20">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-green-300">Cost Savings vs Competitors</span>
+                    <span className="text-green-400 font-bold">₹15-30L</span>
+                  </div>
+                  <div className="text-xs text-white/70">
+                    Over 5 years compared to per-user pricing models
+                  </div>
+                </div>
+
+                <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/20">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-blue-300">Implementation Savings</span>
+                    <span className="text-blue-400 font-bold">₹5-15L</span>
+                  </div>
+                  <div className="text-xs text-white/70">
+                    Free migration, training, and setup included
+                  </div>
+                </div>
+
+                <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/20">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-purple-300">Efficiency Gains</span>
+                    <span className="text-purple-400 font-bold">40-60%</span>
+                  </div>
+                  <div className="text-xs text-white/70">
+                    Workflow optimization and AI-driven insights
+                  </div>
+                </div>
+
+                <div className="bg-cyan-500/10 rounded-lg p-4 border border-cyan-500/20">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-cyan-300">Revenue Enhancement</span>
+                    <span className="text-cyan-400 font-bold">25-35%</span>
+                  </div>
+                  <div className="text-xs text-white/70">
+                    Better patient management and billing optimization
+                  </div>
+                </div>
+
+                <div className="text-center pt-4 border-t border-white/20">
+                  <div className="text-sm text-white/70 mb-2">Total ROI in Year 1</div>
+                  <div className="text-3xl font-bold text-green-400">300-500%</div>
+                </div>
+              </div>
+            </InteractiveCard>
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Gap Analysis */}
+      <div className="relative z-10 px-6 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
+              🔍 Feature Gap Analysis
+            </h2>
+            <p className="text-lg text-white/70">
+              What you get vs what you miss with each solution
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {competitorsData.map((competitor, index) => (
+              <InteractiveCard key={index} className={`p-6 ${competitor.isTopPick ? 'ring-2 ring-green-400' : ''}`}>
+                <div className="text-center mb-4">
+                  <div className="text-3xl mb-2">{competitor.logo}</div>
+                  <h3 className="text-lg font-bold text-white">{competitor.name}</h3>
+                  {competitor.isTopPick && (
+                    <div className="text-sm text-green-300 mt-1">🏆 Recommended</div>
+                  )}
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-green-300 mb-2">✅ Strengths</h4>
+                    <ul className="space-y-1">
+                      {competitor.pros.slice(0, 3).map((pro, idx) => (
+                        <li key={idx} className="text-xs text-white/80 flex items-start">
+                          <span className="text-green-400 mr-2">•</span>
+                          {pro}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-sm font-semibold text-red-300 mb-2">❌ Limitations</h4>
+                    <ul className="space-y-1">
+                      {competitor.cons.slice(0, 3).map((con, idx) => (
+                        <li key={idx} className="text-xs text-white/80 flex items-start">
+                          <span className="text-red-400 mr-2">•</span>
+                          {con}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-3 border-t border-white/20">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-white/70">Best for:</span>
+                      <span className="text-sm text-white/90">{competitor.idealSize.split('(')[0].trim()}</span>
+                    </div>
+                  </div>
+                </div>
+              </InteractiveCard>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Migration Guide */}
+      <div className="relative z-10 px-6 pb-12">
+        <div className="max-w-4xl mx-auto">
+          <InteractiveCard className="p-8 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-400/30">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4">🚀 Migration Made Simple</h2>
+              <p className="text-lg text-white/80">
+                Switch to ClinicStreams with zero downtime and full data migration
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center">
+                <div className="text-4xl mb-3">📊</div>
+                <h3 className="text-lg font-semibold text-blue-300 mb-2">Step 1: Assessment</h3>
+                <p className="text-sm text-white/80">
+                  Free analysis of your current system and data migration requirements
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl mb-3">🔄</div>
+                <h3 className="text-lg font-semibold text-green-300 mb-2">Step 2: Migration</h3>
+                <p className="text-sm text-white/80">
+                  Seamless data transfer with zero downtime during the transition
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl mb-3">🎓</div>
+                <h3 className="text-lg font-semibold text-purple-300 mb-2">Step 3: Training</h3>
+                <p className="text-sm text-white/80">
+                  Comprehensive staff training and ongoing support included
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-green-500/10 rounded-lg p-6 border border-green-500/20">
+              <h3 className="text-lg font-semibold text-green-300 mb-4 text-center">
+                💡 Migration Guarantee
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-white/90">
+                <div>✅ 100% data integrity guaranteed</div>
+                <div>✅ Zero downtime migration process</div>
+                <div>✅ Free migration from any HMS system</div>
+                <div>✅ 30-day money-back guarantee</div>
+                <div>✅ Dedicated migration specialist</div>
+                <div>✅ Post-migration support for 90 days</div>
+              </div>
+            </div>
+          </InteractiveCard>
+        </div>
+      </div>
+
       {/* Why ClinicStreams Section */}
       {selectedCompetitor === 0 && (
         <div className="relative z-10 px-6 pb-20">
