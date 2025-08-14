@@ -575,9 +575,9 @@ export default function Index() {
             <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
               ClinicStreams
             </div>
-            <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
-              Get Demo
-            </button>
+            <button className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 interactive" data-mouse-parallax="0.1">
+            Get Demo
+          </button>
           </div>
         </nav>
 
