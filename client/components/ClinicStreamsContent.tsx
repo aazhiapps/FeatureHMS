@@ -234,6 +234,18 @@ export const ClinicStreamsContent = () => {
           )}
         </div>
       ))}
+
+      {/* Medicine Wave Effect */}
+      <SectionMedicineWave
+        sectionId={currentSection}
+        isVisible={true}
+      />
+
+      {/* Medicine Burst Effect */}
+      <MedicineBurstEffect
+        trigger={burstTrigger}
+        position={burstPosition}
+      />
     </div>
   );
 };
