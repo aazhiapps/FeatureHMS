@@ -36,6 +36,7 @@ export default function Index() {
   >("scroll");
   const [showDemoReplay, setShowDemoReplay] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
+  const [currentPage, setCurrentPage] = useState<'loading' | 'autoscroll' | 'journey' | 'comparison' | 'demo'>('loading');
   const featuresRef = useRef<HTMLDivElement>(null);
 
   // Navigation controller
