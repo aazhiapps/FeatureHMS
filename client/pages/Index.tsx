@@ -354,13 +354,15 @@ export default function Index() {
             setCardInteractionMode("manual");
 
             gsap.to(element, {
-              scale: 1.05,
-              z: 20,
+              scale: 1.08,
+              z: 30,
               rotationY: 0,
-              rotationX: -5,
+              rotationX: -8,
               opacity: 1,
-              duration: 0.5,
-              ease: "power2.out",
+              boxShadow: "0 25px 50px rgba(59, 130, 246, 0.4)",
+              filter: "blur(0px) brightness(1.1)",
+              duration: 0.6,
+              ease: "back.out(1.7)",
             });
 
             // Add glow effect
