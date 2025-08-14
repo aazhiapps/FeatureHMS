@@ -180,6 +180,9 @@ export const MouseAnimationSystem = ({ children }: MouseAnimationSystemProps) =>
         ))}
       </div>
 
+      {/* Floating Molecule Animation */}
+      <FloatingMoleculeAnimation isActive={true} />
+
       {/* Magnetic Field Indicator */}
       <MouseParallaxContainer mousePos={mousePos}>
         {children}
