@@ -197,6 +197,7 @@ export default function Index() {
         case "loading":
           setIsLoading(true);
           setShowAutoScroll(false);
+          setShowAllSystemsActive(false);
           setShowComparison(false);
           setCurrentPage("loading");
           // Restart loading sequence
@@ -211,18 +212,21 @@ export default function Index() {
         case "autoscroll":
           setIsLoading(false);
           setShowAutoScroll(true);
+          setShowAllSystemsActive(false);
           setShowComparison(false);
           setCurrentPage("autoscroll");
           break;
         case "journey":
           setIsLoading(false);
           setShowAutoScroll(false);
+          setShowAllSystemsActive(false);
           setShowComparison(false);
           setCurrentPage("journey");
           break;
         case "comparison":
           setIsLoading(false);
           setShowAutoScroll(false);
+          setShowAllSystemsActive(false);
           setShowComparison(true);
           setCurrentPage("comparison");
           break;
@@ -1370,7 +1374,7 @@ export default function Index() {
                     onClick={handleReplayJourney}
                   >
                     <span className="flex items-center justify-center">
-                      <span className="text-2xl mr-3">🔁</span>
+                      <span className="text-2xl mr-3">��</span>
                       Replay Journey
                     </span>
                   </InteractiveButton>
