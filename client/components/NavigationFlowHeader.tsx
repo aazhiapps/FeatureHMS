@@ -197,10 +197,10 @@ export const NavigationFlowHeader = ({
   return (
     <div 
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl border-b border-white/20 shadow-2xl"
+      className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl border-b border-white/20 shadow-2xl transition-all duration-300 ${isMinimized ? 'py-2' : 'py-4'}`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
-        {/* Brand */}
+        {/* Brand and Toggle */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mr-4">
@@ -208,9 +208,30 @@ export const NavigationFlowHeader = ({
             </div>
             <div className="text-sm text-white/60">Healthcare Journey Navigator</div>
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm text-green-300">Live Experience</span>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm text-green-300">Live Experience</span>
+            </div>
+            {/* Minimize/Maximize Toggle */}
+            <button
+              ref={toggleRef}
+              onClick={toggleMinimize}
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110"
+              title={isMinimized ? "Expand Navigation" : "Minimize Navigation"}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="text-white/70"
+              >
+                <path d="M18 15l-6-6-6 6"/>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -332,7 +353,7 @@ export const NavigationFlowHeader = ({
         </div>
 
         {/* Quick Actions */}
-        <div className="flex justify-center mt-6 space-x-4">
+        <div className="quick-actions flex justify-center mt-6 space-x-4">
           <InteractiveButton
             variant="ghost"
             size="sm"
