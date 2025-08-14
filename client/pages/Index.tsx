@@ -1192,6 +1192,7 @@ export default function Index() {
         <DemoReplaySection
           onReplay={handleReplayJourney}
           onDemo={handleScheduleDemo}
+          onCompare={handleShowComparison}
           features={features.map(f => ({
             id: f.id,
             title: f.title,
