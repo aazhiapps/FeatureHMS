@@ -512,7 +512,27 @@ export default function Index() {
   }, [isLoading]); // Only depend on isLoading to prevent re-runs while loading
 
   if (isLoading) {
-    return <EnhancedLoadingScreen onComplete={handleLoadingComplete} />;
+    return (
+      <EnhancedLoadingScreen
+        onComplete={handleLoadingComplete}
+        features={features.map(f => ({
+          id: f.id,
+          title: f.title,
+          icon: f.icon,
+          color: f.color
+        }))}
+      />
+    );
+  }
+
+  if (showAutoScroll) {
+    return (
+      <AutoScrollFeatures
+        features={features}
+        isActive={showAutoScroll}
+        onComplete={handleAutoScrollComplete}
+      />
+    );
   }
 
   return (
