@@ -195,11 +195,10 @@ export const ClinicStreamsProgress = ({
             d="M30,15 Q45,45 30,75 Q15,105 30,135 Q45,165 30,195 Q15,225 30,255 L30,285"
             stroke="url(#medicalPathGradient)"
             strokeWidth="3"
-            className="md:stroke-[4]"
+            className="md:stroke-[4] drop-shadow-xl"
             fill="none"
             strokeLinecap="round"
             filter="url(#glow)"
-            className="drop-shadow-xl"
           />
 
           {/* Connected Workflow Points */}
