@@ -632,14 +632,11 @@ export default function Index() {
 
   if (isLoading) {
     return (
-      <EnhancedLoadingScreen
+      <CountdownLoadingScreen
         onComplete={handleLoadingComplete}
-        features={features.map((f) => ({
-          id: f.id,
-          title: f.title,
-          icon: f.icon,
-          color: f.color,
-        }))}
+        duration={6}
+        title="ClinicStreams"
+        subtitle="Digital Medical Systems"
       />
     );
   }
