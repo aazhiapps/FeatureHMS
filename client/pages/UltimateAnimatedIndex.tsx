@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { UltimateAnimationEngine } from '../components/animations/UltimateAnimationEngine';
-import { 
-  LiquidMorphButton, 
-  MorphingCard, 
+import {
+  LiquidMorphButton,
+  MorphingCard,
   FloatingHealthcareModule,
   AnimatedHealthcareStats,
-  ParticleDNAHelix 
+  ParticleDNAHelix
 } from '../components/animations/VisuallyStunningComponents';
+import { AnimatedNavigation, FloatingActionMenu } from '../components/animations/AnimatedNavigation';
+import { PerformanceMonitor, useGPUPerformance, useReducedMotion } from '../components/animations/PerformanceMonitor';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
