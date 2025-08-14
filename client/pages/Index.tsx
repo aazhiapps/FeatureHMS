@@ -666,7 +666,10 @@ export default function Index() {
   return (
     <MouseAnimationSystem>
       <SmoothScrollController>
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800 relative">
+      {/* Navigation Header */}
+      <NavigationFlowHeader currentPage={currentPage} onNavigate={handleNavigatePage} />
+
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800 relative pt-32">
         {/* 3D Medical Journey Background - now with interactive navigation */}
         <ClinicStreamsJourney
           features={clinicFeatures}
