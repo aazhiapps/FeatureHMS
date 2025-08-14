@@ -51,7 +51,7 @@ export const ClinicStreamsProgress = ({
         gsap.to(path, {
           strokeDashoffset: pathLength * (1 - progress),
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
 
         const point = path.getPointAtLength(progress * pathLength);
@@ -63,7 +63,7 @@ export const ClinicStreamsProgress = ({
           rotation: progress * 180 + Math.sin(progress * Math.PI * 4) * 10,
           scale: 1 + Math.sin(progress * Math.PI * 8) * 0.1,
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
         });
 
         // Medical metrics
@@ -230,10 +230,17 @@ export const ClinicStreamsProgress = ({
                   className={`md:r-10 cursor-pointer hover:r-10 md:hover:r-12 transition-all duration-300 ${isDiscovered ? "drop-shadow-lg" : ""} hover:drop-shadow-xl`}
                   fill={isDiscovered ? "#00ff88" : "#f3f4f6"}
                   stroke={
-                    hoveredFeature === index ? "#ff6600" :
-                    isActive ? "#0066ff" : isDiscovered ? "#00cc66" : "#d1d5db"
+                    hoveredFeature === index
+                      ? "#ff6600"
+                      : isActive
+                        ? "#0066ff"
+                        : isDiscovered
+                          ? "#00cc66"
+                          : "#d1d5db"
                   }
-                  strokeWidth={hoveredFeature === index ? "5" : isActive ? "4" : "3"}
+                  strokeWidth={
+                    hoveredFeature === index ? "5" : isActive ? "4" : "3"
+                  }
                   onMouseEnter={() => setHoveredFeature(index)}
                   onMouseLeave={() => setHoveredFeature(null)}
                   onClick={() => {
@@ -242,9 +249,12 @@ export const ClinicStreamsProgress = ({
                     onFeatureClick?.(index);
 
                     // Visual feedback
-                    const circle = document.querySelector(`circle[data-feature-index="${index}"]`);
+                    const circle = document.querySelector(
+                      `circle[data-feature-index="${index}"]`,
+                    );
                     if (circle) {
-                      gsap.fromTo(circle,
+                      gsap.fromTo(
+                        circle,
                         { scale: 1 },
                         {
                           scale: 1.3,
@@ -252,8 +262,8 @@ export const ClinicStreamsProgress = ({
                           yoyo: true,
                           repeat: 1,
                           ease: "power2.out",
-                          transformOrigin: "center"
-                        }
+                          transformOrigin: "center",
+                        },
                       );
                     }
                   }}
@@ -277,8 +287,14 @@ export const ClinicStreamsProgress = ({
                   y={y + 2}
                   textAnchor="middle"
                   fontSize={hoveredFeature === index ? "12" : "10"}
-                  className={`md:text-xs cursor-pointer transition-all duration-300 ${hoveredFeature === index ? 'animate-pulse' : ''}`}
-                  fill={hoveredFeature === index ? "#ff6600" : isDiscovered ? "#ffffff" : "#9ca3af"}
+                  className={`md:text-xs cursor-pointer transition-all duration-300 ${hoveredFeature === index ? "animate-pulse" : ""}`}
+                  fill={
+                    hoveredFeature === index
+                      ? "#ff6600"
+                      : isDiscovered
+                        ? "#ffffff"
+                        : "#9ca3af"
+                  }
                   onMouseEnter={() => setHoveredFeature(index)}
                   onMouseLeave={() => setHoveredFeature(null)}
                   onClick={() => {
@@ -309,8 +325,14 @@ export const ClinicStreamsProgress = ({
                   x="45"
                   y={y + 3}
                   fontSize={hoveredFeature === index ? "8" : "7"}
-                  className={`md:x-60 md:text-[8px] cursor-pointer transition-all duration-300 ${hoveredFeature === index ? 'font-bold' : ''}`}
-                  fill={hoveredFeature === index ? "#ff6600" : isDiscovered ? "#00ff88" : "#9ca3af"}
+                  className={`md:x-60 md:text-[8px] cursor-pointer transition-all duration-300 ${hoveredFeature === index ? "font-bold" : ""}`}
+                  fill={
+                    hoveredFeature === index
+                      ? "#ff6600"
+                      : isDiscovered
+                        ? "#00ff88"
+                        : "#9ca3af"
+                  }
                   onMouseEnter={() => setHoveredFeature(index)}
                   onMouseLeave={() => setHoveredFeature(null)}
                   onClick={() => {
@@ -336,7 +358,8 @@ export const ClinicStreamsProgress = ({
             onJumpToSection?.(0);
 
             // Visual feedback
-            gsap.fromTo(droneIconRef.current,
+            gsap.fromTo(
+              droneIconRef.current,
               { scale: 1, rotation: 0 },
               {
                 scale: 1.2,
@@ -346,16 +369,18 @@ export const ClinicStreamsProgress = ({
                 onComplete: () => {
                   gsap.to(droneIconRef.current, {
                     scale: 1,
-                    duration: 0.3
+                    duration: 0.3,
                   });
-                }
-              }
+                },
+              },
             );
           }}
           title="Click to restart journey"
         >
           <div className="w-full h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-xl shadow-xl flex items-center justify-center border-2 border-white group-hover:border-yellow-300 group-hover:scale-110 transition-all duration-300">
-            <div className="text-white text-xs md:text-sm font-bold group-hover:animate-bounce">🚁</div>
+            <div className="text-white text-xs md:text-sm font-bold group-hover:animate-bounce">
+              🚁
+            </div>
           </div>
 
           {/* Enhanced Medical Trail with hover effect */}
@@ -372,7 +397,9 @@ export const ClinicStreamsProgress = ({
           <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
           <div className="text-xs md:text-sm font-semibold text-white group-hover:text-blue-200 transition-colors duration-300">
             ClinicStreams Status
-            <span className="text-xs text-white/50 ml-2 group-hover:text-white/70">(Click elements to navigate)</span>
+            <span className="text-xs text-white/50 ml-2 group-hover:text-white/70">
+              (Click elements to navigate)
+            </span>
           </div>
         </div>
 
@@ -411,7 +438,9 @@ export const ClinicStreamsProgress = ({
       {/* Latest Feature Discovery */}
       {discoveredFeatures.length > 0 && (
         <div className="mt-3 md:mt-4 bg-gradient-to-r from-green-500/20 to-blue-600/20 backdrop-blur-md text-white rounded-lg md:rounded-xl p-3 md:p-4 shadow-xl max-w-48 md:max-w-60 border border-white/20">
-          <div className="text-xs md:text-sm font-medium opacity-90">Latest Feature</div>
+          <div className="text-xs md:text-sm font-medium opacity-90">
+            Latest Feature
+          </div>
           <div className="text-sm md:text-base font-bold flex items-center">
             <span className="mr-2">
               {getCategoryIcon(

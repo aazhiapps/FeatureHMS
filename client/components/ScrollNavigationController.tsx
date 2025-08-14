@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 export class ScrollNavigationController {
   private static instance: ScrollNavigationController;
   private isNavigating = false;
-  
+
   static getInstance(): ScrollNavigationController {
     if (!ScrollNavigationController.instance) {
       ScrollNavigationController.instance = new ScrollNavigationController();
@@ -23,9 +23,9 @@ export class ScrollNavigationController {
    * @param onComplete - Callback when navigation is complete
    */
   jumpToProgress(
-    targetProgress: number, 
-    duration: number = 2, 
-    onComplete?: () => void
+    targetProgress: number,
+    duration: number = 2,
+    onComplete?: () => void,
   ): Promise<void> {
     return new Promise((resolve) => {
       if (this.isNavigating) {
@@ -34,13 +34,14 @@ export class ScrollNavigationController {
       }
 
       this.isNavigating = true;
-      
+
       // Calculate target scroll position
-      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const documentHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const targetScrollY = documentHeight * targetProgress;
-      
+
       // Disable scroll triggers during navigation to prevent conflicts
-      ScrollTrigger.getAll().forEach(trigger => {
+      ScrollTrigger.getAll().forEach((trigger) => {
         trigger.disable();
       });
 
@@ -51,17 +52,17 @@ export class ScrollNavigationController {
         ease: "power2.inOut",
         onComplete: () => {
           // Re-enable scroll triggers
-          ScrollTrigger.getAll().forEach(trigger => {
+          ScrollTrigger.getAll().forEach((trigger) => {
             trigger.enable();
           });
-          
+
           // Refresh scroll triggers to update positions
           ScrollTrigger.refresh();
-          
+
           this.isNavigating = false;
           onComplete?.();
           resolve();
-        }
+        },
       });
     });
   }
@@ -73,9 +74,9 @@ export class ScrollNavigationController {
    * @param duration - Animation duration in seconds
    */
   jumpToFeature(
-    featureIndex: number, 
-    totalFeatures: number, 
-    duration: number = 1.5
+    featureIndex: number,
+    totalFeatures: number,
+    duration: number = 1.5,
   ): Promise<void> {
     const progress = featureIndex / (totalFeatures - 1);
     return this.jumpToProgress(progress, duration);
@@ -101,7 +102,8 @@ export class ScrollNavigationController {
    * Get current scroll progress as a value between 0 and 1
    */
   getCurrentProgress(): number {
-    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const documentHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
     const currentScrollY = window.scrollY;
     return Math.min(Math.max(currentScrollY / documentHeight, 0), 1);
   }
@@ -118,37 +120,41 @@ export class ScrollNavigationController {
    * @param element - Element to animate
    * @param type - Type of feedback animation
    */
-  addNavigationFeedback(element: HTMLElement | null, type: 'click' | 'hover' | 'active' = 'click'): void {
+  addNavigationFeedback(
+    element: HTMLElement | null,
+    type: "click" | "hover" | "active" = "click",
+  ): void {
     if (!element) return;
 
     switch (type) {
-      case 'click':
-        gsap.fromTo(element, 
+      case "click":
+        gsap.fromTo(
+          element,
           { scale: 1 },
-          { 
+          {
             scale: 1.1,
             duration: 0.15,
             yoyo: true,
             repeat: 1,
-            ease: "power2.out"
-          }
+            ease: "power2.out",
+          },
         );
         break;
-      
-      case 'hover':
+
+      case "hover":
         gsap.to(element, {
           scale: 1.05,
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
         break;
-      
-      case 'active':
+
+      case "active":
         gsap.to(element, {
           scale: 1.1,
           boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)",
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
         });
         break;
     }
@@ -177,11 +183,11 @@ export class ScrollNavigationController {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    
+    window.addEventListener("scroll", handleScroll);
+
     // Return cleanup function
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }
 }
@@ -189,7 +195,7 @@ export class ScrollNavigationController {
 // React hook for using the scroll navigation controller
 export const useScrollNavigation = () => {
   const controller = ScrollNavigationController.getInstance();
-  
+
   return {
     jumpToProgress: controller.jumpToProgress.bind(controller),
     jumpToFeature: controller.jumpToFeature.bind(controller),
@@ -198,6 +204,6 @@ export const useScrollNavigation = () => {
     getCurrentProgress: controller.getCurrentProgress.bind(controller),
     isNavigating: controller.isCurrentlyNavigating.bind(controller),
     addFeedback: controller.addNavigationFeedback.bind(controller),
-    onProgressUpdate: controller.onProgressUpdate.bind(controller)
+    onProgressUpdate: controller.onProgressUpdate.bind(controller),
   };
 };

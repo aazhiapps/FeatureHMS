@@ -58,21 +58,32 @@ const competitorsData: CompetitorData[] = [
     name: "ClinicStreams",
     tagline: "Top Pick",
     logo: "🏥",
-    deployment: "Cloud (SaaS)/On-Prem/Private cloud – Optimized for speed, uptime, and ease of use",
+    deployment:
+      "Cloud (SaaS)/On-Prem/Private cloud – Optimized for speed, uptime, and ease of use",
     idealSize: "Clinics → large hospitals (scales effortlessly)",
     abdmReadiness: "Ready & adaptable on request",
-    coreModules: ["OPD", "IPD", "EMR/EHR", "Pharmacy", "Lab (LIS)", "Billing", "Inventory", "CRM", "Reports"],
+    coreModules: [
+      "OPD",
+      "IPD",
+      "EMR/EHR",
+      "Pharmacy",
+      "Lab (LIS)",
+      "Billing",
+      "Inventory",
+      "CRM",
+      "Reports",
+    ],
     entryPlan: {
       price: "₹49,990 / year",
-      features: "unmatched value (pay 10 months, get 2 free)"
+      features: "unmatched value (pay 10 months, get 2 free)",
     },
     midPlan: {
       price: "₹99,990 / year",
-      features: "ideal for growing hospitals"
+      features: "ideal for growing hospitals",
     },
     enterprisePlan: {
       price: "Custom",
-      features: "best-in-class ROI"
+      features: "best-in-class ROI",
     },
     implementationFee: "Included (data migration + training)",
     staffAccounts: "Generous limits, unlimited in higher plans",
@@ -87,7 +98,7 @@ const competitorsData: CompetitorData[] = [
       wardManagement: "✓ – drag-and-drop mapping",
       reports: "Advanced & customizable",
       patientPortal: "Included",
-      localLanguage: "Available"
+      localLanguage: "Available",
     },
     advanced: {
       aiAnalytics: true,
@@ -95,20 +106,18 @@ const competitorsData: CompetitorData[] = [
       customIntegrations: "Yes – proven track record",
       telehealth: true,
       insurance: "Yes – roadmap ready",
-      prioritySupport: "Enterprise-level"
+      prioritySupport: "Enterprise-level",
     },
     pros: [
       "Best pricing structure – annual plans give 2 months free",
       "Comprehensive features in all tiers",
       "Scalable – equally efficient for single clinic or multi-hospital chain",
       "Advanced analytics & AI",
-      "Smooth implementation included"
+      "Smooth implementation included",
     ],
-    cons: [
-      "Newer in market compared to some established players"
-    ],
+    cons: ["Newer in market compared to some established players"],
     rating: 4.8,
-    isTopPick: true
+    isTopPick: true,
   },
   {
     name: "Insta HMS",
@@ -117,18 +126,26 @@ const competitorsData: CompetitorData[] = [
     deployment: "Cloud (SaaS)",
     idealSize: "Clinics & small/mid hospitals",
     abdmReadiness: "Partial – confirm scope",
-    coreModules: ["OPD", "IPD", "Pharmacy", "Lab (LIS)", "Billing", "Inventory", "Reports"],
+    coreModules: [
+      "OPD",
+      "IPD",
+      "Pharmacy",
+      "Lab (LIS)",
+      "Billing",
+      "Inventory",
+      "Reports",
+    ],
     entryPlan: {
       price: "₹1,000 / user / month",
-      features: "(OP; min 5 users)"
+      features: "(OP; min 5 users)",
     },
     midPlan: {
       price: "₹1,200 / user / month",
-      features: "(IP; min 10-20 users)"
+      features: "(IP; min 10-20 users)",
     },
     enterprisePlan: {
       price: "Enterprise tiers",
-      features: "custom pricing"
+      features: "custom pricing",
     },
     implementationFee: "Usually included",
     staffAccounts: "Per-user licensing",
@@ -143,7 +160,7 @@ const competitorsData: CompetitorData[] = [
       wardManagement: "IP plans",
       reports: "Standard/MIS",
       patientPortal: "Add-on",
-      localLanguage: "Available"
+      localLanguage: "Available",
     },
     advanced: {
       aiAnalytics: false,
@@ -151,19 +168,19 @@ const competitorsData: CompetitorData[] = [
       customIntegrations: "On request",
       telehealth: true,
       insurance: "On request",
-      prioritySupport: "Enterprise tiers"
+      prioritySupport: "Enterprise tiers",
     },
     pros: [
       "Established brand with Practo backing",
       "Good integration ecosystem",
-      "Reliable cloud infrastructure"
+      "Reliable cloud infrastructure",
     ],
     cons: [
       "Per-user pricing can get expensive",
       "Limited customization options",
-      "Basic AI/analytics features"
+      "Basic AI/analytics features",
     ],
-    rating: 4.2
+    rating: 4.2,
   },
   {
     name: "DocEngage HMS",
@@ -175,15 +192,15 @@ const competitorsData: CompetitorData[] = [
     coreModules: ["OPD", "IPD", "Lab", "Pharmacy", "EMR/EHR", "CRM"],
     entryPlan: {
       price: "₹1,499 / user / month",
-      features: "basic features"
+      features: "basic features",
     },
     midPlan: {
       price: "₹2,499 / user / month",
-      features: "extended features"
+      features: "extended features",
     },
     enterprisePlan: {
       price: "₹4,499 / user / month",
-      features: "Premium features"
+      features: "Premium features",
     },
     implementationFee: "Varies",
     staffAccounts: "Per-user licensing",
@@ -198,7 +215,7 @@ const competitorsData: CompetitorData[] = [
       wardManagement: "Advanced+",
       reports: "Standard → CRM-linked",
       patientPortal: "Available",
-      localLanguage: "Partial"
+      localLanguage: "Partial",
     },
     advanced: {
       aiAnalytics: false,
@@ -206,19 +223,19 @@ const competitorsData: CompetitorData[] = [
       customIntegrations: "On request",
       telehealth: true,
       insurance: "On request",
-      prioritySupport: "Enterprise tiers"
+      prioritySupport: "Enterprise tiers",
     },
     pros: [
       "Strong CRM integration",
       "Good for patient engagement",
-      "Flexible deployment options"
+      "Flexible deployment options",
     ],
     cons: [
       "Higher per-user costs",
       "Limited AI capabilities",
-      "Complex pricing structure"
+      "Complex pricing structure",
     ],
-    rating: 3.9
+    rating: 3.9,
   },
   {
     name: "MocDoc HMS",
@@ -227,14 +244,22 @@ const competitorsData: CompetitorData[] = [
     deployment: "Cloud (SaaS)",
     idealSize: "Clinics & mid hospitals",
     abdmReadiness: "Claims ABDM integration",
-    coreModules: ["OPD", "IPD", "Pharmacy", "Lab (LIS)", "Billing", "Inventory", "Specialty modules"],
+    coreModules: [
+      "OPD",
+      "IPD",
+      "Pharmacy",
+      "Lab (LIS)",
+      "Billing",
+      "Inventory",
+      "Specialty modules",
+    ],
     entryPlan: {
       price: "Starts at ₹20,000",
-      features: "indicative pricing"
+      features: "indicative pricing",
     },
     enterprisePlan: {
       price: "Quote-based",
-      features: "enterprise features"
+      features: "enterprise features",
     },
     implementationFee: "Varies",
     staffAccounts: "Per-user licensing",
@@ -249,7 +274,7 @@ const competitorsData: CompetitorData[] = [
       wardManagement: "Advanced+",
       reports: "Advanced",
       patientPortal: "Available",
-      localLanguage: "Available"
+      localLanguage: "Available",
     },
     advanced: {
       aiAnalytics: false,
@@ -257,19 +282,19 @@ const competitorsData: CompetitorData[] = [
       customIntegrations: "On request",
       telehealth: true,
       insurance: "On request",
-      prioritySupport: "Enterprise tiers"
+      prioritySupport: "Enterprise tiers",
     },
     pros: [
       "Good specialty module support",
       "Established in Indian market",
-      "Decent feature coverage"
+      "Decent feature coverage",
     ],
     cons: [
       "Quote-based pricing lacks transparency",
       "No AI/predictive analytics",
-      "Limited innovation"
+      "Limited innovation",
     ],
-    rating: 3.7
+    rating: 3.7,
   },
   {
     name: "Suvarna HIS",
@@ -278,18 +303,28 @@ const competitorsData: CompetitorData[] = [
     deployment: "On-prem / Private cloud",
     idealSize: "Mid–enterprise hospitals",
     abdmReadiness: "Not publicly stated",
-    coreModules: ["HIS", "EMR", "Pharmacy", "LIMS", "RIS", "PACS", "CSSD", "Blood bank", "Insurance"],
+    coreModules: [
+      "HIS",
+      "EMR",
+      "Pharmacy",
+      "LIMS",
+      "RIS",
+      "PACS",
+      "CSSD",
+      "Blood bank",
+      "Insurance",
+    ],
     entryPlan: {
       price: "₹15,00,000",
-      features: "Class C (<50 beds): one-time"
+      features: "Class C (<50 beds): one-time",
     },
     midPlan: {
       price: "₹25,00,000",
-      features: "Class B (50–100 beds): one-time"
+      features: "Class B (50–100 beds): one-time",
     },
     enterprisePlan: {
       price: "₹50,00,000",
-      features: "Class A (100–300 beds): one-time"
+      features: "Class A (100–300 beds): one-time",
     },
     implementationFee: "Additional AMC + infra costs",
     staffAccounts: "Unlimited (license tier based)",
@@ -304,7 +339,7 @@ const competitorsData: CompetitorData[] = [
       wardManagement: "✓",
       reports: "Advanced/MIS",
       patientPortal: "Available",
-      localLanguage: "Available"
+      localLanguage: "Available",
     },
     advanced: {
       aiAnalytics: false,
@@ -312,35 +347,45 @@ const competitorsData: CompetitorData[] = [
       customIntegrations: "Available",
       telehealth: true,
       insurance: "Available",
-      prioritySupport: "Enterprise tiers"
+      prioritySupport: "Enterprise tiers",
     },
     pros: [
       "Comprehensive hospital suite",
       "Strong on-premise capabilities",
-      "Unlimited user accounts"
+      "Unlimited user accounts",
     ],
     cons: [
       "Very high upfront costs",
       "Complex implementation",
       "Requires significant IT infrastructure",
-      "No cloud-first approach"
+      "No cloud-first approach",
     ],
-    rating: 3.5
-  }
+    rating: 3.5,
+  },
 ];
 
 interface FeatureComparisonPageProps {
   onClose?: () => void;
 }
 
-export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) => {
-  const [selectedCompetitor, setSelectedCompetitor] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'pricing' | 'features' | 'advanced'>('overview');
+export const FeatureComparisonPage = ({
+  onClose,
+}: FeatureComparisonPageProps) => {
+  const [selectedCompetitor, setSelectedCompetitor] = useState<number | null>(
+    null,
+  );
+  const [activeTab, setActiveTab] = useState<
+    "overview" | "pricing" | "features" | "advanced"
+  >("overview");
   const [burstTrigger, setBurstTrigger] = useState(false);
   const [burstPosition, setBurstPosition] = useState({ x: 0, y: 0 });
   const [animatingTable, setAnimatingTable] = useState(false);
-  const [highlightedFeature, setHighlightedFeature] = useState<string | null>(null);
-  const [floatingElements, setFloatingElements] = useState<Array<{id: number, x: number, y: number, emoji: string}>>([]);
+  const [highlightedFeature, setHighlightedFeature] = useState<string | null>(
+    null,
+  );
+  const [floatingElements, setFloatingElements] = useState<
+    Array<{ id: number; x: number; y: number; emoji: string }>
+  >([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -354,7 +399,9 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
       id: i,
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      emoji: ['⚕️', '🏥', '💊', '🩺', '💉', '🧬', '📊', '💗', '🔬', '🚑'][i % 10]
+      emoji: ["⚕️", "🏥", "💊", "🩺", "💉", "🧬", "📊", "💗", "🔬", "🚑"][
+        i % 10
+      ],
     }));
     setFloatingElements(elements);
 
@@ -370,7 +417,7 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           repeat: -1,
           yoyo: true,
           ease: "power1.inOut",
-          delay: index * 0.5
+          delay: index * 0.5,
         });
       }
     });
@@ -378,7 +425,7 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
     // Initial animations
     gsap.set([headingRef.current, cardsRef.current, tableRef.current], {
       opacity: 0,
-      y: 50
+      y: 50,
     });
 
     const tl = gsap.timeline();
@@ -386,25 +433,34 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
       opacity: 1,
       y: 0,
       duration: 1.2,
-      ease: "back.out(1.7)"
+      ease: "back.out(1.7)",
     })
-    .to(tableRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power2.out"
-    }, "-=0.3")
-    .to(cardsRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "back.out(1.7)"
-    }, "-=0.5");
+      .to(
+        tableRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+        },
+        "-=0.3",
+      )
+      .to(
+        cardsRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "back.out(1.7)",
+        },
+        "-=0.5",
+      );
 
     // Animate table rows on scroll
-    const tableRows = document.querySelectorAll('tr');
+    const tableRows = document.querySelectorAll("tr");
     tableRows.forEach((row, index) => {
-      gsap.fromTo(row,
+      gsap.fromTo(
+        row,
         { opacity: 0, x: -50 },
         {
           opacity: 1,
@@ -415,9 +471,9 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           scrollTrigger: {
             trigger: row,
             start: "top 90%",
-            toggleActions: "play none none none"
-          }
-        }
+            toggleActions: "play none none none",
+          },
+        },
       );
     });
 
@@ -425,7 +481,8 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
     competitorsData.forEach((_, index) => {
       const card = document.getElementById(`competitor-${index}`);
       if (card) {
-        gsap.fromTo(card,
+        gsap.fromTo(
+          card,
           { opacity: 0, y: 50, scale: 0.9, rotationY: 20 },
           {
             opacity: 1,
@@ -438,17 +495,18 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
             scrollTrigger: {
               trigger: card,
               start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
+              toggleActions: "play none none reverse",
+            },
+          },
         );
       }
     });
 
     // Animate pricing bars
-    const pricingBars = document.querySelectorAll('.pricing-bar');
+    const pricingBars = document.querySelectorAll(".pricing-bar");
     pricingBars.forEach((bar, index) => {
-      gsap.fromTo(bar,
+      gsap.fromTo(
+        bar,
         { scaleX: 0, transformOrigin: "left center" },
         {
           scaleX: 1,
@@ -458,23 +516,23 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           scrollTrigger: {
             trigger: bar,
             start: "top 80%",
-            toggleActions: "play none none none"
-          }
-        }
+            toggleActions: "play none none none",
+          },
+        },
       );
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   // Add mouse parallax effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const elements = document.querySelectorAll('.parallax-element');
+      const elements = document.querySelectorAll(".parallax-element");
       elements.forEach((element, index) => {
-        const speed = (index % 3 + 1) * 0.02;
+        const speed = ((index % 3) + 1) * 0.02;
         const x = (e.clientX - window.innerWidth / 2) * speed;
         const y = (e.clientY - window.innerHeight / 2) * speed;
 
@@ -482,13 +540,13 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           x: x,
           y: y,
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const handleCompetitorSelect = (index: number) => {
@@ -496,20 +554,21 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
     // Trigger burst effect
     setBurstPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-    setBurstTrigger(prev => !prev);
+    setBurstTrigger((prev) => !prev);
 
     // Animate card selection
     const card = document.getElementById(`competitor-${index}`);
     if (card) {
-      gsap.fromTo(card,
+      gsap.fromTo(
+        card,
         { scale: 1 },
         {
           scale: 1.05,
           duration: 0.3,
           yoyo: true,
           repeat: 1,
-          ease: "power2.out"
-        }
+          ease: "power2.out",
+        },
       );
     }
   };
@@ -518,26 +577,30 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
     setHighlightedFeature(featureName);
 
     // Highlight all cells in the feature row
-    const featureRows = document.querySelectorAll(`[data-feature="${featureName}"]`);
-    featureRows.forEach(row => {
+    const featureRows = document.querySelectorAll(
+      `[data-feature="${featureName}"]`,
+    );
+    featureRows.forEach((row) => {
       gsap.to(row, {
         backgroundColor: "rgba(59, 130, 246, 0.2)",
         scale: 1.02,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     });
   };
 
   const handleFeatureUnhighlight = () => {
     if (highlightedFeature) {
-      const featureRows = document.querySelectorAll(`[data-feature="${highlightedFeature}"]`);
-      featureRows.forEach(row => {
+      const featureRows = document.querySelectorAll(
+        `[data-feature="${highlightedFeature}"]`,
+      );
+      featureRows.forEach((row) => {
         gsap.to(row, {
           backgroundColor: "transparent",
           scale: 1,
           duration: 0.3,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       });
     }
@@ -548,7 +611,7 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
     setAnimatingTable(true);
 
     // Hide all rows first
-    const allRows = document.querySelectorAll('tbody tr');
+    const allRows = document.querySelectorAll("tbody tr");
     gsap.to(allRows, {
       opacity: 0,
       x: -50,
@@ -557,8 +620,11 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
       ease: "power2.out",
       onComplete: () => {
         // Show filtered rows
-        const filteredRows = document.querySelectorAll(`[data-category="${category}"], [data-category="header"]`);
-        gsap.fromTo(filteredRows,
+        const filteredRows = document.querySelectorAll(
+          `[data-category="${category}"], [data-category="header"]`,
+        );
+        gsap.fromTo(
+          filteredRows,
           { opacity: 0, x: 50 },
           {
             opacity: 1,
@@ -566,16 +632,19 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
             duration: 0.5,
             stagger: 0.03,
             ease: "back.out(1.7)",
-            onComplete: () => setAnimatingTable(false)
-          }
+            onComplete: () => setAnimatingTable(false),
+          },
         );
-      }
+      },
     });
   };
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <span key={i} className={`text-lg ${i < Math.floor(rating) ? 'text-yellow-400' : 'text-gray-400'}`}>
+      <span
+        key={i}
+        className={`text-lg ${i < Math.floor(rating) ? "text-yellow-400" : "text-gray-400"}`}
+      >
         ⭐
       </span>
     ));
@@ -583,26 +652,39 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
   const getTabContent = (competitor: CompetitorData) => {
     switch (activeTab) {
-      case 'overview':
+      case "overview":
         return (
           <div className="space-y-4">
             <div>
-              <h4 className="text-sm font-semibold text-blue-300 mb-2">Deployment</h4>
+              <h4 className="text-sm font-semibold text-blue-300 mb-2">
+                Deployment
+              </h4>
               <p className="text-sm text-white/80">{competitor.deployment}</p>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-blue-300 mb-2">Ideal Size</h4>
+              <h4 className="text-sm font-semibold text-blue-300 mb-2">
+                Ideal Size
+              </h4>
               <p className="text-sm text-white/80">{competitor.idealSize}</p>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-blue-300 mb-2">ABDM Readiness</h4>
-              <p className="text-sm text-white/80">{competitor.abdmReadiness}</p>
+              <h4 className="text-sm font-semibold text-blue-300 mb-2">
+                ABDM Readiness
+              </h4>
+              <p className="text-sm text-white/80">
+                {competitor.abdmReadiness}
+              </p>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-blue-300 mb-2">Core Modules</h4>
+              <h4 className="text-sm font-semibold text-blue-300 mb-2">
+                Core Modules
+              </h4>
               <div className="flex flex-wrap gap-1">
                 {competitor.coreModules.map((module, idx) => (
-                  <span key={idx} className="px-2 py-1 bg-blue-500/20 rounded text-xs text-blue-200">
+                  <span
+                    key={idx}
+                    className="px-2 py-1 bg-blue-500/20 rounded text-xs text-blue-200"
+                  >
                     {module}
                   </span>
                 ))}
@@ -611,65 +693,87 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           </div>
         );
 
-      case 'pricing':
+      case "pricing":
         return (
           <div className="space-y-4">
             <div className="p-3 bg-green-500/10 rounded-lg border border-green-500/20">
-              <h4 className="text-sm font-semibold text-green-300 mb-1">Entry Plan</h4>
-              <p className="text-lg font-bold text-green-400">{competitor.entryPlan.price}</p>
-              <p className="text-xs text-white/70">{competitor.entryPlan.features}</p>
+              <h4 className="text-sm font-semibold text-green-300 mb-1">
+                Entry Plan
+              </h4>
+              <p className="text-lg font-bold text-green-400">
+                {competitor.entryPlan.price}
+              </p>
+              <p className="text-xs text-white/70">
+                {competitor.entryPlan.features}
+              </p>
             </div>
             {competitor.midPlan && (
               <div className="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                <h4 className="text-sm font-semibold text-blue-300 mb-1">Mid Plan</h4>
-                <p className="text-lg font-bold text-blue-400">{competitor.midPlan.price}</p>
-                <p className="text-xs text-white/70">{competitor.midPlan.features}</p>
+                <h4 className="text-sm font-semibold text-blue-300 mb-1">
+                  Mid Plan
+                </h4>
+                <p className="text-lg font-bold text-blue-400">
+                  {competitor.midPlan.price}
+                </p>
+                <p className="text-xs text-white/70">
+                  {competitor.midPlan.features}
+                </p>
               </div>
             )}
             <div className="p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
-              <h4 className="text-sm font-semibold text-purple-300 mb-1">Enterprise Plan</h4>
-              <p className="text-lg font-bold text-purple-400">{competitor.enterprisePlan.price}</p>
-              <p className="text-xs text-white/70">{competitor.enterprisePlan.features}</p>
+              <h4 className="text-sm font-semibold text-purple-300 mb-1">
+                Enterprise Plan
+              </h4>
+              <p className="text-lg font-bold text-purple-400">
+                {competitor.enterprisePlan.price}
+              </p>
+              <p className="text-xs text-white/70">
+                {competitor.enterprisePlan.features}
+              </p>
             </div>
             <div className="border-t border-white/20 pt-3">
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-white/60">Implementation Fee</span>
-                <span className="text-white/90">{competitor.implementationFee}</span>
+                <span className="text-white/90">
+                  {competitor.implementationFee}
+                </span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-white/60">Staff Accounts</span>
-                <span className="text-white/90">{competitor.staffAccounts}</span>
+                <span className="text-white/90">
+                  {competitor.staffAccounts}
+                </span>
               </div>
             </div>
           </div>
         );
 
-      case 'features':
+      case "features":
         return (
           <div className="space-y-3">
             {Object.entries(competitor.features).map(([key, value]) => (
               <div key={key} className="flex justify-between items-center">
                 <span className="text-sm text-white/70 capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                  {key.replace(/([A-Z])/g, " $1").trim()}
                 </span>
                 <span className="text-sm text-white/90">
-                  {typeof value === 'boolean' ? (value ? '✅' : '❌') : value}
+                  {typeof value === "boolean" ? (value ? "✅" : "❌") : value}
                 </span>
               </div>
             ))}
           </div>
         );
 
-      case 'advanced':
+      case "advanced":
         return (
           <div className="space-y-3">
             {Object.entries(competitor.advanced).map(([key, value]) => (
               <div key={key} className="flex justify-between items-center">
                 <span className="text-sm text-white/70 capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                  {key.replace(/([A-Z])/g, " $1").trim()}
                 </span>
                 <span className="text-sm text-white/90">
-                  {typeof value === 'boolean' ? (value ? '✅' : '❌') : value}
+                  {typeof value === "boolean" ? (value ? "✅" : "❌") : value}
                 </span>
               </div>
             ))}
@@ -682,7 +786,10 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden"
+    >
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-indigo-600/10" />
 
@@ -696,8 +803,8 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
             style={{
               left: element.x,
               top: element.y,
-              filter: 'blur(1px)',
-              transform: 'translateZ(0)' // Force GPU acceleration
+              filter: "blur(1px)",
+              transform: "translateZ(0)", // Force GPU acceleration
             }}
           >
             {element.emoji}
@@ -715,17 +822,23 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${i * 0.2}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              animationDuration: `${2 + Math.random() * 3}s`,
             }}
           />
         ))}
       </div>
 
       {/* Gradient overlay with animation */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 animate-pulse" style={{ animationDuration: '4s' }} />
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 animate-pulse"
+        style={{ animationDuration: "4s" }}
+      />
 
       {/* Header */}
-      <div ref={headingRef} className="relative z-10 pt-20 pb-16 px-6 text-center">
+      <div
+        ref={headingRef}
+        className="relative z-10 pt-20 pb-16 px-6 text-center"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-center mb-6">
             <div className="text-6xl mr-4">🆚</div>
@@ -759,15 +872,29 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           {/* Interactive Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             {[
-              { id: 'all', label: 'All Features', icon: '📋', color: 'blue' },
-              { id: 'deployment', label: 'Deployment', icon: '🏗️', color: 'blue' },
-              { id: 'pricing', label: 'Pricing', icon: '💰', color: 'green' },
-              { id: 'core', label: 'Core Features', icon: '🏥', color: 'purple' },
-              { id: 'advanced', label: 'Advanced', icon: '🚀', color: 'cyan' }
+              { id: "all", label: "All Features", icon: "📋", color: "blue" },
+              {
+                id: "deployment",
+                label: "Deployment",
+                icon: "🏗️",
+                color: "blue",
+              },
+              { id: "pricing", label: "Pricing", icon: "💰", color: "green" },
+              {
+                id: "core",
+                label: "Core Features",
+                icon: "🏥",
+                color: "purple",
+              },
+              { id: "advanced", label: "Advanced", icon: "🚀", color: "cyan" },
             ].map((filter) => (
               <button
                 key={filter.id}
-                onClick={() => filter.id === 'all' ? window.location.reload() : animateTableFilter(filter.id)}
+                onClick={() =>
+                  filter.id === "all"
+                    ? window.location.reload()
+                    : animateTableFilter(filter.id)
+                }
                 disabled={animatingTable}
                 className={`
                   px-4 py-2 rounded-full border-2 transition-all duration-300 transform hover:scale-105
@@ -789,13 +916,22 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
               <table className="w-full min-w-[1200px]">
                 <thead>
                   <tr className="bg-gradient-to-r from-blue-600/30 to-purple-600/30">
-                    <th className="text-left p-4 text-white font-semibold border-r border-white/20">Feature</th>
+                    <th className="text-left p-4 text-white font-semibold border-r border-white/20">
+                      Feature
+                    </th>
                     {competitorsData.map((competitor, index) => (
-                      <th key={index} className={`text-center p-4 text-white font-semibold border-r border-white/20 ${competitor.isTopPick ? 'bg-green-500/20' : ''}`}>
+                      <th
+                        key={index}
+                        className={`text-center p-4 text-white font-semibold border-r border-white/20 ${competitor.isTopPick ? "bg-green-500/20" : ""}`}
+                      >
                         <div className="flex flex-col items-center">
                           <div className="text-2xl mb-1">{competitor.logo}</div>
                           <div className="text-sm">{competitor.name}</div>
-                          {competitor.isTopPick && <div className="text-xs text-green-300">Top Pick</div>}
+                          {competitor.isTopPick && (
+                            <div className="text-xs text-green-300">
+                              Top Pick
+                            </div>
+                          )}
                         </div>
                       </th>
                     ))}
@@ -803,8 +939,14 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                 </thead>
                 <tbody>
                   {/* Deployment & Infrastructure */}
-                  <tr className="border-b border-white/10" data-category="header">
-                    <td colSpan={6} className="p-3 bg-blue-500/10 text-blue-300 font-semibold cursor-pointer hover:bg-blue-500/20 transition-all duration-300">
+                  <tr
+                    className="border-b border-white/10"
+                    data-category="header"
+                  >
+                    <td
+                      colSpan={6}
+                      className="p-3 bg-blue-500/10 text-blue-300 font-semibold cursor-pointer hover:bg-blue-500/20 transition-all duration-300"
+                    >
                       🏗️ Deployment & Infrastructure
                     </td>
                   </tr>
@@ -812,33 +954,54 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                     className="border-b border-white/10 hover:bg-white/5 transition-all duration-300 cursor-pointer"
                     data-category="deployment"
                     data-feature="deployment-type"
-                    onMouseEnter={() => handleFeatureHighlight('deployment-type')}
+                    onMouseEnter={() =>
+                      handleFeatureHighlight("deployment-type")
+                    }
                     onMouseLeave={handleFeatureUnhighlight}
                   >
-                    <td className="p-3 text-white/80 border-r border-white/10 font-medium">Deployment Type</td>
+                    <td className="p-3 text-white/80 border-r border-white/10 font-medium">
+                      Deployment Type
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        {competitor.deployment.split('–')[0].trim()}
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        {competitor.deployment.split("–")[0].trim()}
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Ideal Organization Size</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Ideal Organization Size
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         {competitor.idealSize}
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">ABDM Readiness</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      ABDM Readiness
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          competitor.abdmReadiness.includes('Ready') ? 'bg-green-500/20 text-green-300' :
-                          competitor.abdmReadiness.includes('Partial') ? 'bg-yellow-500/20 text-yellow-300' :
-                          'bg-gray-500/20 text-gray-300'
-                        }`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            competitor.abdmReadiness.includes("Ready")
+                              ? "bg-green-500/20 text-green-300"
+                              : competitor.abdmReadiness.includes("Partial")
+                                ? "bg-yellow-500/20 text-yellow-300"
+                                : "bg-gray-500/20 text-gray-300"
+                          }`}
+                        >
                           {competitor.abdmReadiness}
                         </span>
                       </td>
@@ -847,36 +1010,61 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
                   {/* Pricing */}
                   <tr className="border-b border-white/10">
-                    <td colSpan={6} className="p-3 bg-green-500/10 text-green-300 font-semibold">
+                    <td
+                      colSpan={6}
+                      className="p-3 bg-green-500/10 text-green-300 font-semibold"
+                    >
                       💰 Pricing Structure
                     </td>
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Entry Plan</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Entry Plan
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <div className="text-green-400 font-semibold">{competitor.entryPlan.price}</div>
-                        <div className="text-white/60 text-xs">{competitor.entryPlan.features}</div>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <div className="text-green-400 font-semibold">
+                          {competitor.entryPlan.price}
+                        </div>
+                        <div className="text-white/60 text-xs">
+                          {competitor.entryPlan.features}
+                        </div>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Implementation Fee</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Implementation Fee
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          competitor.implementationFee.includes('Included') ? 'bg-green-500/20 text-green-300' :
-                          'bg-yellow-500/20 text-yellow-300'
-                        }`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            competitor.implementationFee.includes("Included")
+                              ? "bg-green-500/20 text-green-300"
+                              : "bg-yellow-500/20 text-yellow-300"
+                          }`}
+                        >
                           {competitor.implementationFee}
                         </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Staff Accounts</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Staff Accounts
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         {competitor.staffAccounts}
                       </td>
                     ))}
@@ -884,104 +1072,184 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
                   {/* Core Features */}
                   <tr className="border-b border-white/10">
-                    <td colSpan={6} className="p-3 bg-purple-500/10 text-purple-300 font-semibold">
+                    <td
+                      colSpan={6}
+                      className="p-3 bg-purple-500/10 text-purple-300 font-semibold"
+                    >
                       🏥 Core Clinical Features
                     </td>
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">EMR / EHR</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      EMR / EHR
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         {competitor.features.emr}
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Patient Management</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Patient Management
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.features.patientManagement ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.features.patientManagement ? "✅" : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Appointment Scheduling</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Appointment Scheduling
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.features.appointmentScheduling ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.features.appointmentScheduling
+                            ? "✅"
+                            : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Billing & Invoicing</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Billing & Invoicing
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.features.billing ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.features.billing ? "✅" : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Inventory Management</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Inventory Management
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.features.inventory ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.features.inventory ? "✅" : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Pharmacy Management</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Pharmacy Management
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.features.pharmacy ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.features.pharmacy ? "✅" : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Laboratory (LIS)</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Laboratory (LIS)
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.features.laboratory ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.features.laboratory ? "✅" : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Ward/Bed Management</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Ward/Bed Management
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         {competitor.features.wardManagement}
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Reports & Analytics</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Reports & Analytics
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         {competitor.features.reports}
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Patient Portal</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Patient Portal
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          competitor.features.patientPortal === 'Included' ? 'bg-green-500/20 text-green-300' :
-                          competitor.features.patientPortal === 'Available' ? 'bg-blue-500/20 text-blue-300' :
-                          'bg-yellow-500/20 text-yellow-300'
-                        }`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            competitor.features.patientPortal === "Included"
+                              ? "bg-green-500/20 text-green-300"
+                              : competitor.features.patientPortal ===
+                                  "Available"
+                                ? "bg-blue-500/20 text-blue-300"
+                                : "bg-yellow-500/20 text-yellow-300"
+                          }`}
+                        >
                           {competitor.features.patientPortal}
                         </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Local Language Support</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Local Language Support
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          competitor.features.localLanguage === 'Available' ? 'bg-green-500/20 text-green-300' :
-                          'bg-yellow-500/20 text-yellow-300'
-                        }`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            competitor.features.localLanguage === "Available"
+                              ? "bg-green-500/20 text-green-300"
+                              : "bg-yellow-500/20 text-yellow-300"
+                          }`}
+                        >
                           {competitor.features.localLanguage}
                         </span>
                       </td>
@@ -990,67 +1258,116 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
                   {/* Advanced Features */}
                   <tr className="border-b border-white/10">
-                    <td colSpan={6} className="p-3 bg-cyan-500/10 text-cyan-300 font-semibold">
+                    <td
+                      colSpan={6}
+                      className="p-3 bg-cyan-500/10 text-cyan-300 font-semibold"
+                    >
                       🚀 Advanced & Enterprise Features
                     </td>
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">AI / Predictive Analytics</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      AI / Predictive Analytics
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.advanced.aiAnalytics ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.advanced.aiAnalytics ? "✅" : "❌"}
+                        </span>
                         {competitor.advanced.aiAnalytics && (
-                          <div className="text-xs text-green-300 mt-1">Integrated insights</div>
+                          <div className="text-xs text-green-300 mt-1">
+                            Integrated insights
+                          </div>
                         )}
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Multi-facility Management</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Multi-facility Management
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.advanced.multiFacility ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.advanced.multiFacility ? "✅" : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Custom Integrations</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Custom Integrations
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          competitor.advanced.customIntegrations.includes('Yes') ? 'bg-green-500/20 text-green-300' :
-                          'bg-yellow-500/20 text-yellow-300'
-                        }`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            competitor.advanced.customIntegrations.includes(
+                              "Yes",
+                            )
+                              ? "bg-green-500/20 text-green-300"
+                              : "bg-yellow-500/20 text-yellow-300"
+                          }`}
+                        >
                           {competitor.advanced.customIntegrations}
                         </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">TeleHealth / E-Consult</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      TeleHealth / E-Consult
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className="text-2xl">{competitor.advanced.telehealth ? '✅' : '❌'}</span>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span className="text-2xl">
+                          {competitor.advanced.telehealth ? "✅" : "❌"}
+                        </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Insurance / TPA Integration</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Insurance / TPA Integration
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          competitor.advanced.insurance.includes('Yes') ? 'bg-green-500/20 text-green-300' :
-                          'bg-yellow-500/20 text-yellow-300'
-                        }`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            competitor.advanced.insurance.includes("Yes")
+                              ? "bg-green-500/20 text-green-300"
+                              : "bg-yellow-500/20 text-yellow-300"
+                          }`}
+                        >
                           {competitor.advanced.insurance}
                         </span>
                       </td>
                     ))}
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Priority Support / SLA</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Priority Support / SLA
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         {competitor.advanced.prioritySupport}
                       </td>
                     ))}
@@ -1058,25 +1375,40 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
                   {/* Overall Rating */}
                   <tr className="border-b border-white/10">
-                    <td colSpan={6} className="p-3 bg-yellow-500/10 text-yellow-300 font-semibold">
+                    <td
+                      colSpan={6}
+                      className="p-3 bg-yellow-500/10 text-yellow-300 font-semibold"
+                    >
                       ⭐ Overall Rating & Value
                     </td>
                   </tr>
                   <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Overall Rating</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Overall Rating
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center border-r border-white/10 ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         <div className="flex justify-center items-center">
                           {renderStars(competitor.rating)}
                         </div>
-                        <div className="text-sm text-white/70 mt-1">({competitor.rating}/5)</div>
+                        <div className="text-sm text-white/70 mt-1">
+                          ({competitor.rating}/5)
+                        </div>
                       </td>
                     ))}
                   </tr>
                   <tr className="hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Value Proposition</td>
+                    <td className="p-3 text-white/80 border-r border-white/10">
+                      Value Proposition
+                    </td>
                     {competitorsData.map((competitor, index) => (
-                      <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
+                      <td
+                        key={index}
+                        className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? "bg-green-500/5" : ""}`}
+                      >
                         <div className="space-y-1">
                           <div className="text-green-400 font-semibold">
                             {competitor.pros[0]?.substring(0, 40)}...
@@ -1114,8 +1446,8 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                 key={index}
                 id={`competitor-${index}`}
                 className={`p-6 cursor-pointer transition-all duration-500 ${
-                  selectedCompetitor === index ? 'ring-2 ring-blue-400' : ''
-                } ${competitor.isTopPick ? 'ring-2 ring-green-400' : ''}`}
+                  selectedCompetitor === index ? "ring-2 ring-blue-400" : ""
+                } ${competitor.isTopPick ? "ring-2 ring-green-400" : ""}`}
                 onClick={() => handleCompetitorSelect(index)}
                 glowEffect={true}
               >
@@ -1124,11 +1456,17 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                   <div className="flex items-center">
                     <div className="text-3xl mr-3">{competitor.logo}</div>
                     <div>
-                      <h3 className="text-lg font-bold text-white">{competitor.name}</h3>
+                      <h3 className="text-lg font-bold text-white">
+                        {competitor.name}
+                      </h3>
                       {competitor.tagline && (
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          competitor.isTopPick ? 'bg-green-500/20 text-green-300' : 'bg-blue-500/20 text-blue-300'
-                        }`}>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full ${
+                            competitor.isTopPick
+                              ? "bg-green-500/20 text-green-300"
+                              : "bg-blue-500/20 text-blue-300"
+                          }`}
+                        >
                           {competitor.tagline}
                         </span>
                       )}
@@ -1142,14 +1480,18 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                 {/* Rating */}
                 <div className="flex items-center mb-4">
                   {renderStars(competitor.rating)}
-                  <span className="ml-2 text-sm text-white/70">({competitor.rating}/5)</span>
+                  <span className="ml-2 text-sm text-white/70">
+                    ({competitor.rating}/5)
+                  </span>
                 </div>
 
                 {/* Quick Info */}
                 <div className="space-y-2 mb-4">
                   <div className="text-sm">
                     <span className="text-blue-300">Starting:</span>
-                    <span className="text-green-400 font-semibold ml-2">{competitor.entryPlan.price}</span>
+                    <span className="text-green-400 font-semibold ml-2">
+                      {competitor.entryPlan.price}
+                    </span>
                   </div>
                   <div className="text-sm text-white/70">
                     {competitor.idealSize}
@@ -1161,22 +1503,24 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                   <div className="mt-6 pt-4 border-t border-white/20">
                     {/* Tabs */}
                     <div className="flex mb-4 bg-white/10 rounded-lg p-1">
-                      {['overview', 'pricing', 'features', 'advanced'].map((tab) => (
-                        <button
-                          key={tab}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveTab(tab as any);
-                          }}
-                          className={`flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all duration-300 ${
-                            activeTab === tab
-                              ? 'bg-blue-500 text-white'
-                              : 'text-white/70 hover:text-white'
-                          }`}
-                        >
-                          {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                        </button>
-                      ))}
+                      {["overview", "pricing", "features", "advanced"].map(
+                        (tab) => (
+                          <button
+                            key={tab}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveTab(tab as any);
+                            }}
+                            className={`flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all duration-300 ${
+                              activeTab === tab
+                                ? "bg-blue-500 text-white"
+                                : "text-white/70 hover:text-white"
+                            }`}
+                          >
+                            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                          </button>
+                        ),
+                      )}
                     </div>
 
                     {/* Tab Content */}
@@ -1188,18 +1532,26 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                     <div className="mt-4 pt-4 border-t border-white/20">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <h4 className="text-sm font-semibold text-green-300 mb-2">✅ Pros</h4>
+                          <h4 className="text-sm font-semibold text-green-300 mb-2">
+                            ✅ Pros
+                          </h4>
                           <ul className="space-y-1">
                             {competitor.pros.slice(0, 3).map((pro, idx) => (
-                              <li key={idx} className="text-xs text-white/80">• {pro}</li>
+                              <li key={idx} className="text-xs text-white/80">
+                                • {pro}
+                              </li>
                             ))}
                           </ul>
                         </div>
                         <div>
-                          <h4 className="text-sm font-semibold text-red-300 mb-2">❌ Cons</h4>
+                          <h4 className="text-sm font-semibold text-red-300 mb-2">
+                            ❌ Cons
+                          </h4>
                           <ul className="space-y-1">
                             {competitor.cons.slice(0, 3).map((con, idx) => (
-                              <li key={idx} className="text-xs text-white/80">• {con}</li>
+                              <li key={idx} className="text-xs text-white/80">
+                                • {con}
+                              </li>
                             ))}
                           </ul>
                         </div>
@@ -1210,9 +1562,11 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
                 {/* Expand Indicator */}
                 <div className="text-center mt-4">
-                  <div className={`text-white/50 text-sm transition-transform duration-300 ${
-                    selectedCompetitor === index ? 'rotate-180' : ''
-                  }`}>
+                  <div
+                    className={`text-white/50 text-sm transition-transform duration-300 ${
+                      selectedCompetitor === index ? "rotate-180" : ""
+                    }`}
+                  >
                     ▼
                   </div>
                 </div>
@@ -1253,8 +1607,12 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                     fiveYearCost = 2500000; // One-time + AMC
                   } else {
                     // Per-user pricing
-                    const monthlyPerUser = competitor.name === "Insta HMS" ? 1200 :
-                                         competitor.name === "DocEngage HMS" ? 2499 : 1500;
+                    const monthlyPerUser =
+                      competitor.name === "Insta HMS"
+                        ? 1200
+                        : competitor.name === "DocEngage HMS"
+                          ? 2499
+                          : 1500;
                     annualCost = monthlyPerUser * 12 * 50;
                     fiveYearCost = annualCost * 5;
                   }
@@ -1266,9 +1624,15 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center">
-                          <span className="text-xl mr-2">{competitor.logo}</span>
-                          <span className="text-white font-medium">{competitor.name}</span>
-                          {competitor.isTopPick && <span className="ml-2 text-green-400">🏆</span>}
+                          <span className="text-xl mr-2">
+                            {competitor.logo}
+                          </span>
+                          <span className="text-white font-medium">
+                            {competitor.name}
+                          </span>
+                          {competitor.isTopPick && (
+                            <span className="ml-2 text-green-400">🏆</span>
+                          )}
                         </div>
                         <div className="text-right">
                           <div className="text-lg font-bold text-white">
@@ -1282,8 +1646,9 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                       <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
                         <div
                           className={`pricing-bar h-3 rounded-full transition-all duration-500 hover:h-4 ${
-                            competitor.isTopPick ? 'bg-gradient-to-r from-green-500 to-blue-500 shadow-lg' :
-                            'bg-gradient-to-r from-gray-500 to-gray-400'
+                            competitor.isTopPick
+                              ? "bg-gradient-to-r from-green-500 to-blue-500 shadow-lg"
+                              : "bg-gradient-to-r from-gray-500 to-gray-400"
                           }`}
                           style={{ width: `${Math.max(barWidth, 5)}%` }}
                         />
@@ -1308,7 +1673,9 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
               <div className="space-y-4">
                 <div className="bg-green-500/10 rounded-lg p-4 border border-green-500/20">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-green-300">Cost Savings vs Competitors</span>
+                    <span className="text-green-300">
+                      Cost Savings vs Competitors
+                    </span>
                     <span className="text-green-400 font-bold">₹15-30L</span>
                   </div>
                   <div className="text-xs text-white/70">
@@ -1318,7 +1685,9 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
                 <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/20">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-blue-300">Implementation Savings</span>
+                    <span className="text-blue-300">
+                      Implementation Savings
+                    </span>
                     <span className="text-blue-400 font-bold">₹5-15L</span>
                   </div>
                   <div className="text-xs text-white/70">
@@ -1347,8 +1716,12 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                 </div>
 
                 <div className="text-center pt-4 border-t border-white/20">
-                  <div className="text-sm text-white/70 mb-2">Total ROI in Year 1</div>
-                  <div className="text-3xl font-bold text-green-400">300-500%</div>
+                  <div className="text-sm text-white/70 mb-2">
+                    Total ROI in Year 1
+                  </div>
+                  <div className="text-3xl font-bold text-green-400">
+                    300-500%
+                  </div>
                 </div>
               </div>
             </InteractiveCard>
@@ -1370,21 +1743,33 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {competitorsData.map((competitor, index) => (
-              <InteractiveCard key={index} className={`p-6 ${competitor.isTopPick ? 'ring-2 ring-green-400' : ''}`}>
+              <InteractiveCard
+                key={index}
+                className={`p-6 ${competitor.isTopPick ? "ring-2 ring-green-400" : ""}`}
+              >
                 <div className="text-center mb-4">
                   <div className="text-3xl mb-2">{competitor.logo}</div>
-                  <h3 className="text-lg font-bold text-white">{competitor.name}</h3>
+                  <h3 className="text-lg font-bold text-white">
+                    {competitor.name}
+                  </h3>
                   {competitor.isTopPick && (
-                    <div className="text-sm text-green-300 mt-1">🏆 Recommended</div>
+                    <div className="text-sm text-green-300 mt-1">
+                      🏆 Recommended
+                    </div>
                   )}
                 </div>
 
                 <div className="space-y-4">
                   <div>
-                    <h4 className="text-sm font-semibold text-green-300 mb-2">✅ Strengths</h4>
+                    <h4 className="text-sm font-semibold text-green-300 mb-2">
+                      ✅ Strengths
+                    </h4>
                     <ul className="space-y-1">
                       {competitor.pros.slice(0, 3).map((pro, idx) => (
-                        <li key={idx} className="text-xs text-white/80 flex items-start">
+                        <li
+                          key={idx}
+                          className="text-xs text-white/80 flex items-start"
+                        >
                           <span className="text-green-400 mr-2">•</span>
                           {pro}
                         </li>
@@ -1393,10 +1778,15 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-semibold text-red-300 mb-2">❌ Limitations</h4>
+                    <h4 className="text-sm font-semibold text-red-300 mb-2">
+                      ❌ Limitations
+                    </h4>
                     <ul className="space-y-1">
                       {competitor.cons.slice(0, 3).map((con, idx) => (
-                        <li key={idx} className="text-xs text-white/80 flex items-start">
+                        <li
+                          key={idx}
+                          className="text-xs text-white/80 flex items-start"
+                        >
                           <span className="text-red-400 mr-2">•</span>
                           {con}
                         </li>
@@ -1407,7 +1797,9 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                   <div className="pt-3 border-t border-white/20">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-white/70">Best for:</span>
-                      <span className="text-sm text-white/90">{competitor.idealSize.split('(')[0].trim()}</span>
+                      <span className="text-sm text-white/90">
+                        {competitor.idealSize.split("(")[0].trim()}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1422,30 +1814,41 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
         <div className="max-w-4xl mx-auto">
           <InteractiveCard className="p-8 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-400/30">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-4">🚀 Migration Made Simple</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">
+                🚀 Migration Made Simple
+              </h2>
               <p className="text-lg text-white/80">
-                Switch to ClinicStreams with zero downtime and full data migration
+                Switch to ClinicStreams with zero downtime and full data
+                migration
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="text-center">
                 <div className="text-4xl mb-3">📊</div>
-                <h3 className="text-lg font-semibold text-blue-300 mb-2">Step 1: Assessment</h3>
+                <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                  Step 1: Assessment
+                </h3>
                 <p className="text-sm text-white/80">
-                  Free analysis of your current system and data migration requirements
+                  Free analysis of your current system and data migration
+                  requirements
                 </p>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-3">🔄</div>
-                <h3 className="text-lg font-semibold text-green-300 mb-2">Step 2: Migration</h3>
+                <h3 className="text-lg font-semibold text-green-300 mb-2">
+                  Step 2: Migration
+                </h3>
                 <p className="text-sm text-white/80">
-                  Seamless data transfer with zero downtime during the transition
+                  Seamless data transfer with zero downtime during the
+                  transition
                 </p>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-3">🎓</div>
-                <h3 className="text-lg font-semibold text-purple-300 mb-2">Step 3: Training</h3>
+                <h3 className="text-lg font-semibold text-purple-300 mb-2">
+                  Step 3: Training
+                </h3>
                 <p className="text-sm text-white/80">
                   Comprehensive staff training and ongoing support included
                 </p>
@@ -1475,9 +1878,12 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           <div className="max-w-4xl mx-auto">
             <InteractiveCard className="p-8 bg-gradient-to-r from-green-500/10 to-blue-500/10 border-green-400/30">
               <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold text-white mb-4">🏆 Why ClinicStreams Stands Out</h2>
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  🏆 Why ClinicStreams Stands Out
+                </h2>
                 <p className="text-lg text-white/80">
-                  Delivering the best all-round value, features, and scalability in the Indian HMS market
+                  Delivering the best all-round value, features, and scalability
+                  in the Indian HMS market
                 </p>
               </div>
 
@@ -1486,15 +1892,25 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                   <div className="flex items-start">
                     <div className="text-2xl mr-3">💰</div>
                     <div>
-                      <h3 className="text-lg font-semibold text-green-300">Best Pricing Structure</h3>
-                      <p className="text-sm text-white/80">Annual plans give 2 months free, beating per-user SaaS models</p>
+                      <h3 className="text-lg font-semibold text-green-300">
+                        Best Pricing Structure
+                      </h3>
+                      <p className="text-sm text-white/80">
+                        Annual plans give 2 months free, beating per-user SaaS
+                        models
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <div className="text-2xl mr-3">📋</div>
                     <div>
-                      <h3 className="text-lg font-semibold text-blue-300">Comprehensive Features</h3>
-                      <p className="text-sm text-white/80">Even entry plan covers EMR, LIS, pharmacy, billing, and CRM</p>
+                      <h3 className="text-lg font-semibold text-blue-300">
+                        Comprehensive Features
+                      </h3>
+                      <p className="text-sm text-white/80">
+                        Even entry plan covers EMR, LIS, pharmacy, billing, and
+                        CRM
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1502,15 +1918,24 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                   <div className="flex items-start">
                     <div className="text-2xl mr-3">📈</div>
                     <div>
-                      <h3 className="text-lg font-semibold text-purple-300">Scalable Architecture</h3>
-                      <p className="text-sm text-white/80">Equally efficient for single clinic or multi-hospital chain</p>
+                      <h3 className="text-lg font-semibold text-purple-300">
+                        Scalable Architecture
+                      </h3>
+                      <p className="text-sm text-white/80">
+                        Equally efficient for single clinic or multi-hospital
+                        chain
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <div className="text-2xl mr-3">🤖</div>
                     <div>
-                      <h3 className="text-lg font-semibold text-cyan-300">AI & Analytics</h3>
-                      <p className="text-sm text-white/80">Advanced analytics & AI for data-driven decision-making</p>
+                      <h3 className="text-lg font-semibold text-cyan-300">
+                        AI & Analytics
+                      </h3>
+                      <p className="text-sm text-white/80">
+                        Advanced analytics & AI for data-driven decision-making
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1528,7 +1953,8 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
               Ready to Transform Your Healthcare Operations?
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Join 500+ healthcare providers who chose ClinicStreams for superior value and comprehensive features
+              Join 500+ healthcare providers who chose ClinicStreams for
+              superior value and comprehensive features
             </p>
           </div>
 
@@ -1537,9 +1963,12 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
             <InteractiveCard className="p-8 bg-gradient-to-br from-green-500/20 to-blue-500/20 border-green-400/30">
               <div className="text-center">
                 <div className="text-6xl mb-4">🚀</div>
-                <h3 className="text-2xl font-bold text-white mb-4">See ClinicStreams in Action</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  See ClinicStreams in Action
+                </h3>
                 <p className="text-white/80 mb-6">
-                  Get a personalized demo tailored to your healthcare organization's needs
+                  Get a personalized demo tailored to your healthcare
+                  organization's needs
                 </p>
                 <ul className="text-left space-y-2 mb-6 text-white/80">
                   <li>• Live OPD → IPD → Discharge workflow demo</li>
@@ -1564,9 +1993,12 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
             <InteractiveCard className="p-8 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border-purple-400/30">
               <div className="text-center">
                 <div className="text-6xl mb-4">💼</div>
-                <h3 className="text-2xl font-bold text-white mb-4">Get Custom Pricing</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  Get Custom Pricing
+                </h3>
                 <p className="text-white/80 mb-6">
-                  Receive a detailed proposal with pricing tailored to your specific requirements
+                  Receive a detailed proposal with pricing tailored to your
+                  specific requirements
                 </p>
                 <ul className="text-left space-y-2 mb-6 text-white/80">
                   <li>• Detailed feature requirement analysis</li>
@@ -1599,7 +2031,9 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
               <div className="text-sm text-white/70">Uptime Guarantee</div>
             </InteractiveCard>
             <InteractiveCard className="p-4 text-center">
-              <div className="text-3xl font-bold text-purple-400 mb-1">24/7</div>
+              <div className="text-3xl font-bold text-purple-400 mb-1">
+                24/7
+              </div>
               <div className="text-sm text-white/70">Expert Support</div>
             </InteractiveCard>
             <InteractiveCard className="p-4 text-center">
@@ -1611,30 +2045,50 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
           {/* Contact Options */}
           <div className="bg-black/20 backdrop-blur-xl rounded-2xl border border-white/20 p-8">
             <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-white mb-2">Get Started Today</h3>
-              <p className="text-white/70">Choose the best way to connect with our team</p>
+              <h3 className="text-2xl font-bold text-white mb-2">
+                Get Started Today
+              </h3>
+              <p className="text-white/70">
+                Choose the best way to connect with our team
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-4xl mb-3">📞</div>
-                <h4 className="text-lg font-semibold text-white mb-2">Call Us</h4>
-                <p className="text-white/70 text-sm mb-3">Speak directly with our HMS experts</p>
-                <div className="text-blue-400 font-semibold">+91-XXXX-XXXXXX</div>
+                <h4 className="text-lg font-semibold text-white mb-2">
+                  Call Us
+                </h4>
+                <p className="text-white/70 text-sm mb-3">
+                  Speak directly with our HMS experts
+                </p>
+                <div className="text-blue-400 font-semibold">
+                  +91-XXXX-XXXXXX
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-3">💬</div>
-                <h4 className="text-lg font-semibold text-white mb-2">Live Chat</h4>
-                <p className="text-white/70 text-sm mb-3">Get instant answers to your questions</p>
+                <h4 className="text-lg font-semibold text-white mb-2">
+                  Live Chat
+                </h4>
+                <p className="text-white/70 text-sm mb-3">
+                  Get instant answers to your questions
+                </p>
                 <InteractiveButton variant="ghost" size="sm">
                   Start Chat
                 </InteractiveButton>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-3">📧</div>
-                <h4 className="text-lg font-semibold text-white mb-2">Email Us</h4>
-                <p className="text-white/70 text-sm mb-3">Send us your requirements</p>
-                <div className="text-blue-400 font-semibold">sales@clinicstreams.com</div>
+                <h4 className="text-lg font-semibold text-white mb-2">
+                  Email Us
+                </h4>
+                <p className="text-white/70 text-sm mb-3">
+                  Send us your requirements
+                </p>
+                <div className="text-blue-400 font-semibold">
+                  sales@clinicstreams.com
+                </div>
               </div>
             </div>
           </div>
@@ -1654,10 +2108,7 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
       </div>
 
       {/* Medicine Burst Effect */}
-      <MedicineBurstEffect
-        trigger={burstTrigger}
-        position={burstPosition}
-      />
+      <MedicineBurstEffect trigger={burstTrigger} position={burstPosition} />
     </div>
   );
 };

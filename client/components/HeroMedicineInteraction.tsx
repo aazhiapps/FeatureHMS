@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 
 interface MedicineParticle {
   id: number;
@@ -10,16 +10,16 @@ interface MedicineParticle {
   rotation: number;
   rotationSpeed: number;
   size: number;
-  type: 'pill' | 'capsule' | 'tablet';
+  type: "pill" | "capsule" | "tablet";
   color: string;
   opacity: number;
   element?: HTMLDivElement;
 }
 
-export const HeroMedicineInteraction = ({ 
-  isActive = true 
-}: { 
-  isActive?: boolean; 
+export const HeroMedicineInteraction = ({
+  isActive = true,
+}: {
+  isActive?: boolean;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<MedicineParticle[]>([]);
@@ -28,21 +28,38 @@ export const HeroMedicineInteraction = ({
   const [isMouseActive, setIsMouseActive] = useState(false);
 
   const medicineColors = [
-    '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57',
-    '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43'
+    "#ff6b6b",
+    "#4ecdc4",
+    "#45b7d1",
+    "#96ceb4",
+    "#feca57",
+    "#ff9ff3",
+    "#54a0ff",
+    "#5f27cd",
+    "#00d2d3",
+    "#ff9f43",
   ];
 
-  const createMedicineParticle = (index: number, mouseX: number, mouseY: number): MedicineParticle => {
-    const types: ('pill' | 'capsule' | 'tablet')[] = ['pill', 'capsule', 'tablet'];
+  const createMedicineParticle = (
+    index: number,
+    mouseX: number,
+    mouseY: number,
+  ): MedicineParticle => {
+    const types: ("pill" | "capsule" | "tablet")[] = [
+      "pill",
+      "capsule",
+      "tablet",
+    ];
     const type = types[Math.floor(Math.random() * types.length)];
-    const color = medicineColors[Math.floor(Math.random() * medicineColors.length)];
-    
+    const color =
+      medicineColors[Math.floor(Math.random() * medicineColors.length)];
+
     // Create particles around mouse position
     const angle = (index / 8) * Math.PI * 2;
     const distance = 50 + Math.random() * 100;
     const x = mouseX + Math.cos(angle) * distance;
     const y = mouseY + Math.sin(angle) * distance;
-    
+
     return {
       id: index,
       x,
@@ -54,36 +71,41 @@ export const HeroMedicineInteraction = ({
       size: 6 + Math.random() * 8,
       type,
       color,
-      opacity: 0.8
+      opacity: 0.8,
     };
   };
 
-  const createParticleElement = (particle: MedicineParticle): HTMLDivElement => {
-    const element = document.createElement('div');
-    element.className = 'absolute pointer-events-none transition-transform duration-200';
+  const createParticleElement = (
+    particle: MedicineParticle,
+  ): HTMLDivElement => {
+    const element = document.createElement("div");
+    element.className =
+      "absolute pointer-events-none transition-transform duration-200";
     element.style.width = `${particle.size}px`;
     element.style.height = `${particle.size * 0.6}px`;
-    element.style.zIndex = '25';
-    
+    element.style.zIndex = "25";
+
     switch (particle.type) {
-      case 'pill':
+      case "pill":
         element.style.backgroundColor = particle.color;
-        element.style.borderRadius = '50%';
-        element.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)';
+        element.style.borderRadius = "50%";
+        element.style.boxShadow =
+          "0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)";
         break;
-      case 'capsule':
+      case "capsule":
         element.style.background = `linear-gradient(90deg, ${particle.color} 0%, ${particle.color} 50%, #ffffff 50%, #ffffff 100%)`;
         element.style.borderRadius = `${particle.size * 0.3}px`;
-        element.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
+        element.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
         break;
-      case 'tablet':
+      case "tablet":
         element.style.backgroundColor = particle.color;
-        element.style.borderRadius = '25%';
-        element.style.border = '1px solid rgba(0,0,0,0.15)';
-        element.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5)';
+        element.style.borderRadius = "25%";
+        element.style.border = "1px solid rgba(0,0,0,0.15)";
+        element.style.boxShadow =
+          "0 2px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5)";
         break;
     }
-    
+
     return element;
   };
 
@@ -98,14 +120,15 @@ export const HeroMedicineInteraction = ({
       particlesRef.current.push(particle);
 
       // Animate particle appearance
-      gsap.fromTo(particle.element, 
+      gsap.fromTo(
+        particle.element,
         { scale: 0, opacity: 0 },
-        { 
-          scale: 1, 
-          opacity: particle.opacity, 
-          duration: 0.3, 
-          ease: "back.out(1.7)" 
-        }
+        {
+          scale: 1,
+          opacity: particle.opacity,
+          duration: 0.3,
+          ease: "back.out(1.7)",
+        },
       );
     }
 
@@ -121,7 +144,7 @@ export const HeroMedicineInteraction = ({
             if (oldParticle.element && oldParticle.element.parentNode) {
               oldParticle.element.parentNode.removeChild(oldParticle.element);
             }
-          }
+          },
         });
       }
     }
@@ -147,7 +170,7 @@ export const HeroMedicineInteraction = ({
         const dx = mouseRef.current.x - particle.x;
         const dy = mouseRef.current.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (distance < 100) {
           const force = (100 - distance) / 100;
           particle.vx -= (dx / distance) * force * 0.3;
@@ -206,23 +229,23 @@ export const HeroMedicineInteraction = ({
     };
 
     if (isActive) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseleave', handleMouseLeave);
-      document.addEventListener('click', handleClick);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseleave", handleMouseLeave);
+      document.addEventListener("click", handleClick);
       updateParticles();
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('click', handleClick);
-      
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("click", handleClick);
+
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      
+
       // Cleanup particles
-      particlesRef.current.forEach(particle => {
+      particlesRef.current.forEach((particle) => {
         if (particle.element && particle.element.parentNode) {
           particle.element.parentNode.removeChild(particle.element);
         }
@@ -250,7 +273,7 @@ export const MedicineTrailEffect = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseHistory.current.unshift({ x: e.clientX, y: e.clientY });
-      
+
       // Keep only last 10 positions
       if (mouseHistory.current.length > 10) {
         mouseHistory.current.pop();
@@ -260,23 +283,23 @@ export const MedicineTrailEffect = () => {
       trailRef.current.forEach((element, index) => {
         if (element && mouseHistory.current[index]) {
           const position = mouseHistory.current[index];
-          const opacity = (10 - index) / 10 * 0.6;
-          const scale = (10 - index) / 10 * 0.8;
-          
+          const opacity = ((10 - index) / 10) * 0.6;
+          const scale = ((10 - index) / 10) * 0.8;
+
           gsap.set(element, {
             x: position.x,
             y: position.y,
             opacity: opacity,
-            scale: scale
+            scale: scale,
           });
         }
       });
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    
+    document.addEventListener("mousemove", handleMouseMove);
+
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -290,7 +313,7 @@ export const MedicineTrailEffect = () => {
           }}
           className="absolute w-3 h-2 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full opacity-0"
           style={{
-            transform: 'translate(-50%, -50%)',
+            transform: "translate(-50%, -50%)",
             filter: `blur(${index * 0.3}px)`,
           }}
         />
