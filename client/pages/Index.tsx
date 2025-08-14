@@ -735,20 +735,6 @@ export default function Index() {
 
           {/* Scroll-Triggered Content */}
           <ClinicStreamsContent />
-          {/* Clean Navigation */}
-          <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 relative">
-            <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-              <div className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                ClinicStreams
-              </div>
-              <button
-                className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 interactive"
-                data-mouse-parallax="0.1"
-              >
-                Get Demo
-              </button>
-            </div>
-          </nav>
 
           {/* Floating Medical Elements */}
           <div className="fixed inset-0 pointer-events-none z-5 overflow-hidden">
