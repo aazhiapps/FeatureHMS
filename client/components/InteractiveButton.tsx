@@ -4,7 +4,7 @@ import { useMagneticEffect, useMouseTilt } from './MouseAnimationSystem';
 
 interface InteractiveButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   onClick?: () => void;
