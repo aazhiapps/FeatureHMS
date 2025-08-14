@@ -22,46 +22,86 @@ import { Pricing3D, Testimonials3D, ROICalculator3D } from '../components/3D/Pri
 
 // Enhanced Hero Section with Better Statistics Spacing
 const ComprehensiveHero = () => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
+  const logoRef = useRef<THREE.Group>(null);
+  const ringsRef = useRef<THREE.Group>(null);
+
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.5;
+    if (logoRef.current) {
+      // Smoother rotation animation
+      logoRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+      logoRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.2) * 0.3;
+    }
+
+    if (ringsRef.current) {
+      // Counter-rotating rings for dynamic effect
+      ringsRef.current.children.forEach((ring, index) => {
+        ring.rotation.z = state.clock.elapsedTime * (0.3 + index * 0.1) * (index % 2 === 0 ? 1 : -1);
+      });
     }
   });
-  
+
   return (
     <group>
       {/* Central Logo */}
-      <Float speed={1} rotationIntensity={0.5} floatIntensity={0.5}>
-        <Sphere ref={meshRef} args={[3, 32, 32]} position={[0, 0, 0]}>
-          <meshStandardMaterial 
-            color="#3b82f6" 
-            emissive="#1e40af" 
-            emissiveIntensity={0.4}
-            metalness={0.3}
-            roughness={0.7}
-          />
-        </Sphere>
-        
-        {/* Orbital Rings */}
-        {[...Array(3)].map((_, i) => (
-          <Torus 
-            key={i}
-            args={[4 + i * 1.5, 0.1, 8, 32]} 
-            rotation={[Math.PI / 2, i * Math.PI / 3, 0]}
-          >
-            <meshStandardMaterial 
-              color="#10b981" 
-              emissive="#10b981"
-              emissiveIntensity={0.6}
+      <Float speed={0.6} rotationIntensity={0.2} floatIntensity={0.3}>
+        <group ref={logoRef} position={[0, 0, 0]}>
+          {/* Logo Background Circle */}
+          <mesh>
+            <circleGeometry args={[4, 64]} />
+            <meshStandardMaterial
+              color="#ffffff"
               transparent
-              opacity={0.7}
+              opacity={0.95}
+              metalness={0.1}
+              roughness={0.1}
             />
-          </Torus>
-        ))}
+          </mesh>
+
+          {/* Logo Image */}
+          <mesh position={[0, 0, 0.01]}>
+            <planeGeometry args={[7, 7]} />
+            <meshStandardMaterial
+              map={new THREE.TextureLoader().load("https://cdn.builder.io/api/v1/image/assets%2F4109aee680574795abb204927cf7c9d7%2F81c19f9f153b41929a9b2b051a9fe82d?format=webp&width=800")}
+              transparent
+              alphaTest={0.1}
+            />
+          </mesh>
+
+          {/* Subtle glow effect */}
+          <mesh>
+            <circleGeometry args={[4.5, 64]} />
+            <meshStandardMaterial
+              color="#00aaff"
+              transparent
+              opacity={0.1}
+              emissive="#00aaff"
+              emissiveIntensity={0.3}
+            />
+          </mesh>
+        </group>
       </Float>
+
+      {/* Orbital Rings with Smoother Animation */}
+      <group ref={ringsRef}>
+        {[...Array(3)].map((_, i) => (
+          <Float key={i} speed={0.4 + i * 0.1} rotationIntensity={0.1} floatIntensity={0.2}>
+            <Torus
+              args={[5 + i * 1.8, 0.08, 8, 64]}
+              rotation={[Math.PI / 2, i * Math.PI / 4, 0]}
+            >
+              <meshStandardMaterial
+                color={i === 0 ? "#00aaff" : i === 1 ? "#10b981" : "#8b5cf6"}
+                emissive={i === 0 ? "#0088cc" : i === 1 ? "#10b981" : "#7c3aed"}
+                emissiveIntensity={0.4}
+                transparent
+                opacity={0.6 - i * 0.1}
+                metalness={0.2}
+                roughness={0.8}
+              />
+            </Torus>
+          </Float>
+        ))}
+      </group>
       
       {/* Title with Better Spacing */}
       <Text
