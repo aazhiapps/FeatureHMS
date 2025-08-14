@@ -405,23 +405,55 @@ export const UltimateAnimatedIndex: React.FC = () => {
       document.documentElement.classList.add('reduced-animations');
     }
 
-    // Smooth scrolling with performance consideration
-    if (animationConfig.enableComplexAnimations) {
-      const lenis = new (window as any).Lenis({
-        duration: animationConfig.animationDuration,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smooth: true
-      });
+    // Enhanced smooth scrolling behavior
+    const enableSmoothScrolling = () => {
+      document.documentElement.style.scrollBehavior = 'smooth';
 
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
+      // Custom smooth scroll implementation for better control
+      const smoothScrollTo = (target: number, duration: number = 1000) => {
+        const start = window.pageYOffset;
+        const distance = target - start;
+        const startTime = performance.now();
+
+        const animateScroll = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          // Easing function for smooth animation
+          const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+
+          window.scrollTo(0, start + distance * easeOutCubic);
+
+          if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+          }
+        };
+
+        requestAnimationFrame(animateScroll);
+      };
+
+      // Enhanced scroll event handling for better performance
+      let ticking = false;
+      const handleScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            // Trigger any scroll-based animations here
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
 
       return () => {
-        lenis.destroy();
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.removeEventListener('scroll', handleScroll);
       };
+    };
+
+    if (animationConfig.enableComplexAnimations) {
+      return enableSmoothScrolling();
     }
   }, [animationConfig]);
 
