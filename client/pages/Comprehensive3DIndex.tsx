@@ -657,7 +657,7 @@ const Comprehensive3DIndex = () => {
             ))}
             <button
               onClick={handleDemo}
-              className="px-4 py-3 rounded-lg text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition-all hover:scale-105"
+              className="px-3 py-2 rounded-lg text-xs font-semibold bg-green-600 text-white hover:bg-green-700 transition-all hover:scale-105 min-w-[80px]"
             >
               <div>🎯 Demo</div>
               <div className="text-xs opacity-80">Schedule</div>
