@@ -480,7 +480,7 @@ function MedicalScene({ features }: { features: any[] }) {
       trigger: "body",
       start: "top top",
       end: "bottom bottom",
-      scrub: 2.5,
+      scrub: 1.5, // Smoother scrub value
       onUpdate: (self) => {
         const progress = self.progress;
 
@@ -488,26 +488,49 @@ function MedicalScene({ features }: { features: any[] }) {
         const tangent = curve.getTangent(progress);
 
         if (droneRef.current) {
-          droneRef.current.position.copy(position);
-          droneRef.current.lookAt(position.clone().add(tangent));
+          // Smooth drone positioning with enhanced movement
+          gsap.to(droneRef.current.position, {
+            x: position.x,
+            y: position.y,
+            z: position.z,
+            duration: 0.5,
+            ease: "power2.out"
+          });
 
-          // Add drone rotation based on movement
-          const rotationSpeed = progress * Math.PI * 2;
-          droneRef.current.rotation.y = rotationSpeed;
+          // Enhanced drone orientation with banking
+          const lookAtTarget = position.clone().add(tangent);
+          droneRef.current.lookAt(lookAtTarget);
+
+          // Add banking effect when turning
+          const nextProgress = Math.min(progress + 0.01, 1);
+          const nextPosition = curve.getPoint(nextProgress);
+          const turnAmount = position.distanceTo(nextPosition);
+          droneRef.current.rotation.z = turnAmount * 2; // Banking effect
         }
 
-        // Medical camera following
-        const cameraOffset = new THREE.Vector3(8, 5, 8);
+        // Enhanced camera following with cinematic movement
+        const cameraDistance = 12 + Math.sin(progress * Math.PI * 2) * 3;
+        const cameraHeight = 8 + Math.cos(progress * Math.PI * 3) * 2;
+        const cameraAngle = progress * Math.PI * 0.5;
+
+        const cameraOffset = new THREE.Vector3(
+          Math.cos(cameraAngle) * cameraDistance,
+          cameraHeight,
+          Math.sin(cameraAngle) * cameraDistance
+        );
         const cameraPosition = position.clone().add(cameraOffset);
 
         gsap.to(camera.position, {
           x: cameraPosition.x,
           y: cameraPosition.y,
           z: cameraPosition.z,
-          duration: 0.3,
+          duration: 0.8,
+          ease: "power2.out"
         });
 
-        camera.lookAt(position);
+        // Smooth camera look-at with slight anticipation
+        const lookAhead = curve.getPoint(Math.min(progress + 0.02, 1));
+        camera.lookAt(lookAhead);
 
         // Enhanced drone highlighting for current feature
         const featureIndex = Math.floor(progress * features.length);
