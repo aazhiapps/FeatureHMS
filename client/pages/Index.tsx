@@ -1158,14 +1158,14 @@ export default function Index() {
 
             {/* Journey Completion Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto px-4">
-              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+              <InteractiveCard className="p-4" glowEffect={true}>
                 <div className="text-xl md:text-2xl font-bold text-green-400 mb-1">
                   8
                 </div>
                 <div className="text-xs md:text-sm text-white/80">
                   Features Explored
                 </div>
-              </div>
+              </InteractiveCard>
               <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
                 <div className="text-xl md:text-2xl font-bold text-blue-400 mb-1">
                   100%
