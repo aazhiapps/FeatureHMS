@@ -1215,6 +1215,12 @@ export default function Index() {
       {/* Interactive Particles */}
       <InteractiveParticles />
 
+      {/* 3D Scene Mouse Effects */}
+      <Scene3DMouseEffects />
+
+      {/* Mouse Glow Effect */}
+      <MouseGlowEffect />
+
       {/* Floating Action Button */}
       <FloatingActionButton onClick={() => {
         document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
