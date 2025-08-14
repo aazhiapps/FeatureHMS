@@ -309,10 +309,9 @@ export const ClinicStreamsProgress = ({
                 {/* Workflow label - also clickable */}
                 <text
                   x="45"
-                  className="md:x-60"
                   y={y + 3}
                   fontSize={hoveredFeature === index ? "8" : "7"}
-                  className={`md:text-[8px] cursor-pointer transition-all duration-300 ${hoveredFeature === index ? 'font-bold' : ''}`}
+                  className={`md:x-60 md:text-[8px] cursor-pointer transition-all duration-300 ${hoveredFeature === index ? 'font-bold' : ''}`}
                   fill={hoveredFeature === index ? "#ff6600" : isDiscovered ? "#00ff88" : "#9ca3af"}
                   onMouseEnter={() => setHoveredFeature(index)}
                   onMouseLeave={() => setHoveredFeature(null)}
