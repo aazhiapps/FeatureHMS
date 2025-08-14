@@ -720,7 +720,7 @@ export default function Index() {
         </div>
 
         {/* Hero Section */}
-        <section className="pt-32 pb-32 px-6 text-center min-h-screen flex items-center relative z-10">
+        <section className="pt-16 pb-32 px-6 text-center min-h-screen flex items-center relative z-10">
           <div className="max-w-4xl mx-auto w-full">
             <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent" data-mouse-parallax="0.03" data-mouse-attract="300">
               ClinicStreams
@@ -1429,7 +1429,7 @@ export default function Index() {
       <FloatingActionButton onClick={() => {
         document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
       }}>
-        <span className="text-xl">🚀</span>
+        <span className="text-xl">����</span>
       </FloatingActionButton>
       </SmoothScrollController>
     </MouseAnimationSystem>
