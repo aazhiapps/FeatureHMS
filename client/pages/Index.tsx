@@ -1134,12 +1134,26 @@ export default function Index() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-8 md:mb-12 px-4">
-              <button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-base md:text-lg border-2 border-transparent hover:border-white/20">
+              <InteractiveButton
+                variant="primary"
+                size="lg"
+                className="w-full sm:w-auto"
+                magnetic={true}
+                tilt={true}
+                ripple={true}
+              >
                 Get Demo Now
-              </button>
-              <button className="w-full sm:w-auto bg-white/15 backdrop-blur-md text-white px-8 md:px-10 py-4 md:py-5 rounded-full border border-white/40 hover:bg-white/25 hover:border-white/60 transition-all duration-300 text-base md:text-lg">
+              </InteractiveButton>
+              <InteractiveButton
+                variant="secondary"
+                size="lg"
+                className="w-full sm:w-auto"
+                magnetic={true}
+                tilt={true}
+                ripple={true}
+              >
                 Contact Sales
-              </button>
+              </InteractiveButton>
             </div>
 
             {/* Journey Completion Stats */}
