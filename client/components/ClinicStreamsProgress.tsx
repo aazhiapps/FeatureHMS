@@ -227,14 +227,13 @@ export const ClinicStreamsProgress = ({
                   cx="30"
                   cy={y}
                   r="8"
-                  className="md:r-10 cursor-pointer hover:r-10 md:hover:r-12"
+                  className={`md:r-10 cursor-pointer hover:r-10 md:hover:r-12 transition-all duration-300 ${isDiscovered ? "drop-shadow-lg" : ""} hover:drop-shadow-xl`}
                   fill={isDiscovered ? "#00ff88" : "#f3f4f6"}
                   stroke={
                     hoveredFeature === index ? "#ff6600" :
                     isActive ? "#0066ff" : isDiscovered ? "#00cc66" : "#d1d5db"
                   }
                   strokeWidth={hoveredFeature === index ? "5" : isActive ? "4" : "3"}
-                  className={`transition-all duration-300 ${isDiscovered ? "drop-shadow-lg" : ""} hover:drop-shadow-xl`}
                   onMouseEnter={() => setHoveredFeature(index)}
                   onMouseLeave={() => setHoveredFeature(null)}
                   onClick={() => {
