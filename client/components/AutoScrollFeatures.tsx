@@ -13,7 +13,11 @@ interface AutoScrollFeaturesProps {
   onComplete?: () => void;
 }
 
-export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrollFeaturesProps) => {
+export const AutoScrollFeatures = ({
+  features,
+  isActive,
+  onComplete,
+}: AutoScrollFeaturesProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
@@ -36,7 +40,7 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
 
     // Auto-advance through features
     intervalRef.current = setInterval(() => {
-      setCurrentFeatureIndex(prev => {
+      setCurrentFeatureIndex((prev) => {
         const nextIndex = prev + 1;
         if (nextIndex >= features.length) {
           handleComplete();
@@ -62,12 +66,13 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
 
       if (index === currentFeatureIndex) {
         // Show current feature
-        gsap.fromTo(element,
-          { 
-            opacity: 0, 
-            scale: 0.8, 
+        gsap.fromTo(
+          element,
+          {
+            opacity: 0,
+            scale: 0.8,
             y: 50,
-            rotationY: -20
+            rotationY: -20,
           },
           {
             opacity: 1,
@@ -76,8 +81,8 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
             rotationY: 0,
             duration: 0.8,
             ease: "back.out(1.7)",
-            delay: 0.2
-          }
+            delay: 0.2,
+          },
         );
       } else if (index < currentFeatureIndex) {
         // Hide previous features
@@ -87,7 +92,7 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
           y: -30,
           rotationY: 20,
           duration: 0.6,
-          ease: "power2.inOut"
+          ease: "power2.inOut",
         });
       } else {
         // Keep future features hidden
@@ -95,7 +100,7 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
           opacity: 0,
           scale: 0.8,
           y: 50,
-          rotationY: -20
+          rotationY: -20,
         });
       }
     });
@@ -114,7 +119,8 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
           <div className="flex items-center space-x-3">
             <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
             <span className="text-white font-medium text-sm">
-              Auto-discovering features... {currentFeatureIndex + 1}/{features.length}
+              Auto-discovering features... {currentFeatureIndex + 1}/
+              {features.length}
             </span>
           </div>
         </div>
@@ -122,9 +128,11 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
 
       {/* Progress bar */}
       <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-80 h-2 bg-white/20 rounded-full overflow-hidden">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-blue-400 to-green-400 rounded-full transition-all duration-300"
-          style={{ width: `${((currentFeatureIndex + 1) / features.length) * 100}%` }}
+          style={{
+            width: `${((currentFeatureIndex + 1) / features.length) * 100}%`,
+          }}
         ></div>
       </div>
 
@@ -138,7 +146,9 @@ export const AutoScrollFeatures = ({ features, isActive, onComplete }: AutoScrol
           >
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 md:p-12 border border-white/20 shadow-2xl max-w-2xl w-full text-center">
               {/* Feature icon with animation */}
-              <div className={`w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-3xl md:text-4xl shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300`}>
+              <div
+                className={`w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center text-3xl md:text-4xl shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300`}
+              >
                 {feature.icon}
               </div>
 

@@ -141,7 +141,8 @@ export const EnhancedLoadingScreen = ({
           onComplete: () => {
             // Show plane animation
             if (planeRef.current) {
-              gsap.fromTo(planeRef.current,
+              gsap.fromTo(
+                planeRef.current,
                 { x: -200, opacity: 0 },
                 {
                   x: window.innerWidth + 100,
@@ -150,11 +151,11 @@ export const EnhancedLoadingScreen = ({
                   ease: "power2.inOut",
                   onComplete: () => {
                     if (features.length > 0) {
-                      setLoadingPhase('systemready');
+                      setLoadingPhase("systemready");
 
                       // Show system ready screen for 3 seconds
                       setTimeout(() => {
-                        setLoadingPhase('complete');
+                        setLoadingPhase("complete");
 
                         // Final fade out
                         gsap.to(containerRef.current, {
@@ -165,7 +166,7 @@ export const EnhancedLoadingScreen = ({
                         });
                       }, 3000);
                     } else {
-                      setLoadingPhase('complete');
+                      setLoadingPhase("complete");
 
                       // Final fade out
                       gsap.to(containerRef.current, {
@@ -175,11 +176,11 @@ export const EnhancedLoadingScreen = ({
                         onComplete,
                       });
                     }
-                  }
-                }
+                  },
+                },
               );
             }
-          }
+          },
         });
       }, 1500);
 
@@ -311,7 +312,9 @@ export const EnhancedLoadingScreen = ({
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
               <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
               <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80 animate-spin"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs">🏥</div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xs">
+                🏥
+              </div>
             </div>
 
             {/* Medical Trail Effect */}
@@ -333,8 +336,17 @@ export const EnhancedLoadingScreen = ({
 
           {/* Circular Feature Display */}
           <div className="relative w-80 h-80 mx-auto mb-8">
-            <div className="absolute inset-0 border-2 border-blue-300 rounded-full opacity-30 animate-spin" style={{ animationDuration: '20s' }}></div>
-            <div className="absolute inset-4 border border-green-300 rounded-full opacity-20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
+            <div
+              className="absolute inset-0 border-2 border-blue-300 rounded-full opacity-30 animate-spin"
+              style={{ animationDuration: "20s" }}
+            ></div>
+            <div
+              className="absolute inset-4 border border-green-300 rounded-full opacity-20 animate-spin"
+              style={{
+                animationDuration: "15s",
+                animationDirection: "reverse",
+              }}
+            ></div>
 
             {features.map((feature, index) => {
               const angle = (index / features.length) * 2 * Math.PI;
@@ -350,14 +362,16 @@ export const EnhancedLoadingScreen = ({
                     left: `50%`,
                     top: `50%`,
                     transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
-                    animationDelay: `${index * 0.2}s`
+                    animationDelay: `${index * 0.2}s`,
                   }}
                 >
-                  <div className={`w-full h-full rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center text-white text-xl shadow-lg border-2 border-white/30`}>
+                  <div
+                    className={`w-full h-full rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center text-white text-xl shadow-lg border-2 border-white/30`}
+                  >
                     {feature.icon}
                   </div>
                   <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-blue-600 font-medium whitespace-nowrap">
-                    {feature.title.split(' ')[0]}
+                    {feature.title.split(" ")[0]}
                   </div>
                 </div>
               );
@@ -380,19 +394,30 @@ export const EnhancedLoadingScreen = ({
       {/* Loading Text */}
       <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center">
         <p className="text-blue-600 font-light text-lg mb-2">
-          {loadingPhase === "countdown" ? "Preparing to Launch..." :
-           loadingPhase === "circles" ? "Connecting to Healthcare Network..." :
-           loadingPhase === "plane" ? "Deploying Medical Drone..." :
-           loadingPhase === "systemready" ? "All Systems Online!" : "Ready to Begin!"}
+          {loadingPhase === "countdown"
+            ? "Preparing to Launch..."
+            : loadingPhase === "circles"
+              ? "Connecting to Healthcare Network..."
+              : loadingPhase === "plane"
+                ? "Deploying Medical Drone..."
+                : loadingPhase === "systemready"
+                  ? "All Systems Online!"
+                  : "Ready to Begin!"}
         </p>
         <div className="w-40 h-1 bg-blue-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all duration-1000"
             style={{
-              width: loadingPhase === "countdown" ? "15%" :
-                     loadingPhase === "circles" ? "35%" :
-                     loadingPhase === "plane" ? "65%" :
-                     loadingPhase === "systemready" ? "95%" : "100%"
+              width:
+                loadingPhase === "countdown"
+                  ? "15%"
+                  : loadingPhase === "circles"
+                    ? "35%"
+                    : loadingPhase === "plane"
+                      ? "65%"
+                      : loadingPhase === "systemready"
+                        ? "95%"
+                        : "100%",
             }}
           ></div>
         </div>

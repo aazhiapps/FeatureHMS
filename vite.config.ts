@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => ({
     react({
       fastRefresh: true,
     }),
-    expressPlugin()
+    expressPlugin(),
   ],
   resolve: {
     alias: {

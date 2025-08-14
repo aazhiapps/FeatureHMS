@@ -24,7 +24,9 @@ export default function Index() {
   const [showAutoScroll, setShowAutoScroll] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
-  const [cardInteractionMode, setCardInteractionMode] = useState<'scroll' | 'manual'>('scroll');
+  const [cardInteractionMode, setCardInteractionMode] = useState<
+    "scroll" | "manual"
+  >("scroll");
   const featuresRef = useRef<HTMLDivElement>(null);
 
   const handleLoadingComplete = useCallback(() => {
@@ -116,12 +118,12 @@ export default function Index() {
         "Streamlined patient registration process",
         "Automated appointment scheduling",
         "Real-time front desk operations",
-        "Patient check-in/check-out management"
+        "Patient check-in/check-out management",
       ],
       stats: [
         { label: "Daily Check-ins", value: "500+" },
-        { label: "Efficiency Gain", value: "45%" }
-      ]
+        { label: "Efficiency Gain", value: "45%" },
+      ],
     },
     {
       id: "lab-management",
@@ -138,12 +140,12 @@ export default function Index() {
         "Automated test result processing",
         "Quality control monitoring",
         "Sample tracking and management",
-        "Integration with diagnostic equipment"
+        "Integration with diagnostic equipment",
       ],
       stats: [
         { label: "Tests/Day", value: "1.2K+" },
-        { label: "Accuracy", value: "99.8%" }
-      ]
+        { label: "Accuracy", value: "99.8%" },
+      ],
     },
     {
       id: "discharge-management",
@@ -160,12 +162,12 @@ export default function Index() {
         "Automated discharge planning",
         "Care transition coordination",
         "Follow-up appointment scheduling",
-        "Medication reconciliation"
+        "Medication reconciliation",
       ],
       stats: [
         { label: "Discharge Time", value: "-40%" },
-        { label: "Readmission Rate", value: "-25%" }
-      ]
+        { label: "Readmission Rate", value: "-25%" },
+      ],
     },
     {
       id: "accounts-management",
@@ -182,12 +184,12 @@ export default function Index() {
         "Automated billing processes",
         "Real-time financial reporting",
         "Insurance claims management",
-        "Revenue cycle optimization"
+        "Revenue cycle optimization",
       ],
       stats: [
         { label: "Collection Rate", value: "95%" },
-        { label: "Processing Time", value: "-75%" }
-      ]
+        { label: "Processing Time", value: "-75%" },
+      ],
     },
     {
       id: "ambulance-management",
@@ -204,12 +206,12 @@ export default function Index() {
         "Real-time ambulance tracking",
         "Automated dispatch system",
         "Emergency response coordination",
-        "Patient transport management"
+        "Patient transport management",
       ],
       stats: [
         { label: "Response Time", value: "8 min" },
-        { label: "Fleet Utilization", value: "92%" }
-      ]
+        { label: "Fleet Utilization", value: "92%" },
+      ],
     },
     {
       id: "nursing-station",
@@ -226,12 +228,12 @@ export default function Index() {
         "Patient care workflow optimization",
         "Medication administration tracking",
         "Vital signs monitoring",
-        "Nurse-patient communication"
+        "Nurse-patient communication",
       ],
       stats: [
         { label: "Care Quality", value: "98%" },
-        { label: "Response Time", value: "3 min" }
-      ]
+        { label: "Response Time", value: "3 min" },
+      ],
     },
     {
       id: "insurance-module",
@@ -248,12 +250,12 @@ export default function Index() {
         "Real-time insurance verification",
         "Pre-authorization management",
         "Claims processing automation",
-        "Coverage analysis and reporting"
+        "Coverage analysis and reporting",
       ],
       stats: [
         { label: "Verification Speed", value: "30s" },
-        { label: "Approval Rate", value: "94%" }
-      ]
+        { label: "Approval Rate", value: "94%" },
+      ],
     },
     {
       id: "admission-management",
@@ -270,12 +272,12 @@ export default function Index() {
         "Automated bed assignment",
         "Care team coordination",
         "Admission documentation",
-        "Patient flow optimization"
+        "Patient flow optimization",
       ],
       stats: [
         { label: "Admission Time", value: "15 min" },
-        { label: "Bed Utilization", value: "89%" }
-      ]
+        { label: "Bed Utilization", value: "89%" },
+      ],
     },
   ];
 
@@ -304,20 +306,20 @@ export default function Index() {
             end: "bottom bottom",
             scrub: 3,
             onUpdate: (self) => {
-              if (cardInteractionMode === 'manual') return;
-              
+              if (cardInteractionMode === "manual") return;
+
               const progress = self.progress;
               const featureProgress = index / (features.length - 1);
               const threshold = 0.15;
-              
+
               // Calculate distance from current progress
               const distance = Math.abs(progress - featureProgress);
-              
+
               if (distance < threshold) {
                 // Show current feature
                 const opacity = 1 - (distance / threshold) * 0.7;
                 const scale = 0.9 + (1 - distance / threshold) * 0.1;
-                
+
                 gsap.to(element, {
                   opacity: opacity,
                   scale: scale,
@@ -345,8 +347,8 @@ export default function Index() {
           // Enhanced hover interaction
           const handleMouseEnter = () => {
             setHoveredFeature(index);
-            setCardInteractionMode('manual');
-            
+            setCardInteractionMode("manual");
+
             gsap.to(element, {
               scale: 1.05,
               z: 20,
@@ -356,9 +358,9 @@ export default function Index() {
               duration: 0.5,
               ease: "power2.out",
             });
-            
+
             // Add glow effect
-            gsap.to(element.querySelector('.card-glow'), {
+            gsap.to(element.querySelector(".card-glow"), {
               opacity: 0.6,
               scale: 1.1,
               duration: 0.5,
@@ -368,14 +370,14 @@ export default function Index() {
 
           const handleMouseLeave = () => {
             setHoveredFeature(null);
-            
+
             // Return to scroll mode after delay
             setTimeout(() => {
               if (!selectedFeature) {
-                setCardInteractionMode('scroll');
+                setCardInteractionMode("scroll");
               }
             }, 1000);
-            
+
             gsap.to(element, {
               scale: 1,
               z: 0,
@@ -384,21 +386,21 @@ export default function Index() {
               duration: 0.5,
               ease: "power2.out",
             });
-            
+
             // Remove glow effect
-            gsap.to(element.querySelector('.card-glow'), {
+            gsap.to(element.querySelector(".card-glow"), {
               opacity: 0,
               scale: 1,
               duration: 0.5,
               ease: "power2.out",
             });
           };
-          
+
           // Click interaction
           const handleClick = () => {
             setSelectedFeature(selectedFeature === index ? null : index);
-            setCardInteractionMode('manual');
-            
+            setCardInteractionMode("manual");
+
             if (selectedFeature !== index) {
               // Expand selected card
               gsap.to(element, {
@@ -410,11 +412,13 @@ export default function Index() {
                 duration: 0.8,
                 ease: "back.out(1.2)",
               });
-              
+
               // Hide other cards
               features.forEach((_, otherIndex) => {
                 if (otherIndex !== index) {
-                  const otherElement = document.getElementById(`feature-${features[otherIndex].id}`);
+                  const otherElement = document.getElementById(
+                    `feature-${features[otherIndex].id}`,
+                  );
                   if (otherElement) {
                     gsap.to(otherElement, {
                       opacity: 0.2,
@@ -430,7 +434,9 @@ export default function Index() {
             } else {
               // Return all cards to normal
               features.forEach((_, cardIndex) => {
-                const cardElement = document.getElementById(`feature-${features[cardIndex].id}`);
+                const cardElement = document.getElementById(
+                  `feature-${features[cardIndex].id}`,
+                );
                 if (cardElement) {
                   gsap.to(cardElement, {
                     opacity: 1,
@@ -443,7 +449,7 @@ export default function Index() {
                   });
                 }
               });
-              setCardInteractionMode('scroll');
+              setCardInteractionMode("scroll");
             }
           };
 
@@ -452,13 +458,19 @@ export default function Index() {
           element.addEventListener("click", handleClick);
 
           // Store cleanup functions
-          element._cleanupHandlers = { handleMouseEnter, handleMouseLeave, handleClick };
+          element._cleanupHandlers = {
+            handleMouseEnter,
+            handleMouseLeave,
+            handleClick,
+          };
         }
       });
 
       // Mobile scroll-based feature visibility
       features.forEach((feature, index) => {
-        const mobileElement = document.getElementById(`mobile-feature-${feature.id}`);
+        const mobileElement = document.getElementById(
+          `mobile-feature-${feature.id}`,
+        );
         if (mobileElement) {
           gsap.set(mobileElement, {
             opacity: 0,
@@ -515,11 +527,11 @@ export default function Index() {
     return (
       <EnhancedLoadingScreen
         onComplete={handleLoadingComplete}
-        features={features.map(f => ({
+        features={features.map((f) => ({
           id: f.id,
           title: f.title,
           icon: f.icon,
-          color: f.color
+          color: f.color,
         }))}
       />
     );
@@ -584,25 +596,35 @@ export default function Index() {
         </section>
 
         {/* Features Section */}
-        <section className="relative min-h-[400vh] py-20 md:py-32" ref={featuresRef}>
+        <section
+          className="relative min-h-[400vh] py-20 md:py-32"
+          ref={featuresRef}
+        >
           {/* Section Header */}
           <div className="relative z-30 bg-gradient-to-b from-blue-900/95 to-blue-800/80 backdrop-blur-xl py-12 md:py-16 border-b border-white/30 shadow-2xl mb-20">
             <div className="text-center">
               <div className="inline-flex items-center justify-center mb-4">
                 <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mr-4"></div>
-                <span className="text-blue-300 text-sm font-medium tracking-widest uppercase">Healthcare Innovation</span>
+                <span className="text-blue-300 text-sm font-medium tracking-widest uppercase">
+                  Healthcare Innovation
+                </span>
                 <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent ml-4"></div>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-white mb-4 md:mb-6 bg-gradient-to-r from-white via-blue-100 to-green-100 bg-clip-text text-transparent px-4 leading-tight">
                 Healthcare Innovation Journey
               </h2>
               <p className="text-base md:text-xl lg:text-2xl text-white/90 max-w-5xl mx-auto px-4 leading-relaxed font-light">
-                Follow our medical drone as it navigates through ClinicStreams' revolutionary features
+                Follow our medical drone as it navigates through ClinicStreams'
+                revolutionary features
               </p>
               <div className="mt-6 flex justify-center">
                 <div className="flex space-x-2">
                   {Array.from({ length: 8 }).map((_, i) => (
-                    <div key={i} className="w-2 h-2 rounded-full bg-white/30 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}></div>
+                    <div
+                      key={i}
+                      className="w-2 h-2 rounded-full bg-white/30 animate-pulse"
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    ></div>
                   ))}
                 </div>
               </div>
@@ -612,53 +634,67 @@ export default function Index() {
           {/* Three Column Layout */}
           <div className="relative min-h-[300vh] py-20">
             <div className="w-full max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8 min-h-screen items-start">
-              
               {/* Left Side - Feature Cards */}
               <div className="col-span-4 sticky top-32 max-h-screen overflow-y-auto scrollbar-hide">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">Healthcare Modules</h3>
+                <h3 className="text-xl font-bold text-white mb-6 text-center">
+                  Healthcare Modules
+                </h3>
                 <div className="space-y-4">
-                {features.map((feature, index) => (
-                  <div
-                    key={feature.id}
-                    id={`feature-${feature.id}`}
-                    className="opacity-80 transform scale-95 cursor-pointer transition-all duration-500 hover:opacity-100 hover:scale-100"
-                  >
-                    <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/30 shadow-lg group hover:shadow-xl transition-all duration-300">
-                      {/* Card Header */}
-                      <div className="flex items-center mb-3">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center text-lg shadow-lg mr-3 group-hover:scale-110 transition-all duration-300`}>
-                          {feature.icon}
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="text-base font-bold text-white mb-1 group-hover:text-blue-100 transition-colors duration-300">
-                            {feature.title}
-                          </h4>
-                          <div className="text-xs text-blue-300 uppercase tracking-wide font-medium">
-                            {feature.category}
+                  {features.map((feature, index) => (
+                    <div
+                      key={feature.id}
+                      id={`feature-${feature.id}`}
+                      className="opacity-80 transform scale-95 cursor-pointer transition-all duration-500 hover:opacity-100 hover:scale-100"
+                    >
+                      <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/30 shadow-lg group hover:shadow-xl transition-all duration-300">
+                        {/* Card Header */}
+                        <div className="flex items-center mb-3">
+                          <div
+                            className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center text-lg shadow-lg mr-3 group-hover:scale-110 transition-all duration-300`}
+                          >
+                            {feature.icon}
                           </div>
-                        </div>
-                        <div className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                          hoveredFeature === index ? 'bg-green-400 animate-pulse' : 'bg-white/40'
-                        }`}></div>
-                      </div>
-                      
-                      {/* Card Description */}
-                      <p className="text-white/80 text-xs leading-relaxed mb-3 group-hover:text-white/95 transition-colors duration-300 line-clamp-2">
-                        {feature.description}
-                      </p>
-                      
-                      {/* Quick Stats */}
-                      <div className="grid grid-cols-2 gap-2">
-                        {feature.stats.map((stat, idx) => (
-                          <div key={idx} className="text-center p-2 bg-white/5 rounded-md border border-white/10">
-                            <div className="text-xs font-bold text-blue-400">{stat.value}</div>
-                            <div className="text-xs text-white/60">{stat.label}</div>
+                          <div className="flex-1">
+                            <h4 className="text-base font-bold text-white mb-1 group-hover:text-blue-100 transition-colors duration-300">
+                              {feature.title}
+                            </h4>
+                            <div className="text-xs text-blue-300 uppercase tracking-wide font-medium">
+                              {feature.category}
+                            </div>
                           </div>
-                        ))}
+                          <div
+                            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                              hoveredFeature === index
+                                ? "bg-green-400 animate-pulse"
+                                : "bg-white/40"
+                            }`}
+                          ></div>
+                        </div>
+
+                        {/* Card Description */}
+                        <p className="text-white/80 text-xs leading-relaxed mb-3 group-hover:text-white/95 transition-colors duration-300 line-clamp-2">
+                          {feature.description}
+                        </p>
+
+                        {/* Quick Stats */}
+                        <div className="grid grid-cols-2 gap-2">
+                          {feature.stats.map((stat, idx) => (
+                            <div
+                              key={idx}
+                              className="text-center p-2 bg-white/5 rounded-md border border-white/10"
+                            >
+                              <div className="text-xs font-bold text-blue-400">
+                                {stat.value}
+                              </div>
+                              <div className="text-xs text-white/60">
+                                {stat.label}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
                 </div>
               </div>
 
@@ -668,27 +704,71 @@ export default function Index() {
                   {/* Circular Healthcare Management System */}
                   <div className="relative w-[500px] h-[500px]">
                     {/* Circular System Structure */}
-                    <svg width="500" height="500" viewBox="0 0 500 500" className="absolute inset-0">
+                    <svg
+                      width="500"
+                      height="500"
+                      viewBox="0 0 500 500"
+                      className="absolute inset-0"
+                    >
                       <defs>
-                        <linearGradient id="circularGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-                          <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
-                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.8" />
+                        <linearGradient
+                          id="circularGradient"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="100%"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#3b82f6"
+                            stopOpacity="0.8"
+                          />
+                          <stop
+                            offset="50%"
+                            stopColor="#8b5cf6"
+                            stopOpacity="0.6"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#10b981"
+                            stopOpacity="0.8"
+                          />
                         </linearGradient>
-                        <linearGradient id="innerCircleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#ef4444" stopOpacity="0.6" />
-                          <stop offset="50%" stopColor="#f97316" stopOpacity="0.4" />
-                          <stop offset="100%" stopColor="#eab308" stopOpacity="0.6" />
+                        <linearGradient
+                          id="innerCircleGradient"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="100%"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#ef4444"
+                            stopOpacity="0.6"
+                          />
+                          <stop
+                            offset="50%"
+                            stopColor="#f97316"
+                            stopOpacity="0.4"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#eab308"
+                            stopOpacity="0.6"
+                          />
                         </linearGradient>
                         <filter id="glow">
-                          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                          <feGaussianBlur
+                            stdDeviation="3"
+                            result="coloredBlur"
+                          />
                           <feMerge>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="SourceGraphic"/>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
                           </feMerge>
                         </filter>
                       </defs>
-                      
+
                       {/* Outer Circle - Main System */}
                       <circle
                         cx="250"
@@ -699,9 +779,9 @@ export default function Index() {
                         fill="none"
                         filter="url(#glow)"
                         className="animate-spin"
-                        style={{ animationDuration: '20s' }}
+                        style={{ animationDuration: "20s" }}
                       />
-                      
+
                       {/* Inner Circle - Core Modules */}
                       <circle
                         cx="250"
@@ -712,16 +792,19 @@ export default function Index() {
                         fill="none"
                         filter="url(#glow)"
                         className="animate-spin"
-                        style={{ animationDuration: '15s', animationDirection: 'reverse' }}
+                        style={{
+                          animationDuration: "15s",
+                          animationDirection: "reverse",
+                        }}
                       />
-                      
+
                       {/* Connection Lines from Center */}
                       {features.map((feature, index) => {
                         const angle = (feature.angle * Math.PI) / 180;
                         const x = 250 + Math.cos(angle) * (feature.radius + 20);
                         const y = 250 + Math.sin(angle) * (feature.radius + 20);
                         const isActive = hoveredFeature === index;
-                        
+
                         return (
                           <line
                             key={`line-${index}`}
@@ -736,14 +819,14 @@ export default function Index() {
                           />
                         );
                       })}
-                      
+
                       {/* Feature Module Nodes */}
                       {features.map((feature, index) => {
                         const angle = (feature.angle * Math.PI) / 180;
                         const x = 250 + Math.cos(angle) * (feature.radius + 20);
                         const y = 250 + Math.sin(angle) * (feature.radius + 20);
                         const isActive = hoveredFeature === index;
-                        
+
                         return (
                           <g key={index}>
                             {/* Module Background */}
@@ -761,7 +844,7 @@ export default function Index() {
                                 setSelectedFeature(index);
                               }}
                             />
-                            
+
                             {/* Module Node */}
                             <circle
                               cx={x}
@@ -776,7 +859,7 @@ export default function Index() {
                                 setSelectedFeature(index);
                               }}
                             />
-                            
+
                             {/* Module Icon */}
                             <text
                               x={x}
@@ -788,7 +871,7 @@ export default function Index() {
                             >
                               {feature.icon}
                             </text>
-                            
+
                             {/* Orbital Ring for Active Module */}
                             {isActive && (
                               <g>
@@ -814,7 +897,7 @@ export default function Index() {
                                 />
                               </g>
                             )}
-                            
+
                             {/* Data Flow Animation */}
                             {isActive && (
                               <g>
@@ -826,9 +909,9 @@ export default function Index() {
                                     r="3"
                                     fill="#10b981"
                                     className="animate-pulse"
-                                    style={{ 
+                                    style={{
                                       animationDelay: `${dot * 0.3}s`,
-                                      animationDuration: '1.5s'
+                                      animationDuration: "1.5s",
                                     }}
                                   />
                                 ))}
@@ -838,20 +921,23 @@ export default function Index() {
                         );
                       })}
                     </svg>
-                    
+
                     {/* Central Healthcare Hub */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-blue-500/40 to-green-500/40 backdrop-blur-xl border-4 border-white/50 flex items-center justify-center shadow-2xl">
                       <div className="text-5xl animate-bounce">🏥</div>
-                      
+
                       {/* Rotating Ring */}
-                      <div className="absolute inset-0 rounded-full border-3 border-blue-400/30 animate-spin" style={{ animationDuration: '8s' }}>
+                      <div
+                        className="absolute inset-0 rounded-full border-3 border-blue-400/30 animate-spin"
+                        style={{ animationDuration: "8s" }}
+                      >
                         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full"></div>
                         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-green-400 rounded-full"></div>
                         <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-purple-400 rounded-full"></div>
                         <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full"></div>
                       </div>
                     </div>
-                    
+
                     {/* Core Modules Labels */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                       {/* Telemedicine */}
@@ -885,23 +971,36 @@ export default function Index() {
                 <div className="mb-6">
                   <div className="relative w-40 h-40 mx-auto">
                     {/* Main Drone */}
-                    <div className={`absolute inset-0 rounded-full border-3 border-blue-400/60 bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md animate-pulse flex items-center justify-center transition-all duration-500 shadow-xl ${
-                      hoveredFeature !== null ? 'border-green-400/80 bg-gradient-to-br from-green-500/40 to-blue-500/40 scale-110' : ''
-                    }`}>
-                      <div className={`text-5xl animate-bounce transition-all duration-500 drop-shadow-lg ${
-                        hoveredFeature !== null ? 'scale-125 animate-pulse' : ''
-                      }`}>🚁</div>
+                    <div
+                      className={`absolute inset-0 rounded-full border-3 border-blue-400/60 bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md animate-pulse flex items-center justify-center transition-all duration-500 shadow-xl ${
+                        hoveredFeature !== null
+                          ? "border-green-400/80 bg-gradient-to-br from-green-500/40 to-blue-500/40 scale-110"
+                          : ""
+                      }`}
+                    >
+                      <div
+                        className={`text-5xl animate-bounce transition-all duration-500 drop-shadow-lg ${
+                          hoveredFeature !== null
+                            ? "scale-125 animate-pulse"
+                            : ""
+                        }`}
+                      >
+                        🚁
+                      </div>
                     </div>
-                    
+
                     {/* Rotating Elements */}
-                    <div className="absolute inset-0 animate-spin" style={{ animationDuration: '6s' }}>
+                    <div
+                      className="absolute inset-0 animate-spin"
+                      style={{ animationDuration: "6s" }}
+                    >
                       {[0, 1, 2, 3, 4, 5].map((i) => (
                         <div
                           key={i}
                           className="absolute w-2 h-2 bg-blue-400 rounded-full shadow-lg"
                           style={{
-                            top: '50%',
-                            left: '50%',
+                            top: "50%",
+                            left: "50%",
                             transform: `rotate(${i * 60}deg) translateX(70px) translateY(-4px)`,
                           }}
                         />
@@ -909,13 +1008,15 @@ export default function Index() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Feature Explanation */}
                 <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/30 shadow-xl">
                   {hoveredFeature !== null ? (
                     <div className="animate-fadeIn">
                       <div className="flex items-center mb-4">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${features[hoveredFeature].color} flex items-center justify-center text-xl shadow-lg mr-3`}>
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${features[hoveredFeature].color} flex items-center justify-center text-xl shadow-lg mr-3`}
+                        >
                           {features[hoveredFeature].icon}
                         </div>
                         <div>
@@ -927,31 +1028,42 @@ export default function Index() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <p className="text-white/90 text-base leading-relaxed mb-4">
                         {features[hoveredFeature].description}
                       </p>
-                      
+
                       <div className="mb-4">
                         <h4 className="text-base font-semibold text-white mb-3 flex items-center">
                           <div className="w-1 h-5 bg-gradient-to-b from-blue-400 to-green-400 rounded-full mr-3"></div>
                           Key Benefits
                         </h4>
                         <div className="space-y-2">
-                          {features[hoveredFeature].benefits.slice(0, 3).map((benefit, idx) => (
-                            <div key={idx} className="flex items-start">
-                              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                              <span className="text-white/80 text-sm leading-relaxed">{benefit}</span>
-                            </div>
-                          ))}
+                          {features[hoveredFeature].benefits
+                            .slice(0, 3)
+                            .map((benefit, idx) => (
+                              <div key={idx} className="flex items-start">
+                                <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                <span className="text-white/80 text-sm leading-relaxed">
+                                  {benefit}
+                                </span>
+                              </div>
+                            ))}
                         </div>
                       </div>
-                      
+
                       <div className="grid grid-cols-2 gap-3">
                         {features[hoveredFeature].stats.map((stat, idx) => (
-                          <div key={idx} className="text-center p-3 bg-white/10 rounded-lg border border-white/20">
-                            <div className="text-lg font-bold text-blue-400 mb-1">{stat.value}</div>
-                            <div className="text-xs text-white/70">{stat.label}</div>
+                          <div
+                            key={idx}
+                            className="text-center p-3 bg-white/10 rounded-lg border border-white/20"
+                          >
+                            <div className="text-lg font-bold text-blue-400 mb-1">
+                              {stat.value}
+                            </div>
+                            <div className="text-xs text-white/70">
+                              {stat.label}
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -963,7 +1075,9 @@ export default function Index() {
                         Explore Healthcare Features
                       </h3>
                       <p className="text-white/70 text-sm leading-relaxed mb-4">
-                        Click on any feature card or tree node to see detailed information about our comprehensive healthcare solutions.
+                        Click on any feature card or tree node to see detailed
+                        information about our comprehensive healthcare
+                        solutions.
                       </p>
                       <div className="flex justify-center space-x-2">
                         {features.map((_, idx) => (
@@ -986,7 +1100,9 @@ export default function Index() {
         <section className="py-20 md:py-32 px-4 md:px-6 text-center relative z-10 min-h-screen flex items-center bg-gradient-to-t from-blue-900/50 to-transparent">
           <div className="max-w-4xl mx-auto w-full">
             <div className="mb-8">
-              <div className="text-4xl md:text-6xl lg:text-8xl mb-4 md:mb-6">🙏</div>
+              <div className="text-4xl md:text-6xl lg:text-8xl mb-4 md:mb-6">
+                🙏
+              </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-white mb-4 md:mb-6 bg-gradient-to-r from-white via-green-200 to-blue-200 bg-clip-text text-transparent px-4">
                 Thank You for Exploring ClinicStreams
               </h2>
@@ -1014,20 +1130,36 @@ export default function Index() {
             {/* Journey Completion Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto px-4">
               <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
-                <div className="text-xl md:text-2xl font-bold text-green-400 mb-1">8</div>
-                <div className="text-xs md:text-sm text-white/80">Features Explored</div>
+                <div className="text-xl md:text-2xl font-bold text-green-400 mb-1">
+                  8
+                </div>
+                <div className="text-xs md:text-sm text-white/80">
+                  Features Explored
+                </div>
               </div>
               <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
-                <div className="text-xl md:text-2xl font-bold text-blue-400 mb-1">100%</div>
-                <div className="text-xs md:text-sm text-white/80">Journey Complete</div>
+                <div className="text-xl md:text-2xl font-bold text-blue-400 mb-1">
+                  100%
+                </div>
+                <div className="text-xs md:text-sm text-white/80">
+                  Journey Complete
+                </div>
               </div>
               <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
-                <div className="text-xl md:text-2xl font-bold text-purple-400 mb-1">24/7</div>
-                <div className="text-xs md:text-sm text-white/80">Support Available</div>
+                <div className="text-xl md:text-2xl font-bold text-purple-400 mb-1">
+                  24/7
+                </div>
+                <div className="text-xs md:text-sm text-white/80">
+                  Support Available
+                </div>
               </div>
               <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
-                <div className="text-xl md:text-2xl font-bold text-cyan-400 mb-1">∞</div>
-                <div className="text-xs md:text-sm text-white/80">Possibilities</div>
+                <div className="text-xl md:text-2xl font-bold text-cyan-400 mb-1">
+                  ∞
+                </div>
+                <div className="text-xs md:text-sm text-white/80">
+                  Possibilities
+                </div>
               </div>
             </div>
           </div>
