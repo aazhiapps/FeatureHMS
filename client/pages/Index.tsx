@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
@@ -27,17 +27,17 @@ export default function Index() {
   const [cardInteractionMode, setCardInteractionMode] = useState<'scroll' | 'manual'>('scroll');
   const featuresRef = useRef<HTMLDivElement>(null);
 
-  const handleLoadingComplete = () => {
+  const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
     // Show auto-scroll after a brief delay
     setTimeout(() => {
       setShowAutoScroll(true);
     }, 1000);
-  };
+  }, []);
 
-  const handleAutoScrollComplete = () => {
+  const handleAutoScrollComplete = useCallback(() => {
     setShowAutoScroll(false);
-  };
+  }, []);
 
   // ClinicStreams 3D features data for medical journey - All 8 features
   const clinicFeatures = [
