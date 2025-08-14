@@ -22,6 +22,8 @@ export const AutoScrollFeatures = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
+  const [burstTrigger, setBurstTrigger] = useState(false);
+  const [burstPosition, setBurstPosition] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Memoize the completion callback to prevent re-renders
