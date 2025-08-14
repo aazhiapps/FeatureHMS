@@ -600,8 +600,12 @@ export default function Index() {
     <MouseAnimationSystem>
       <SmoothScrollController>
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-purple-800 relative">
-        {/* 3D Medical Journey Background */}
-        <ClinicStreamsJourney features={clinicFeatures} />
+        {/* 3D Medical Journey Background - now with interactive navigation */}
+        <ClinicStreamsJourney
+          features={clinicFeatures}
+          onFeatureClick={handleFeatureNavigation}
+          onJumpToSection={handleProgressNavigation}
+        />
 
         {/* Progress Indicator - now with interactive navigation */}
         <ClinicStreamsProgress
@@ -640,7 +644,7 @@ export default function Index() {
               }}
               data-parallax={String(0.1 + (i % 3) * 0.05)}
             >
-              {['���', '💊', '⚕️', '🩺', '💉', '🧬', '📊', '💗'][i]}
+              {['🏥', '💊', '⚕️', '🩺', '💉', '🧬', '📊', '💗'][i]}
             </div>
           ))}
         </div>
