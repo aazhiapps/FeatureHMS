@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EnhancedLoadingScreen } from "../components/EnhancedLoadingScreen";
+import { AutoScrollFeatures } from "../components/AutoScrollFeatures";
 import { ClinicStreamsJourney } from "../components/ClinicStreamsJourney";
 import { ClinicStreamsProgress } from "../components/ClinicStreamsProgress";
 import { ClinicStreamsContent } from "../components/ClinicStreamsContent";
@@ -20,6 +21,7 @@ declare global {
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showAutoScroll, setShowAutoScroll] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
   const [cardInteractionMode, setCardInteractionMode] = useState<'scroll' | 'manual'>('scroll');
@@ -27,6 +29,14 @@ export default function Index() {
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
+    // Show auto-scroll after a brief delay
+    setTimeout(() => {
+      setShowAutoScroll(true);
+    }, 1000);
+  };
+
+  const handleAutoScrollComplete = () => {
+    setShowAutoScroll(false);
   };
 
   // ClinicStreams 3D features data for medical journey - All 8 features
