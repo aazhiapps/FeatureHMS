@@ -7,15 +7,13 @@ interface AllSystemsActiveScreenProps {
   duration?: number; // Duration in seconds
 }
 
-interface Molecule {
+interface DNABase {
   id: number;
   x: number;
   y: number;
-  size: number;
-  color: string;
-  velocity: { x: number; y: number };
+  type: 'A' | 'T' | 'G' | 'C';
+  strand: 'top' | 'bottom';
   rotation: number;
-  rotationSpeed: number;
 }
 
 export const AllSystemsActiveScreen = ({
