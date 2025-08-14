@@ -326,7 +326,9 @@ export default function Index() {
                   z: 0,
                   rotationY: 0,
                   rotationX: 0,
-                  duration: 0.8,
+                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+                  filter: "blur(0px)",
+                  duration: 1.2,
                   ease: "power2.out",
                 });
               } else {
