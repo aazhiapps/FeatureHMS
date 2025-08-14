@@ -104,6 +104,8 @@ export const InteractiveButton = ({
         return 'px-6 py-3 text-base';
       case 'lg':
         return 'px-8 py-4 text-lg';
+      case 'xl':
+        return 'px-10 py-5 text-xl';
       default:
         return '';
     }
