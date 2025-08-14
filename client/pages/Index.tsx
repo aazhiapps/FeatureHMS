@@ -658,7 +658,7 @@ export default function Index() {
               }}
               data-parallax={String(0.1 + (i % 3) * 0.05)}
             >
-              {['🏥', '💊', '⚕️', '🩺', '💉', '🧬', '📊', '💗'][i]}
+              {['🏥', '💊', '⚕���', '🩺', '💉', '🧬', '📊', '💗'][i]}
             </div>
           ))}
         </div>
@@ -1191,20 +1191,6 @@ export default function Index() {
             </div>
           </div>
         </section>
-
-        {/* Demo and Replay Section */}
-        <DemoReplaySection
-          onReplay={handleReplayJourney}
-          onDemo={handleScheduleDemo}
-          onCompare={handleShowComparison}
-          features={features.map(f => ({
-            id: f.id,
-            title: f.title,
-            icon: f.icon,
-            color: f.color,
-            category: f.category
-          }))}
-        />
 
         {/* Thank You Section */}
         <section className="py-20 md:py-32 px-4 md:px-6 text-center relative z-10 min-h-screen flex items-center bg-gradient-to-t from-blue-900/50 to-transparent">
