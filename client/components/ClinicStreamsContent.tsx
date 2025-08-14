@@ -127,6 +127,15 @@ export const ClinicStreamsContent = () => {
             const scale = distance < fadeZone ? 1 : 1 - ((distance - fadeZone) / (threshold - fadeZone)) * 0.1;
             const blur = distance < fadeZone ? 0 : ((distance - fadeZone) / (threshold - fadeZone)) * 5;
 
+            // Update current section for medicine effect
+            if (distance < fadeZone && currentSection !== section.id) {
+              setCurrentSection(section.id);
+
+              // Trigger medicine burst effect on section change
+              setBurstPosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+              setBurstTrigger(prev => !prev);
+            }
+
             gsap.to(sectionElement, {
               opacity: opacity,
               y: 0,
