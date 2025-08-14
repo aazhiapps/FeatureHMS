@@ -554,9 +554,9 @@ export default function Index() {
         </section>
 
         {/* Features Section */}
-        <section className="relative min-h-[300vh] py-10 md:py-20" ref={featuresRef}>
+        <section className="relative min-h-[400vh] py-20 md:py-32" ref={featuresRef}>
           {/* Section Header */}
-          <div className="sticky top-0 z-30 bg-gradient-to-b from-blue-900/98 to-blue-800/60 backdrop-blur-xl py-8 md:py-12 border-b border-white/20 shadow-2xl">
+          <div className="relative z-30 bg-gradient-to-b from-blue-900/95 to-blue-800/80 backdrop-blur-xl py-12 md:py-16 border-b border-white/30 shadow-2xl mb-20">
             <div className="text-center">
               <div className="inline-flex items-center justify-center mb-4">
                 <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mr-4"></div>
@@ -580,27 +580,29 @@ export default function Index() {
           </div>
 
           {/* Three Column Layout */}
-          <div className="relative min-h-[200vh] flex items-center">
-            <div className="w-full max-w-7xl mx-auto px-4 grid grid-cols-12 gap-8 min-h-screen">
+          <div className="relative min-h-[300vh] py-20">
+            <div className="w-full max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8 min-h-screen items-start">
               
               {/* Left Side - Feature Cards */}
-              <div className="col-span-4 flex flex-col justify-center space-y-6">
+              <div className="col-span-4 sticky top-32 max-h-screen overflow-y-auto scrollbar-hide">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">Healthcare Modules</h3>
+                <div className="space-y-4">
                 {features.map((feature, index) => (
                   <div
                     key={feature.id}
                     id={`feature-${feature.id}`}
-                    className="opacity-30 transform scale-95 cursor-pointer transition-all duration-700 hover:opacity-100 hover:scale-100"
+                    className="opacity-80 transform scale-95 cursor-pointer transition-all duration-500 hover:opacity-100 hover:scale-100"
                   >
-                    <div className="bg-gradient-to-br from-white/15 via-white/8 to-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/30 shadow-xl group hover:shadow-2xl transition-all duration-500">
+                    <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/30 shadow-lg group hover:shadow-xl transition-all duration-300">
                       {/* Card Header */}
-                      <div className="flex items-center mb-4">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-xl shadow-lg mr-4 group-hover:scale-110 transition-all duration-300`}>
+                      <div className="flex items-center mb-3">
+                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center text-lg shadow-lg mr-3 group-hover:scale-110 transition-all duration-300`}>
                           {feature.icon}
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-100 transition-colors duration-300">
+                          <h4 className="text-base font-bold text-white mb-1 group-hover:text-blue-100 transition-colors duration-300">
                             {feature.title}
-                          </h3>
+                          </h4>
                           <div className="text-xs text-blue-300 uppercase tracking-wide font-medium">
                             {feature.category}
                           </div>
@@ -611,15 +613,15 @@ export default function Index() {
                       </div>
                       
                       {/* Card Description */}
-                      <p className="text-white/80 text-sm leading-relaxed mb-4 group-hover:text-white/95 transition-colors duration-300">
+                      <p className="text-white/80 text-xs leading-relaxed mb-3 group-hover:text-white/95 transition-colors duration-300 line-clamp-2">
                         {feature.description}
                       </p>
                       
                       {/* Quick Stats */}
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-2">
                         {feature.stats.map((stat, idx) => (
-                          <div key={idx} className="text-center p-2 bg-white/5 rounded-lg border border-white/10">
-                            <div className="text-sm font-bold text-blue-400">{stat.value}</div>
+                          <div key={idx} className="text-center p-2 bg-white/5 rounded-md border border-white/10">
+                            <div className="text-xs font-bold text-blue-400">{stat.value}</div>
                             <div className="text-xs text-white/60">{stat.label}</div>
                           </div>
                         ))}
@@ -627,15 +629,16 @@ export default function Index() {
                     </div>
                   </div>
                 ))}
+                </div>
               </div>
 
               {/* Center - Feature Tree */}
-              <div className="col-span-4 flex items-center justify-center">
+              <div className="col-span-4 sticky top-32 flex items-center justify-center min-h-screen">
                 <div className="relative">
                   {/* Circular Healthcare Management System */}
-                  <div className="relative w-96 h-96">
+                  <div className="relative w-[500px] h-[500px]">
                     {/* Circular System Structure */}
-                    <svg width="384" height="384" viewBox="0 0 384 384" className="absolute inset-0">
+                    <svg width="500" height="500" viewBox="0 0 500 500" className="absolute inset-0">
                       <defs>
                         <linearGradient id="circularGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
@@ -658,11 +661,11 @@ export default function Index() {
                       
                       {/* Outer Circle - Main System */}
                       <circle
-                        cx="192"
-                        cy="192"
-                        r="160"
+                        cx="250"
+                        cy="250"
+                        r="200"
                         stroke="url(#circularGradient)"
-                        strokeWidth="3"
+                        strokeWidth="4"
                         fill="none"
                         filter="url(#glow)"
                         className="animate-spin"
@@ -671,11 +674,11 @@ export default function Index() {
                       
                       {/* Inner Circle - Core Modules */}
                       <circle
-                        cx="192"
-                        cy="192"
-                        r="100"
+                        cx="250"
+                        cy="250"
+                        r="120"
                         stroke="url(#innerCircleGradient)"
-                        strokeWidth="2"
+                        strokeWidth="3"
                         fill="none"
                         filter="url(#glow)"
                         className="animate-spin"
@@ -685,15 +688,15 @@ export default function Index() {
                       {/* Connection Lines from Center */}
                       {features.map((feature, index) => {
                         const angle = (feature.angle * Math.PI) / 180;
-                        const x = 192 + Math.cos(angle) * feature.radius;
-                        const y = 192 + Math.sin(angle) * feature.radius;
+                        const x = 250 + Math.cos(angle) * (feature.radius + 20);
+                        const y = 250 + Math.sin(angle) * (feature.radius + 20);
                         const isActive = hoveredFeature === index;
                         
                         return (
                           <line
                             key={`line-${index}`}
-                            x1="192"
-                            y1="192"
+                            x1="250"
+                            y1="250"
                             x2={x}
                             y2={y}
                             stroke={isActive ? "#10b981" : "#3b82f6"}
@@ -707,19 +710,19 @@ export default function Index() {
                       {/* Feature Module Nodes */}
                       {features.map((feature, index) => {
                         const angle = (feature.angle * Math.PI) / 180;
-                        const x = 192 + Math.cos(angle) * feature.radius;
-                        const y = 192 + Math.sin(angle) * feature.radius;
+                        const x = 250 + Math.cos(angle) * (feature.radius + 20);
+                        const y = 250 + Math.sin(angle) * (feature.radius + 20);
                         const isActive = hoveredFeature === index;
                         
                         return (
                           <g key={index}>
                             {/* Module Background */}
                             <rect
-                              x={x - 35}
-                              y={y - 12}
-                              width="70"
-                              height="24"
-                              rx="12"
+                              x={x - 40}
+                              y={y - 15}
+                              width="80"
+                              height="30"
+                              rx="15"
                               fill={isActive ? "#10b981" : "#3b82f6"}
                               opacity={isActive ? "0.9" : "0.6"}
                               className="transition-all duration-500 cursor-pointer"
@@ -733,10 +736,10 @@ export default function Index() {
                             <circle
                               cx={x}
                               cy={y}
-                              r={isActive ? "16" : "12"}
+                              r={isActive ? "20" : "16"}
                               fill={isActive ? "#10b981" : "#3b82f6"}
                               stroke="#ffffff"
-                              strokeWidth="3"
+                              strokeWidth="4"
                               className="transition-all duration-500 cursor-pointer"
                               onClick={() => {
                                 setHoveredFeature(index);
@@ -749,7 +752,7 @@ export default function Index() {
                               x={x}
                               y={y + 6}
                               textAnchor="middle"
-                              fontSize="16"
+                              fontSize="20"
                               fill="white"
                               className="pointer-events-none"
                             >
@@ -762,20 +765,20 @@ export default function Index() {
                                 <circle
                                   cx={x}
                                   cy={y}
-                                  r="24"
+                                  r="30"
                                   fill="none"
                                   stroke="#10b981"
-                                  strokeWidth="2"
+                                  strokeWidth="3"
                                   opacity="0.6"
                                   className="animate-ping"
                                 />
                                 <circle
                                   cx={x}
                                   cy={y}
-                                  r="30"
+                                  r="36"
                                   fill="none"
                                   stroke="#10b981"
-                                  strokeWidth="1"
+                                  strokeWidth="2"
                                   opacity="0.4"
                                   className="animate-pulse"
                                 />
@@ -788,9 +791,9 @@ export default function Index() {
                                 {[0, 1, 2].map((dot) => (
                                   <circle
                                     key={dot}
-                                    cx={192 + Math.cos(angle) * (60 + dot * 40)}
-                                    cy={192 + Math.sin(angle) * (60 + dot * 40)}
-                                    r="2"
+                                    cx={250 + Math.cos(angle) * (80 + dot * 50)}
+                                    cy={250 + Math.sin(angle) * (80 + dot * 50)}
+                                    r="3"
                                     fill="#10b981"
                                     className="animate-pulse"
                                     style={{ 
@@ -807,38 +810,38 @@ export default function Index() {
                     </svg>
                     
                     {/* Central Healthcare Hub */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-gradient-to-br from-blue-500/40 to-green-500/40 backdrop-blur-xl border-3 border-white/50 flex items-center justify-center shadow-2xl">
-                      <div className="text-4xl animate-bounce">🏥</div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-blue-500/40 to-green-500/40 backdrop-blur-xl border-4 border-white/50 flex items-center justify-center shadow-2xl">
+                      <div className="text-5xl animate-bounce">🏥</div>
                       
                       {/* Rotating Ring */}
-                      <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-spin" style={{ animationDuration: '8s' }}>
-                        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-blue-400 rounded-full"></div>
-                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-green-400 rounded-full"></div>
-                        <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-400 rounded-full"></div>
-                        <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-cyan-400 rounded-full"></div>
+                      <div className="absolute inset-0 rounded-full border-3 border-blue-400/30 animate-spin" style={{ animationDuration: '8s' }}>
+                        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full"></div>
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-green-400 rounded-full"></div>
+                        <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-purple-400 rounded-full"></div>
+                        <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-400 rounded-full"></div>
                       </div>
                     </div>
                     
                     {/* Core Modules Labels */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                       {/* Telemedicine */}
-                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-2 py-1 rounded-full">
+                      <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-3 py-1 rounded-full">
                         TELEMEDICINE
                       </div>
                       {/* Billing Modules */}
-                      <div className="absolute -left-12 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs font-medium text-white bg-blue-500/80 px-2 py-1 rounded-full">
+                      <div className="absolute -left-16 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs font-medium text-white bg-blue-500/80 px-3 py-1 rounded-full">
                         BILLING
                       </div>
                       {/* OPD/CPOE */}
-                      <div className="absolute -top-16 -left-8 text-xs font-medium text-white bg-cyan-500/80 px-2 py-1 rounded-full">
+                      <div className="absolute -top-20 -left-12 text-xs font-medium text-white bg-cyan-500/80 px-3 py-1 rounded-full">
                         OPD/CPOE
                       </div>
                       {/* Vital Room */}
-                      <div className="absolute -bottom-8 -left-8 text-xs font-medium text-white bg-green-500/80 px-2 py-1 rounded-full">
+                      <div className="absolute -bottom-12 -left-12 text-xs font-medium text-white bg-green-500/80 px-3 py-1 rounded-full">
                         VITAL ROOM
                       </div>
                       {/* CSSD Module */}
-                      <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-2 py-1 rounded-full">
+                      <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 text-xs font-medium text-white bg-red-500/80 px-3 py-1 rounded-full">
                         CSSD MODULE
                       </div>
                     </div>
@@ -847,29 +850,29 @@ export default function Index() {
               </div>
 
               {/* Right Side - Drone Explanation */}
-              <div className="col-span-4 flex flex-col justify-center">
+              <div className="col-span-4 sticky top-32 max-h-screen overflow-y-auto scrollbar-hide">
                 {/* Drone Display */}
-                <div className="mb-8">
-                  <div className="relative w-48 h-48 mx-auto">
+                <div className="mb-6">
+                  <div className="relative w-40 h-40 mx-auto">
                     {/* Main Drone */}
-                    <div className={`absolute inset-0 rounded-full border-3 border-blue-400/60 bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md animate-pulse flex items-center justify-center transition-all duration-500 shadow-2xl ${
+                    <div className={`absolute inset-0 rounded-full border-3 border-blue-400/60 bg-gradient-to-br from-blue-500/30 to-green-500/30 backdrop-blur-md animate-pulse flex items-center justify-center transition-all duration-500 shadow-xl ${
                       hoveredFeature !== null ? 'border-green-400/80 bg-gradient-to-br from-green-500/40 to-blue-500/40 scale-110' : ''
                     }`}>
-                      <div className={`text-6xl animate-bounce transition-all duration-500 drop-shadow-lg ${
+                      <div className={`text-5xl animate-bounce transition-all duration-500 drop-shadow-lg ${
                         hoveredFeature !== null ? 'scale-125 animate-pulse' : ''
                       }`}>🚁</div>
                     </div>
                     
                     {/* Rotating Elements */}
-                    <div className="absolute inset-0 animate-spin" style={{ animationDuration: '8s' }}>
+                    <div className="absolute inset-0 animate-spin" style={{ animationDuration: '6s' }}>
                       {[0, 1, 2, 3, 4, 5].map((i) => (
                         <div
                           key={i}
-                          className="absolute w-3 h-3 bg-blue-400 rounded-full shadow-lg"
+                          className="absolute w-2 h-2 bg-blue-400 rounded-full shadow-lg"
                           style={{
                             top: '50%',
                             left: '50%',
-                            transform: `rotate(${i * 60}deg) translateX(80px) translateY(-6px)`,
+                            transform: `rotate(${i * 60}deg) translateX(70px) translateY(-4px)`,
                           }}
                         />
                       ))}
@@ -878,15 +881,15 @@ export default function Index() {
                 </div>
                 
                 {/* Feature Explanation */}
-                <div className="bg-gradient-to-br from-white/15 via-white/8 to-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/30 shadow-xl">
+                <div className="bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/30 shadow-xl">
                   {hoveredFeature !== null ? (
                     <div className="animate-fadeIn">
-                      <div className="flex items-center mb-6">
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${features[hoveredFeature].color} flex items-center justify-center text-2xl shadow-lg mr-4`}>
+                      <div className="flex items-center mb-4">
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${features[hoveredFeature].color} flex items-center justify-center text-xl shadow-lg mr-3`}>
                           {features[hoveredFeature].icon}
                         </div>
                         <div>
-                          <h3 className="text-2xl font-bold text-white mb-1">
+                          <h3 className="text-xl font-bold text-white mb-1">
                             {features[hoveredFeature].title}
                           </h3>
                           <div className="text-sm text-blue-300 uppercase tracking-wide font-medium">
@@ -895,16 +898,16 @@ export default function Index() {
                         </div>
                       </div>
                       
-                      <p className="text-white/90 text-lg leading-relaxed mb-6">
+                      <p className="text-white/90 text-base leading-relaxed mb-4">
                         {features[hoveredFeature].description}
                       </p>
                       
-                      <div className="mb-6">
-                        <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
+                      <div className="mb-4">
+                        <h4 className="text-base font-semibold text-white mb-3 flex items-center">
                           <div className="w-1 h-5 bg-gradient-to-b from-blue-400 to-green-400 rounded-full mr-3"></div>
                           Key Benefits
                         </h4>
-                        <div className="space-y-3">
+                        <div className="space-y-2">
                           {features[hoveredFeature].benefits.slice(0, 3).map((benefit, idx) => (
                             <div key={idx} className="flex items-start">
                               <div className="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
@@ -914,10 +917,10 @@ export default function Index() {
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-3">
                         {features[hoveredFeature].stats.map((stat, idx) => (
-                          <div key={idx} className="text-center p-3 bg-white/10 rounded-xl border border-white/20">
-                            <div className="text-xl font-bold text-blue-400 mb-1">{stat.value}</div>
+                          <div key={idx} className="text-center p-3 bg-white/10 rounded-lg border border-white/20">
+                            <div className="text-lg font-bold text-blue-400 mb-1">{stat.value}</div>
                             <div className="text-xs text-white/70">{stat.label}</div>
                           </div>
                         ))}
@@ -926,10 +929,10 @@ export default function Index() {
                   ) : (
                     <div className="text-center">
                       <div className="text-4xl mb-4">🎯</div>
-                      <h3 className="text-xl font-bold text-white mb-4">
+                      <h3 className="text-lg font-bold text-white mb-3">
                         Explore Healthcare Features
                       </h3>
-                      <p className="text-white/70 text-sm leading-relaxed mb-6">
+                      <p className="text-white/70 text-sm leading-relaxed mb-4">
                         Click on any feature card or tree node to see detailed information about our comprehensive healthcare solutions.
                       </p>
                       <div className="flex justify-center space-x-2">
