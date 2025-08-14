@@ -22,9 +22,10 @@ export const AllSystemsActiveScreen = ({
   duration = 4,
 }: AllSystemsActiveScreenProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const moleculesRef = useRef<HTMLDivElement[]>([]);
-  const [molecules, setMolecules] = useState<Molecule[]>([]);
+  const dnaRef = useRef<HTMLDivElement>(null);
+  const [dnaBases, setDnaBases] = useState<DNABase[]>([]);
   const [progress, setProgress] = useState(0);
+  const [dnaProgress, setDnaProgress] = useState(0);
   const animationRef = useRef<number>();
 
   // Generate floating molecules
