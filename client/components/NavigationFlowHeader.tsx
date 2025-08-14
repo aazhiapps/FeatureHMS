@@ -212,9 +212,7 @@ export const NavigationFlowHeader = ({
     <>
       <div
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl border-b border-white/20 shadow-2xl transition-all duration-300 ${
-          isMinimized ? "py-2" : "py-3"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900/95 via-purple-900/95 to-indigo-900/95 backdrop-blur-xl border-b border-white/20 shadow-2xl transition-all duration-300 py-2"
       >
         <div className="max-w-7xl mx-auto px-6">
           {/* Simplified Header Content */}
