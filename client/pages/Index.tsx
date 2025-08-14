@@ -144,66 +144,6 @@ export default function Index() {
   useEnhancedParallax();
   useMouseAttraction();
 
-  // ClinicStreams 3D features data for medical journey - All 8 features
-  const clinicFeatures = [
-    {
-      title: "Patient Management",
-      description:
-        "Centralized patient records with comprehensive history, treatments, and visit tracking for personalized care",
-      category: "management",
-      position: [8, 5, -10] as [number, number, number],
-    },
-    {
-      title: "Appointment Scheduling",
-      description:
-        "Intelligent scheduling system with automated reminders to minimize wait times and reduce no-shows",
-      category: "scheduling",
-      position: [-5, 8, -20] as [number, number, number],
-    },
-    {
-      title: "Electronic Medical Records",
-      description:
-        "Secure, compliant EMR system that makes documentation efficient while ensuring accuracy and accessibility",
-      category: "records",
-      position: [12, -3, -30] as [number, number, number],
-    },
-    {
-      title: "Billing & Insurance",
-      description:
-        "Streamlined billing workflows with insurance verification and claims management for faster reimbursements",
-      category: "billing",
-      position: [-8, 6, -40] as [number, number, number],
-    },
-    {
-      title: "Real-time Analytics",
-      description:
-        "Powerful dashboards and reporting tools to monitor key performance metrics and make data-driven decisions",
-      category: "analytics",
-      position: [10, 3, -50] as [number, number, number],
-    },
-    {
-      title: "Resource Management",
-      description:
-        "Optimize staff schedules, inventory, and facility resources to maximize operational efficiency",
-      category: "resources",
-      position: [-6, 9, -60] as [number, number, number],
-    },
-    {
-      title: "Security Compliance",
-      description:
-        "HIPAA-compliant security infrastructure with role-based access control and audit trails",
-      category: "security",
-      position: [14, -1, -70] as [number, number, number],
-    },
-    {
-      title: "Patient Engagement",
-      description:
-        "Patient portal for appointments, test results, and secure communication with healthcare providers",
-      category: "engagement",
-      position: [-10, 7, -80] as [number, number, number],
-    },
-  ];
-
   // Healthcare Management Modules - Based on circular design
   const features = [
     {
