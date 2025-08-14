@@ -14,6 +14,8 @@ import { SmoothScrollController } from "../components/SmoothScrollController";
 import { FeatureDetailsDisplay } from "../components/FeatureDetailsDisplay";
 import { FeatureComparisonPage } from "../components/FeatureComparisonPage";
 import { NavigationFlowHeader } from "../components/NavigationFlowHeader";
+import { FloatingCircularModules } from "../components/FloatingCircularModules";
+import { CountdownLoadingScreen } from "../components/CountdownLoadingScreen";
 import { useScrollNavigation } from "../components/ScrollNavigationController";
 
 // TypeScript interface for DOM elements with cleanup handlers
@@ -1429,7 +1431,7 @@ export default function Index() {
       <FloatingActionButton onClick={() => {
         document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
       }}>
-        <span className="text-xl">����</span>
+        <span className="text-xl">🚀</span>
       </FloatingActionButton>
       </SmoothScrollController>
     </MouseAnimationSystem>
