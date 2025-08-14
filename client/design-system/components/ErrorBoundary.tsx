@@ -383,4 +383,5 @@ export const HealthcareErrorBoundary: React.FC<{
   </ErrorBoundary>
 );
 
+export { ErrorBoundary };
 export default ErrorBoundary;
