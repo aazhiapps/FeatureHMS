@@ -113,7 +113,7 @@ const competitorsData: CompetitorData[] = [
   {
     name: "Insta HMS",
     tagline: "by Practo",
-    logo: "��",
+    logo: "📱",
     deployment: "Cloud (SaaS)",
     idealSize: "Clinics & small/mid hospitals",
     abdmReadiness: "Partial – confirm scope",
@@ -803,13 +803,19 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
                 </thead>
                 <tbody>
                   {/* Deployment & Infrastructure */}
-                  <tr className="border-b border-white/10">
-                    <td colSpan={6} className="p-3 bg-blue-500/10 text-blue-300 font-semibold">
+                  <tr className="border-b border-white/10" data-category="header">
+                    <td colSpan={6} className="p-3 bg-blue-500/10 text-blue-300 font-semibold cursor-pointer hover:bg-blue-500/20 transition-all duration-300">
                       🏗️ Deployment & Infrastructure
                     </td>
                   </tr>
-                  <tr className="border-b border-white/10 hover:bg-white/5">
-                    <td className="p-3 text-white/80 border-r border-white/10">Deployment Type</td>
+                  <tr
+                    className="border-b border-white/10 hover:bg-white/5 transition-all duration-300 cursor-pointer"
+                    data-category="deployment"
+                    data-feature="deployment-type"
+                    onMouseEnter={() => handleFeatureHighlight('deployment-type')}
+                    onMouseLeave={handleFeatureUnhighlight}
+                  >
+                    <td className="p-3 text-white/80 border-r border-white/10 font-medium">Deployment Type</td>
                     {competitorsData.map((competitor, index) => (
                       <td key={index} className={`p-3 text-center text-white/90 border-r border-white/10 text-sm ${competitor.isTopPick ? 'bg-green-500/5' : ''}`}>
                         {competitor.deployment.split('–')[0].trim()}
