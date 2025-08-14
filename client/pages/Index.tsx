@@ -1494,6 +1494,13 @@ export default function Index() {
         {/* Hero Medicine Interaction */}
         <HeroMedicineInteraction isActive={!isLoading && !showAutoScroll} />
 
+        {/* Features Discovery Overlay - shows for 5 seconds */}
+        <FeaturesOverlay
+          features={features.slice(0, 4)} // Show first 4 features for better timing
+          isVisible={showAutoScroll}
+          onComplete={handleAutoScrollComplete}
+        />
+
         {/* Medicine Trail Effect */}
         <MedicineTrailEffect />
 
