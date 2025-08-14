@@ -16,7 +16,7 @@ interface DemoReplaySectionProps {
   }>;
 }
 
-export const DemoReplaySection = ({ onReplay, onDemo, features }: DemoReplaySectionProps) => {
+export const DemoReplaySection = ({ onReplay, onDemo, onCompare, features }: DemoReplaySectionProps) => {
   const [animationPlaying, setAnimationPlaying] = useState(false);
   const [burstTrigger, setBurstTrigger] = useState(false);
   const [burstPosition, setBurstPosition] = useState({ x: 0, y: 0 });
