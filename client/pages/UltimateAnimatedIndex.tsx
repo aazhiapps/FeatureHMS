@@ -384,25 +384,46 @@ const FloatingModules: React.FC = () => {
 // Main Ultimate Animated Index
 export const UltimateAnimatedIndex: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
+  const isGPUAccelerated = useGPUPerformance();
+  const prefersReducedMotion = useReducedMotion();
+
+  // Adaptive animation settings based on performance
+  const animationConfig = {
+    particleCount: isGPUAccelerated ? (prefersReducedMotion ? 10 : 50) : 20,
+    enableComplexAnimations: isGPUAccelerated && !prefersReducedMotion,
+    animationDuration: prefersReducedMotion ? 0.2 : 1.2
+  };
 
   useEffect(() => {
-    // Smooth scrolling
-    const lenis = new (window as any).Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: true
-    });
+    // Set CSS custom properties for performance
+    document.documentElement.style.setProperty(
+      '--animation-duration',
+      `${animationConfig.animationDuration}s`
+    );
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    if (!animationConfig.enableComplexAnimations) {
+      document.documentElement.classList.add('reduced-animations');
     }
-    requestAnimationFrame(raf);
 
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+    // Smooth scrolling with performance consideration
+    if (animationConfig.enableComplexAnimations) {
+      const lenis = new (window as any).Lenis({
+        duration: animationConfig.animationDuration,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      return () => {
+        lenis.destroy();
+      };
+    }
+  }, [animationConfig]);
 
   return (
     <UltimateAnimationEngine>
