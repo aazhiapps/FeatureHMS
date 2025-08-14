@@ -349,8 +349,34 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // Create floating background elements
+    const elements = Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      emoji: ['⚕️', '🏥', '💊', '🩺', '💉', '🧬', '📊', '💗', '🔬', '🚑'][i % 10]
+    }));
+    setFloatingElements(elements);
+
+    // Animate floating elements
+    elements.forEach((element, index) => {
+      const el = document.getElementById(`floating-${element.id}`);
+      if (el) {
+        gsap.to(el, {
+          x: `+=${Math.random() * 200 - 100}`,
+          y: `+=${Math.random() * 200 - 100}`,
+          rotation: 360,
+          duration: 10 + Math.random() * 10,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+          delay: index * 0.5
+        });
+      }
+    });
+
     // Initial animations
-    gsap.set([headingRef.current, cardsRef.current], {
+    gsap.set([headingRef.current, cardsRef.current, tableRef.current], {
       opacity: 0,
       y: 50
     });
@@ -359,9 +385,15 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
     tl.to(headingRef.current, {
       opacity: 1,
       y: 0,
-      duration: 1,
+      duration: 1.2,
       ease: "back.out(1.7)"
     })
+    .to(tableRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power2.out"
+    }, "-=0.3")
     .to(cardsRef.current, {
       opacity: 1,
       y: 0,
@@ -369,19 +401,40 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
       ease: "back.out(1.7)"
     }, "-=0.5");
 
+    // Animate table rows on scroll
+    const tableRows = document.querySelectorAll('tr');
+    tableRows.forEach((row, index) => {
+      gsap.fromTo(row,
+        { opacity: 0, x: -50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          delay: index * 0.02,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: row,
+            start: "top 90%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    });
+
     // Animate cards on scroll
     competitorsData.forEach((_, index) => {
       const card = document.getElementById(`competitor-${index}`);
       if (card) {
-        gsap.fromTo(card, 
-          { opacity: 0, y: 50, scale: 0.9 },
+        gsap.fromTo(card,
+          { opacity: 0, y: 50, scale: 0.9, rotationY: 20 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.8,
-            delay: index * 0.1,
-            ease: "power2.out",
+            rotationY: 0,
+            duration: 1,
+            delay: index * 0.15,
+            ease: "back.out(1.7)",
             scrollTrigger: {
               trigger: card,
               start: "top 80%",
@@ -392,9 +445,50 @@ export const FeatureComparisonPage = ({ onClose }: FeatureComparisonPageProps) =
       }
     });
 
+    // Animate pricing bars
+    const pricingBars = document.querySelectorAll('.pricing-bar');
+    pricingBars.forEach((bar, index) => {
+      gsap.fromTo(bar,
+        { scaleX: 0, transformOrigin: "left center" },
+        {
+          scaleX: 1,
+          duration: 1.5,
+          delay: index * 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: bar,
+            start: "top 80%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    });
+
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
+  }, []);
+
+  // Add mouse parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const elements = document.querySelectorAll('.parallax-element');
+      elements.forEach((element, index) => {
+        const speed = (index % 3 + 1) * 0.02;
+        const x = (e.clientX - window.innerWidth / 2) * speed;
+        const y = (e.clientY - window.innerHeight / 2) * speed;
+
+        gsap.to(element, {
+          x: x,
+          y: y,
+          duration: 0.5,
+          ease: "power2.out"
+        });
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const handleCompetitorSelect = (index: number) => {
