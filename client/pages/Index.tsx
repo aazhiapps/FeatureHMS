@@ -334,12 +334,14 @@ export default function Index() {
               } else {
                 // Hide other features
                 gsap.to(element, {
-                  opacity: 0.3,
-                  scale: 0.85,
-                  z: -50,
-                  rotationY: progress > featureProgress ? -15 : 15,
-                  rotationX: 5,
-                  duration: 0.8,
+                  opacity: 0.25,
+                  scale: 0.8,
+                  z: -60,
+                  rotationY: progress > featureProgress ? -20 : 20,
+                  rotationX: 8,
+                  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
+                  filter: "blur(2px)",
+                  duration: 1,
                   ease: "power2.out",
                 });
               }
