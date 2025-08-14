@@ -159,7 +159,7 @@ interface AnimatedContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   scrollTriggerOptions?: ScrollTrigger.Vars;
   
   // Performance options
-  will-change?: string;
+  willChange?: string;
   useGPU?: boolean;
   reducedMotion?: boolean;
   
