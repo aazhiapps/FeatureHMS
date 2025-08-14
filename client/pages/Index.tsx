@@ -1166,30 +1166,30 @@ export default function Index() {
                   Features Explored
                 </div>
               </InteractiveCard>
-              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+              <InteractiveCard className="p-4" glowEffect={true}>
                 <div className="text-xl md:text-2xl font-bold text-blue-400 mb-1">
                   100%
                 </div>
                 <div className="text-xs md:text-sm text-white/80">
                   Journey Complete
                 </div>
-              </div>
-              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+              </InteractiveCard>
+              <InteractiveCard className="p-4" glowEffect={true}>
                 <div className="text-xl md:text-2xl font-bold text-purple-400 mb-1">
                   24/7
                 </div>
                 <div className="text-xs md:text-sm text-white/80">
                   Support Available
                 </div>
-              </div>
-              <div className="bg-white/15 backdrop-blur-lg rounded-xl p-4 border border-white/30 hover:bg-white/20 transition-all duration-300">
+              </InteractiveCard>
+              <InteractiveCard className="p-4" glowEffect={true}>
                 <div className="text-xl md:text-2xl font-bold text-cyan-400 mb-1">
                   ∞
                 </div>
                 <div className="text-xs md:text-sm text-white/80">
                   Possibilities
                 </div>
-              </div>
+              </InteractiveCard>
             </div>
           </div>
         </section>
