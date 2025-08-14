@@ -155,36 +155,52 @@ const ComprehensiveHero = () => {
         Next-Generation Healthcare Management
       </Text>
       
-      {/* Statistics with Better Spacing and Layout */}
+      {/* Statistics with Smoother Coordinated Animation */}
       {statistics.slice(0, 4).map((stat, index) => {
         const angle = (index / 4) * Math.PI * 2 + Math.PI / 4;
-        const radius = 15;
+        const radius = 16;
         return (
-          <Float 
-            key={index} 
-            speed={0.8 + index * 0.2} 
-            rotationIntensity={0.2} 
-            floatIntensity={0.4}
+          <Float
+            key={index}
+            speed={0.3 + index * 0.05}
+            rotationIntensity={0.05}
+            floatIntensity={0.2}
           >
             <group position={[
               Math.cos(angle) * radius,
-              Math.sin(angle) * radius * 0.4 + 2,
-              Math.sin(angle) * radius * 0.3
+              Math.sin(angle) * radius * 0.3 + 2,
+              Math.sin(angle) * radius * 0.2
             ]}>
-              <Box args={[4, 2.5, 0.8]}>
-                <meshStandardMaterial 
-                  color={stat.color} 
+              <Box args={[4.2, 2.8, 0.9]}>
+                <meshStandardMaterial
+                  color={stat.color}
                   emissive={stat.color}
-                  emissiveIntensity={0.3}
-                  metalness={0.2}
-                  roughness={0.8}
+                  emissiveIntensity={0.25}
+                  metalness={0.3}
+                  roughness={0.7}
+                  transparent
+                  opacity={0.95}
                 />
               </Box>
+
+              {/* Subtle glow box behind */}
+              <Box args={[4.6, 3.2, 0.6]} position={[0, 0, -0.2]}>
+                <meshStandardMaterial
+                  color={stat.color}
+                  emissive={stat.color}
+                  emissiveIntensity={0.1}
+                  transparent
+                  opacity={0.2}
+                />
+              </Box>
+
               <Html position={[0, 0, 0.5]} center>
-                <div className="text-center text-white bg-black/70 backdrop-blur-md rounded-lg p-3 border border-white/30 min-w-[120px]">
-                  <div className="text-2xl font-bold mb-1 text-white drop-shadow-lg">{stat.value}</div>
-                  <div className="text-sm font-semibold text-gray-200">{stat.label}</div>
-                  <div className="text-xs text-gray-300 mt-1">{stat.description}</div>
+                <div className="text-center text-white bg-black/80 backdrop-blur-md rounded-xl p-4 border border-white/40 min-w-[130px] shadow-2xl">
+                  <div className="text-2xl font-bold mb-1 text-white drop-shadow-lg" style={{ color: stat.color }}>
+                    {stat.value}
+                  </div>
+                  <div className="text-sm font-semibold text-gray-100 mb-1">{stat.label}</div>
+                  <div className="text-xs text-gray-300 leading-relaxed">{stat.description}</div>
                 </div>
               </Html>
             </group>
