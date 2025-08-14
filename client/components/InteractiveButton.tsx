@@ -115,10 +115,12 @@ export const InteractiveButton = ({
     <button
       ref={buttonRef}
       onClick={onClick}
+      disabled={disabled}
+      id={id}
       className={`
         relative overflow-hidden rounded-xl font-semibold
         transition-all duration-300 transform
-        hover:scale-105 active:scale-95
+        ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 active:scale-95 cursor-pointer'}
         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
         interactive
         ${getVariantClasses()}
