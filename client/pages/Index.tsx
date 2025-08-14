@@ -584,7 +584,7 @@ export default function Index() {
         {/* Hero Section */}
         <section className="pt-32 pb-32 px-6 text-center min-h-screen flex items-center relative z-10">
           <div className="max-w-4xl mx-auto w-full">
-            <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent" data-mouse-parallax="0.03">
               ClinicStreams
             </h1>
             <p className="text-xl md:text-2xl text-white/80 mb-8">
