@@ -47,48 +47,17 @@ export const NavigationFlowHeader = ({
   const indicatorRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  const steps: NavigationStep[] = [
-    {
-      id: "loading",
-      title: "Welcome",
-      icon: "🚀",
-      description: "Initial loading experience",
-      completed: currentPage !== "loading",
-      active: currentPage === "loading",
-    },
-    {
-      id: "autoscroll",
-      title: "Preview",
-      icon: "📱",
-      description: "Auto-scroll feature showcase",
-      completed: ["journey", "comparison", "demo"].includes(currentPage),
-      active: currentPage === "autoscroll",
-    },
-    {
-      id: "journey",
-      title: "Explore",
-      icon: "🏥",
-      description: "Interactive healthcare journey",
-      completed: ["comparison", "demo"].includes(currentPage),
-      active: currentPage === "journey",
-    },
-    {
-      id: "comparison",
-      title: "Compare",
-      icon: "🆚",
-      description: "Feature comparison analysis",
-      completed: currentPage === "demo",
-      active: currentPage === "comparison",
-    },
-    {
-      id: "demo",
-      title: "Demo",
-      icon: "🎯",
-      description: "Schedule consultation",
-      completed: false,
-      active: currentPage === "demo",
-    },
-  ];
+  // Helper function to get step status based on current page
+  const getStepStatus = (pageId: string) => {
+    const pageOrder = ["loading", "autoscroll", "journey", "comparison", "demo"];
+    const currentIndex = pageOrder.indexOf(currentPage);
+    const stepIndex = pageOrder.indexOf(pageId);
+
+    return {
+      completed: stepIndex < currentIndex,
+      active: stepIndex === currentIndex
+    };
+  };
 
   useEffect(() => {
     if (!headerRef.current) return;
