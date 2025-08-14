@@ -22,7 +22,10 @@ export const FloatingCircularModules = ({
 }: FloatingCircularModulesProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
+  const centerTextRef = useRef<HTMLDivElement>(null);
   const [animationActive, setAnimationActive] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const modules: CircularModule[] = [
     {
