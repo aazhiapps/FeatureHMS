@@ -175,8 +175,8 @@ const EnhancedIndex: React.FC = memo(() => {
       'Improved workflow efficiency'
     ],
     stats: [
-      { label: 'Daily Usage', value: module.metrics.patients || module.metrics.appointments || '1K+' },
-      { label: 'Efficiency', value: module.metrics.efficiency || module.metrics.satisfaction || '+25%' }
+      { label: 'Daily Usage', value: (module.metrics as any).patients || (module.metrics as any).appointments || '1K+' },
+      { label: 'Efficiency', value: (module.metrics as any).efficiency || (module.metrics as any).satisfaction || '+25%' }
     ]
   })), []);
 
