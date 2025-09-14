@@ -406,7 +406,7 @@ function FloatingFeature({
 }
 
 // Medical Environment with DNA Helix and Medical Equipment
-function MedicalEnvironment() {
+function MedicalEnvironment({ cloudTexture }: { cloudTexture: string }) {
   const helixRef = useRef<THREE.Group>(null);
 
   useFrame(({ clock }) => {
@@ -450,7 +450,7 @@ function MedicalEnvironment() {
 
       {/* Medical Clouds with plus signs */}
       <Cloud
-        texture="/cloud.png"
+        texture={cloudTexture}
         position={[20, 8, -15]}
         opacity={0.6}
         speed={0.1}
@@ -459,7 +459,7 @@ function MedicalEnvironment() {
         color="#e8f4fd"
       />
       <Cloud
-        texture="/cloud.png"
+        texture={cloudTexture}
         position={[-15, 12, -25]}
         opacity={0.7}
         speed={0.15}
@@ -468,7 +468,7 @@ function MedicalEnvironment() {
         color="#f0f9ff"
       />
       <Cloud
-        texture="/cloud.png"
+        texture={cloudTexture}
         position={[35, 5, -35]}
         opacity={0.5}
         speed={0.08}
@@ -513,10 +513,12 @@ function MedicalScene({
   features,
   onFeatureClick,
   onJumpToSection,
+  cloudTexture,
 }: {
   features: any[];
   onFeatureClick?: (featureIndex: number) => void;
   onJumpToSection?: (progress: number) => void;
+  cloudTexture: string;
 }) {
   const { camera } = useThree();
   const droneRef = useRef<THREE.Group>(null);
@@ -712,7 +714,7 @@ function MedicalScene({
         />
       ))}
 
-      <MedicalEnvironment />
+      <MedicalEnvironment cloudTexture={cloudTexture} />
     </>
   );
 }
@@ -739,11 +741,9 @@ export const ClinicStreamsJourney = ({
           features={features}
           onFeatureClick={onFeatureClick}
           onJumpToSection={onJumpToSection}
+          cloudTexture={cloudTexture}
         />
       </Canvas>
-      <Cloud texture={cloudTexture} position={[-4, 4, -5]} speed={0.2} opacity={0.4} />
-      <Cloud texture={cloudTexture} position={[4, -2, -8]} speed={0.3} opacity={0.3} />
-      <Cloud texture={cloudTexture} position={[0, 6, -10]} speed={0.1} opacity={0.5} />
     </div>
   );
 };
