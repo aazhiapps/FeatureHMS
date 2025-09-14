@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Sphere, Stars, Cloud, Text } from "@react-three/drei";
+import { OrbitControls, Sphere, Stars, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -213,62 +213,6 @@ function PlaneScene({ works }: { works: any[] }) {
 
       <Stars radius={40} depth={50} count={1000} factor={2} />
 
-      {/* Clouds */}
-      {cloudTexture && (
-        <Cloud
-          texture={cloudTexture}
-          position={[15, 5, -10]}
-          opacity={0.6}
-          speed={0.1}
-          width={15}
-          depth={8}
-        />
-      )}
-      {cloudTexture && (
-        <Cloud
-          texture={cloudTexture}
-          position={[-12, 8, -20]}
-          opacity={0.7}
-          speed={0.15}
-          width={12}
-          depth={6}
-        />
-      )}
-      {cloudTexture && (
-        <Cloud
-          texture={cloudTexture}
-          position={[8, -2, -30]}
-          opacity={0.5}
-          speed={0.08}
-          width={18}
-          depth={10}
-        />
-      )}
-      {cloudTexture && (
-        <Cloud
-          texture={cloudTexture}
-          position={[-20, 12, -40]}
-          opacity={0.6}
-          speed={0.12}
-          width={14}
-          depth={7}
-        />
-      )}
-      {cloudTexture && (
-        <Cloud
-          texture={cloudTexture}
-          position={[25, 3, -50]}
-          opacity={0.5}
-          speed={0.1}
-          width={16}
-          depth={9}
-        />
-      )}
-      <Cloud texture={cloudTexture} position={[-10, 2, -15]} speed={0.1} opacity={0.6} />
-      <Cloud texture={cloudTexture} position={[8, -1, -12]} speed={0.15} opacity={0.4} />
-      <Cloud texture={cloudTexture} position={[0, 4, -20]} speed={0.08} opacity={0.5} />
-      <Cloud texture={cloudTexture} position={[-5, -3, -8]} speed={0.12} opacity={0.3} />
-      <Cloud texture={cloudTexture} position={[12, 1, -25]} speed={0.06} opacity={0.7} />
     </>
   );
 }

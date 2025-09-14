@@ -23,7 +23,7 @@ const MedicalDrone = React.forwardRef<
   { position?: [number, number, number] }
 >(({ position = [0, 0, 0] }, ref) => {
   const propellerRefs = useRef<(THREE.Mesh | null)[]>([]);
-  const bodyRef = useRef<THREE.Mesh>(null);
+  const bodyRef = useRef<THREE.Group>(null);
   const [ledIntensity, setLedIntensity] = useState([0.5, 0.5, 0.5, 0.5]);
   const [glowOpacity, setGlowOpacity] = useState([0.2, 0.2, 0.2, 0.2]);
 

@@ -454,14 +454,10 @@ export const EnhancedLoadingScreen = ({
       />
 
       {/* CSS for spinning animation */}
-      <style jsx>{`
+      <style>{`
         @keyframes spin {
-          from {
-            transform: rotate(0deg) translateX(120px) rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg) translateX(120px) rotate(-360deg);
-          }
+          from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+          to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
         }
       `}</style>
     </div>

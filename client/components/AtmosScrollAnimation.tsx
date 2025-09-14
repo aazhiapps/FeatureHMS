@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Sphere, Text, Cloud, Stars } from "@react-three/drei";
+import { OrbitControls, Sphere, Text, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -138,6 +137,7 @@ function WindParticles() {
 
 // Floating clouds along the path
 function FloatingClouds() {
+  return null as any;
   const [cloudTexture, setCloudTexture] = useState<string>("");
 
   useEffect(() => {
@@ -213,7 +213,7 @@ function Scene3D() {
       <ScrollCamera />
       <AnimatedSky />
       <WindParticles />
-      <FloatingClouds />
+      {/* Clouds removed to improve reliability */}
       <ScrollText />
       <Stars
         radius={100}
