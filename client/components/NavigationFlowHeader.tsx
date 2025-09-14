@@ -50,13 +50,19 @@ export const NavigationFlowHeader = ({
 
   // Helper function to get step status based on current page
   const getStepStatus = (pageId: string) => {
-    const pageOrder = ["loading", "autoscroll", "journey", "comparison", "demo"];
+    const pageOrder = [
+      "loading",
+      "autoscroll",
+      "journey",
+      "comparison",
+      "demo",
+    ];
     const currentIndex = pageOrder.indexOf(currentPage);
     const stepIndex = pageOrder.indexOf(pageId);
 
     return {
       completed: stepIndex < currentIndex,
-      active: stepIndex === currentIndex
+      active: stepIndex === currentIndex,
     };
   };
 
@@ -143,7 +149,6 @@ export const NavigationFlowHeader = ({
     return () => window.removeEventListener("scroll", throttledScroll);
   }, [lastScrollY, isHidden, autoHideOnScroll]);
 
-
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -194,7 +199,6 @@ export const NavigationFlowHeader = ({
       }
     }
   };
-
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -249,10 +253,7 @@ export const NavigationFlowHeader = ({
             </div>
 
             {/* Navigation with integrated journey steps */}
-            <nav
-              ref={navRef}
-              className="flex items-center space-x-4 relative"
-            >
+            <nav ref={navRef} className="flex items-center space-x-4 relative">
               {/* Navigation Indicator */}
               <div
                 ref={indicatorRef}
@@ -261,12 +262,20 @@ export const NavigationFlowHeader = ({
               />
 
               {navigationItems.map((item, index) => {
-                const pageId = item.href === "#features" ? "autoscroll" :
-                             item.href === "#journey" ? "journey" :
-                             item.href === "#compare" ? "comparison" :
-                             item.href === "#demo" ? "demo" : "";
+                const pageId =
+                  item.href === "#features"
+                    ? "autoscroll"
+                    : item.href === "#journey"
+                      ? "journey"
+                      : item.href === "#compare"
+                        ? "comparison"
+                        : item.href === "#demo"
+                          ? "demo"
+                          : "";
 
-                const { completed: isCompleted, active: isActive } = pageId ? getStepStatus(pageId) : { completed: false, active: false };
+                const { completed: isCompleted, active: isActive } = pageId
+                  ? getStepStatus(pageId)
+                  : { completed: false, active: false };
 
                 return (
                   <button
@@ -275,8 +284,8 @@ export const NavigationFlowHeader = ({
                       isActive
                         ? "text-white bg-white/10"
                         : isCompleted
-                        ? "text-green-300 hover:text-white hover:bg-white/5"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
+                          ? "text-green-300 hover:text-white hover:bg-white/5"
+                          : "text-white/70 hover:text-white hover:bg-white/5"
                     }`}
                     onClick={() => handleNavItemClick(item)}
                     onMouseEnter={() => handleNavItemHover(index, true)}
@@ -308,27 +317,50 @@ export const NavigationFlowHeader = ({
             <div className="flex items-center space-x-4">
               {/* Welcome Message */}
               <div className="hidden md:block text-right">
-                <div className="text-sm text-white font-medium">Welcome back!</div>
+                <div className="text-sm text-white font-medium">
+                  Welcome back!
+                </div>
                 <div className="text-xs text-blue-200">Healthcare Admin</div>
               </div>
 
               {/* User Menu */}
               <div className="hidden md:flex items-center space-x-3">
                 <button className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 group">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:scale-110 transition-transform duration-200">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="group-hover:scale-110 transition-transform duration-200"
+                  >
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                   </svg>
                 </button>
                 <button className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 group">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:scale-110 transition-transform duration-200">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="group-hover:scale-110 transition-transform duration-200"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
                   </svg>
                 </button>
                 <button
                   className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 px-3 py-1.5 rounded-lg font-medium text-white text-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                  onClick={() => window.open("https://calendly.com/clinicstreams-demo", "_blank")}
+                  onClick={() =>
+                    window.open(
+                      "https://calendly.com/clinicstreams-demo",
+                      "_blank",
+                    )
+                  }
                 >
                   Get Demo
                 </button>
@@ -376,12 +408,20 @@ export const NavigationFlowHeader = ({
             <div className="max-w-7xl mx-auto px-6 py-3">
               <nav className="flex flex-col space-y-1">
                 {navigationItems.map((item) => {
-                  const pageId = item.href === "#features" ? "autoscroll" :
-                               item.href === "#journey" ? "journey" :
-                               item.href === "#compare" ? "comparison" :
-                               item.href === "#demo" ? "demo" : "";
+                  const pageId =
+                    item.href === "#features"
+                      ? "autoscroll"
+                      : item.href === "#journey"
+                        ? "journey"
+                        : item.href === "#compare"
+                          ? "comparison"
+                          : item.href === "#demo"
+                            ? "demo"
+                            : "";
 
-                  const { completed: isCompleted, active: isActive } = pageId ? getStepStatus(pageId) : { completed: false, active: false };
+                  const { completed: isCompleted, active: isActive } = pageId
+                    ? getStepStatus(pageId)
+                    : { completed: false, active: false };
 
                   return (
                     <button
@@ -390,8 +430,8 @@ export const NavigationFlowHeader = ({
                         isActive
                           ? "text-white bg-white/10"
                           : isCompleted
-                          ? "text-green-300 hover:text-white hover:bg-white/5"
-                          : "text-white/70 hover:text-white hover:bg-white/5"
+                            ? "text-green-300 hover:text-white hover:bg-white/5"
+                            : "text-white/70 hover:text-white hover:bg-white/5"
                       }`}
                       onClick={() => handleNavItemClick(item)}
                     >
@@ -402,7 +442,9 @@ export const NavigationFlowHeader = ({
 
                       {/* Completion indicator */}
                       {isCompleted && !isActive && (
-                        <span className="text-xs text-green-400 ml-auto">✓</span>
+                        <span className="text-xs text-green-400 ml-auto">
+                          ✓
+                        </span>
                       )}
 
                       {/* Active indicator */}

@@ -4,7 +4,7 @@ import { Sphere, Stars, Text, Box, Cylinder } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { createCloudTexture } from '../utils/createCloudTexture';
+import { createCloudTexture } from "../utils/createCloudTexture";
 
 interface ClinicStreamsJourneyProps {
   features: Array<{
@@ -448,7 +448,6 @@ function MedicalEnvironment({ cloudTexture }: { cloudTexture: string }) {
         ))}
       </group>
 
-
       {/* Floating Medical Particles */}
       {Array.from({ length: 50 }).map((_, i) => (
         <mesh
@@ -697,8 +696,8 @@ export const ClinicStreamsJourney = ({
   onJumpToSection,
 }: ClinicStreamsJourneyProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [cloudTexture, setCloudTexture] = useState<string>('');
-  
+  const [cloudTexture, setCloudTexture] = useState<string>("");
+
   useEffect(() => {
     setCloudTexture(createCloudTexture());
   }, []);

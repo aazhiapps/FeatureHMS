@@ -109,7 +109,10 @@ if (process.env.NODE_ENV === "production") {
         }
         if (entry.entryType === "first-input") {
           const e = entry as PerformanceEventTiming as any;
-          if (typeof e.processingStart === "number" && typeof e.startTime === "number") {
+          if (
+            typeof e.processingStart === "number" &&
+            typeof e.startTime === "number"
+          ) {
             console.log("FID:", e.processingStart - e.startTime);
           }
         }

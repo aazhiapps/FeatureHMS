@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 
 interface HeroFeature {
   icon: string;
@@ -9,25 +9,25 @@ interface HeroFeature {
 
 const heroFeatures: HeroFeature[] = [
   {
-    icon: '👥',
-    title: 'Patient Management',
-    description: 'Comprehensive patient records and care coordination'
+    icon: "👥",
+    title: "Patient Management",
+    description: "Comprehensive patient records and care coordination",
   },
   {
-    icon: '📊',
-    title: 'Real-time Analytics',
-    description: 'Data-driven insights for better healthcare decisions'
+    icon: "📊",
+    title: "Real-time Analytics",
+    description: "Data-driven insights for better healthcare decisions",
   },
   {
-    icon: '🛡️',
-    title: 'HIPAA Compliant',
-    description: 'Enterprise-grade security and compliance'
+    icon: "🛡️",
+    title: "HIPAA Compliant",
+    description: "Enterprise-grade security and compliance",
   },
   {
-    icon: '⚡',
-    title: 'Fast Performance',
-    description: 'Lightning-fast response times and reliability'
-  }
+    icon: "⚡",
+    title: "Fast Performance",
+    description: "Lightning-fast response times and reliability",
+  },
 ];
 
 export const EnhancedHeroSection = () => {
@@ -44,75 +44,82 @@ export const EnhancedHeroSection = () => {
 
     // Background animation
     if (backgroundRef.current) {
-      timeline.fromTo(backgroundRef.current,
+      timeline.fromTo(
+        backgroundRef.current,
         { scale: 1.1, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.5, ease: "power2.out" }
+        { scale: 1, opacity: 1, duration: 1.5, ease: "power2.out" },
       );
     }
 
     // Title animation with typewriter effect
     if (titleRef.current) {
-      const titleText = titleRef.current.textContent || '';
-      titleRef.current.textContent = '';
-      
-      timeline.to({}, { duration: 0.5 }) // Wait for background
+      const titleText = titleRef.current.textContent || "";
+      titleRef.current.textContent = "";
+
+      timeline
+        .to({}, { duration: 0.5 }) // Wait for background
         .call(() => {
           gsap.to(titleRef.current, {
             duration: 2,
             text: titleText,
             ease: "none",
-            onComplete: () => setIsVisible(true)
+            onComplete: () => setIsVisible(true),
           });
         });
 
       // Title entrance animation
-      timeline.fromTo(titleRef.current,
+      timeline.fromTo(
+        titleRef.current,
         { y: 50, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
-        "-=2"
+        "-=2",
       );
     }
 
     // Subtitle animation
     if (subtitleRef.current) {
-      timeline.fromTo(subtitleRef.current,
+      timeline.fromTo(
+        subtitleRef.current,
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
-        "-=1.5"
+        "-=1.5",
       );
     }
 
     // CTA buttons animation
     if (ctaRef.current) {
-      const buttons = ctaRef.current.querySelectorAll('button');
-      timeline.fromTo(buttons,
+      const buttons = ctaRef.current.querySelectorAll("button");
+      timeline.fromTo(
+        buttons,
         { y: 20, opacity: 0, scale: 0.9 },
-        { 
-          y: 0, 
-          opacity: 1, 
-          scale: 1, 
-          duration: 0.6, 
-          ease: "back.out(1.7)", 
-          stagger: 0.2 
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          stagger: 0.2,
         },
-        "-=1"
+        "-=1",
       );
     }
 
     // Features animation
     if (featuresRef.current) {
-      const featureCards = featuresRef.current.querySelectorAll('.feature-card');
-      timeline.fromTo(featureCards,
+      const featureCards =
+        featuresRef.current.querySelectorAll(".feature-card");
+      timeline.fromTo(
+        featureCards,
         { y: 40, opacity: 0, rotationY: -15 },
-        { 
-          y: 0, 
-          opacity: 1, 
-          rotationY: 0, 
-          duration: 0.8, 
-          ease: "power2.out", 
-          stagger: 0.1 
+        {
+          y: 0,
+          opacity: 1,
+          rotationY: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          stagger: 0.1,
         },
-        "-=0.5"
+        "-=0.5",
       );
     }
   }, []);
@@ -120,13 +127,13 @@ export const EnhancedHeroSection = () => {
   const handleGetDemo = () => {
     // Add pulse animation to button
     if (ctaRef.current) {
-      const primaryButton = ctaRef.current.querySelector('.btn-primary');
+      const primaryButton = ctaRef.current.querySelector(".btn-primary");
       gsap.to(primaryButton, {
         scale: 1.05,
         duration: 0.1,
         yoyo: true,
         repeat: 1,
-        ease: "power2.inOut"
+        ease: "power2.inOut",
       });
     }
   };
@@ -134,13 +141,13 @@ export const EnhancedHeroSection = () => {
   const handleWatchDemo = () => {
     // Add ripple effect
     if (ctaRef.current) {
-      const secondaryButton = ctaRef.current.querySelector('.btn-secondary');
+      const secondaryButton = ctaRef.current.querySelector(".btn-secondary");
       gsap.to(secondaryButton, {
         scale: 1.02,
         duration: 0.1,
         yoyo: true,
         repeat: 1,
-        ease: "power2.inOut"
+        ease: "power2.inOut",
       });
     }
   };
@@ -174,8 +181,10 @@ export const EnhancedHeroSection = () => {
 
         {/* Medical Grid Pattern */}
         <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full bg-grid-pattern bg-repeat" 
-               style={{ backgroundSize: '40px 40px' }} />
+          <div
+            className="w-full h-full bg-grid-pattern bg-repeat"
+            style={{ backgroundSize: "40px 40px" }}
+          />
         </div>
       </div>
 
@@ -201,21 +210,28 @@ export const EnhancedHeroSection = () => {
             ref={subtitleRef}
             className="text-body-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
-            Streamline patient care, optimize operations, and enhance outcomes with our comprehensive healthcare management platform designed for modern medical practices.
+            Streamline patient care, optimize operations, and enhance outcomes
+            with our comprehensive healthcare management platform designed for
+            modern medical practices.
           </p>
 
           {/* CTA Buttons */}
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div
+            ref={ctaRef}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+          >
             <button
               onClick={handleGetDemo}
               className="btn-primary bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
             >
               <span className="flex items-center space-x-2">
                 <span>Get Free Demo</span>
-                <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                <span className="group-hover:translate-x-1 transition-transform duration-300">
+                  →
+                </span>
               </span>
             </button>
-            
+
             <button
               onClick={handleWatchDemo}
               className="btn-secondary border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 group"
@@ -232,22 +248,31 @@ export const EnhancedHeroSection = () => {
           {/* Trust Indicators */}
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8 text-sm text-gray-500">
             <div className="flex items-center space-x-2">
-              <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+              <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">
+                ✓
+              </span>
               <span>HIPAA Compliant</span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+              <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">
+                ✓
+              </span>
               <span>ISO 27001 Certified</span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+              <span className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">
+                ✓
+              </span>
               <span>99.9% Uptime SLA</span>
             </div>
           </div>
         </div>
 
         {/* Feature Cards */}
-        <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div
+          ref={featuresRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+        >
           {heroFeatures.map((feature, index) => (
             <div
               key={index}
@@ -293,8 +318,8 @@ const gridPatternCSS = `
 `;
 
 // Inject CSS
-if (typeof document !== 'undefined') {
-  const style = document.createElement('style');
+if (typeof document !== "undefined") {
+  const style = document.createElement("style");
   style.textContent = gridPatternCSS;
   document.head.appendChild(style);
 }
