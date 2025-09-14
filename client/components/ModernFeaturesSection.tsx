@@ -120,7 +120,7 @@ const features: Feature[] = [
 ];
 
 export const ModernFeaturesSection = () => {
-  const sectionRef = useRef<HTMLSectionElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const featuresGridRef = useRef<HTMLDivElement>(null);
 
