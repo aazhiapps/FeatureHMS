@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,111 +16,117 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    id: 'patient-management',
-    icon: '👥',
-    title: 'Smart Patient Management',
-    description: 'Comprehensive patient records with AI-powered insights for personalized care and improved outcomes.',
+    id: "patient-management",
+    icon: "👥",
+    title: "Smart Patient Management",
+    description:
+      "Comprehensive patient records with AI-powered insights for personalized care and improved outcomes.",
     benefits: [
-      'Centralized medical history',
-      'Real-time health monitoring',
-      'Automated care reminders',
-      'Family access portal'
+      "Centralized medical history",
+      "Real-time health monitoring",
+      "Automated care reminders",
+      "Family access portal",
     ],
     stats: [
-      { label: 'Patient Satisfaction', value: '98%' },
-      { label: 'Data Accuracy', value: '99.9%' }
+      { label: "Patient Satisfaction", value: "98%" },
+      { label: "Data Accuracy", value: "99.9%" },
     ],
-    color: 'from-blue-500 to-blue-600'
+    color: "from-blue-500 to-blue-600",
   },
   {
-    id: 'scheduling',
-    icon: '📅',
-    title: 'Intelligent Scheduling',
-    description: 'AI-powered appointment scheduling that minimizes wait times and optimizes provider availability.',
+    id: "scheduling",
+    icon: "📅",
+    title: "Intelligent Scheduling",
+    description:
+      "AI-powered appointment scheduling that minimizes wait times and optimizes provider availability.",
     benefits: [
-      'Automated scheduling',
-      'Wait time optimization',
-      'Multi-provider coordination',
-      'Emergency slot management'
+      "Automated scheduling",
+      "Wait time optimization",
+      "Multi-provider coordination",
+      "Emergency slot management",
     ],
     stats: [
-      { label: 'Booking Efficiency', value: '85%' },
-      { label: 'No-show Reduction', value: '40%' }
+      { label: "Booking Efficiency", value: "85%" },
+      { label: "No-show Reduction", value: "40%" },
     ],
-    color: 'from-purple-500 to-purple-600'
+    color: "from-purple-500 to-purple-600",
   },
   {
-    id: 'analytics',
-    icon: '📊',
-    title: 'Advanced Analytics',
-    description: 'Real-time dashboards and predictive analytics to drive data-informed healthcare decisions.',
+    id: "analytics",
+    icon: "📊",
+    title: "Advanced Analytics",
+    description:
+      "Real-time dashboards and predictive analytics to drive data-informed healthcare decisions.",
     benefits: [
-      'Predictive health modeling',
-      'Population health insights',
-      'Resource optimization',
-      'Performance metrics'
+      "Predictive health modeling",
+      "Population health insights",
+      "Resource optimization",
+      "Performance metrics",
     ],
     stats: [
-      { label: 'Decision Speed', value: '3x faster' },
-      { label: 'Cost Savings', value: '25%' }
+      { label: "Decision Speed", value: "3x faster" },
+      { label: "Cost Savings", value: "25%" },
     ],
-    color: 'from-teal-500 to-teal-600'
+    color: "from-teal-500 to-teal-600",
   },
   {
-    id: 'security',
-    icon: '🛡️',
-    title: 'Enterprise Security',
-    description: 'HIPAA-compliant security infrastructure with advanced encryption and access controls.',
+    id: "security",
+    icon: "🛡️",
+    title: "Enterprise Security",
+    description:
+      "HIPAA-compliant security infrastructure with advanced encryption and access controls.",
     benefits: [
-      'End-to-end encryption',
-      'Role-based access',
-      'Audit trail logging',
-      'Compliance monitoring'
+      "End-to-end encryption",
+      "Role-based access",
+      "Audit trail logging",
+      "Compliance monitoring",
     ],
     stats: [
-      { label: 'Security Score', value: '99.8%' },
-      { label: 'Compliance Rate', value: '100%' }
+      { label: "Security Score", value: "99.8%" },
+      { label: "Compliance Rate", value: "100%" },
     ],
-    color: 'from-red-500 to-red-600'
+    color: "from-red-500 to-red-600",
   },
   {
-    id: 'integration',
-    icon: '🔗',
-    title: 'Seamless Integration',
-    description: 'Connect with existing healthcare systems and third-party applications effortlessly.',
+    id: "integration",
+    icon: "🔗",
+    title: "Seamless Integration",
+    description:
+      "Connect with existing healthcare systems and third-party applications effortlessly.",
     benefits: [
-      'API-first architecture',
-      'Legacy system support',
-      'Real-time sync',
-      'Custom integrations'
+      "API-first architecture",
+      "Legacy system support",
+      "Real-time sync",
+      "Custom integrations",
     ],
     stats: [
-      { label: 'Integration Time', value: '2 hours' },
-      { label: 'System Compatibility', value: '95%' }
+      { label: "Integration Time", value: "2 hours" },
+      { label: "System Compatibility", value: "95%" },
     ],
-    color: 'from-green-500 to-green-600'
+    color: "from-green-500 to-green-600",
   },
   {
-    id: 'support',
-    icon: '🎧',
-    title: '24/7 Expert Support',
-    description: 'Round-the-clock technical support from healthcare technology specialists.',
+    id: "support",
+    icon: "🎧",
+    title: "24/7 Expert Support",
+    description:
+      "Round-the-clock technical support from healthcare technology specialists.",
     benefits: [
-      'Instant chat support',
-      'Video troubleshooting',
-      'Training resources',
-      'Dedicated account manager'
+      "Instant chat support",
+      "Video troubleshooting",
+      "Training resources",
+      "Dedicated account manager",
     ],
     stats: [
-      { label: 'Response Time', value: '<2 min' },
-      { label: 'Resolution Rate', value: '99.5%' }
+      { label: "Response Time", value: "<2 min" },
+      { label: "Resolution Rate", value: "99.5%" },
     ],
-    color: 'from-orange-500 to-orange-600'
-  }
+    color: "from-orange-500 to-orange-600",
+  },
 ];
 
 export const ModernFeaturesSection = () => {
-  const sectionRef = useRef<HTMLSectionElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const featuresGridRef = useRef<HTMLDivElement>(null);
 
@@ -129,7 +135,8 @@ export const ModernFeaturesSection = () => {
 
     // Title animation
     if (titleRef.current) {
-      gsap.fromTo(titleRef.current,
+      gsap.fromTo(
+        titleRef.current,
         { opacity: 0, y: 50 },
         {
           opacity: 1,
@@ -140,23 +147,24 @@ export const ModernFeaturesSection = () => {
             trigger: titleRef.current,
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
-          }
-        }
+            toggleActions: "play none none reverse",
+          },
+        },
       );
     }
 
     // Feature cards animation
     if (featuresGridRef.current) {
-      const cards = featuresGridRef.current.querySelectorAll('.feature-card');
-      
+      const cards = featuresGridRef.current.querySelectorAll(".feature-card");
+
       cards.forEach((card, index) => {
-        gsap.fromTo(card,
-          { 
-            opacity: 0, 
+        gsap.fromTo(
+          card,
+          {
+            opacity: 0,
             y: 60,
             scale: 0.9,
-            rotationY: index % 2 === 0 ? -15 : 15
+            rotationY: index % 2 === 0 ? -15 : 15,
           },
           {
             opacity: 1,
@@ -169,36 +177,36 @@ export const ModernFeaturesSection = () => {
               trigger: card,
               start: "top 85%",
               end: "bottom 15%",
-              toggleActions: "play none none reverse"
+              toggleActions: "play none none reverse",
             },
-            delay: index * 0.1
-          }
+            delay: index * 0.1,
+          },
         );
 
         // Hover animations
         const cardElement = card as HTMLElement;
-        cardElement.addEventListener('mouseenter', () => {
+        cardElement.addEventListener("mouseenter", () => {
           gsap.to(card, {
             y: -10,
             scale: 1.05,
             duration: 0.3,
-            ease: "power2.out"
+            ease: "power2.out",
           });
         });
 
-        cardElement.addEventListener('mouseleave', () => {
+        cardElement.addEventListener("mouseleave", () => {
           gsap.to(card, {
             y: 0,
             scale: 1,
             duration: 0.3,
-            ease: "power2.out"
+            ease: "power2.out",
           });
         });
       });
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
@@ -222,28 +230,37 @@ export const ModernFeaturesSection = () => {
             <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
             <span>Comprehensive Healthcare Solutions</span>
           </div>
-          
+
           <h2 className="text-heading-1 text-gray-900 mb-6">
             Everything you need to transform healthcare delivery
           </h2>
-          
+
           <p className="text-body-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Our integrated platform combines cutting-edge technology with healthcare expertise to streamline operations, improve patient outcomes, and enhance the overall care experience.
+            Our integrated platform combines cutting-edge technology with
+            healthcare expertise to streamline operations, improve patient
+            outcomes, and enhance the overall care experience.
           </p>
         </div>
 
         {/* Features Grid */}
-        <div ref={featuresGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          ref={featuresGridRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {features.map((feature, index) => (
             <div
               key={feature.id}
               className="feature-card bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
             >
               {/* Gradient Accent */}
-              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.color}`} />
-              
+              <div
+                className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.color}`}
+              />
+
               {/* Icon */}
-              <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-white text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+              <div
+                className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-white text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+              >
                 {feature.icon}
               </div>
 
@@ -251,7 +268,7 @@ export const ModernFeaturesSection = () => {
               <h3 className="text-heading-3 text-gray-900 mb-4">
                 {feature.title}
               </h3>
-              
+
               <p className="text-body text-gray-600 mb-6 leading-relaxed">
                 {feature.description}
               </p>
@@ -259,8 +276,13 @@ export const ModernFeaturesSection = () => {
               {/* Benefits List */}
               <ul className="space-y-3 mb-6">
                 {feature.benefits.map((benefit, benefitIndex) => (
-                  <li key={benefitIndex} className="flex items-center space-x-3 text-sm text-gray-600">
-                    <div className={`w-5 h-5 bg-gradient-to-r ${feature.color} rounded-full flex items-center justify-center flex-shrink-0`}>
+                  <li
+                    key={benefitIndex}
+                    className="flex items-center space-x-3 text-sm text-gray-600"
+                  >
+                    <div
+                      className={`w-5 h-5 bg-gradient-to-r ${feature.color} rounded-full flex items-center justify-center flex-shrink-0`}
+                    >
                       <span className="text-white text-xs">✓</span>
                     </div>
                     <span>{benefit}</span>
@@ -272,7 +294,9 @@ export const ModernFeaturesSection = () => {
               <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
                 {feature.stats.map((stat, statIndex) => (
                   <div key={statIndex} className="text-center">
-                    <div className={`text-2xl font-bold bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}>
+                    <div
+                      className={`text-2xl font-bold bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}
+                    >
                       {stat.value}
                     </div>
                     <div className="text-xs text-gray-500 uppercase tracking-wide">
@@ -283,7 +307,9 @@ export const ModernFeaturesSection = () => {
               </div>
 
               {/* Hover Effect Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none`} />
+              <div
+                className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none`}
+              />
             </div>
           ))}
         </div>
@@ -295,7 +321,8 @@ export const ModernFeaturesSection = () => {
               Ready to transform your healthcare practice?
             </h3>
             <p className="text-body-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Join thousands of healthcare providers who have already revolutionized their operations with ClinicStreams.
+              Join thousands of healthcare providers who have already
+              revolutionized their operations with ClinicStreams.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="btn-primary bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">

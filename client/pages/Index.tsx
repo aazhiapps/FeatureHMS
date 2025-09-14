@@ -42,6 +42,7 @@ declare global {
     _cleanupHandlers?: {
       handleMouseEnter: () => void;
       handleMouseLeave: () => void;
+      handleClick: () => void;
     };
   }
 }

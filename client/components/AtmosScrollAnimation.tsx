@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Sphere, Text3D, Cloud, Stars } from "@react-three/drei";
+import { OrbitControls, Sphere, Text, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { createCloudTexture } from "../utils/createCloudTexture";
 
 interface AtmosScrollProps {
   children: React.ReactNode;
@@ -136,30 +137,7 @@ function WindParticles() {
 
 // Floating clouds along the path
 function FloatingClouds() {
-  const cloudPositions = [
-    { position: [20, 10, -30], scale: 0.5 },
-    { position: [-15, 25, -60], scale: 0.7 },
-    { position: [30, -10, -90], scale: 0.6 },
-    { position: [-25, 40, -120], scale: 0.8 },
-    { position: [10, 60, -150], scale: 0.4 },
-  ];
-
-  return (
-    <>
-      {cloudPositions.map((cloud, index) => (
-        <Cloud
-          key={index}
-          position={cloud.position as [number, number, number]}
-          scale={cloud.scale}
-          opacity={0.6}
-          speed={0.1}
-          width={10}
-          depth={1.5}
-          segments={20}
-        />
-      ))}
-    </>
-  );
+  return null;
 }
 
 // 3D Text that appears during scroll
@@ -186,20 +164,9 @@ function ScrollText() {
 
   return (
     <group ref={textRef} position={[0, 20, -50]}>
-      <Text3D
-        font="/fonts/helvetiker_regular.typeface.json"
-        size={8}
-        height={0.5}
-        curveSegments={12}
-        bevelEnabled
-        bevelThickness={0.02}
-        bevelSize={0.02}
-        bevelOffset={0}
-        bevelSegments={5}
-      >
+      <Text fontSize={8} color="#ffffff" anchorX="center" anchorY="middle">
         EXPLORE
-        <meshStandardMaterial color="#ffffff" />
-      </Text3D>
+      </Text>
     </group>
   );
 }
@@ -214,7 +181,7 @@ function Scene3D() {
       <ScrollCamera />
       <AnimatedSky />
       <WindParticles />
-      <FloatingClouds />
+      {/* Clouds removed to improve reliability */}
       <ScrollText />
       <Stars
         radius={100}

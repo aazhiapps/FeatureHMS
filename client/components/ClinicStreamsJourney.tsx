@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Sphere, Stars, Cloud, Text, Box, Cylinder } from "@react-three/drei";
+import { Sphere, Stars, Text, Box, Cylinder } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { createCloudTexture } from '../utils/createCloudTexture';
+import { createCloudTexture } from "../utils/createCloudTexture";
 
 interface ClinicStreamsJourneyProps {
   features: Array<{
@@ -23,7 +23,7 @@ const MedicalDrone = React.forwardRef<
   { position?: [number, number, number] }
 >(({ position = [0, 0, 0] }, ref) => {
   const propellerRefs = useRef<(THREE.Mesh | null)[]>([]);
-  const bodyRef = useRef<THREE.Mesh>(null);
+  const bodyRef = useRef<THREE.Group>(null);
   const [ledIntensity, setLedIntensity] = useState([0.5, 0.5, 0.5, 0.5]);
   const [glowOpacity, setGlowOpacity] = useState([0.2, 0.2, 0.2, 0.2]);
 
@@ -406,7 +406,7 @@ function FloatingFeature({
 }
 
 // Medical Environment with DNA Helix and Medical Equipment
-function MedicalEnvironment() {
+function MedicalEnvironment({ cloudTexture }: { cloudTexture: string }) {
   const helixRef = useRef<THREE.Group>(null);
 
   useFrame(({ clock }) => {
@@ -448,35 +448,6 @@ function MedicalEnvironment() {
         ))}
       </group>
 
-      {/* Medical Clouds with plus signs */}
-      <Cloud
-        texture="/cloud.png"
-        position={[20, 8, -15]}
-        opacity={0.6}
-        speed={0.1}
-        width={18}
-        depth={10}
-        color="#e8f4fd"
-      />
-      <Cloud
-        texture="/cloud.png"
-        position={[-15, 12, -25]}
-        opacity={0.7}
-        speed={0.15}
-        width={15}
-        depth={8}
-        color="#f0f9ff"
-      />
-      <Cloud
-        texture="/cloud.png"
-        position={[35, 5, -35]}
-        opacity={0.5}
-        speed={0.08}
-        width={20}
-        depth={12}
-        color="#e8f4fd"
-      />
-
       {/* Floating Medical Particles */}
       {Array.from({ length: 50 }).map((_, i) => (
         <mesh
@@ -513,10 +484,12 @@ function MedicalScene({
   features,
   onFeatureClick,
   onJumpToSection,
+  cloudTexture,
 }: {
   features: any[];
   onFeatureClick?: (featureIndex: number) => void;
   onJumpToSection?: (progress: number) => void;
+  cloudTexture: string;
 }) {
   const { camera } = useThree();
   const droneRef = useRef<THREE.Group>(null);
@@ -712,7 +685,7 @@ function MedicalScene({
         />
       ))}
 
-      <MedicalEnvironment />
+      <MedicalEnvironment cloudTexture={cloudTexture} />
     </>
   );
 }
@@ -723,8 +696,8 @@ export const ClinicStreamsJourney = ({
   onJumpToSection,
 }: ClinicStreamsJourneyProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [cloudTexture, setCloudTexture] = useState<string>('');
-  
+  const [cloudTexture, setCloudTexture] = useState<string>("");
+
   useEffect(() => {
     setCloudTexture(createCloudTexture());
   }, []);
@@ -739,11 +712,9 @@ export const ClinicStreamsJourney = ({
           features={features}
           onFeatureClick={onFeatureClick}
           onJumpToSection={onJumpToSection}
+          cloudTexture={cloudTexture}
         />
       </Canvas>
-      <Cloud texture={cloudTexture} position={[-4, 4, -5]} speed={0.2} opacity={0.4} />
-      <Cloud texture={cloudTexture} position={[4, -2, -8]} speed={0.3} opacity={0.3} />
-      <Cloud texture={cloudTexture} position={[0, 6, -10]} speed={0.1} opacity={0.5} />
     </div>
   );
 };

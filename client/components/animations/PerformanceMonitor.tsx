@@ -136,12 +136,12 @@ export const useGPUPerformance = () => {
 
   useEffect(() => {
     const canvas = document.createElement("canvas");
-    const gl =
-      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    const gl = (canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
 
     if (gl) {
-      const renderer = gl.getParameter(gl.RENDERER);
-      const vendor = gl.getParameter(gl.VENDOR);
+      const renderer = gl.getParameter(gl.RENDERER) as string;
+      const vendor = gl.getParameter(gl.VENDOR) as string;
 
       // Check for software rendering
       const isSoftwareRendering =

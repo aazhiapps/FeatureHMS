@@ -29,8 +29,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      cacheTime: 10 * 60 * 1000, // 10 minutes
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
       retry: 2,
       refetchOnWindowFocus: false,
     },
@@ -108,7 +108,13 @@ if (process.env.NODE_ENV === "production") {
           console.log("LCP:", entry.startTime);
         }
         if (entry.entryType === "first-input") {
-          console.log("FID:", entry.processingStart - entry.startTime);
+          const e = entry as PerformanceEventTiming as any;
+          if (
+            typeof e.processingStart === "number" &&
+            typeof e.startTime === "number"
+          ) {
+            console.log("FID:", e.processingStart - e.startTime);
+          }
         }
       }
     });

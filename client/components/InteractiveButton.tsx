@@ -234,15 +234,18 @@ export const FloatingActionButton = ({
 };
 
 // Interactive Card with mouse effects
+type InteractiveCardProps = React.HTMLAttributes<HTMLDivElement> & {
+  className?: string;
+  glowEffect?: boolean;
+  children: React.ReactNode;
+};
+
 export const InteractiveCard = ({
   children,
   className = "",
   glowEffect = true,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  glowEffect?: boolean;
-}) => {
+  ...rest
+}: InteractiveCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useMouseTilt(cardRef, 0.1);
@@ -280,6 +283,7 @@ export const InteractiveCard = ({
           ? `radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.1) 0%, transparent 50%)`
           : undefined,
       }}
+      {...rest}
     >
       {children}
 
