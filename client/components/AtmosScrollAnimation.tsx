@@ -137,39 +137,7 @@ function WindParticles() {
 
 // Floating clouds along the path
 function FloatingClouds() {
-  return null as any;
-  const [cloudTexture, setCloudTexture] = useState<string>("");
-
-  useEffect(() => {
-    setCloudTexture(createCloudTexture());
-  }, []);
-
-  const cloudPositions = [
-    { position: [20, 10, -30], scale: 0.5 },
-    { position: [-15, 25, -60], scale: 0.7 },
-    { position: [30, -10, -90], scale: 0.6 },
-    { position: [-25, 40, -120], scale: 0.8 },
-    { position: [10, 60, -150], scale: 0.4 },
-  ];
-
-  return (
-    <>
-      {cloudTexture &&
-        cloudPositions.map((cloud, index) => (
-          <Cloud
-            key={index}
-            position={cloud.position as [number, number, number]}
-            scale={cloud.scale}
-            opacity={0.6}
-            speed={0.1}
-            width={10}
-            depth={1.5}
-            segments={20}
-            texture={cloudTexture}
-          />
-        ))}
-    </>
-  );
+  return null;
 }
 
 // 3D Text that appears during scroll
