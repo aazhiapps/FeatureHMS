@@ -449,6 +449,7 @@ function MedicalEnvironment() {
 
       {/* Medical Clouds with plus signs */}
       <Cloud
+        texture="/cloud.png"
         position={[20, 8, -15]}
         opacity={0.6}
         speed={0.1}
@@ -457,6 +458,7 @@ function MedicalEnvironment() {
         color="#e8f4fd"
       />
       <Cloud
+        texture="/cloud.png"
         position={[-15, 12, -25]}
         opacity={0.7}
         speed={0.15}
@@ -465,6 +467,7 @@ function MedicalEnvironment() {
         color="#f0f9ff"
       />
       <Cloud
+        texture="/cloud.png"
         position={[35, 5, -35]}
         opacity={0.5}
         speed={0.08}

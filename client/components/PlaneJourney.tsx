@@ -208,6 +208,7 @@ function PlaneScene({ works }: { works: any[] }) {
 
       {/* Clouds */}
       <Cloud
+        texture="/cloud.png"
         position={[15, 5, -10]}
         opacity={0.6}
         speed={0.1}
@@ -215,6 +216,7 @@ function PlaneScene({ works }: { works: any[] }) {
         depth={8}
       />
       <Cloud
+        texture="/cloud.png"
         position={[-12, 8, -20]}
         opacity={0.7}
         speed={0.15}
@@ -222,6 +224,7 @@ function PlaneScene({ works }: { works: any[] }) {
         depth={6}
       />
       <Cloud
+        texture="/cloud.png"
         position={[8, -2, -30]}
         opacity={0.5}
         speed={0.08}
@@ -229,6 +232,7 @@ function PlaneScene({ works }: { works: any[] }) {
         depth={10}
       />
       <Cloud
+        texture="/cloud.png"
         position={[-20, 12, -40]}
         opacity={0.6}
         speed={0.12}
@@ -236,6 +240,7 @@ function PlaneScene({ works }: { works: any[] }) {
         depth={7}
       />
       <Cloud
+        texture="/cloud.png"
         position={[25, 3, -50]}
         opacity={0.4}
         speed={0.09}
