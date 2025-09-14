@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Sphere, Text3D, Cloud, Stars } from "@react-three/drei";
+import { OrbitControls, Sphere, Text, Cloud, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -196,20 +196,9 @@ function ScrollText() {
 
   return (
     <group ref={textRef} position={[0, 20, -50]}>
-      <Text3D
-        font="/fonts/helvetiker_regular.typeface.json"
-        size={8}
-        height={0.5}
-        curveSegments={12}
-        bevelEnabled
-        bevelThickness={0.02}
-        bevelSize={0.02}
-        bevelOffset={0}
-        bevelSegments={5}
-      >
+      <Text fontSize={8} color="#ffffff" anchorX="center" anchorY="middle">
         EXPLORE
-        <meshStandardMaterial color="#ffffff" />
-      </Text3D>
+      </Text>
     </group>
   );
 }
