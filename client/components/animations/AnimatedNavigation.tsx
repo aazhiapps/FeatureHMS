@@ -18,7 +18,7 @@ const navigationItems: NavigationItem[] = [
 ];
 
 export const AnimatedNavigation: React.FC = () => {
-  const navRef = useRef<HTMLNavElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const [activeItem, setActiveItem] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
