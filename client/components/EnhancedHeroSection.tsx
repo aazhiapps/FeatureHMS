@@ -31,7 +31,7 @@ const heroFeatures: HeroFeature[] = [
 ];
 
 export const EnhancedHeroSection = () => {
-  const heroRef = useRef<HTMLSectionElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
