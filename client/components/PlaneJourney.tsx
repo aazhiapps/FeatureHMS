@@ -4,6 +4,7 @@ import { OrbitControls, Sphere, Stars, Cloud, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { createCloudTexture } from '../utils/createCloudTexture';
 
 interface PlaneJourneyProps {
   works: Array<{
@@ -181,6 +182,12 @@ function PlaneScene({ works }: { works: any[] }) {
     });
   }, [camera, works, currentWorkIndex]);
 
+  const [cloudTexture, setCloudTexture] = useState<string>('');
+  
+  useEffect(() => {
+    setCloudTexture(createCloudTexture());
+  }, []);
+
   return (
     <>
       <ambientLight intensity={0.6} />
@@ -242,11 +249,11 @@ function PlaneScene({ works }: { works: any[] }) {
       <Cloud
         texture="/cloud.png"
         position={[25, 3, -50]}
-        opacity={0.4}
-        speed={0.09}
-        width={16}
-        depth={9}
-      />
+      <Cloud texture={cloudTexture} position={[-10, 2, -15]} speed={0.1} opacity={0.6} />
+      <Cloud texture={cloudTexture} position={[8, -1, -12]} speed={0.15} opacity={0.4} />
+      <Cloud texture={cloudTexture} position={[0, 4, -20]} speed={0.08} opacity={0.5} />
+      <Cloud texture={cloudTexture} position={[-5, -3, -8]} speed={0.12} opacity={0.3} />
+      <Cloud texture={cloudTexture} position={[12, 1, -25]} speed={0.06} opacity={0.7} />
     </>
   );
 }

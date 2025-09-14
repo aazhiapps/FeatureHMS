@@ -4,6 +4,7 @@ import { Sphere, Stars, Cloud, Text, Box, Cylinder } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { createCloudTexture } from '../utils/createCloudTexture';
 
 interface ClinicStreamsJourneyProps {
   features: Array<{
@@ -726,15 +727,21 @@ export const ClinicStreamsJourney = ({
   return (
     <div ref={containerRef} className="fixed inset-0 z-0">
       <Canvas
+  const [cloudTexture, setCloudTexture] = useState<string>('');
+  
+  useEffect(() => {
+    setCloudTexture(createCloudTexture());
+  }, []);
+
         camera={{ position: [8, 5, 8], fov: 75 }}
         gl={{ alpha: true, antialias: true }}
       >
         <MedicalScene
           features={features}
           onFeatureClick={onFeatureClick}
-          onJumpToSection={onJumpToSection}
-        />
-      </Canvas>
+      <Cloud texture={cloudTexture} position={[-4, 4, -5]} speed={0.2} opacity={0.4} />
+      <Cloud texture={cloudTexture} position={[4, -2, -8]} speed={0.3} opacity={0.3} />
+      <Cloud texture={cloudTexture} position={[0, 6, -10]} speed={0.1} opacity={0.5} />
     </div>
   );
 };
