@@ -449,33 +449,37 @@ function MedicalEnvironment({ cloudTexture }: { cloudTexture: string }) {
       </group>
 
       {/* Medical Clouds with plus signs */}
-      <Cloud
-        texture={cloudTexture}
-        position={[20, 8, -15]}
-        opacity={0.6}
-        speed={0.1}
-        width={18}
-        depth={10}
-        color="#e8f4fd"
-      />
-      <Cloud
-        texture={cloudTexture}
-        position={[-15, 12, -25]}
-        opacity={0.7}
-        speed={0.15}
-        width={15}
-        depth={8}
-        color="#f0f9ff"
-      />
-      <Cloud
-        texture={cloudTexture}
-        position={[35, 5, -35]}
-        opacity={0.5}
-        speed={0.08}
-        width={20}
-        depth={12}
-        color="#e8f4fd"
-      />
+      {cloudTexture && (
+        <>
+          <Cloud
+            texture={cloudTexture}
+            position={[20, 8, -15]}
+            opacity={0.6}
+            speed={0.1}
+            width={18}
+            depth={10}
+            color="#e8f4fd"
+          />
+          <Cloud
+            texture={cloudTexture}
+            position={[-15, 12, -25]}
+            opacity={0.7}
+            speed={0.15}
+            width={15}
+            depth={8}
+            color="#f0f9ff"
+          />
+          <Cloud
+            texture={cloudTexture}
+            position={[35, 5, -35]}
+            opacity={0.5}
+            speed={0.08}
+            width={20}
+            depth={12}
+            color="#e8f4fd"
+          />
+        </>
+      )}
 
       {/* Floating Medical Particles */}
       {Array.from({ length: 50 }).map((_, i) => (
