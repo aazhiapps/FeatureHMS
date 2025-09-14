@@ -21,9 +21,7 @@ export default defineConfig(({ mode }) => ({
     outDir: "dist/spa",
   },
   plugins: [
-    react({
-      fastRefresh: true,
-    }),
+    react(),
     expressPlugin(),
   ],
   resolve: {
