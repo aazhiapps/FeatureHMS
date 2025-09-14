@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Sphere, Text3D, Cloud, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { createCloudTexture } from "../utils/createCloudTexture";
 
 interface AtmosScrollProps {
   children: React.ReactNode;
@@ -136,6 +138,12 @@ function WindParticles() {
 
 // Floating clouds along the path
 function FloatingClouds() {
+  const [cloudTexture, setCloudTexture] = useState<string>("");
+
+  useEffect(() => {
+    setCloudTexture(createCloudTexture());
+  }, []);
+
   const cloudPositions = [
     { position: [20, 10, -30], scale: 0.5 },
     { position: [-15, 25, -60], scale: 0.7 },
@@ -146,18 +154,20 @@ function FloatingClouds() {
 
   return (
     <>
-      {cloudPositions.map((cloud, index) => (
-        <Cloud
-          key={index}
-          position={cloud.position as [number, number, number]}
-          scale={cloud.scale}
-          opacity={0.6}
-          speed={0.1}
-          width={10}
-          depth={1.5}
-          segments={20}
-        />
-      ))}
+      {cloudTexture &&
+        cloudPositions.map((cloud, index) => (
+          <Cloud
+            key={index}
+            position={cloud.position as [number, number, number]}
+            scale={cloud.scale}
+            opacity={0.6}
+            speed={0.1}
+            width={10}
+            depth={1.5}
+            segments={20}
+            texture={cloudTexture}
+          />
+        ))}
     </>
   );
 }
