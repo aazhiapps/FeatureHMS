@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ViewModeSwitcher } from "../components/ViewModeSwitcher";
@@ -157,15 +157,19 @@ const Navbar: React.FC = () => {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="#contact"
+            href="https://app.clinicstreams.com/register"
+            target="_blank"
+            rel="noopener noreferrer"
             className={`text-sm font-medium transition-colors duration-200 ${
               scrolled ? "text-slate-600 hover:text-blue-600" : "text-white/80 hover:text-white"
             }`}
           >
-            Sign in
+            Get Started
           </a>
           <a
-            href="#contact"
+            href="https://calendly.com/aazhidigital/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200"
           >
             Get a Demo
@@ -206,7 +210,9 @@ const Navbar: React.FC = () => {
             </a>
           ))}
           <a
-            href="#contact"
+            href="https://calendly.com/aazhidigital/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setMenuOpen(false)}
             className="block mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg text-center transition-colors duration-200"
           >
@@ -273,7 +279,9 @@ const Hero: React.FC = () => {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="#contact"
+            href="https://calendly.com/aazhidigital/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-3.5 bg-white text-blue-700 font-semibold rounded-xl hover:bg-blue-50 transition-colors duration-200 shadow-lg shadow-blue-900/30"
           >
             Get a Free Demo
@@ -474,9 +482,59 @@ const Analytics: React.FC = () => {
   );
 };
 
+// Contact Sales modal
+const ContactModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+    onClick={onClose}
+  >
+    <div
+      className="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h3 className="text-xl font-bold text-slate-800 mb-6">Contact Sales</h3>
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg">✉️</div>
+          <div>
+            <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Email</p>
+            <a
+              href="mailto:clinicstreams@gmail.com"
+              className="text-slate-700 font-semibold hover:text-blue-600 transition-colors"
+            >
+              clinicstreams@gmail.com
+            </a>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg">📞</div>
+          <div>
+            <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Mobile</p>
+            <a
+              href="tel:+918667038428"
+              className="text-slate-700 font-semibold hover:text-blue-600 transition-colors"
+            >
+              +91 8667038428
+            </a>
+          </div>
+        </div>
+      </div>
+      <button
+        onClick={onClose}
+        className="mt-7 w-full px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors duration-200"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+);
+
 // CTA section
 const CallToAction: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const [showContact, setShowContact] = useState(false);
+  const openContact = useCallback(() => setShowContact(true), []);
+  const closeContact = useCallback(() => setShowContact(false), []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -501,6 +559,7 @@ const CallToAction: React.FC = () => {
       ref={ref}
       className="py-24 bg-gradient-to-br from-blue-700 to-indigo-800"
     >
+      {showContact && <ContactModal onClose={closeContact} />}
       <div className="max-w-3xl mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-5">
           Ready to modernize your hospital?
@@ -511,19 +570,19 @@ const CallToAction: React.FC = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://calendly.com/clinicstreams-demo"
+            href="https://calendly.com/aazhidigital/30min"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-3.5 bg-white text-blue-700 font-semibold rounded-xl hover:bg-blue-50 transition-colors duration-200 shadow-lg"
           >
             Schedule a Demo
           </a>
-          <a
-            href="mailto:hello@clinicstreams.com"
+          <button
+            onClick={openContact}
             className="px-8 py-3.5 bg-blue-600/30 hover:bg-blue-600/50 text-white font-semibold rounded-xl border border-blue-300/30 transition-colors duration-200"
           >
             Contact Sales
-          </a>
+          </button>
         </div>
       </div>
     </section>
