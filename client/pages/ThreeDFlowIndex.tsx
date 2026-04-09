@@ -200,12 +200,12 @@ const featureDetails: Record<
   "Patient Mgmt": {
     description:
       "Centralised patient records with comprehensive visit history, treatment plans and real-time status.",
-    stats: ["12 500+ active patients", "98.2% satisfaction", "∞ record history"],
+    stats: ["12,500+ active patients", "98.2% satisfaction", "∞ record history"],
   },
   Scheduling: {
     description:
       "Intelligent scheduling with automated reminders that cut no-shows and reduce wait times.",
-    stats: ["2 800 appts / day", "No-show ↓ 45%", "Avg wait ↓ 30 min"],
+    stats: ["2,800 appts / day", "No-show ↓ 45%", "Avg wait ↓ 30 min"],
   },
   EMR: {
     description:
