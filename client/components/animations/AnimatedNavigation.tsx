@@ -80,8 +80,8 @@ export const AnimatedNavigation: React.FC = () => {
         {/* Animated Logo */}
         <div ref={logoRef} className="flex items-center space-x-3">
           <div className="relative">
-            <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🏥</span>
+            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg">
+              <img src="/logo.png" alt="ClinicStreams" className="w-full h-full object-contain" />
             </div>
             {/* Holographic ring */}
             <div className="absolute inset-0 rounded-xl border-2 border-cyan-400/50 animate-ping" />
