@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ViewModeSwitcher } from "../components/ViewModeSwitcher";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -575,6 +576,7 @@ export const UltimateAnimatedIndex: React.FC = () => (
       <CallToAction />
     </main>
     <Footer />
+    <ViewModeSwitcher />
   </div>
 );
 
