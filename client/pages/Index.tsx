@@ -168,7 +168,6 @@ export default function Index() {
 
   const handleScheduleDemo = useCallback(() => {
     // Trigger demo modal or redirect to demo scheduling
-    console.log("Demo scheduling requested");
     // You can integrate with your demo scheduling system here
     window.open("https://calendly.com/clinicstreams-demo", "_blank");
   }, []);
