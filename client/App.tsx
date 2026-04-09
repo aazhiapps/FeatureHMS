@@ -1,8 +1,5 @@
 import "./global.css";
-import "./styles/ultimate-animations.css";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -11,11 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "./design-system/components/ErrorBoundary";
-import { LoadingOverlay } from "./design-system/components/LoadingSystem";
 import { SmoothScroll } from "./components/SmoothScroll";
-
-// Register GSAP plugins globally
-gsap.registerPlugin(ScrollTrigger);
 
 // Lazy load pages for better performance
 const UltimateAnimatedIndex = lazy(
@@ -83,45 +76,13 @@ const App = () => {
 
 // Performance monitoring and error reporting setup
 if (process.env.NODE_ENV === "production") {
-  // Add performance monitoring
-  if (
-    "performance" in window &&
-    "observe" in window.PerformanceObserver.prototype
-  ) {
-    const observer = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (entry.entryType === "navigation") {
-          console.log("Navigation timing:", entry);
-        }
-        if (entry.entryType === "largest-contentful-paint") {
-          console.log("LCP:", entry.startTime);
-        }
-        if (entry.entryType === "first-input") {
-          const e = entry as PerformanceEventTiming as any;
-          if (
-            typeof e.processingStart === "number" &&
-            typeof e.startTime === "number"
-          ) {
-            console.log("FID:", e.processingStart - e.startTime);
-          }
-        }
-      }
-    });
-
-    observer.observe({
-      entryTypes: ["navigation", "largest-contentful-paint", "first-input"],
-    });
-  }
-
   // Global error handling
   window.addEventListener("error", (event) => {
     console.error("Global error:", event.error);
-    // Send to error reporting service
   });
 
   window.addEventListener("unhandledrejection", (event) => {
     console.error("Unhandled promise rejection:", event.reason);
-    // Send to error reporting service
   });
 }
 
