@@ -127,8 +127,8 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-            <span className="text-white text-base">🏥</span>
+          <div className="w-8 h-8 rounded-lg overflow-hidden">
+            <img src="/logo.png" alt="ClinicStreams" className="w-full h-full object-contain" />
           </div>
           <span
             className={`text-lg font-semibold transition-colors duration-300 ${
@@ -537,8 +537,8 @@ const Footer: React.FC = () => (
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Brand */}
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-md bg-blue-600 flex items-center justify-center text-sm">
-            🏥
+          <div className="w-7 h-7 rounded-md overflow-hidden">
+            <img src="/logo.png" alt="ClinicStreams" className="w-full h-full object-contain" />
           </div>
           <span className="text-slate-300 font-semibold">ClinicStreams</span>
         </div>

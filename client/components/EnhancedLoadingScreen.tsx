@@ -380,8 +380,8 @@ export const EnhancedLoadingScreen = ({
 
             {/* Center logo */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-xl">
-                🏥
+              <div className="w-20 h-20 rounded-full overflow-hidden shadow-xl">
+                <img src="/logo.png" alt="ClinicStreams" className="w-full h-full object-contain" />
               </div>
             </div>
           </div>

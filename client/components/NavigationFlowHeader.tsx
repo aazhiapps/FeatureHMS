@@ -243,8 +243,8 @@ export const NavigationFlowHeader = ({
               className="flex items-center space-x-3 cursor-pointer group"
               onClick={() => onNavigate("journey")}
             >
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                🏥
+              <div className="w-8 h-8 rounded-lg overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <img src="/logo.png" alt="ClinicStreams" className="w-full h-full object-contain" />
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-lg font-bold text-white">ClinicStreams</h1>

@@ -181,8 +181,8 @@ export const AnimatedHeader = () => {
               className="flex items-center space-x-3 cursor-pointer group"
               onClick={() => scrollToSection("#home")}
             >
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                🏥
+              <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <img src="/logo.png" alt="ClinicStreams" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h1

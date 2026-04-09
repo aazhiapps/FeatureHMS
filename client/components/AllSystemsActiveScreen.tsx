@@ -157,8 +157,8 @@ export const AllSystemsActiveScreen = ({
           <div className="w-32 h-32 mx-auto mb-6 relative">
             {/* Central Core */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-green-500 animate-pulse shadow-2xl">
-              <div className="absolute inset-2 rounded-full bg-gradient-to-r from-green-400 to-blue-400 flex items-center justify-center text-4xl animate-bounce">
-                🏥
+              <div className="absolute inset-2 rounded-full overflow-hidden">
+                <img src="/logo.png" alt="ClinicStreams" className="w-full h-full object-contain" />
               </div>
             </div>
             
