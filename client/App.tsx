@@ -15,6 +15,7 @@ const UltimateAnimatedIndex = lazy(
   () => import("./pages/UltimateAnimatedIndex"),
 );
 const EnhancedIndex = lazy(() => import("./pages/EnhancedIndex"));
+const ThreeDFlowIndex = lazy(() => import("./pages/ThreeDFlowIndex"));
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -62,6 +63,7 @@ const App = () => {
                 <Route path="/" element={<UltimateAnimatedIndex />} />
                 <Route path="/ultimate" element={<UltimateAnimatedIndex />} />
                 <Route path="/enhanced" element={<EnhancedIndex />} />
+                <Route path="/3d" element={<ThreeDFlowIndex />} />
                 <Route path="/original" element={<Index />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />

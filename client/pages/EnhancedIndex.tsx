@@ -7,6 +7,7 @@ import React, {
   useMemo,
   memo,
 } from "react";
+import { ViewModeSwitcher } from "../components/ViewModeSwitcher";
 import {
   ErrorBoundary,
   HealthcareErrorBoundary,
@@ -578,6 +579,8 @@ const EnhancedIndex: React.FC = memo(() => {
           message={transitionMessage}
           progress={transitionProgress}
         />
+
+        <ViewModeSwitcher />
       </Suspense>
     </ErrorBoundary>
   );
