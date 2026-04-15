@@ -126,6 +126,7 @@ export const AutoScrollFeatures = ({
     <div
       ref={containerRef}
       className="fixed inset-0 z-30 bg-gradient-to-br from-blue-900/95 via-purple-900/95 to-blue-800/95 backdrop-blur-lg flex items-center justify-center"
+      style={{ perspective: "1000px" }}
     >
       {/* Auto-scroll progress indicator */}
       <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-40">
@@ -157,6 +158,7 @@ export const AutoScrollFeatures = ({
             key={feature.id}
             id={`auto-feature-${feature.id}`}
             className="absolute inset-0 flex items-center justify-center"
+            style={{ opacity: 0 }}
           >
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 md:p-12 border border-white/20 shadow-2xl max-w-2xl w-full text-center">
               {/* Feature icon with animation */}

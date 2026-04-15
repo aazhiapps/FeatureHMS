@@ -176,10 +176,9 @@ export const FloatingCircularModules = ({
           ease: "back.out(1.7)",
         });
 
-        // Continuous floating animation
+        // Continuous floating animation (no rotation here — orbital tween handles it)
         gsap.to(element, {
           y: y + Math.sin(index * 0.5) * 15,
-          rotation: 360,
           duration: 8 + index * 0.5,
           repeat: -1,
           yoyo: true,
@@ -240,7 +239,7 @@ export const FloatingCircularModules = ({
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-30 overflow-hidden"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
     >
       {/* Background overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-indigo-900/20" />
@@ -261,9 +260,9 @@ export const FloatingCircularModules = ({
           </div>
 
           {/* Animated rings around center */}
-          <div className="absolute inset-0 rounded-full border-2 border-blue-400/50 animate-ping" />
+          <div className="absolute inset-0 rounded-full border-2 border-blue-400/90 animate-ping" />
           <div
-            className="absolute inset-0 rounded-full border border-green-400/30 animate-pulse"
+            className="absolute inset-0 rounded-full border border-green-400/70 animate-pulse"
             style={{ animationDelay: "1s" }}
           />
         </div>
