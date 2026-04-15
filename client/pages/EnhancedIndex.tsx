@@ -360,7 +360,7 @@ const EnhancedIndex: React.FC = memo(() => {
               isVisible={true}
               centerText="Feature Analysis"
             />
-            <div className="pt-20">
+            <div className="pt-20 relative z-10">
               <FeatureComparisonPage
                 onClose={() => handleNavigate("journey")}
               />
