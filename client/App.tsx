@@ -60,7 +60,8 @@ const App = () => {
               }
             >
               <Routes>
-                <Route path="/" element={<UltimateAnimatedIndex />} />
+                <Route path="/" element={<Index />} />
+                <Route path="/standard" element={<UltimateAnimatedIndex />} />
                 <Route path="/ultimate" element={<UltimateAnimatedIndex />} />
                 <Route path="/enhanced" element={<EnhancedIndex />} />
                 <Route path="/3d" element={<ThreeDFlowIndex />} />
