@@ -401,7 +401,7 @@ const EnhancedIndex: React.FC = memo(() => {
             {/* Hero Section */}
             <section className="pt-24 pb-16 px-6 text-center relative z-10">
               <div className="max-w-6xl mx-auto">
-                <AnimatedContainer animation="fadeInUp" animationDelay={0.2}>
+                <AnimatedContainer animation="fadeInUp" animationDelay={0.2} scrollTrigger={false}>
                   <h1 className="text-5xl md:text-7xl font-light mb-6 bg-gradient-to-r from-white via-blue-200 to-green-200 bg-clip-text text-transparent">
                     ClinicStreams
                   </h1>
@@ -415,7 +415,7 @@ const EnhancedIndex: React.FC = memo(() => {
                   </p>
                 </AnimatedContainer>
 
-                <AnimatedContainer animation="fadeInUp" animationDelay={0.6}>
+                <AnimatedContainer animation="fadeInUp" animationDelay={0.6} scrollTrigger={false}>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
                     <CallToActionButton
                       onClick={() =>
@@ -454,7 +454,7 @@ const EnhancedIndex: React.FC = memo(() => {
                 </AnimatedContainer>
 
                 {/* Stats Cards */}
-                <AnimatedContainer animation="fadeInUp" animationDelay={0.8}>
+                <AnimatedContainer animation="fadeInUp" animationDelay={0.8} scrollTrigger={false}>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                     <StatsCard
                       title="Active Patients"
