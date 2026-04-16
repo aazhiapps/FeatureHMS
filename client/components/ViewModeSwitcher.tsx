@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-type ViewMode = "standard" | "animated" | "3d";
+type ViewMode = "journey" | "standard" | "animated" | "3d";
 
 interface ModeOption {
   id: ViewMode;
@@ -13,10 +13,17 @@ interface ModeOption {
 
 const modes: ModeOption[] = [
   {
+    id: "journey",
+    label: "Journey",
+    icon: "🚀",
+    path: "/",
+    description: "Drone animations & clinical journey",
+  },
+  {
     id: "standard",
     label: "Standard",
     icon: "✦",
-    path: "/",
+    path: "/standard",
     description: "Clean animated landing",
   },
   {
@@ -36,9 +43,10 @@ const modes: ModeOption[] = [
 ];
 
 function pathToMode(pathname: string): ViewMode {
+  if (pathname === "/standard" || pathname === "/ultimate") return "standard";
   if (pathname === "/enhanced") return "animated";
   if (pathname === "/3d") return "3d";
-  return "standard";
+  return "journey";
 }
 
 export const ViewModeSwitcher: React.FC = () => {
