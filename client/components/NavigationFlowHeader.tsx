@@ -214,8 +214,14 @@ export const NavigationFlowHeader = ({
 
   const handleNavItemClick = (item: NavigationItem) => {
     switch (item.href) {
+      case "#features":
+        onNavigate("autoscroll");
+        break;
       case "#journey":
         onNavigate("journey");
+        if (currentPage === "journey") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
         break;
       case "#compare":
         onNavigate("comparison");
